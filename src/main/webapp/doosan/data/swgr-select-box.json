@@ -1,0 +1,26 @@
+[
+  {
+    "CD": "AC",
+    "CD_NM": "ACB"
+  },
+  {
+    "CD": "VC",
+    "CD_NM": "VCB"
+  },
+  {
+    "CD": "MC",
+    "CD_NM": "MCC"
+  },
+  {
+    "CD": "DB",
+    "CD_NM": "DB"
+  },
+  {
+    "CD": "TR",
+    "CD_NM": "TRANSFORMER"
+  },
+  {
+    "CD": "LO",
+    "CD_NM": "Local Controll Panel"
+  }
+]

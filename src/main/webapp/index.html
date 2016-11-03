@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<!--[if IE 9]>
+<html lang="en" class="ie9"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org"
+      lang="en">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Doosan Inc | Editor</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <!-- 타이틀 -->
+    <meta name="title" content="Doosan Inc"/>
+    <meta http-equiv="cache-control" content="No-Cache"/>
+    <meta http-equiv="pragma" content="No-Cache"/>
+    <meta name="Location" content="South Korea"/>
+    <meta name="Distribution" content="Global"/>
+
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="resources/assets/plugins/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="resources/assets/css/style.css">
+
+    <!-- CSS Header and Footer -->
+    <link rel="stylesheet" href="resources/assets/css/headers/header-default.css">
+    <link rel="stylesheet" href="resources/assets/css/footers/footer-v1.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="resources/assets/plugins/animate.css">
+    <link rel="stylesheet" href="resources/assets/plugins/line-icons/line-icons.css">
+    <link rel="stylesheet" href="resources/assets/plugins/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="resources/assets/plugins/scrollbar/css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" href="resources/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css">
+    <link rel="stylesheet" href="resources/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css">
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="resources/assets/css/custom.css">
+
+    <!-- JS Global Compulsory -->
+    <script type="text/javascript" src="lib/jquery-1.11.1/jquery-1.11.1.min.js"></script>
+    <!--<script type="text/javascript" src="resources/assets/plugins/jquery/jquery-migrate.min.js"></script>-->
+    <script type="text/javascript" src="resources/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- jquery-ui, jquery.contextmenu -->
+    <link rel="stylesheet" type="text/css"
+          href="resources/assets/plugins/jquery-ui-1.11.0.custom/jquery-ui.css"/>
+    <script type="text/javascript"
+            src="resources/assets/plugins/jquery-ui-1.11.0.custom/jquery-ui.min.js"></script>
+
+    <script type="text/javascript" src="lib/jquery-contextMenu/jquery.contextMenu.js"></script>
+    <link rel="stylesheet" type="text/css" href="lib/jquery-contextMenu/jquery.contextMenu.css"/>
+
+    <!-- CSS Theme -->
+    <link rel="stylesheet" href="resources/assets/css/theme-colors/dark-blue.css">
+
+    <!-- data table -->
+    <link rel="stylesheet" href="resources/plugins/datatable/datatables.css">
+    <script type="text/javascript" src="resources/plugins/datatable/datatables.js"></script>
+
+    <!-- libs -->
+    <script type="text/javascript" src="lib/jqueryXML2JSON/jquery.xml2json.js"></script>
+
+    <!--JS Tree-->
+    <link rel="stylesheet" href="lib/jstree/themes/default/style.min.css"/>
+    <script type="text/javascript" src="lib/jstree/jstree.js"></script>
+
+    <!-- uengine CSS -->
+    <link rel="stylesheet" href="resources/assets/css/uengine.css">
+
+    <!--OpenGraph-->
+    <script type="text/javascript" src="lib/opengraph/OpenGraph-0.1.1-SNAPSHOT.js"></script>
+    <script type="text/javascript" src="doosan/shape/SwitchGear.js"></script>
+    <script type="text/javascript" src="doosan/shape/Load.js"></script>
+    <script type="text/javascript" src="doosan/shape/NMLoad.js"></script>
+    <script type="text/javascript" src="doosan/shape/SHLoad.js"></script>
+    <script type="text/javascript" src="doosan/shape/HierarchyBldg.js"></script>
+    <script type="text/javascript" src="doosan/shape/HierarchyFloor.js"></script>
+    <script type="text/javascript" src="doosan/shape/HierarchyFeeder.js"></script>
+    <script type="text/javascript" src="doosan/shape/BLDG.js"></script>
+    <script type="text/javascript" src="doosan/shape/Location.js"></script>
+    <script type="text/javascript" src="doosan/shape/RaceWay.js"></script>
+    <script type="text/javascript" src="doosan/shape/Manhole.js"></script>
+
+    <script type="text/javascript" src="doosan/dataController.js"></script>
+    <script type="text/javascript" src="doosan/renderer.js"></script>
+    <script type="text/javascript" src="doosan/viewController.js"></script>
+
+</head>
+
+<div class="wrapper">
+
+    <!-- 메시지 Modal -->
+    <div class="modal fade" id="messageBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 id="myModalLabel1" class="modal-title">알림</h4>
+                </div>
+                <div class="modal-body">
+                    <p style="text-align: center" name="content"></p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-u" type="button" name="close">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var msgBox = function (message) {
+            $('#messageBox').find('[name=content]').html(message);
+            $('#messageBox').modal({
+                show: true
+            });
+        };
+        $(function () {
+            $('#logoutbtn').click(function () {
+                $('#logoutform').submit();
+            });
+            $('#messageBox').find('[name=close]').click(function () {
+                $('#messageBox').find('.close').click();
+            });
+        });
+    </script>
+
+    <div class="breadcrumbs">
+        <div class="container">
+            <h4 class="pull-left">Doosan I-Elec Editor </h4>
+        </div>
+    </div>
+
+    <!--=== Content Part ===-->
+    <div class="container" style="padding-top: 10px;padding-bottom: 30px;">
+        <div class="tab-v1">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#swgrFeederEditor" data-toggle="tab" aria-expanded="true">SWGR / Assigned Feeder
+                    Editor</a></li>
+                <li class="delayTab" data-canvas="hierarchy"><a href="#hierarchyEditor" id="hierarchyTab" data-toggle="tab" aria-expanded="false">Hierarchy Editor</a></li>
+                <li class="delayTab" data-canvas="bldg"><a href="#bldgRouteEditor" id="bldgRouteTab" data-toggle="tab" aria-expanded="false">BLDG / Route Editor</a></li>
+            </ul>
+            <div class="tab-content">
+
+                <!--SWGR / Assigned Feeder Editor-->
+                <div class="tab-pane fade in active" id="swgrFeederEditor">
+
+                    <!--우측 메뉴바-->
+                    <div class="col-md-12 toolbar">
+                        <button class="btn btn-xs rounded btn-default" id="feeder-save" type="button"><i
+                                class="fa fa-plus"></i> Save
+                        </button>
+                        <button class="btn btn-xs rounded btn-default" id="feeder-save-as" type="button"><i
+                                class="fa fa-refresh"></i> Save as
+                        </button>
+                        <button class="btn btn-xs rounded btn-default" id="feeder-zoomIn" type="button"><i
+                                class="fa fa-search-plus"></i> Zoom | IN
+                        </button>
+                        <button class="btn btn-xs rounded btn-default" id="feeder-zoomFit" type="button"><i
+                                class="fa fa-arrows-h"></i> Zoom | FIT
+                        </button>
+                        <button class="btn btn-xs rounded btn-default" id="feeder-zoomOut" type="button"><i
+                                class="fa fa-search-minus"></i> Zoom | OUT
+                        </button>
+                    </div>
+
+                    <div class="col-md-12" id="feeder-content-wrapper">
+                        <!--SWGR / Assigned Feeder 캔버스-->
+                        <div id="feederCanvas"
+                             style="position: absolute;top: 0px;left:0%;width: 69%; height: 100%;border: solid 1px #eee">
+
+                        </div>
+                        <div style="position: absolute;top: 0px;left:70%;width:30%;height: 100%;border: solid 1px #eee">
+                            <div class="tab-v1">
+                                <ul class="nav nav-tabs">
+                                    <li style="width: 33%;"><a href="#swgr" data-toggle="tab">SWGR</a></li>
+                                    <li style="width: 33%;"><a href="#load" data-toggle="tab">Load</a></li>
+                                    <li class="active" style="width: 34%;"><a href="#feeder" data-toggle="tab">Feeder</a></li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <!--스위치 리스트 패널-->
+                                    <div class="tab-pane fade in" id="swgr">
+                                        <div class="form-group col-md-8">
+                                            <select id="swgrSelectBox" name="swgrSelectBox" class="custom-form-control">
+
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <button class="btn btn-xs rounded btn-default" id="newSwgr" type="button"><i
+                                                    class="fa fa-plus"></i> New swgr
+                                            </button>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <table id="swgrGrid" class="display" width="100%"></table>
+                                        </div>
+                                    </div>
+
+                                    <!--로드 리스트 패널-->
+                                    <div class="tab-pane fade in" id="load">
+                                        <div class="tab-v1">
+                                            <ul class="nav nav-tabs">
+                                                <li class="active" style="width: 50%;"><a href="#unAssignedLoad"
+                                                                                          data-toggle="tab">LIST</a>
+                                                </li>
+                                                <li style="width: 50%;"><a href="#AssignedLoad" data-toggle="tab">Assigned
+                                                    List</a></li>
+                                            </ul>
+
+                                            <div class="tab-content">
+                                                <!--언 어사인드 로드 리스트 패널-->
+                                                <div class="tab-pane fade in active" id="unAssignedLoad">
+                                                    <div class="col-md-12">
+                                                        <table id="unAssignedLoadGrid" class="display"
+                                                               width="100%"></table>
+                                                    </div>
+                                                </div>
+
+                                                <!--어사인드 로드 리스트 트리 패널-->
+                                                <div class="tab-pane fade in" id="AssignedLoad">
+                                                    <div class="col-md-12">
+                                                        <div id="AssignedLoadTree">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--피더 리스트 패널-->
+                                    <div class="tab-pane fade in active" id="feeder">
+                                        <div class="form-group col-md-8">
+
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <button class="btn btn-xs rounded btn-default" id="newFeeder" type="button"><i
+                                                    class="fa fa-plus"></i> New Feeder
+                                            </button>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <table id="feederGrid" class="display" width="100%"></table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hierarchy Editor -->
+                <div class="tab-pane fade in" id="hierarchyEditor">
+
+                    <!--우측 메뉴바-->
+                    <div class="col-md-12 toolbar">
+                        <button class="btn btn-xs rounded btn-default" id="hierarchy-save" type="button"><i
+                                class="fa fa-plus"></i> Save
+                        </button>
+                        <button class="btn btn-xs rounded btn-default" id="hierarchy-save-as" type="button"><i
+                                class="fa fa-refresh"></i> Save as
+                        </button>
+                        <button class="btn btn-xs rounded btn-default" id="hierarchy-zoomIn" type="button"><i
+                                class="fa fa-search-plus"></i> Zoom | IN
+                        </button>
+                        <button class="btn btn-xs rounded btn-default" id="hierarchy-zoomFit" type="button"><i
+                                class="fa fa-arrows-h"></i> Zoom | FIT
+                        </button>
+                        <button class="btn btn-xs rounded btn-default" id="hierarchy-zoomOut" type="button"><i
+                                class="fa fa-search-minus"></i> Zoom | OUT
+                        </button>
+                    </div>
+
+                    <div class="col-md-12" id="hierarchy-content-wrapper">
+                        <!--Hierarchy 캔버스-->
+                        <div id="hierarchyCanvas"
+                             style="position: absolute;top: 0px;left:0%;width: 69%; height: 100%;border: solid 1px #eee">
+
+                        </div>
+                        <div style="position: absolute;top: 0px;left:70%;width:30%;height: 100%;border: solid 1px #eee">
+                            <div class="tab-v1">
+                                <ul class="nav nav-tabs">
+                                    <li style="width: 50%;"><a href="#hierarchy-feeder" data-toggle="tab">Feeder</a></li>
+                                    <li class="active" style="width: 50%;"><a href="#hierarchy" data-toggle="tab">Hierarchy</a></li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <!--피더 리스트 패널-->
+                                    <div class="tab-pane fade in" id="hierarchy-feeder">
+                                        <div class="col-md-12">
+                                            <table id="hierarchy-feederGrid" class="display" width="100%"></table>
+                                        </div>
+                                    </div>
+
+                                    <!--하이어라키 리스트 패널-->
+                                    <div class="tab-pane fade in active" id="hierarchy">
+                                        <div class="col-md-12">
+                                            <div id="hierarchyTree">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--BLDG / Route Editor-->
+                <div class="tab-pane fade in" id="bldgRouteEditor">
+                    <div class="col-md-12 toolbar">
+                        <button class="btn btn-xs rounded btn-default" id="route-save" type="button"><i
+                                class="fa fa-plus"></i> Save
+                        </button>
+                        <button class="btn btn-xs rounded btn-default" id="route-save-as" type="button"><i
+                                class="fa fa-refresh"></i> Save as
+                        </button>
+                        <button class="btn btn-xs rounded btn-default" id="route-zoomIn" type="button"><i
+                                class="fa fa-search-plus"></i> Zoom | IN
+                        </button>
+                        <button class="btn btn-xs rounded btn-default" id="route-zoomFit" type="button"><i
+                                class="fa fa-arrows-h"></i> Zoom | FIT
+                        </button>
+                        <button class="btn btn-xs rounded btn-default" id="route-zoomOut" type="button"><i
+                                class="fa fa-search-minus"></i> Zoom | OUT
+                        </button>
+                        <button class="btn btn-xs rounded btn-default" id="route-backdoor" type="button"><i
+                                class="fa-file-image-o"></i> Import Backdoor
+                        </button>
+                    </div>
+                    <div class="col-md-12" id="route-content-wrapper">
+                        <!--BLDG / Route Editor-->
+                        <div id="routeCanvas"
+                             style="position: absolute;top: 0px;left:0%;width: 69%; height: 100%;border: solid 1px #eee">
+
+                        </div>
+                        <div style="position: absolute;top: 0px;left:70%;width:30%;height: 100%;border: solid 1px #eee">
+                            <div class="tab-v1">
+                                <ul class="nav nav-tabs">
+                                    <li class="active" style="width: 50%;"><a href="#location" data-toggle="tab">Location</a></li>
+                                    <li style="width: 50%;"><a href="#route" data-toggle="tab">Route</a></li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <!--로케이션 리스트 패널-->
+                                    <div class="tab-pane fade in active" id="location">
+                                        <div class="tab-v1">
+                                            <ul class="nav nav-tabs">
+                                                <li class="active" style="width: 33%;"><a href="#bldgRef" data-toggle="tab">BLDG</a></li>
+                                                <li style="width: 33%;"><a href="#locationRef" data-toggle="tab">Point</a></li>
+                                                <li style="width: 34%;"><a href="#racewayRef" data-toggle="tab">Raceway</a></li>
+                                            </ul>
+
+                                            <div class="tab-content">
+                                                <!--빌딩 리스트-->
+                                                <div class="tab-pane fade in active" id="bldgRef">
+                                                    <div class="col-md-12">
+                                                        <table id="bldgRefGrid" class="display"
+                                                               width="100%"></table>
+                                                    </div>
+                                                </div>
+                                                <!--로케이션 레퍼런스(빌딩) 리스트-->
+                                                <div class="tab-pane fade in" id="locationRef">
+                                                    <div class="form-group col-md-4">
+                                                        <button class="btn btn-xs rounded btn-default" id="newLocation" type="button"><i
+                                                                class="fa fa-plus"></i> Drag new location
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <table id="locationRefGrid" class="display"
+                                                               width="100%"></table>
+                                                    </div>
+                                                </div>
+
+                                                <!--레이스웨이 레퍼런스 리스트-->
+                                                <div class="tab-pane fade in" id="racewayRef">
+                                                    <div class="form-group col-md-5">
+                                                        <button class="btn btn-xs rounded btn-default" id="newRaceway" type="button"><i
+                                                                class="fa fa-plus"></i> Drag new raceway
+                                                        </button>
+                                                    </div>
+                                                    <div class="form-group col-md-7">
+                                                        <select id="racewaySelectBox" name="racewaySelectBox" class="custom-form-control">
+                                                            <option value="manhole" selected>Manhole</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <table id="racewayRefGrid" class="display"
+                                                               width="100%"></table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--라우트 리스트 패널-->
+                                    <div class="tab-pane fade in" id="route">
+                                        <div class="tab-v1">
+                                            <ul class="nav nav-tabs">
+                                                <li class="active" style="width: 50%;"><a href="#routeRef" data-toggle="tab">Route</a>
+                                                </li>
+                                                <li style="width: 50%;"><a href="#cableRef" data-toggle="tab">Cable</a></li>
+                                            </ul>
+
+                                            <div class="tab-content">
+                                                <!--라우트 레퍼런스(레이스 웨이를 지나가는 패스) 리스트-->
+                                                <div class="tab-pane fade in active" id="routeRef">
+                                                    <div class="col-md-12">
+                                                        <table id="routeRefGrid" class="display"
+                                                               width="100%"></table>
+                                                    </div>
+                                                </div>
+
+                                                <!--케이블 레퍼런스(라우트 레퍼런스에 실제 깔리는 케이블) 리스트-->
+                                                <div class="tab-pane fade in" id="cableRef">
+                                                    <div class="col-md-12">
+                                                        <table id="cableRefGrid" class="display"
+                                                               width="100%"></table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/container-->
+    <!-- End Content Part -->
+
+</div>
+<!--/wrapper-->
+
+<div class="modal fade" id="listRelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">List Relations</h4>
+            </div>
+            <div class="modal-body">
+                <table id="listRelGrid" class="display" width="100%"></table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-u" type="button" name="close">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="pickEdModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">Pick Ed List</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline" role="form">
+                    <div class="form-group">
+                        <label class="sr-only" for="pickEdNumber">Ed number</label>
+                        <input type="text" class="custom-form-control" id="pickEdNumber" placeholder="Ed number">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="pickEdName">Ed name</label>
+                        <input type="text" class="custom-form-control" id="pickEdName" placeholder="Ed name">
+                    </div>
+
+                    <a href="Javascript:void(0)" class="btn-u btn-u-default" style="margin-top: 2px"
+                       name="search">Load</a>
+                </form>
+
+                <table id="pickEdGrid" class="display" width="100%"></table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-u" type="button" name="action">Pick</button>
+                <button class="btn-u" type="button" name="close">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">Delete Confirm</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-u btn-u-red" type="button" name="action">Delete</button>
+                <button class="btn-u" type="button" name="close">Cancle</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ajax 호출 UI 블락커 && 커스터마이징 -->
+<script type="text/javascript" src="resources/plugins/blockUI/blockUI.js"></script>
+<script type="text/javascript" src="resources/js/blockUIcustom.js"></script>
+
+
+<!-- Jquery Validator -->
+<script type="text/javascript" src="resources/plugins/validator/jquery.validate.js"></script>
+<script type="text/javascript" src="resources/plugins/validator/additional-methods.js"></script>
+
+<!-- JS Implementing Plugins -->
+<script type="text/javascript" src="resources/assets/plugins/back-to-top.js"></script>
+<script type="text/javascript" src="resources/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="resources/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
+<script type="text/javascript"
+        src="resources/assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js"></script>
+<script type="text/javascript"
+        src="resources/assets/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<!-- JS Customization -->
+<script type="text/javascript" src="resources/assets/js/custom.js"></script>
+
+<!-- JS Page Level -->
+<script type="text/javascript" src="resources/assets/js/app.js"></script>
+<script type="text/javascript" src="resources/assets/js/forms/reg.js"></script>
+<script type="text/javascript" src="resources/assets/js/forms/checkout.js"></script>
+<script type="text/javascript">
+    var editorMode = true;
+    jQuery(document).ready(function () {
+        App.init();
+    });
+</script>
+
+
+<!--[if lt IE 9]>
+<script src="resources/assets/plugins/respond.js"></script>
+<script src="resources/assets/plugins/html5shiv.js"></script>
+<script src="resources/assets/plugins/placeholder-IE-fixes.js"></script>
+<script src="resources/assets/plugins/sky-forms-pro/skyforms/js/sky-forms-ie8.js"></script>
+<![endif]-->
+
+<!--[if lt IE 10]>
+<script src="resources/assets/plugins/sky-forms-pro/skyforms/js/jquery.placeholder.min.js"></script>
+<![endif]-->
+</html>

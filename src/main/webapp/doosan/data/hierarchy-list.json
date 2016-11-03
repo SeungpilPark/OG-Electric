@@ -1,0 +1,50 @@
+[
+  {
+    "PJT_SQ": "SIM0004",
+    "HIER_SEQ": "H000001",
+    "NM": "CCB",
+    "DSCR": "CCB BUILDING",
+    "LV": 1,
+    "GUI_XML": ""
+  },
+  {
+    "PJT_SQ": "SIM0004",
+    "HIER_SEQ": "H000002",
+    "NM": "FLOOR1",
+    "DSCR": "FLOOR1",
+    "LV": 2,
+    "GUI_XML": ""
+  },
+  {
+    "PJT_SQ": "SIM0004",
+    "HIER_SEQ": "H000003",
+    "NM": "FLOOR2",
+    "DSCR": "FLOOR2",
+    "LV": 2,
+    "GUI_XML": ""
+  },
+  {
+    "PJT_SQ": "SIM0004",
+    "HIER_SEQ": "H000004",
+    "NM": "TBN BLDG",
+    "DSCR": "TBN BLDG",
+    "LV": 1,
+    "GUI_XML": ""
+  },
+  {
+    "PJT_SQ": "SIM0004",
+    "HIER_SEQ": "H000005",
+    "NM": "FLOOR1",
+    "DSCR": "FLOOR1",
+    "LV": 2,
+    "GUI_XML": ""
+  },
+  {
+    "PJT_SQ": "SIM0004",
+    "HIER_SEQ": "H000006",
+    "NM": "FLOOR2",
+    "DSCR": "FLOOR2",
+    "LV": 2,
+    "GUI_XML": ""
+  }
+]

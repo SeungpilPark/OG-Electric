@@ -1,0 +1,145 @@
+[
+  {
+    "PJT_SQ": "SIM0007",
+    "RACE_REF_SEQ": 331,
+    "RACE_REF_TRAYEDM_NO": "BOAG",
+    "RACE_REF_FROM": "BO",
+    "RACE_REF_TO": "AG",
+    "RACE_REF_LEN": 9,
+    "RACE_REF_TEMP": 50,
+    "RACE_REF_METHOD": "U",
+    "RACE_REF_REM": ""
+  },
+  {
+    "PJT_SQ": "SIM0007",
+    "RACE_REF_SEQ": 332,
+    "RACE_REF_TRAYEDM_NO": "ABAG",
+    "RACE_REF_FROM": "AB",
+    "RACE_REF_TO": "AG",
+    "RACE_REF_LEN": 64,
+    "RACE_REF_TEMP": 50,
+    "RACE_REF_METHOD": "U",
+    "RACE_REF_REM": ""
+  },
+  {
+    "PJT_SQ": "SIM0007",
+    "RACE_REF_SEQ": 333,
+    "RACE_REF_TRAYEDM_NO": "BCAB",
+    "RACE_REF_FROM": "BC",
+    "RACE_REF_TO": "AB",
+    "RACE_REF_LEN": 16,
+    "RACE_REF_TEMP": 50,
+    "RACE_REF_METHOD": "U",
+    "RACE_REF_REM": ""
+  },
+  {
+    "PJT_SQ": "SIM0007",
+    "RACE_REF_SEQ": 334,
+    "RACE_REF_TRAYEDM_NO": "AAAB",
+    "RACE_REF_FROM": "AA",
+    "RACE_REF_TO": "AB",
+    "RACE_REF_LEN": 27,
+    "RACE_REF_TEMP": 50,
+    "RACE_REF_METHOD": "U",
+    "RACE_REF_REM": ""
+  },
+  {
+    "PJT_SQ": "SIM0007",
+    "RACE_REF_SEQ": 335,
+    "RACE_REF_TRAYEDM_NO": "AFBG",
+    "RACE_REF_FROM": "AF",
+    "RACE_REF_TO": "BG",
+    "RACE_REF_LEN": 10,
+    "RACE_REF_TEMP": 50,
+    "RACE_REF_METHOD": "U",
+    "RACE_REF_REM": ""
+  },
+  {
+    "PJT_SQ": "SIM0007",
+    "RACE_REF_SEQ": 336,
+    "RACE_REF_TRAYEDM_NO": "AEAF",
+    "RACE_REF_FROM": "AE",
+    "RACE_REF_TO": "AF",
+    "RACE_REF_LEN": 48,
+    "RACE_REF_TEMP": 50,
+    "RACE_REF_METHOD": "U",
+    "RACE_REF_REM": ""
+  },
+  {
+    "PJT_SQ": "SIM0007",
+    "RACE_REF_SEQ": 337,
+    "RACE_REF_TRAYEDM_NO": "BFAE",
+    "RACE_REF_FROM": "BF",
+    "RACE_REF_TO": "AE",
+    "RACE_REF_LEN": 3,
+    "RACE_REF_TEMP": 50,
+    "RACE_REF_METHOD": "U",
+    "RACE_REF_REM": ""
+  },
+  {
+    "PJT_SQ": "SIM0007",
+    "RACE_REF_SEQ": 338,
+    "RACE_REF_TRAYEDM_NO": "ADAE",
+    "RACE_REF_FROM": "AD",
+    "RACE_REF_TO": "AE",
+    "RACE_REF_LEN": 23,
+    "RACE_REF_TEMP": 50,
+    "RACE_REF_METHOD": "U",
+    "RACE_REF_REM": ""
+  },
+  {
+    "PJT_SQ": "SIM0007",
+    "RACE_REF_SEQ": 339,
+    "RACE_REF_TRAYEDM_NO": "ADBE",
+    "RACE_REF_FROM": "AD",
+    "RACE_REF_TO": "BE",
+    "RACE_REF_LEN": 18,
+    "RACE_REF_TEMP": 50,
+    "RACE_REF_METHOD": "U",
+    "RACE_REF_REM": ""
+  },
+  {
+    "PJT_SQ": "SIM0007",
+    "RACE_REF_SEQ": 340,
+    "RACE_REF_TRAYEDM_NO": "ACAD",
+    "RACE_REF_FROM": "AC",
+    "RACE_REF_TO": "AD",
+    "RACE_REF_LEN": 23,
+    "RACE_REF_TEMP": 50,
+    "RACE_REF_METHOD": "U",
+    "RACE_REF_REM": ""
+  },
+  {
+    "PJT_SQ": "SIM0007",
+    "RACE_REF_SEQ": 341,
+    "RACE_REF_TRAYEDM_NO": "BAAA",
+    "RACE_REF_FROM": "BA",
+    "RACE_REF_TO": "AA",
+    "RACE_REF_LEN": 3,
+    "RACE_REF_TEMP": 50,
+    "RACE_REF_METHOD": "U",
+    "RACE_REF_REM": ""
+  },
+  {
+    "PJT_SQ": "SIM0007",
+    "RACE_REF_SEQ": 342,
+    "RACE_REF_TRAYEDM_NO": "ACBD",
+    "RACE_REF_FROM": "AC",
+    "RACE_REF_TO": "BD",
+    "RACE_REF_LEN": 12,
+    "RACE_REF_TEMP": 50,
+    "RACE_REF_METHOD": "U",
+    "RACE_REF_REM": ""
+  },
+  {
+    "PJT_SQ": "SIM0007",
+    "RACE_REF_SEQ": 343,
+    "RACE_REF_TRAYEDM_NO": "AJAL",
+    "RACE_REF_FROM": "AJ",
+    "RACE_REF_TO": "AL",
+    "RACE_REF_LEN": 166,
+    "RACE_REF_TEMP": 50,
+    "RACE_REF_METHOD": "U",
+    "RACE_REF_REM": ""
+  }
+]
