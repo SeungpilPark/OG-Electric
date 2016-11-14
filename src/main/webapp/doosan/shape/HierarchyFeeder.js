@@ -9,6 +9,7 @@ OG.shape.elec.HierarchyFeeder = function (label) {
     this.textList = [
         {
             text: 'cable',
+            label: '',
             shape: 'OG.CableShape'
         },
         {

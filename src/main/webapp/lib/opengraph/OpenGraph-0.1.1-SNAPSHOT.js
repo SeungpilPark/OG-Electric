@@ -18881,7 +18881,7 @@ OG.renderer.RaphaelRenderer.prototype.drawGuide = function (element) {
         guide.line.push({
             node: _line.node,
             text: displayText,
-            label: shapeLabel,
+            label: shapeLabel ? shapeLabel : '',
             shape: shapeId
         });
         controllers.push(_line);
@@ -27805,7 +27805,8 @@ OG.handler.EventHandler.prototype = {
         var renderer = me._RENDERER;
         var root = renderer.getRootGroup(),
             copiedElement = $(root).data("copied"),
-            selectedElement = [], dx, dy, avgX = 0, avgY = 0;
+            selectedElement = [], dx, dy, avgX = 0, avgY = 0,
+            copiedMap = [];
         if (copiedElement) {
             $(renderer.getRootElement()).find("[_type=" + OG.Constants.NODE_TYPE.SHAPE + "][_selected=true]").each(function (index, item) {
                 if (item.id) {
@@ -27878,9 +27879,64 @@ OG.handler.EventHandler.prototype = {
                 me._copyChildren(item, newElement);
 
                 selectedElement.push(newElement);
+                copiedMap.push({
+                    copied: item,
+                    pasted: newElement
+                })
             });
-            $(root).data("copied", selectedElement);
 
+            var getPastedElementByCopied = function (copied) {
+                var pasted;
+                for (var i = 0, leni = copiedMap.length; i < leni; i++) {
+                    if (copiedMap[i]['copied'].id == copied.id) {
+                        pasted = copiedMap[i]['pasted'];
+                    }
+                }
+                return pasted;
+            };
+
+            $.each(copiedElement, function (idx, item) {
+                //연결선이 복제된 경우, 복제된 대상 중 연결선의 From 과 To 가 모두 있을경우 연결선을 복원한다.
+                if ($(item).attr("_shape") === OG.Constants.SHAPE_TYPE.EDGE) {
+                    var relatedElementsFromEdge = renderer._CANVAS.getRelatedElementsFromEdge(item);
+                    var relatedFrom = relatedElementsFromEdge.from;
+                    var relatedTo = relatedElementsFromEdge.to;
+                    var copiedFrom, copiedTo, pastedFrom, pastedTo, pastedEdge,
+                        copiedEdge = item;
+
+                    for (var i = 0; i < copiedElement.length; i++) {
+                        if (relatedFrom) {
+                            if (copiedElement[i].id == relatedFrom.id) {
+                                copiedFrom = copiedElement[i];
+                            }
+                        }
+                        if (relatedTo) {
+                            if (copiedElement[i].id == relatedTo.id) {
+                                copiedTo = copiedElement[i];
+                            }
+                        }
+                    }
+                    if (copiedFrom && copiedTo) {
+                        pastedFrom = getPastedElementByCopied(copiedFrom);
+                        pastedTo = getPastedElementByCopied(copiedTo);
+                        pastedEdge = getPastedElementByCopied(copiedEdge);
+                        var pastedShape = pastedEdge.shape;
+                        var pastedId = pastedEdge.id;
+
+                        renderer._CANVAS.removeShape(pastedEdge);
+                        pastedEdge = renderer._CANVAS.connect(pastedFrom, pastedTo, null, null, null, null, null, pastedId);
+                        pastedEdge.shape = pastedShape;
+                        renderer.redrawShape(pastedEdge);
+                    }
+                }
+                //일반 도형이 복제된 경우, 복제된 대상 중 연결된 도형이 있을 경우, 그 연결선 또한 복제된 대상 속에 있는지 찾는다.
+                //만약 연결선이 복제 되지 않은 상태라면, 연결선을 복원한다.
+                else{
+
+                }
+            });
+
+            $(root).data("copied", selectedElement);
             renderer.addHistory();
         }
 

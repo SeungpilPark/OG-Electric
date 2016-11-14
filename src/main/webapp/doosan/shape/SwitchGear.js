@@ -11,6 +11,7 @@ OG.shape.elec.SwitchGear = function (label) {
     this.textList = [
         {
             text: 'cable',
+            label: '',
             shape: 'OG.CableShape'
         },
         {
