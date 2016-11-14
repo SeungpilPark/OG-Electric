@@ -5,6 +5,18 @@ var DataController = function () {
 
 };
 DataController.prototype = {
+    getProjectReference: function (callback) {
+        $.ajax({
+            url: 'doosan/data/project.json',
+            dataType: 'json',
+            success: function (data) {
+                callback(null, data);
+            },
+            error: function (err) {
+                callback(err, null);
+            }
+        });
+    },
     getSwgrSelectBoxList: function (callback) {
         $.ajax({
             url: 'doosan/data/swgr-select-box.json',
@@ -65,7 +77,7 @@ DataController.prototype = {
             }
         });
     },
-    getRacewayReferenceList: function(callback){
+    getRacewayReferenceList: function (callback) {
         $.ajax({
             url: 'doosan/data/raceway-ref.json',
             dataType: 'json',
@@ -77,7 +89,7 @@ DataController.prototype = {
             }
         });
     },
-    getRouteReferenceList: function(callback){
+    getRouteReferenceList: function (callback) {
         $.ajax({
             url: 'doosan/data/route-ref.json',
             dataType: 'json',
@@ -89,7 +101,7 @@ DataController.prototype = {
             }
         });
     },
-    getBldgReferenceList: function(callback){
+    getBldgReferenceList: function (callback) {
         $.ajax({
             url: 'doosan/data/bldg-ref.json',
             dataType: 'json',
@@ -147,7 +159,7 @@ DataController.prototype = {
                             id: data[i]['FEEDER_LIST_MGT_SEQ'],
                             text: data[i]['KKS_NUM'],
                             parent: parent,
-                            li_attr: data[i],
+                            data: data[i],
                             a_attr: {},
                             type: data[i]['FE_SWGR_LOAD_DIV'] == 'L' ? 'load' : 'swgr'
                         };
@@ -208,7 +220,7 @@ DataController.prototype = {
                             id: data[i]['HIER_SEQ'],
                             text: data[i]['NM'],
                             parent: parent,
-                            li_attr: data[i],
+                            data: data[i],
                             a_attr: {},
                             type: data[i]['LV'] == 1 ? 'bldg' : 'floor'
                         };

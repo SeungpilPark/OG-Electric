@@ -1,18 +1,18 @@
-OG.shape.SHLoad = function (label) {
-    OG.shape.SHLoad.superclass.call(this);
+OG.shape.elec.SHLoad = function (label) {
+    OG.shape.elec.SHLoad.superclass.call(this);
 
-    this.SHAPE_ID = 'OG.shape.SHLoad';
+    this.SHAPE_ID = 'OG.shape.elec.SHLoad';
     this.label = label;
     this.CONNECT_CLONEABLE = false;
     this.LABEL_EDITABLE = false;
     this.ENABLE_FROM = false;
 };
-OG.shape.SHLoad.prototype = new OG.shape.Load();
-OG.shape.SHLoad.superclass = OG.shape.Load;
-OG.shape.SHLoad.prototype.constructor = OG.shape.SHLoad;
-OG.SHLoad = OG.shape.SHLoad;
+OG.shape.elec.SHLoad.prototype = new OG.shape.elec.Load();
+OG.shape.elec.SHLoad.superclass = OG.shape.elec.Load;
+OG.shape.elec.SHLoad.prototype.constructor = OG.shape.elec.SHLoad;
+OG.SHLoad = OG.shape.elec.SHLoad;
 
-OG.shape.SHLoad.prototype.createShape = function () {
+OG.shape.elec.SHLoad.prototype.createShape = function () {
     var geom1, geom2, geomCollection = [];
     if (this.geom) {
         return this.geom;
@@ -49,9 +49,50 @@ OG.shape.SHLoad.prototype.createShape = function () {
     this.geom = new OG.geometry.GeometryCollection(geomCollection);
     this.geom.style = new OG.geometry.Style({
         'label-position': 'bottom',
-        'font-size': 10,
-        'label-width':200
+        'label-width': 200
     });
 
     return this.geom;
+};
+
+OG.shape.elec.SHLoad.prototype.createSubShape = function () {
+    if (!this.data) {
+        return;
+    }
+
+    this.sub = [
+        {
+            shape: new OG.TextShape(this.data['LO_TYPE'] + ' Load'),
+            width: 200,
+            height: 15,
+            left: -50,
+            top: -20,
+            style: {
+                'font-size': 8,
+                'font-color': 'red',
+                'text-anchor': 'middle'
+            }
+        },
+        {
+            shape: new OG.TextShape(
+                'KKS_NUM : ' + this.data['KKS_NUM']
+                + '\n' + 'LO_UNIT : ' + this.data['LO_UNIT']
+                + '\n' + 'LO_PROC_SYS : ' + this.data['LO_PROC_SYS']
+                + '\n' + 'LO_EQUIP_LOC : ' + this.data['LO_EQUIP_LOC']
+                + '\n' + 'LO_EQUIP_DESC : ' + this.data['LO_EQUIP_DESC']
+                + '\n' + 'LO_S_OWNER_NM : ' + this.data['LO_S_OWNER_NM']
+            ),
+            width: 1000,
+            height: 80,
+            left: 120,
+            top: 5,
+            style: {
+                'font-size': 8,
+                'font-color': 'gray',
+                'text-anchor': 'start',
+                'vertical-align': 'top'
+            }
+        }
+    ];
+    return this.sub;
 };

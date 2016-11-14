@@ -42,8 +42,6 @@
     <link rel="stylesheet" href="resources/assets/plugins/scrollbar/css/jquery.mCustomScrollbar.css">
     <link rel="stylesheet" href="resources/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css">
     <link rel="stylesheet" href="resources/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css">
-    <!-- CSS Customization -->
-    <link rel="stylesheet" href="resources/assets/css/custom.css">
 
     <!-- JS Global Compulsory -->
     <script type="text/javascript" src="lib/jquery-1.11.1/jquery-1.11.1.min.js"></script>
@@ -70,24 +68,28 @@
     <script type="text/javascript" src="lib/jqueryXML2JSON/jquery.xml2json.js"></script>
 
     <!--JS Tree-->
-    <link rel="stylesheet" href="lib/jstree/themes/default/style.min.css"/>
+    <link rel="stylesheet" href="lib/jstree/themes/default/style.css"/>
     <script type="text/javascript" src="lib/jstree/jstree.js"></script>
 
-    <!-- uengine CSS -->
-    <link rel="stylesheet" href="resources/assets/css/uengine.css">
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="resources/assets/css/custom.css">
 
     <!--OpenGraph-->
     <script type="text/javascript" src="lib/opengraph/OpenGraph-0.1.1-SNAPSHOT.js"></script>
     <script type="text/javascript" src="doosan/shape/SwitchGear.js"></script>
+    <script type="text/javascript" src="doosan/shape/BusductShape.js"></script>
+    <script type="text/javascript" src="doosan/shape/RacewayShape.js"></script>
+    <script type="text/javascript" src="doosan/shape/CableShape.js"></script>
+    <script type="text/javascript" src="doosan/shape/Transform.js"></script>
+    <script type="text/javascript" src="doosan/shape/SwitchTransformer.js"></script>
     <script type="text/javascript" src="doosan/shape/Load.js"></script>
     <script type="text/javascript" src="doosan/shape/NMLoad.js"></script>
     <script type="text/javascript" src="doosan/shape/SHLoad.js"></script>
-    <script type="text/javascript" src="doosan/shape/HierarchyBldg.js"></script>
-    <script type="text/javascript" src="doosan/shape/HierarchyFloor.js"></script>
     <script type="text/javascript" src="doosan/shape/HierarchyFeeder.js"></script>
+    <script type="text/javascript" src="doosan/shape/HierarchyFloor.js"></script>
+    <script type="text/javascript" src="doosan/shape/HierarchyBldg.js"></script>
     <script type="text/javascript" src="doosan/shape/BLDG.js"></script>
     <script type="text/javascript" src="doosan/shape/Location.js"></script>
-    <script type="text/javascript" src="doosan/shape/RaceWay.js"></script>
     <script type="text/javascript" src="doosan/shape/Manhole.js"></script>
 
     <script type="text/javascript" src="doosan/dataController.js"></script>
@@ -116,10 +118,49 @@
             </div>
         </div>
     </div>
+    <!-- Confirm Modal -->
+    <div class="modal fade" id="confirmBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 id="myModalLabel2" class="modal-title">알림</h4>
+                </div>
+                <div class="modal-body">
+                    <p style="text-align: center" name="content"></p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-u" type="button" name="continue">확인</button>
+                    <button class="btn-u btn-u-default" type="button" name="close">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script type="text/javascript">
         var msgBox = function (message) {
-            $('#messageBox').find('[name=content]').html(message);
-            $('#messageBox').modal({
+            var box = $('#messageBox');
+            box.find('[name=content]').html(message);
+            box.modal({
+                show: true
+            });
+        };
+        var confirmBox = function (message, callback) {
+            var box = $('#confirmBox');
+            box.find('[name=content]').html(message);
+            box.find('[name=close]').unbind('click');
+            box.find('[name=continue]').unbind('click');
+            box.find('[name=close]').click(function () {
+                box.find('.close').click();
+                callback(false);
+            });
+            box.find('[name=continue]').click(function () {
+                box.find('.close').click();
+                callback(true);
+            });
+            box.modal({
                 show: true
             });
         };
@@ -143,10 +184,14 @@
     <div class="container" style="padding-top: 10px;padding-bottom: 30px;">
         <div class="tab-v1">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#swgrFeederEditor" data-toggle="tab" aria-expanded="true">SWGR / Assigned Feeder
+                <li class="active"><a href="#swgrFeederEditor" data-toggle="tab" aria-expanded="true">SWGR / Assigned
+                    Feeder
                     Editor</a></li>
-                <li class="delayTab" data-canvas="hierarchy"><a href="#hierarchyEditor" id="hierarchyTab" data-toggle="tab" aria-expanded="false">Hierarchy Editor</a></li>
-                <li class="delayTab" data-canvas="bldg"><a href="#bldgRouteEditor" id="bldgRouteTab" data-toggle="tab" aria-expanded="false">BLDG / Route Editor</a></li>
+                <li class="delayTab" data-canvas="hierarchy"><a href="#hierarchyEditor" id="hierarchyTab"
+                                                                data-toggle="tab" aria-expanded="false">Hierarchy
+                    Editor</a></li>
+                <li class="delayTab" data-canvas="bldg"><a href="#bldgRouteEditor" id="bldgRouteTab" data-toggle="tab"
+                                                           aria-expanded="false">BLDG / Route Editor</a></li>
             </ul>
             <div class="tab-content">
 
@@ -171,11 +216,12 @@
                                 class="fa fa-search-minus"></i> Zoom | OUT
                         </button>
                     </div>
-
+                    <div class="col-md-12">
+                        <p id="feederCanvas-title" class="bg-info canvas-title"></p>
+                    </div>
                     <div class="col-md-12" id="feeder-content-wrapper">
                         <!--SWGR / Assigned Feeder 캔버스-->
-                        <div id="feederCanvas"
-                             style="position: absolute;top: 0px;left:0%;width: 69%; height: 100%;border: solid 1px #eee">
+                        <div id="feederCanvas" class="ogCanvas">
 
                         </div>
                         <div style="position: absolute;top: 0px;left:70%;width:30%;height: 100%;border: solid 1px #eee">
@@ -183,7 +229,8 @@
                                 <ul class="nav nav-tabs">
                                     <li style="width: 33%;"><a href="#swgr" data-toggle="tab">SWGR</a></li>
                                     <li style="width: 33%;"><a href="#load" data-toggle="tab">Load</a></li>
-                                    <li class="active" style="width: 34%;"><a href="#feeder" data-toggle="tab">Feeder</a></li>
+                                    <li class="active" style="width: 34%;"><a href="#feeder"
+                                                                              data-toggle="tab">Feeder</a></li>
                                 </ul>
 
                                 <div class="tab-content">
@@ -237,14 +284,6 @@
 
                                     <!--피더 리스트 패널-->
                                     <div class="tab-pane fade in active" id="feeder">
-                                        <div class="form-group col-md-8">
-
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <button class="btn btn-xs rounded btn-default" id="newFeeder" type="button"><i
-                                                    class="fa fa-plus"></i> New Feeder
-                                            </button>
-                                        </div>
                                         <div class="col-md-12">
                                             <table id="feederGrid" class="display" width="100%"></table>
                                         </div>
@@ -278,17 +317,22 @@
                         </button>
                     </div>
 
+                    <div class="col-md-12">
+                        <p id="hierarchyCanvas-title" class="bg-info canvas-title"></p>
+                    </div>
+
                     <div class="col-md-12" id="hierarchy-content-wrapper">
                         <!--Hierarchy 캔버스-->
-                        <div id="hierarchyCanvas"
-                             style="position: absolute;top: 0px;left:0%;width: 69%; height: 100%;border: solid 1px #eee">
+                        <div id="hierarchyCanvas" class="ogCanvas">
 
                         </div>
                         <div style="position: absolute;top: 0px;left:70%;width:30%;height: 100%;border: solid 1px #eee">
                             <div class="tab-v1">
                                 <ul class="nav nav-tabs">
-                                    <li style="width: 50%;"><a href="#hierarchy-feeder" data-toggle="tab">Feeder</a></li>
-                                    <li class="active" style="width: 50%;"><a href="#hierarchy" data-toggle="tab">Hierarchy</a></li>
+                                    <li style="width: 50%;"><a href="#hierarchy-feeder" data-toggle="tab">Feeder</a>
+                                    </li>
+                                    <li class="active" style="width: 50%;"><a href="#hierarchy" data-toggle="tab">Hierarchy</a>
+                                    </li>
                                 </ul>
 
                                 <div class="tab-content">
@@ -335,16 +379,21 @@
                                 class="fa-file-image-o"></i> Import Backdoor
                         </button>
                     </div>
+
+                    <div class="col-md-12">
+                        <p id="routeCanvas-title" class="bg-info canvas-title"></p>
+                    </div>
+
                     <div class="col-md-12" id="route-content-wrapper">
                         <!--BLDG / Route Editor-->
-                        <div id="routeCanvas"
-                             style="position: absolute;top: 0px;left:0%;width: 69%; height: 100%;border: solid 1px #eee">
+                        <div id="routeCanvas" class="ogCanvas">
 
                         </div>
                         <div style="position: absolute;top: 0px;left:70%;width:30%;height: 100%;border: solid 1px #eee">
                             <div class="tab-v1">
                                 <ul class="nav nav-tabs">
-                                    <li class="active" style="width: 50%;"><a href="#location" data-toggle="tab">Location</a></li>
+                                    <li class="active" style="width: 50%;"><a href="#location" data-toggle="tab">Location</a>
+                                    </li>
                                     <li style="width: 50%;"><a href="#route" data-toggle="tab">Route</a></li>
                                 </ul>
 
@@ -353,9 +402,13 @@
                                     <div class="tab-pane fade in active" id="location">
                                         <div class="tab-v1">
                                             <ul class="nav nav-tabs">
-                                                <li class="active" style="width: 33%;"><a href="#bldgRef" data-toggle="tab">BLDG</a></li>
-                                                <li style="width: 33%;"><a href="#locationRef" data-toggle="tab">Point</a></li>
-                                                <li style="width: 34%;"><a href="#racewayRef" data-toggle="tab">Raceway</a></li>
+                                                <li class="active" style="width: 33%;"><a href="#bldgRef"
+                                                                                          data-toggle="tab">BLDG</a>
+                                                </li>
+                                                <li style="width: 33%;"><a href="#locationRef" data-toggle="tab">Location</a>
+                                                </li>
+                                                <li style="width: 34%;"><a href="#racewayRef"
+                                                                           data-toggle="tab">Raceway</a></li>
                                             </ul>
 
                                             <div class="tab-content">
@@ -368,10 +421,18 @@
                                                 </div>
                                                 <!--로케이션 레퍼런스(빌딩) 리스트-->
                                                 <div class="tab-pane fade in" id="locationRef">
-                                                    <div class="form-group col-md-4">
-                                                        <button class="btn btn-xs rounded btn-default" id="newLocation" type="button"><i
+                                                    <div class="form-group col-md-5">
+                                                        <div class="btn btn-xs rounded btn-default" id="newLocation"
+                                                                type="button"><i
                                                                 class="fa fa-plus"></i> Drag new location
-                                                        </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-7">
+                                                        <select id="locationSelectBox" name="locationSelectBox"
+                                                                class="custom-form-control">
+                                                            <option value="location" selected>BLDG point</option>
+                                                            <option value="manhole">Manhole</option>
+                                                        </select>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <table id="locationRefGrid" class="display"
@@ -381,16 +442,6 @@
 
                                                 <!--레이스웨이 레퍼런스 리스트-->
                                                 <div class="tab-pane fade in" id="racewayRef">
-                                                    <div class="form-group col-md-5">
-                                                        <button class="btn btn-xs rounded btn-default" id="newRaceway" type="button"><i
-                                                                class="fa fa-plus"></i> Drag new raceway
-                                                        </button>
-                                                    </div>
-                                                    <div class="form-group col-md-7">
-                                                        <select id="racewaySelectBox" name="racewaySelectBox" class="custom-form-control">
-                                                            <option value="manhole" selected>Manhole</option>
-                                                        </select>
-                                                    </div>
                                                     <div class="col-md-12">
                                                         <table id="racewayRefGrid" class="display"
                                                                width="100%"></table>
@@ -404,9 +455,11 @@
                                     <div class="tab-pane fade in" id="route">
                                         <div class="tab-v1">
                                             <ul class="nav nav-tabs">
-                                                <li class="active" style="width: 50%;"><a href="#routeRef" data-toggle="tab">Route</a>
+                                                <li class="active" style="width: 50%;"><a href="#routeRef"
+                                                                                          data-toggle="tab">Route</a>
                                                 </li>
-                                                <li style="width: 50%;"><a href="#cableRef" data-toggle="tab">Cable</a></li>
+                                                <li style="width: 50%;"><a href="#cableRef" data-toggle="tab">Cable</a>
+                                                </li>
                                             </ul>
 
                                             <div class="tab-content">

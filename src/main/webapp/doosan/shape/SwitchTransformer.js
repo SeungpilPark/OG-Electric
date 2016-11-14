@@ -1,46 +1,19 @@
-OG.shape.elec.SwitchGear = function (label) {
-    OG.shape.elec.SwitchGear.superclass.call(this);
+OG.shape.elec.SwitchTransformer = function (label) {
+    OG.shape.elec.SwitchTransformer.superclass.call(this);
 
-    this.SHAPE_ID = 'OG.shape.elec.SwitchGear';
+    this.SHAPE_ID = 'OG.shape.elec.SwitchTransformer';
     this.label = label;
     this.DELETABLE = false;
     this.ENABLE_TO = false;
     this.CONNECT_CLONEABLE = false;
     this.LABEL_EDITABLE = false;
-
-    this.textList = [
-        {
-            text: 'cable',
-            shape: 'OG.CableShape'
-        },
-        {
-            text: 'IPB',
-            label: 'IPB',
-            shape: 'OG.BusductShape'
-        },
-        {
-            text: 'SPB',
-            label: 'SPB',
-            shape: 'OG.BusductShape'
-        },
-        {
-            text: 'NSPB',
-            label: 'NSPB',
-            shape: 'OG.BusductShape'
-        },
-        {
-            text: 'CRB',
-            label: 'CRB',
-            shape: 'OG.BusductShape'
-        }
-    ];
 };
-OG.shape.elec.SwitchGear.prototype = new OG.shape.GeomShape();
-OG.shape.elec.SwitchGear.superclass = OG.shape.GeomShape;
-OG.shape.elec.SwitchGear.prototype.constructor = OG.shape.elec.SwitchGear;
-OG.SwitchGear = OG.shape.elec.SwitchGear;
+OG.shape.elec.SwitchTransformer.prototype = new OG.shape.GeomShape();
+OG.shape.elec.SwitchTransformer.superclass = OG.shape.GeomShape;
+OG.shape.elec.SwitchTransformer.prototype.constructor = OG.shape.elec.SwitchTransformer;
+OG.SwitchTransformer = OG.shape.elec.SwitchTransformer;
 
-OG.shape.elec.SwitchGear.prototype.createShape = function () {
+OG.shape.elec.SwitchTransformer.prototype.createShape = function () {
     if (this.geom) {
         return this.geom;
     }
@@ -73,25 +46,25 @@ OG.shape.elec.SwitchGear.prototype.createShape = function () {
 };
 
 
-OG.shape.elec.SwitchGear.prototype.createSubShape = function () {
+OG.shape.elec.SwitchTransformer.prototype.createSubShape = function () {
     if (!this.data) {
         return;
     }
 
     var multi = [];
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 5; i++) {
         var data = {
-            top: -20 + (i * 4),
+            top: -10 + (i * 4),
             from: 'start',
             to: 'end',
             style: {
                 'marker': {
                     'start': {
-                        'id': 'OG.marker.ArrowMarker',
+                        'id': 'OG.marker.CircleMarker',
                         'size': [6, 6]
                     },
                     'end': {
-                        'id': 'OG.marker.CircleMarker',
+                        'id': 'OG.marker.ArrowMarker',
                         'size': [6, 6]
                     }
                 },
@@ -131,32 +104,34 @@ OG.shape.elec.SwitchGear.prototype.createSubShape = function () {
             }
         },
         {
-            shape: new OG.RectangleShape(),
-            width: 25,
-            height: 30,
-            left: 2,
+            shape: new OG.Transform(),
+            width: 20,
+            height: 70,
+            left: 5,
             top: 20,
             style: {
-                pattern: {
-                    'id': 'OG.pattern.RectPattern',
-                    'unit-width': 12,
-                    'unit-height': 12,
-                    'pattern-width': 16,
-                    'pattern-height': 16,
-                    'patternTransform': 'rotate(35)',
-                    'style': {
-                        'stroke': 'black'
-                    }
-                },
-                'fill-opacity': 1
+                'fill-opacity': 0
             }
         },
         {
             shape: new OG.EdgeShape(),
             vertices: [
-                [15, 50],
-                [15, 80],
-                [85, 80]
+                [25, 65],
+                [35, 65],
+                [80, 80],
+                [90, 80]
+            ],
+            style: {
+                'multi': multi
+            }
+        },
+        {
+            shape: new OG.EdgeShape(),
+            vertices: [
+                [25, 80],
+                [35, 80],
+                [80, 65],
+                [90, 65]
             ],
             style: {
                 'multi': multi

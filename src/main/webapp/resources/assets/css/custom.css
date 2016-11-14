@@ -1,3 +1,70 @@
+.div-center {
+    margin: 0 auto;
+}
+
+.col-centered {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.disable_div {
+    display: none;
+}
+
+.licenseBody {
+    background: #F8FFFF;
+}
+
+.licenseTable {
+    width: 100%;
+    padding: 5px;
+    border: none;
+    background: #F8FFFF;
+}
+
+.licenseTable td {
+    border: none;
+    background: #F8FFFF;
+    font-size: 12px;
+    padding: 5px;
+}
+
+.licenseTable .key_col {
+    color: #808080;
+    text-align: right;
+    padding-right: 15px;
+}
+
+.licenseTable .val_col {
+    padding-left: 15px;
+}
+
+.licenseTable .tag-box {
+
+}
+
+.btn-container-right {
+    direction: rtl;
+}
+
+.licenseKeyDiv {
+    -ms-word-break: break-all;
+    word-break: break-all;
+
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+
+    word-break: break-word;
+
+    max-height: 150px;
+
+    overflow: auto;
+}
+
 div.tooltip-inner {
     max-width: 500px;
 }
@@ -75,4 +142,29 @@ div.tooltip-inner {
 /*dataTable custom class*/
 table.dataTable td {
     border-top: 1px solid #bfbfbf;
+}
+
+/*jstree-dnd custom class - 드래그 시 아이콘 생성을 막는다.*/
+#jstree-dnd .jstree-icon,
+#jstree-dnd .jstree-copy {
+    text-decoration: none;
+    margin: 0 2px 0 0;
+    padding: 0;
+    width: 16px;
+    height: 16px;
+    display: none;
+}
+
+.ogCanvas {
+    position: absolute;
+    top: 0px;
+    left: 0%;
+    width: 69%;
+    height: 100%;
+    border: solid 1px #eee;
+    overflow: scroll;
+}
+
+.canvas-title{
+    display: none;
 }

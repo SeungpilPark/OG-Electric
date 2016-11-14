@@ -1,46 +1,19 @@
-OG.shape.elec.SwitchGear = function (label) {
-    OG.shape.elec.SwitchGear.superclass.call(this);
+OG.shape.elec.SwitchGearSample = function (label) {
+    OG.shape.elec.SwitchGearSample.superclass.call(this);
 
-    this.SHAPE_ID = 'OG.shape.elec.SwitchGear';
+    this.SHAPE_ID = 'OG.shape.elec.SwitchGearSample';
     this.label = label;
     this.DELETABLE = false;
     this.ENABLE_TO = false;
     this.CONNECT_CLONEABLE = false;
     this.LABEL_EDITABLE = false;
-
-    this.textList = [
-        {
-            text: 'cable',
-            shape: 'OG.CableShape'
-        },
-        {
-            text: 'IPB',
-            label: 'IPB',
-            shape: 'OG.BusductShape'
-        },
-        {
-            text: 'SPB',
-            label: 'SPB',
-            shape: 'OG.BusductShape'
-        },
-        {
-            text: 'NSPB',
-            label: 'NSPB',
-            shape: 'OG.BusductShape'
-        },
-        {
-            text: 'CRB',
-            label: 'CRB',
-            shape: 'OG.BusductShape'
-        }
-    ];
 };
-OG.shape.elec.SwitchGear.prototype = new OG.shape.GeomShape();
-OG.shape.elec.SwitchGear.superclass = OG.shape.GeomShape;
-OG.shape.elec.SwitchGear.prototype.constructor = OG.shape.elec.SwitchGear;
-OG.SwitchGear = OG.shape.elec.SwitchGear;
+OG.shape.elec.SwitchGearSample.prototype = new OG.shape.GeomShape();
+OG.shape.elec.SwitchGearSample.superclass = OG.shape.GeomShape;
+OG.shape.elec.SwitchGearSample.prototype.constructor = OG.shape.elec.SwitchGearSample;
+OG.SwitchGearSample = OG.shape.elec.SwitchGearSample;
 
-OG.shape.elec.SwitchGear.prototype.createShape = function () {
+OG.shape.elec.SwitchGearSample.prototype.createShape = function () {
     if (this.geom) {
         return this.geom;
     }
@@ -53,7 +26,19 @@ OG.shape.elec.SwitchGear.prototype.createShape = function () {
     var line1 = new OG.geometry.Line([-100, 10], [100, 10]);
     var line2 = new OG.geometry.Line([-100, -10], [100, -10]);
     var line3 = new OG.geometry.Line([100, 10], [100, -10]);
+    line3.style = new OG.geometry.Style({
+        'stroke': 'none',
+        'stroke-width': '3',
+        'fill': 'none',
+        'fill-opacity': 0
+    });
     var line4 = new OG.geometry.Line([-100, 10], [-100, -10]);
+    line4.style = new OG.geometry.Style({
+        'stroke': 'none',
+        'stroke-width': '3',
+        'fill': 'none',
+        'fill-opacity': 0
+    });
 
     geomCollection.push(line1);
     geomCollection.push(line2);
@@ -73,7 +58,7 @@ OG.shape.elec.SwitchGear.prototype.createShape = function () {
 };
 
 
-OG.shape.elec.SwitchGear.prototype.createSubShape = function () {
+OG.shape.elec.SwitchGearSample.prototype.createSubShape = function () {
     if (!this.data) {
         return;
     }
@@ -115,24 +100,47 @@ OG.shape.elec.SwitchGear.prototype.createSubShape = function () {
             }
         },
         {
-            shape: new OG.TextShape('SWGR_TAG_NO : ' + this.data['SWGR_TAG_NO']
-                + '\n' + 'FE_OWNER_ID : ' + this.data['FE_OWNER_ID']
-                + '\n' + 'SWGR_LOCATION : ' + this.data['SWGR_LOCATION']
-                + '\n' + 'SWGR_OWNER_NM : ' + this.data['SWGR_OWNER_NM']),
+            shape: new OG.TextShape('SWGR_TAG_NO : ' + this.data['SWGR_TAG_NO']),
             width: 98,
-            height: 50,
+            height: 15,
             left: 0,
             top: 5,
             style: {
                 'font-size': 8,
                 'font-color': 'gray',
                 'text-anchor': 'end',
-                'vertical-align': 'top'
+                'text-decoration' : 'underline'
+            }
+        },
+        {
+            shape: new OG.TextShape('FE_OWNER_ID : ' + this.data['FE_OWNER_ID']),
+            width: 98,
+            height: 15,
+            left: 0,
+            top: 15,
+            style: {
+                'font-size': 8,
+                'font-color': 'gray',
+                'text-anchor': 'end',
+                'text-decoration' : 'underline'
+            }
+        },
+        {
+            shape: new OG.TextShape('SWGR_LOCATION : ' + this.data['SWGR_LOCATION']),
+            width: 98,
+            height: 15,
+            left: 0,
+            top: 25,
+            style: {
+                'font-size': 8,
+                'font-color': 'gray',
+                'text-anchor': 'end',
+                'text-decoration' : 'underline'
             }
         },
         {
             shape: new OG.RectangleShape(),
-            width: 25,
+            width: 30,
             height: 30,
             left: 2,
             top: 20,
@@ -156,7 +164,7 @@ OG.shape.elec.SwitchGear.prototype.createSubShape = function () {
             vertices: [
                 [15, 50],
                 [15, 80],
-                [85, 80]
+                [80, 80]
             ],
             style: {
                 'multi': multi
@@ -164,18 +172,12 @@ OG.shape.elec.SwitchGear.prototype.createSubShape = function () {
         }
     ];
 
-
-    var graphKey = ['SWGR_VOLTAGE', 'SWGR_BUS_RATING'];
-    for (var i = 0; i < graphKey.length; i++) {
-        var width = this.data[graphKey[i]] / 10;
-        if (width > 70) {
-            width = 70
-        }
+    for (var i = 1; i < 6; i++) {
         var percentBar = {
             shape: new OG.RectangleShape(),
-            width: width,
+            width: (i * 10),
             height: 1,
-            left: 25,
+            left: 8,
             top: -5 - (i * 5),
             style: {
                 'stroke': 'orange',
@@ -185,16 +187,15 @@ OG.shape.elec.SwitchGear.prototype.createSubShape = function () {
         };
         var text =
         {
-            shape: new OG.TextShape(graphKey[i] + ' : ' + this.data[graphKey[i]]),
-            width: 100,
+            shape: new OG.TextShape((i * 10) + '%'),
+            width: 15,
             height: 1,
             left: 0,
             top: -5 - (i * 5),
             style: {
                 'font-size': 8,
                 'font-color': 'gray',
-                'text-anchor': 'start',
-                'word-wrap' : 'none'
+                'text-anchor': 'start'
             }
         };
         this.sub.push(percentBar);
