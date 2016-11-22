@@ -50,9 +50,9 @@
 
     <!-- jquery-ui, jquery.contextmenu -->
     <link rel="stylesheet" type="text/css"
-          href="resources/assets/plugins/jquery-ui-1.11.0.custom/jquery-ui.css"/>
+          href="lib/jquery-ui-1.11.4.custom/jquery-ui.css"/>
     <script type="text/javascript"
-            src="resources/assets/plugins/jquery-ui-1.11.0.custom/jquery-ui.min.js"></script>
+            src="lib/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
 
     <script type="text/javascript" src="lib/jquery-contextMenu/jquery.contextMenu.js"></script>
     <link rel="stylesheet" type="text/css" href="lib/jquery-contextMenu/jquery.contextMenu.css"/>
@@ -75,16 +75,22 @@
     <link rel="stylesheet" href="resources/assets/css/custom.css">
 
     <!--OpenGraph-->
-    <script type="text/javascript" src="lib/opengraph/OpenGraph-0.1.1-SNAPSHOT.js"></script>
+    <script type="text/javascript" src="lib/opengraph/OpenGraph-0.1.2-SNAPSHOT.js"></script>
     <script type="text/javascript" src="doosan/shape/SwitchGear.js"></script>
+    <script type="text/javascript" src="doosan/shape/WireShape.js"></script>
     <script type="text/javascript" src="doosan/shape/BusductShape.js"></script>
     <script type="text/javascript" src="doosan/shape/RacewayShape.js"></script>
     <script type="text/javascript" src="doosan/shape/CableShape.js"></script>
-    <script type="text/javascript" src="doosan/shape/Transform.js"></script>
     <script type="text/javascript" src="doosan/shape/SwitchTransformer.js"></script>
     <script type="text/javascript" src="doosan/shape/Load.js"></script>
-    <script type="text/javascript" src="doosan/shape/NMLoad.js"></script>
     <script type="text/javascript" src="doosan/shape/SHLoad.js"></script>
+    <script type="text/javascript" src="doosan/shape/NMLoad.js"></script>
+    <script type="text/javascript" src="doosan/shape/EHLoad.js"></script>
+    <script type="text/javascript" src="doosan/shape/EHSLoad.js"></script>
+    <script type="text/javascript" src="doosan/shape/MILoad.js"></script>
+    <script type="text/javascript" src="doosan/shape/MKLoad.js"></script>
+    <script type="text/javascript" src="doosan/shape/MOLoad.js"></script>
+    <script type="text/javascript" src="doosan/shape/PKGLoad.js"></script>
     <script type="text/javascript" src="doosan/shape/HierarchyFeeder.js"></script>
     <script type="text/javascript" src="doosan/shape/HierarchyFloor.js"></script>
     <script type="text/javascript" src="doosan/shape/HierarchyBldg.js"></script>
@@ -184,13 +190,13 @@
     <div class="container" style="padding-top: 10px;padding-bottom: 30px;">
         <div class="tab-v1">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#swgrFeederEditor" data-toggle="tab" aria-expanded="true">SWGR / Assigned
+                <li class="active delayTab renderTab" data-canvas="feeder"><a href="#swgrFeederEditor" data-toggle="tab" aria-expanded="true">SWGR / Assigned
                     Feeder
                     Editor</a></li>
-                <li class="delayTab" data-canvas="hierarchy"><a href="#hierarchyEditor" id="hierarchyTab"
+                <li class="delayTab renderTab" data-canvas="hierarchy"><a href="#hierarchyEditor" id="hierarchyTab"
                                                                 data-toggle="tab" aria-expanded="false">Hierarchy
                     Editor</a></li>
-                <li class="delayTab" data-canvas="bldg"><a href="#bldgRouteEditor" id="bldgRouteTab" data-toggle="tab"
+                <li class="delayTab renderTab" data-canvas="bldg"><a href="#bldgRouteEditor" id="bldgRouteTab" data-toggle="tab"
                                                            aria-expanded="false">BLDG / Route Editor</a></li>
             </ul>
             <div class="tab-content">
@@ -576,7 +582,7 @@
 
 <!-- JS Implementing Plugins -->
 <script type="text/javascript" src="resources/assets/plugins/back-to-top.js"></script>
-<script type="text/javascript" src="resources/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
+<!--<script type="text/javascript" src="resources/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>-->
 <script type="text/javascript" src="resources/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
 <script type="text/javascript"
         src="resources/assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js"></script>

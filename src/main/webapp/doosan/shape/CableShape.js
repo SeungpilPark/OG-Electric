@@ -17,8 +17,8 @@ OG.shape.elec.CableShape = function (from, to, label) {
 
     this.SHAPE_ID = 'OG.shape.elec.CableShape';
 };
-OG.shape.elec.CableShape.prototype = new OG.shape.EdgeShape();
-OG.shape.elec.CableShape.superclass = OG.shape.EdgeShape;
+OG.shape.elec.CableShape.prototype = new OG.shape.elec.WireShape();
+OG.shape.elec.CableShape.superclass = OG.shape.elec.WireShape;
 OG.shape.elec.CableShape.prototype.constructor = OG.shape.elec.CableShape;
 OG.CableShape = OG.shape.elec.CableShape;
 
@@ -33,7 +33,7 @@ OG.shape.elec.CableShape.prototype.createShape = function () {
         return this.geom;
     }
 
-    this.geom = new OG.Line(this.from || [0, 0], this.to || [70, 0]);
+    this.geom = new OG.PolyLine([this.from || [0, 0], this.to || [70, 0]]);
     this.geom.style = new OG.geometry.Style({
         'multi': [
             {

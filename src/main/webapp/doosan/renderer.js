@@ -10,6 +10,12 @@ var Renderer = function (mode, container, controller) {
             LOAD: 'Load',
             NMLOAD: 'NMLoad',
             SHLOAD: 'SHLoad',
+            EHLOAD: 'EHLoad',
+            EHSLOAD: 'EHSLoad',
+            MILOAD: 'MILoad',
+            MKLOAD: 'MKLoad',
+            MOLOAD: 'MOLoad',
+            PKGLOAD: 'PKGLoad',
 
             HIERARCHY_BLDG: 'HierarchyBldg',
             HIERARCHY_FLOOR: 'HierarchyFloor',
@@ -37,7 +43,7 @@ var Renderer = function (mode, container, controller) {
     };
     this._CONFIG = {
         DEFAULT_SIZE: {
-            SWITCH_GEAR: [450, 250],
+            SWITCH_GEAR: [350, 50],
             LOAD: [70, 70],
             HIERARCHY_BLDG: [450, 300],
             HIERARCHY_FLOOR: [350, 200],
@@ -68,6 +74,7 @@ var Renderer = function (mode, container, controller) {
     this._CONTROLLER = controller;
     this._CONTAINER = $('#' + container);
     this._CONTAINER_ID = container;
+    this._SLIDER = null;
 
     // Canvas
     this.canvas = new OG.Canvas(container, [this._CONTAINER.width(), this._CONTAINER.height()], 'white', 'url(resources/images/symbol/grid.gif)');
@@ -93,6 +100,27 @@ var Renderer = function (mode, container, controller) {
     });
     this.canvas._CONFIG.LABEL_MIN_SIZE = this._CONFIG.LABEL_MIN_SIZE;
     this.canvas._CONFIG.LABEL_MAX_SIZE = this._CONFIG.LABEL_MAX_SIZE;
+
+    /**
+     * 핫키 : Ctrl+C 복사 키 가능여부
+     */
+    this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_C = false;
+    /**
+     * 핫키 : Ctrl+V 붙여넣기 키 가능여부
+     */
+    this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_V = false;
+    /**
+     * 핫키 : Ctrl+D 복제하기 키 가능여부
+     */
+    this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_D = false;
+    /**
+     * 핫키 : Ctrl+G 그룹 키 가능여부
+     */
+    this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_G = false;
+    /**
+     * 핫키 : Ctrl+U 언그룹 키 가능여부
+     */
+    this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_U = false;
 
     this._RENDERER = this.canvas._RENDERER;
     this._HANDLER = this.canvas._HANDLER;
@@ -139,6 +167,27 @@ Renderer.prototype = {
     setContainerId: function (id) {
         this._CONTAINER_ID = id;
     },
+    showSlider: function (show) {
+        if (show) {
+            if (!this._SLIDER) {
+                var sliderId = this._CONTAINER_ID + '-slider';
+                this._SLIDER = $('<div id="' + sliderId + '"></div>');
+                this._CONTAINER.parent().append(this._SLIDER);
+
+                this.canvas.addSlider({
+                    slider: $('#' + sliderId),
+                    width: 200,
+                    height: 250,
+                    appendTo: "body"
+                });
+            }
+            this._SLIDER.closest(".ui-dialog").show();
+        } else {
+            if (this._SLIDER) {
+                this._SLIDER.closest(".ui-dialog").hide();
+            }
+        }
+    },
 
     //TODO
     // 드랍이벤트시 위치 체크 로직. -> ok
@@ -166,11 +215,16 @@ Renderer.prototype = {
             if (shapeType == me.Constants.TYPE.SWITCH_GEAR) {
                 shape = new OG.SwitchGear(shapeLabel);
                 size = me._CONFIG.DEFAULT_SIZE.SWITCH_GEAR;
-            } else if (shapeType == me.Constants.TYPE.NMLOAD) {
-                shape = new OG.NMLoad(shapeLabel);
-                size = me._CONFIG.DEFAULT_SIZE.LOAD;
-            } else if (shapeType == me.Constants.TYPE.SHLOAD) {
-                shape = new OG.SHLoad(shapeLabel);
+            } else if (
+                shapeType == me.Constants.TYPE.NMLOAD
+                || shapeType == me.Constants.TYPE.SHLOAD
+                || shapeType == me.Constants.TYPE.EHLOAD
+                || shapeType == me.Constants.TYPE.EHSLOAD
+                || shapeType == me.Constants.TYPE.MILOAD
+                || shapeType == me.Constants.TYPE.MKLOAD
+                || shapeType == me.Constants.TYPE.MOLOAD
+                || shapeType == me.Constants.TYPE.PKGLOAD) {
+                eval('shape = new OG.' + shapeType + '(shapeLabel)');
                 size = me._CONFIG.DEFAULT_SIZE.LOAD;
             } else if (shapeType == me.Constants.TYPE.HIERARCHY_FLOOR) {
                 shape = new OG.HierarchyFloor(shapeLabel);
@@ -220,16 +274,10 @@ Renderer.prototype = {
                 //캔버스의 editingObject (에디팅 객체) 가 없다면 그리지 않는다.
                 if (!me.editingObject) {
                     me._CONTROLLER.onMessage(me, shapeInfo, me._CONTROLLER.message.NO_EDITOR_OBJECT);
+
                 } else {
-                    //가이드 선의 다양성을 확보한다.
-                    //선을 이었을 때 EventHandler 에서 LINE_CONNECT_TEXT 검색, connectText 값이 라벨로 들어가게 된다.
-                    //위의 단계를, 라인이 생성되었을 때 connectText 이벤트로 함께 오도록 조치한다.
-                    //connectText 타입에 따라 엣지 형태를 변경할 수 있도록 한다.
-                    //이 로직은 스위치, 그리고 하이어라키 피더에서 적용될 것임. 하이어라키 피더의 우측 텍스트들을 정리할 수 있도록 한다.
                     shape.data = shapeInfo;
                     element = me.getCanvas().drawShape(position, shape, size);
-
-
                     me.getContainer().removeData('DRAG_SHAPE');
                 }
             }
@@ -284,6 +332,10 @@ Renderer.prototype = {
         me.canvas.onConnectShape(function (event, edgeElement, fromElement, toElement) {
             me.isUpdated = true;
 
+            /**
+             * 스위치 기어와 로드간의 연결시, 로드를 드랍한 위치에 따라 연결선의 포지션을 재설정한다.
+             */
+            console.log(event);
         });
         me.canvas.onDisconnectShape(function (event, edgeElement, fromElement, toElement) {
             me.isUpdated = true;

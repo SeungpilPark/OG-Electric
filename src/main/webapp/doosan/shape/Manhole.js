@@ -6,13 +6,14 @@ OG.shape.elec.Manhole = function (image, label) {
     this.CONNECT_CLONEABLE = false;
     this.LABEL_EDITABLE = false;
 
-    if(!image){
+    if (!image) {
         this.image = 'resources/images/elec/manhole.svg'
     }
 
     this.textList = [
         {
             text: 'Raceway',
+            label: '',
             shape: 'OG.RacewayShape'
         }
     ];
@@ -28,24 +29,25 @@ OG.shape.elec.Manhole.prototype.createSubShape = function () {
     }
 
     this.sub = [
-        {
-            shape: new OG.TextShape(
-                'LOC_REF_NAME : ' + this.data['LOC_REF_NAME']
-                + '\n' + 'LOC_REF_TEMP : ' + this.data['LOC_REF_TEMP']
-                + '\n' + 'LOC_REF_LENGTH : ' + this.data['LOC_REF_LENGTH']
-                + '\n' + 'LOC_REF_REM : ' + this.data['LOC_REF_REM']
-            ),
-            width: 1000,
-            height: 80,
-            left: 120,
-            top: 5,
-            style: {
-                'font-size': 8,
-                'font-color': 'gray',
-                'text-anchor': 'start',
-                'vertical-align': 'top'
-            }
-        }
+
     ];
     return this.sub;
+};
+
+
+OG.shape.elec.Manhole.prototype.createContextMenu = function () {
+    var me = this;
+    this.contextMenu = {
+        'delete': true,
+        'format': true,
+        'text': true,
+        'bringToFront': true,
+        'sendToBack': true,
+        'property': {
+            name: '정보보기', callback: function () {
+                $(me.currentCanvas.getRootElement()).trigger('showProperty', [me.currentElement]);
+            }
+        }
+    };
+    return this.contextMenu;
 };

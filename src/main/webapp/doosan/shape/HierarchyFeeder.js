@@ -88,37 +88,18 @@ OG.shape.elec.HierarchyFeeder.prototype.createSubShape = function () {
 
     this.sub = [
         {
-            shape: new OG.TextShape(this.data['SWGR_TYPE']),
-            width: 200,
-            height: 15,
-            left: -50,
-            top: -25,
+            shape: new OG.TextShape(this.data['SWGR_TYPE'] + ' Swgr'),
+            width: '200%',
+            height: '15%',
+            left: '-50%',
+            top: '-20%',
             style: {
                 'font-size': 8,
                 'font-color': 'red',
                 'text-anchor': 'middle'
             }
-        },
-        //{
-        //    shape: new OG.TextShape(
-        //        'FE_SPARE_FEEDER_NUM : ' + this.data['FE_SPARE_FEEDER_NUM']
-        //        + '\n' + 'SWGR_TAG_NO : ' + this.data['SWGR_TAG_NO']
-        //        + '\n' + 'SWGR_TOTAL_KVA : ' + this.data['SWGR_TOTAL_KVA']
-        //        + '\n' + 'SWGR_VOLTAGE : ' + this.data['SWGR_VOLTAGE']
-        //        + '\n' + 'FE_OUT_GOING : ' + this.data['FE_OUT_GOING']
-        //        + '\n' + 'FE_OWNER_ID : ' + this.data['FE_OWNER_ID']
-        //    ),
-        //    width: 1000,
-        //    height: 80,
-        //    left: 120,
-        //    top: 5,
-        //    style: {
-        //        'font-size': 8,
-        //        'font-color': 'gray',
-        //        'text-anchor': 'start',
-        //        'vertical-align': 'top'
-        //    }
-        //}
+        }
     ];
     return this.sub;
 };
+

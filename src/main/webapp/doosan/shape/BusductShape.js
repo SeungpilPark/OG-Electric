@@ -17,8 +17,8 @@ OG.shape.elec.BusductShape = function (from, to, label) {
 
     this.SHAPE_ID = 'OG.shape.elec.BusductShape';
 };
-OG.shape.elec.BusductShape.prototype = new OG.shape.EdgeShape();
-OG.shape.elec.BusductShape.superclass = OG.shape.EdgeShape;
+OG.shape.elec.BusductShape.prototype = new OG.shape.elec.WireShape();
+OG.shape.elec.BusductShape.superclass = OG.shape.elec.WireShape;
 OG.shape.elec.BusductShape.prototype.constructor = OG.shape.elec.BusductShape;
 OG.BusductShape = OG.shape.elec.BusductShape;
 
@@ -33,13 +33,13 @@ OG.shape.elec.BusductShape.prototype.createShape = function () {
         return this.geom;
     }
 
-    this.geom = new OG.Line(this.from || [0, 0], this.to || [70, 0]);
+    this.geom = new OG.PolyLine([this.from || [0, 0], this.to || [70, 0]]);
     this.geom.style = new OG.geometry.Style({
         'multi': [
             {
                 top: -10,
-                from: '20',
-                to: 'end-20',
+                from: '20px',
+                to: 'end-20px',
                 style: {
                     'marker': {
                         'start': {
@@ -57,8 +57,8 @@ OG.shape.elec.BusductShape.prototype.createShape = function () {
             },
             {
                 top: 10,
-                from: '20',
-                to: 'end-20',
+                from: '20px',
+                to: 'end-20px',
                 style: {
                     'marker': {
                         'start': {

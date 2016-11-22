@@ -33,3 +33,38 @@ OG.shape.elec.HierarchyFloor.prototype.createShape = function () {
 
     return this.geom;
 };
+
+OG.shape.elec.HierarchyFloor.prototype.createContextMenu = function () {
+    var me = this;
+    this.contextMenu = {
+        'delete': true,
+        'format': true,
+        'text': true,
+        'bringToFront': true,
+        'sendToBack': true,
+        'property': {
+            name: '정보보기', callback: function () {
+                $(me.currentCanvas.getRootElement()).trigger('showProperty', [me.currentElement]);
+            }
+        }
+    };
+    return this.contextMenu;
+};
+
+
+OG.shape.elec.HierarchyFloor.prototype.createContextMenu = function () {
+    var me = this;
+    this.contextMenu = {
+        'delete': true,
+        'format': true,
+        'text': true,
+        'bringToFront': true,
+        'sendToBack': true,
+        'property': {
+            name: '정보보기', callback: function () {
+                $(me.currentCanvas.getRootElement()).trigger('showProperty', [me.currentElement]);
+            }
+        }
+    };
+    return this.contextMenu;
+};

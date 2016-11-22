@@ -165,6 +165,14 @@ table.dataTable td {
     overflow: scroll;
 }
 
-.canvas-title{
+.canvas-title {
     display: none;
+}
+
+/*Jquery UI*/
+.ui-widget-header {
+    background: #4765a0;
+    border: none;
+    line-height: 1;
+    color: white;
 }

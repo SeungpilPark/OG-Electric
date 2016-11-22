@@ -34,7 +34,8 @@ OG.shape.elec.RacewayShape.prototype.createShape = function () {
     }
 
     this.geom = new OG.Line(this.from || [0, 0], this.to || [70, 0]);
-    this.geom.style = new OG.geometry.Style({
+
+    var style = {
         'multi': [
             {
                 top: -10,
@@ -68,6 +69,63 @@ OG.shape.elec.RacewayShape.prototype.createShape = function () {
                 }
             }
         ]
-    });
+    };
+    if (this.data && this.data.selected) {
+        style['stroke'] = '#d9534f';
+        style['stroke-width'] = 2;
+        style['multi'][2]['style']['pattern']['style']['stroke'] = '#d9534f';
+    }
+    this.geom.style = new OG.geometry.Style(style);
     return this.geom;
+};
+
+
+OG.shape.elec.RacewayShape.prototype.createContextMenu = function () {
+    var me = this;
+    this.contextMenu = {
+        'delete': true,
+        'format': true,
+        'text': true,
+        'bringToFront': true,
+        'sendToBack': true,
+        'property': {
+            name: '정보보기', callback: function () {
+                $(me.currentCanvas.getRootElement()).trigger('showProperty', [me.currentElement]);
+            }
+        },
+        'pathList': {
+            name: '라우트 보기',
+            items: {
+                'selectPath': {
+                    name: '선택',
+                    type: 'select',
+                    options: {
+                        '': '',
+                        'white': '하양',
+                        'gray': '회색',
+                        'blue': '파랑',
+                        'red': '빨강',
+                        'yellow': '노랑',
+                        'orange': '오렌지',
+                        'green': '녹색',
+                        'black': '검정'
+                    },
+                    selected: '',
+                    events: {
+                        change: function (e) {
+                            if (e.target.value !== '') {
+                                $(me.currentCanvas.getRootElement()).trigger('showRouteList', [me.currentElement, e.target.value]);
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        'alternative': {
+            name: '라우트 변경', callback: function () {
+                $(me.currentCanvas.getRootElement()).trigger('changeRoute', [me.currentElement]);
+            }
+        }
+    };
+    return this.contextMenu;
 };

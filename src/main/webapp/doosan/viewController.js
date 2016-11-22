@@ -193,10 +193,14 @@ ViewContorller.prototype = {
          * active 가 아닌 탭의 콘텐츠는 css width,height 가 최초 탭 선택시 설정되므로, 최초 클릭에 한해 캔버스 사이즈도 맞추어서 그려주도록 한다.
          */
         $('.delayTab').click(function () {
+            var type = $(this).data('canvas');
             if (!$(this).data('isTabClicked')) {
                 $(this).data('isTabClicked', true);
-                var type = $(this).data('canvas');
                 setTimeout(function () {
+                    if (type == 'feeder') {
+                        me.feederRenderer.setCanvasSize(
+                            [$('#' + me.feederRendererId).width(), $('#' + me.feederRendererId).height()]);
+                    }
                     if (type == 'hierarchy') {
                         me.hierarchyRenderer.setCanvasSize(
                             [$('#' + me.hierarchyRendererId).width(), $('#' + me.hierarchyRendererId).height()]);
@@ -205,7 +209,10 @@ ViewContorller.prototype = {
                         me.routeRenderer.setCanvasSize(
                             [$('#' + me.routeRendererId).width(), $('#' + me.routeRendererId).height()]);
                     }
+                    me.activeCanvasSlider(type);
                 }, 200);
+            } else {
+                me.activeCanvasSlider(type);
             }
         });
 
@@ -214,8 +221,13 @@ ViewContorller.prototype = {
          */
         me.resizeContent();
         me.feederRenderer = new Renderer(me.Constants.MODE.FEEDER, me.feederRendererId, this);
-        me.routeRenderer = new Renderer(me.Constants.MODE.ROUTE, me.routeRendererId, this);
         me.hierarchyRenderer = new Renderer(me.Constants.MODE.HIERARCHY, me.hierarchyRendererId, this);
+        me.routeRenderer = new Renderer(me.Constants.MODE.ROUTE, me.routeRendererId, this);
+
+        /**
+         * feederCanvas 는 처음에 슬라이더를 active 시킨다.
+         */
+        me.activeCanvasSlider('feeder');
 
         /**
          * 트리 노드의 드래그 드랍 이벤트를 Document 에 설정한다.
@@ -251,6 +263,24 @@ ViewContorller.prototype = {
         me.renderGrid(me.model.RouteReferenceList.name);
         me.bindLocationDragDrop();
 
+    },
+    activeCanvasSlider: function (type) {
+        var me = this;
+        if (type == 'feeder') {
+            me.feederRenderer.showSlider(true);
+            me.hierarchyRenderer.showSlider(false);
+            me.routeRenderer.showSlider(false);
+        }
+        if (type == 'hierarchy') {
+            me.feederRenderer.showSlider(false);
+            me.hierarchyRenderer.showSlider(true);
+            me.routeRenderer.showSlider(false);
+        }
+        if (type == 'bldg') {
+            me.feederRenderer.showSlider(false);
+            me.hierarchyRenderer.showSlider(false);
+            me.routeRenderer.showSlider(true);
+        }
     },
     /**
      * 윈도우의 높이에 맞추어서 콘텐츠를 담당하는 Dom 의 높이를 조절한다.
@@ -832,12 +862,29 @@ ViewContorller.prototype = {
                     for (var i = 0; i < gridData.length; i++) {
                         if (gridData[i]['LO_TYPE'] == 'NM') {
                             gridData[i]['shapeType'] = me.Constants.TYPE.NMLOAD;
-                            gridData[i]['shapeLabel'] = gridData[i]['LO_EQUIP_TAG_NO'];
                         }
                         if (gridData[i]['LO_TYPE'] == 'SH') {
                             gridData[i]['shapeType'] = me.Constants.TYPE.SHLOAD;
-                            gridData[i]['shapeLabel'] = gridData[i]['LO_EQUIP_TAG_NO'];
                         }
+                        if (gridData[i]['LO_TYPE'] == 'EH') {
+                            gridData[i]['shapeType'] = me.Constants.TYPE.EHLOAD;
+                        }
+                        if (gridData[i]['LO_TYPE'] == 'EHS') {
+                            gridData[i]['shapeType'] = me.Constants.TYPE.EHSLOAD;
+                        }
+                        if (gridData[i]['LO_TYPE'] == 'MI') {
+                            gridData[i]['shapeType'] = me.Constants.TYPE.MILOAD;
+                        }
+                        if (gridData[i]['LO_TYPE'] == 'MK') {
+                            gridData[i]['shapeType'] = me.Constants.TYPE.MKLOAD;
+                        }
+                        if (gridData[i]['LO_TYPE'] == 'MO') {
+                            gridData[i]['shapeType'] = me.Constants.TYPE.MOLOAD;
+                        }
+                        if (gridData[i]['LO_TYPE'] == 'PKG') {
+                            gridData[i]['shapeType'] = me.Constants.TYPE.PKGLOAD;
+                        }
+                        gridData[i]['shapeLabel'] = gridData[i]['LO_EQUIP_TAG_NO'];
                         gridData[i]['model'] = model;
                         gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + gridData[i]['LO_EQUIP_TAG_NO'] + '</a>';
                     }

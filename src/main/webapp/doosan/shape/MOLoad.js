@@ -1,23 +1,23 @@
-OG.shape.elec.NMLoad = function (label) {
-    OG.shape.elec.NMLoad.superclass.call(this);
+OG.shape.elec.MOLoad = function (label) {
+    OG.shape.elec.MOLoad.superclass.call(this);
 
-    this.SHAPE_ID = 'OG.shape.elec.NMLoad';
+    this.SHAPE_ID = 'OG.shape.elec.MOLoad';
     this.label = label;
     this.CONNECT_CLONEABLE = false;
     this.LABEL_EDITABLE = false;
     this.ENABLE_FROM = false;
 };
-OG.shape.elec.NMLoad.prototype = new OG.shape.elec.Load();
-OG.shape.elec.NMLoad.superclass = OG.shape.elec.Load;
-OG.shape.elec.NMLoad.prototype.constructor = OG.shape.elec.NMLoad;
-OG.NMLoad = OG.shape.elec.NMLoad;
+OG.shape.elec.MOLoad.prototype = new OG.shape.elec.Load();
+OG.shape.elec.MOLoad.superclass = OG.shape.elec.Load;
+OG.shape.elec.MOLoad.prototype.constructor = OG.shape.elec.MOLoad;
+OG.MOLoad = OG.shape.elec.MOLoad;
 
-OG.shape.elec.NMLoad.prototype.createShape = function () {
+OG.shape.elec.MOLoad.prototype.createShape = function () {
     if (this.geom) {
         return this.geom;
     }
 
-    this.geom = new OG.geometry.Rectangle([0, 0], 100, 80);
+    this.geom = new OG.geometry.Circle([50, 50], 50);
 
     this.geom.style = new OG.geometry.Style({
         'label-position': 'bottom',
@@ -29,10 +29,10 @@ OG.shape.elec.NMLoad.prototype.createShape = function () {
 };
 
 
-OG.shape.elec.NMLoad.prototype.createSubShape = function () {
+OG.shape.elec.MOLoad.prototype.createSubShape = function () {
     this.sub = [
         {
-            shape: new OG.TextShape('NM'),
+            shape: new OG.TextShape('M'),
             width: '100%',
             height: '50%',
             align: 'center',
