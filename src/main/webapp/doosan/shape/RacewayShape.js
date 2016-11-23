@@ -82,6 +82,17 @@ OG.shape.elec.RacewayShape.prototype.createShape = function () {
 
 OG.shape.elec.RacewayShape.prototype.createContextMenu = function () {
     var me = this;
+    var options = {'': ''};
+    console.log(this.data.pathList);
+    if (this.data && this.data.pathList) {
+        for (var i = 0; i < this.data.pathList; i++) {
+            var value = this.data.pathList[i]['value'];
+            var name = this.data.pathList[i]['name'];
+            options[value] = name;
+        }
+    }
+    console.log(options);
+
     this.contextMenu = {
         'delete': true,
         'format': true,
@@ -99,17 +110,7 @@ OG.shape.elec.RacewayShape.prototype.createContextMenu = function () {
                 'selectPath': {
                     name: '선택',
                     type: 'select',
-                    options: {
-                        '': '',
-                        'white': '하양',
-                        'gray': '회색',
-                        'blue': '파랑',
-                        'red': '빨강',
-                        'yellow': '노랑',
-                        'orange': '오렌지',
-                        'green': '녹색',
-                        'black': '검정'
-                    },
+                    options: options,
                     selected: '',
                     events: {
                         change: function (e) {

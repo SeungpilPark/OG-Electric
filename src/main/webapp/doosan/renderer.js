@@ -335,7 +335,35 @@ Renderer.prototype = {
             /**
              * 스위치 기어와 로드간의 연결시, 로드를 드랍한 위치에 따라 연결선의 포지션을 재설정한다.
              */
-            console.log(event);
+
+
+            /**
+             * 레이스 웨이가 그려졌을 경우 전 후 location 에서 shapeLabel 을 받아와 from-to 로 라벨링을 한다.
+             * pathList 데이터를 업데이트 시킨다.
+             */
+            if (edgeElement.shape instanceof OG.RacewayShape) {
+                console.log(123123);
+                me.canvas.setCustomData(edgeElement, {
+                    pathList: [
+                        {
+                            name: 'Route1',
+                            value: 'Route1'
+                        },
+                        {
+                            name: 'Route2',
+                            value: 'Route2'
+                        },
+                        {
+                            name: 'Route3',
+                            value: 'Route3'
+                        },
+                        {
+                            name: 'Route4',
+                            value: 'Route4'
+                        }
+                    ]
+                })
+            }
         });
         me.canvas.onDisconnectShape(function (event, edgeElement, fromElement, toElement) {
             me.isUpdated = true;
