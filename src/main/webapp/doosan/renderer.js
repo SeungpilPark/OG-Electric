@@ -1,9 +1,9 @@
 var Renderer = function (mode, container, controller) {
     this.Constants = {
         MODE: {
-            ROUTE: 'route',
             FEEDER: 'feeder',
             HIERARCHY: 'hierarchy',
+            ROUTE: 'route',
         },
         TYPE: {
             SWITCH_GEAR: 'SwitchGear',
@@ -32,13 +32,7 @@ var Renderer = function (mode, container, controller) {
             NEW_HIERARCHY_BLDG: 'NewHierarchyBldg'
         },
         PREFIX: {
-            EXPANDER: "-expander",
-            EXPANDER_FROM: "-expanderFrom",
-            EXPANDER_TO: "-expanderTo",
-            MAPPING_EDGE: "-mappingEdge",
-            MAPPING_LABEL: "-mapping-label",
-            SELECTED_LABEL: "-selected-label",
-            ACTIVITY_REL: "-activity-rel"
+            DIALOG: '_DIALOG'
         }
     };
     this._CONFIG = {
@@ -79,6 +73,14 @@ var Renderer = function (mode, container, controller) {
     // Canvas
     this.canvas = new OG.Canvas(container, [this._CONTAINER.width(), this._CONTAINER.height()], 'white', 'url(resources/images/symbol/grid.gif)');
     this.canvas._CONFIG.DEFAULT_STYLE.EDGE["edge-type"] = "plain";
+    /**
+     * 휠 스케일
+     */
+    this.canvas._CONFIG.WHEEL_SCALABLE = true;
+    /**
+     * 드래그 화면 이동
+     */
+    this.canvas._CONFIG.DRAG_PAGE_MOVABLE = true;
 
     this.canvas.initConfig({
         selectable: true,
@@ -188,14 +190,89 @@ Renderer.prototype = {
             }
         }
     },
+    /**
+     * 해당 렌더러에 관련된 다이아로그 창을 숨기거나 보인다.
+     * @param show
+     */
+    showDialog: function (show) {
+        var me = this;
+        var dialogName = me.getMode() + me.Constants.PREFIX.DIALOG;
+        if (show) {
+            $('[name=' + dialogName + ']').closest(".ui-dialog").show();
+        } else {
+            $('[name=' + dialogName + ']').closest(".ui-dialog").hide();
+        }
+    },
+
+    addBackDoor: function (url, scale, opacity) {
+        var me = this, element;
+        var drawBackDoor = function (url, width, height) {
+            element = me.getCanvas().drawShape([width / 2, height / 2], new OG.Backdoor(url), [width, height], {
+                opacity: opacity
+            });
+            me.getCanvas().toBack(element);
+            me.getCanvas().setCustomData(element, {
+                width: width,
+                height: height
+            });
+            me.updateBackDoor(scale, opacity);
+        };
+
+        var image = new Image();
+        image.src = url;
+        image.onload = function () {
+            var w = image.naturalWidth;
+            var h = image.naturalHeight;
+
+            //기존 백도어 삭제
+            var existBackdoor = me.getCanvas().getElementsByShapeId('OG.shape.elec.Backdoor');
+            if (existBackdoor && existBackdoor.length) {
+                for (var i = 0; i < existBackdoor.length; i++) {
+                    me.getCanvas().removeShape(existBackdoor[i]);
+                }
+            }
+            drawBackDoor(url, w, h);
+        };
+    },
+    updateBackDoor: function (scale, opacity) {
+        var me = this;
+        scale = scale ? scale : 100;
+        var existBackdoor = me.getCanvas().getElementsByShapeId('OG.shape.elec.Backdoor');
+        if (existBackdoor && existBackdoor.length) {
+            for (var i = 0; i < existBackdoor.length; i++) {
+                var boundary = me.canvas.getBoundary(existBackdoor[i]);
+                var w = boundary.getWidth();
+                var h = boundary.getHeight();
+                var upper = boundary.getUpperLeft().y;
+                var left = boundary.getUpperLeft().x;
+                var customData = me.canvas.getCustomData(existBackdoor[i]);
+                var width = customData.width;
+                var height = customData.height;
+                width = width ? width : w;
+                height = height ? height : h;
+                width = width * (scale / 100);
+                height = height * (scale / 100);
+
+                var style = {};
+                if (opacity) {
+                    style = {
+                        'opacity': opacity
+                    };
+                    existBackdoor[i].shape.geom.style.map['opacity'] = opacity;
+                }
+
+                var resizeX = width - w;
+                var resizeY = height - h;
+                me.getCanvas().resize(existBackdoor[i], [0, resizeY, 0, resizeX]);
+                me.getCanvas().move(existBackdoor[i], [-left, -upper]);
+                me.getCanvas().setCanvasSize([width * me.canvas._CONFIG.SCALE, height * me.canvas._CONFIG.SCALE]);
+                me.canvas.updateSlider();
+            }
+        }
+    },
 
     //TODO
-    // 드랍이벤트시 위치 체크 로직. -> ok
-    // 빌딩 포인트와 레이스웨이(맨홀) 드래그 하는 로직 추가. -> 다음 할일
     // 툴바에 텍스트, 기타 shape 오브젝트 추가.
-    // 뷰 컨트롤러에 생성 명령 콜백 -> 뷰 컨트롤러에서 캔버스 에디팅 여부 체크 -> 새로 생성 또는 기존 수정 보내기. ing
-    // 캔버스에 생성자와 타이틀이 없다면 아무것도 못하게 함.
-
     // 샘플 데이터 파악하여 릴레이션 관계 명확하게 만들기
     // 서버 CRUD 만들기
 
@@ -271,6 +348,8 @@ Renderer.prototype = {
                         offset[1] - me.getContainer().offset().top + me.getContainer()[0].scrollTop
                     ];
                 }
+                position[0] = position[0] / me.canvas._CONFIG.SCALE;
+                position[1] = position[1] / me.canvas._CONFIG.SCALE;
                 //캔버스의 editingObject (에디팅 객체) 가 없다면 그리지 않는다.
                 if (!me.editingObject) {
                     me._CONTROLLER.onMessage(me, shapeInfo, me._CONTROLLER.message.NO_EDITOR_OBJECT);
@@ -279,6 +358,11 @@ Renderer.prototype = {
                     shape.data = shapeInfo;
                     element = me.getCanvas().drawShape(position, shape, size);
                     me.getContainer().removeData('DRAG_SHAPE');
+
+                    //Load 일 경우 onLoadDrop 호출
+                    if (shape instanceof OG.Load) {
+                        me.onLoadDrop(element);
+                    }
                 }
             }
         }
@@ -305,6 +389,48 @@ Renderer.prototype = {
     },
 
     /**
+     * 로드가 캔버스에 드랍되었을 경우의 처리
+     */
+    onLoadDrop: function (loadElement) {
+        var me = this;
+        var swgrElement = me.canvas.getElementsByShapeId('OG.shape.elec.SwitchGear').get(0);
+        if (!swgrElement) {
+            me.canvas.remove(loadElement);
+        }
+
+        /**
+         * 스위치 기어쪽의 터미널 포지션(fromP)을 구한다.
+         */
+        var toBoundary = me.canvas.getBoundary(loadElement);
+        var fromBoundary = me.canvas.getBoundary(swgrElement);
+
+        var toX = toBoundary.getCentroid().x;
+        var fLeft = fromBoundary.getLeftCenter().x;
+        var fRight = fromBoundary.getRightCenter().x;
+        var fCenter = fromBoundary.getCentroid();
+        var fLow = fromBoundary.getLeftCenter().y;
+        var fromP;
+
+        //로드의 x 가 스위치의 너비 내에 있을 경우
+        if (toX > fLeft && toX < fRight) {
+            fromP = [toX, fLow];
+        }
+        //로드의 x 가 스위치의 좌측일 경우
+        else if (toX <= fLeft) {
+            fromP = [fLeft, fCenter.y];
+        }
+        //로드의 x 가 스위치의 우측일 경우
+        else if (toX >= fRight) {
+            fromP = [fRight, fCenter.y];
+        }
+        /**
+         * 스위치 기어와 로드를 케이블로 연결한다.
+         */
+        me.canvas.connect(swgrElement, loadElement, null, null, fromP, null, null, null, new OG.CableShape());
+    },
+
+
+    /**
      * 사용자로 인해 캔버스에 이벤트가 발생하였을 경우 처리
      */
     bindEvent: function () {
@@ -315,54 +441,25 @@ Renderer.prototype = {
         });
         me.canvas.onRedrawShape(function (event, element) {
             me.isUpdated = true;
-
         });
         me.canvas.onRemoveShape(function (event, shapeElement) {
             me.isUpdated = true;
 
         });
-        me.canvas.onMoveShape(function (event, shapeElement, offset) {
+        me.canvas.onMoveShape(function (event, element, offset) {
             me.isUpdated = true;
-
         });
         me.canvas.onResizeShape(function (event, shapeElement, offset) {
             me.isUpdated = true;
-
         });
         me.canvas.onConnectShape(function (event, edgeElement, fromElement, toElement) {
             me.isUpdated = true;
 
             /**
-             * 스위치 기어와 로드간의 연결시, 로드를 드랍한 위치에 따라 연결선의 포지션을 재설정한다.
-             */
-
-
-            /**
              * 레이스 웨이가 그려졌을 경우 전 후 location 에서 shapeLabel 을 받아와 from-to 로 라벨링을 한다.
-             * pathList 데이터를 업데이트 시킨다.
              */
             if (edgeElement.shape instanceof OG.RacewayShape) {
-                console.log(123123);
-                me.canvas.setCustomData(edgeElement, {
-                    pathList: [
-                        {
-                            name: 'Route1',
-                            value: 'Route1'
-                        },
-                        {
-                            name: 'Route2',
-                            value: 'Route2'
-                        },
-                        {
-                            name: 'Route3',
-                            value: 'Route3'
-                        },
-                        {
-                            name: 'Route4',
-                            value: 'Route4'
-                        }
-                    ]
-                })
+                me.canvas.drawLabel(edgeElement, fromElement.shape.label + toElement.shape.label);
             }
         });
         me.canvas.onDisconnectShape(function (event, edgeElement, fromElement, toElement) {
@@ -384,6 +481,145 @@ Renderer.prototype = {
         me.canvas.onBeforeConnectShape(function (event, edgeElement, fromElement, toElement) {
 
         });
+
+        /**
+         * 케이블 변경이 일어났을 경우 이벤트
+         */
+        $(me.canvas.getRootElement()).bind('cableChange', function (event, shapeElement, beforeShapeId, afterShapeId) {
+            console.log(shapeElement, beforeShapeId, afterShapeId);
+        });
+
+        /**
+         * 라우트 보기 이벤트
+         */
+        $(me.canvas.getRootElement()).bind('showRouteList', function (event, shapeElement) {
+            me.onShowRouteList(shapeElement);
+        });
+
+    },
+    /**
+     * 해당 레이스웨이를 지나는 라우트 리스트를 팝업하고, 라우트 선택시 다른 라우트 경로를 선택가능하게 한다.
+     * @param element
+     */
+    onShowRouteList: function (element) {
+        var me = this;
+        var routes = me.getRoutesWithRaceway(element);
+        var dialogName = me.getMode() + me.Constants.PREFIX.DIALOG;
+        var dialogId = me._CONTAINER_ID + element.id;
+        var dialog = $('<div></div>');
+        dialog.attr('name', dialogName);
+        dialog.attr('id', dialogId);
+        $('body').append(dialog);
+
+        dialog.dialog({
+                title: 'Routes',
+                position: {my: "left top", at: "left top", of: document.getElementById(me._CONTAINER_ID)},
+                height: 400,
+                width: 300,
+                dialogClass: "",
+                appendTo: 'body'
+            }
+        );
+
+
+        //<div class="col-md-12">
+        //    <table id="unAssignedLoadGrid" class="display"
+        //width="100%"></table>
+        //    </div>
+    },
+    /**
+     * 해당 레이스웨이를 지나는 라우트 리스트를 구한다.
+     * @param element
+     * @returns {Array}
+     */
+    getRoutesWithRaceway: function (element) {
+        var me = this;
+        var routes = [];
+        var relatedElementsFromEdge = me.canvas.getRelatedElementsFromEdge(element);
+        var from = relatedElementsFromEdge.from;
+        var to = relatedElementsFromEdge.to;
+        if (!from || !to) {
+            return routes;
+        }
+
+        var fromPaths = [];
+        var toPaths = [];
+
+        var isExcludeLocation = function (element, excludeElement, paths) {
+            var isExclude = false;
+            if (element.id == excludeElement.id) {
+                isExclude = true;
+            }
+            for (var i = 0, leni = paths.length; i < leni; i++) {
+                if (paths[i] == element.id) {
+                    isExclude = true;
+                }
+            }
+            return isExclude;
+        };
+        var findEndLocation = function (element, excludeElement, paths, fromTo) {
+            //주어진 도형이 Location 일 경우 fromPaths 또는 toPaths 에 추가한 후 종료한다.
+            if (element.shape instanceof OG.Location) {
+                if (fromTo == 'from') {
+                    fromPaths.push(paths);
+                } else {
+                    toPaths.push(paths);
+                }
+                return;
+            }
+
+            //주어진 도형에 연결된 도형들을 찾는다.
+            var prevShapes = me.canvas.getPrevShapes(element);
+            var nextShapes = me.canvas.getNextShapes(element);
+
+            //연결된 도형중 excludeElement(파생되어 온 도형) 을 제외하고, paths 중 중복되는 것 또한 파기한다.
+            var relatedShapes = [];
+            for (var i = 0; i < prevShapes.length; i++) {
+                if (!isExcludeLocation(prevShapes[i], excludeElement, paths)) {
+                    relatedShapes.push(prevShapes[i]);
+                }
+            }
+            for (var i = 0; i < nextShapes.length; i++) {
+                if (!isExcludeLocation(nextShapes[i], excludeElement, paths)) {
+                    relatedShapes.push(nextShapes[i]);
+                }
+            }
+            for (var i = 0; i < relatedShapes.length; i++) {
+                //paths 에 추가한다.
+                var newPath = JSON.parse(JSON.stringify(paths));
+                newPath.push(relatedShapes[i].id);
+
+                //연결된 도형이 Location 일 경우 fromPaths 또는 toPaths 에 추가한 후 종료한다.
+                if (relatedShapes[i].shape instanceof OG.Location) {
+                    if (fromTo == 'from') {
+                        fromPaths.push(newPath);
+                    } else {
+                        toPaths.push(newPath);
+                    }
+                    continue;
+                }
+                findEndLocation(relatedShapes[i], element, newPath, fromTo);
+            }
+        };
+        findEndLocation(from, to, [from.id], 'from');
+        findEndLocation(to, from, [to.id], 'to');
+
+        var fromPath, toPath, concatPath, fromLocation, toLocation;
+        //fromPaths,toPaths 를 하나의 패스로 연결한다. 이때 location 이 같은 것은 리스트에서 제외한다.
+        for (var i = 0, leni = fromPaths.length; i < leni; i++) {
+            fromPath = fromPaths[i];
+            fromPath.reverse();
+            for (var c = 0, lenc = toPaths.length; c < lenc; c++) {
+                toPath = toPaths[c];
+                fromLocation = fromPath[0];
+                toLocation = toPath[toPath.length - 1];
+                if (fromLocation != toLocation) {
+                    concatPath = fromPath.concat(toPath);
+                    routes.push(concatPath);
+                }
+            }
+        }
+        return routes;
     }
 };
 Renderer.prototype.constructor = Renderer;

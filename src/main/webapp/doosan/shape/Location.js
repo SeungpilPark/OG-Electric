@@ -39,13 +39,8 @@ OG.shape.elec.Location.prototype.createShape = function () {
 
 
 OG.shape.elec.Location.prototype.createSubShape = function () {
-    if (!this.data) {
-        return;
-    }
+    this.sub = [];
 
-    this.sub = [
-
-    ];
     return this.sub;
 };
 

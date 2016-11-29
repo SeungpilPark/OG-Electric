@@ -82,17 +82,6 @@ OG.shape.elec.RacewayShape.prototype.createShape = function () {
 
 OG.shape.elec.RacewayShape.prototype.createContextMenu = function () {
     var me = this;
-    var options = {'': ''};
-    console.log(this.data.pathList);
-    if (this.data && this.data.pathList) {
-        for (var i = 0; i < this.data.pathList; i++) {
-            var value = this.data.pathList[i]['value'];
-            var name = this.data.pathList[i]['name'];
-            options[value] = name;
-        }
-    }
-    console.log(options);
-
     this.contextMenu = {
         'delete': true,
         'format': true,
@@ -105,26 +94,8 @@ OG.shape.elec.RacewayShape.prototype.createContextMenu = function () {
             }
         },
         'pathList': {
-            name: '라우트 보기',
-            items: {
-                'selectPath': {
-                    name: '선택',
-                    type: 'select',
-                    options: options,
-                    selected: '',
-                    events: {
-                        change: function (e) {
-                            if (e.target.value !== '') {
-                                $(me.currentCanvas.getRootElement()).trigger('showRouteList', [me.currentElement, e.target.value]);
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        'alternative': {
-            name: '라우트 변경', callback: function () {
-                $(me.currentCanvas.getRootElement()).trigger('changeRoute', [me.currentElement]);
+            name: '라우트 보기', callback: function () {
+                $(me.currentCanvas.getRootElement()).trigger('showRouteList', [me.currentElement]);
             }
         }
     };

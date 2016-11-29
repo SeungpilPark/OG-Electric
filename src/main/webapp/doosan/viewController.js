@@ -17,6 +17,11 @@ var ViewContorller = function () {
     this.Config = new Renderer()._CONFIG;
 
     /**
+     * 현재 컨트롤러의 모드
+     */
+    this.currentMode = this.Constants.MODE.FEEDER;
+
+    /**
      * 어사인 피더 에디터 캔버스
      * @type {null}
      */
@@ -133,53 +138,161 @@ var ViewContorller = function () {
     };
 };
 ViewContorller.prototype = {
-    /**
-     * 테이블/트리 모델명으로 표현되야할 캔버스 렌더러를 리턴한다.
-     * @param modelName
-     * @returns {*}
-     */
-    getRendererByModel: function (modelName) {
-        var me = this;
-        var feederRenderer = [
-            me.model.AssignedLoadList.name,
-            me.model.SwgrList.name,
-            me.model.FeederList.name,
-            me.model.UnAssignedLoadList.name
-        ];
-        var hierarchyRenderer = [
-            me.model.HierarchyTreeList.name,
-            me.model.HierarchyFeederList.name
-        ];
-        var routeRenderer = [
-            me.model.LocationReferenceList.name,
-            me.model.RacewayReferenceList.name,
-            me.model.RouteReferenceList.name,
-            me.model.BldgReferenceList.name
-        ];
 
-        if (feederRenderer.indexOf(modelName) != -1) {
-            return this.feederRenderer;
-        }
-        if (hierarchyRenderer.indexOf(modelName) != -1) {
-            return this.hierarchyRenderer;
-        }
-        if (routeRenderer.indexOf(modelName) != -1) {
-            return this.routeRenderer;
-        }
-        return null;
-    },
     /**
-     * 테이블/트리 모델명으로 표현되야할 캔버스의 모드를 리턴한다.
-     * @param modelName
-     * @returns {*}
+     * 툴바의 드랍다운 메뉴를 활성화하고, 이벤트를 등록한다.
      */
-    getModeByModel: function (modelName) {
-        var mode;
-        var rendererByModel = this.getRendererByModel(modelName);
-        if (rendererByModel) {
-            mode = rendererByModel.getMode();
-        }
-        return mode;
+    bindMenuEvent: function () {
+        var me = this;
+        $('.dropdown-menu').menu();
+        $('.dropdown-menu-trigger').click(function () {
+            $(this).find('.dropdown-menu').toggle();
+        });
+
+        //데이터 유틸리티
+        var dataModal = $('#dataBox');
+        dataModal.find('[name=close]').click(function () {
+            dataModal.find('.close').click();
+        });
+        $('[name=menu-printJson]').click(function () {
+            dataModal.find('[name=save]').hide();
+            var renderer = me.getRendererByMode(me.currentMode);
+            var json = JSON.stringify(renderer.canvas.toJSON());
+            dataModal.find('textarea').val(json);
+            dataModal.modal({
+                show: true
+            });
+        });
+
+        $('[name=menu-printXml]').click(function () {
+            dataModal.find('[name=save]').hide();
+            var renderer = me.getRendererByMode(me.currentMode);
+            var xml = renderer.canvas.toXML();
+            dataModal.find('textarea').val(xml);
+            dataModal.modal({
+                show: true
+            });
+        });
+
+        $('[name=menu-loadJson]').click(function () {
+            dataModal.find('[name=save]').show();
+            dataModal.find('[name=save]').unbind('click');
+            dataModal.find('[name=save]').bind('click', function () {
+                var val = dataModal.find('textarea').val();
+                var json = JSON.parse(val);
+                var renderer = me.getRendererByMode(me.currentMode);
+                renderer.canvas.loadJSON(json);
+                dataModal.find('.close').click();
+            });
+            dataModal.find('textarea').val('');
+            dataModal.modal({
+                show: true
+            });
+        });
+
+        $('[name=menu-loadXml]').click(function () {
+            dataModal.find('[name=save]').show();
+            dataModal.find('[name=save]').unbind('click');
+            dataModal.find('[name=save]').bind('click', function () {
+                var xml = dataModal.find('textarea').val();
+                var renderer = me.getRendererByMode(me.currentMode);
+                renderer.canvas.loadXML(xml);
+                dataModal.find('.close').click();
+            });
+            dataModal.find('textarea').val('');
+            dataModal.modal({
+                show: true
+            });
+        });
+
+        //어노테이션 메뉴
+        $('.ogCanvas').click(function (event) {
+            var renderer = me.getRendererByMode(me.currentMode);
+            var shapeInfo = renderer.getContainer().data('CLICK_SHAPE');
+            if (shapeInfo) {
+                var shape = eval('new ' + shapeInfo._shape_id + '()');
+                var dropX = event.pageX - renderer.getContainer().offset().left + renderer.getContainer().get(0).scrollLeft;
+                var dropY = event.pageY - renderer.getContainer().offset().top + renderer.getContainer().get(0).scrollTop;
+                dropX = dropX / renderer.getCanvas()._CONFIG.SCALE;
+                dropY = dropY / renderer.getCanvas()._CONFIG.SCALE;
+                renderer.getCanvas().drawShape([dropX, dropY],
+                    shape, [parseInt(shapeInfo._width, 10), parseInt(shapeInfo._height, 10)]);
+                renderer.getContainer().removeData('CLICK_SHAPE');
+                renderer.getContainer().css({
+                    cursor: 'default'
+                });
+            }
+        });
+
+        $('.ogCanvas').mousedown(function (e) {
+            if (e.button == 2) {
+                var renderer = me.getRendererByMode(me.currentMode);
+                renderer.getContainer().removeData('CLICK_SHAPE');
+                renderer.getContainer().css({
+                    cursor: 'default'
+                });
+                return false;
+            }
+            return true;
+        });
+
+        $('#editor-shape-menu').find('li').click(function () {
+            var renderer = me.getRendererByMode(me.currentMode);
+            var img = $(this).find('img');
+            renderer.getContainer().data('CLICK_SHAPE', {
+                '_shape_type': img.attr('_shape_type'),
+                '_shape_id': img.attr('_shape_id'),
+                '_width': img.attr('_width'),
+                '_height': img.attr('_height')
+            });
+            renderer.getContainer().addClass('custom');
+            renderer.getContainer().css({
+                cursor: 'url(' + img.attr('src') + '), auto'
+            });
+        });
+
+        //백도어 메뉴
+        var backdoorBtn = $('[name=menu-importBackdoor]');
+        var backDoorSize = $('#backdoor-size-range');
+        var backDoorOpacity = $('#backdoor-opacity-range');
+        var fileInput = $('#backdoor-upload');
+        backdoorBtn.click(function (e) {
+            fileInput.click();
+        });
+        fileInput.bind('change', function (event) {
+            var target = event.delegateTarget;
+            if (target.files && target.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var renderer = me.getRendererByMode(me.currentMode);
+                    renderer.addBackDoor(e.target.result, backDoorSize.val(), backDoorOpacity.val());
+                };
+                reader.readAsDataURL(target.files[0]);
+            }
+        });
+
+        backDoorSize.bind('change', function (event) {
+            var renderer = me.getRendererByMode(me.currentMode);
+            renderer.updateBackDoor($(this).val(), null);
+            $('#backdoor-size-range-text').html('Size : ' + $(this).val() + '%');
+        });
+
+        backDoorOpacity.bind('change', function (event) {
+            var renderer = me.getRendererByMode(me.currentMode);
+            renderer.updateBackDoor(null, $(this).val());
+            $('#backdoor-opacity-range-text').html('Opacity : ' + $(this).val());
+        });
+
+        var preventClose = $('.preventClose');
+        preventClose.bind('mousedown', function (event) {
+            event.stopPropagation();
+        });
+        preventClose.bind('mouseup', function (event) {
+            event.stopPropagation();
+        });
+        preventClose.bind('click', function (event) {
+            event.stopPropagation();
+        });
     },
 
     init: function () {
@@ -193,26 +306,36 @@ ViewContorller.prototype = {
          * active 가 아닌 탭의 콘텐츠는 css width,height 가 최초 탭 선택시 설정되므로, 최초 클릭에 한해 캔버스 사이즈도 맞추어서 그려주도록 한다.
          */
         $('.delayTab').click(function () {
-            var type = $(this).data('canvas');
+            var mode = $(this).data('canvas');
             if (!$(this).data('isTabClicked')) {
                 $(this).data('isTabClicked', true);
                 setTimeout(function () {
-                    if (type == 'feeder') {
+                    if (mode == me.Constants.MODE.FEEDER) {
                         me.feederRenderer.setCanvasSize(
                             [$('#' + me.feederRendererId).width(), $('#' + me.feederRendererId).height()]);
+                        $('#editor-backdoor').hide();
                     }
-                    if (type == 'hierarchy') {
+                    if (mode == me.Constants.MODE.HIERARCHY) {
                         me.hierarchyRenderer.setCanvasSize(
                             [$('#' + me.hierarchyRendererId).width(), $('#' + me.hierarchyRendererId).height()]);
+                        $('#editor-backdoor').hide();
                     }
-                    if (type == 'bldg') {
+                    if (mode == me.Constants.MODE.ROUTE) {
                         me.routeRenderer.setCanvasSize(
                             [$('#' + me.routeRendererId).width(), $('#' + me.routeRendererId).height()]);
+                        $('#editor-backdoor').show();
                     }
-                    me.activeCanvasSlider(type);
+                    me.activeCanvasSlider(mode);
+                    me.currentMode = mode;
                 }, 200);
             } else {
-                me.activeCanvasSlider(type);
+                me.activeCanvasSlider(mode);
+                me.currentMode = mode;
+                if (mode == me.Constants.MODE.ROUTE) {
+                    $('#editor-backdoor').show();
+                } else {
+                    $('#editor-backdoor').hide();
+                }
             }
         });
 
@@ -263,23 +386,109 @@ ViewContorller.prototype = {
         me.renderGrid(me.model.RouteReferenceList.name);
         me.bindLocationDragDrop();
 
+
+        me.bindMenuEvent();
+
+        $('#editor-backdoor').hide();
     },
-    activeCanvasSlider: function (type) {
+
+    /**
+     * 모드에 해당하는 캔버스 렌더러를 리턴한다.
+     * @param mode
+     */
+    getRendererByMode: function (mode) {
+        if (mode == this.Constants.MODE.FEEDER) {
+            return this.feederRenderer;
+        }
+        if (mode == this.Constants.MODE.HIERARCHY) {
+            return this.hierarchyRenderer;
+        }
+        if (mode == this.Constants.MODE.ROUTE) {
+            return this.routeRenderer;
+        }
+        return null;
+    },
+
+    /**
+     * 테이블/트리 모델명으로 표현되야할 캔버스 렌더러를 리턴한다.
+     * @param modelName
+     * @returns {*}
+     */
+    getRendererByModel: function (modelName) {
         var me = this;
-        if (type == 'feeder') {
+        var feederRenderer = [
+            me.model.AssignedLoadList.name,
+            me.model.SwgrList.name,
+            me.model.FeederList.name,
+            me.model.UnAssignedLoadList.name
+        ];
+        var hierarchyRenderer = [
+            me.model.HierarchyTreeList.name,
+            me.model.HierarchyFeederList.name
+        ];
+        var routeRenderer = [
+            me.model.LocationReferenceList.name,
+            me.model.RacewayReferenceList.name,
+            me.model.RouteReferenceList.name,
+            me.model.BldgReferenceList.name
+        ];
+
+        if (feederRenderer.indexOf(modelName) != -1) {
+            return this.feederRenderer;
+        }
+        if (hierarchyRenderer.indexOf(modelName) != -1) {
+            return this.hierarchyRenderer;
+        }
+        if (routeRenderer.indexOf(modelName) != -1) {
+            return this.routeRenderer;
+        }
+        return null;
+    },
+    /**
+     * 테이블/트리 모델명으로 표현되야할 캔버스의 모드를 리턴한다.
+     * @param modelName
+     * @returns {*}
+     */
+    getModeByModel: function (modelName) {
+        var mode;
+        var rendererByModel = this.getRendererByModel(modelName);
+        if (rendererByModel) {
+            mode = rendererByModel.getMode();
+        }
+        return mode;
+    },
+
+    activeCanvasSlider: function (mode) {
+        var me = this;
+        if (mode == me.Constants.MODE.FEEDER) {
             me.feederRenderer.showSlider(true);
+            me.feederRenderer.showDialog(true);
+
             me.hierarchyRenderer.showSlider(false);
+            me.hierarchyRenderer.showDialog(false);
+
             me.routeRenderer.showSlider(false);
+            me.routeRenderer.showDialog(false);
         }
-        if (type == 'hierarchy') {
+        if (mode == me.Constants.MODE.HIERARCHY) {
             me.feederRenderer.showSlider(false);
+            me.feederRenderer.showDialog(false);
+
             me.hierarchyRenderer.showSlider(true);
+            me.hierarchyRenderer.showDialog(true);
+
             me.routeRenderer.showSlider(false);
+            me.routeRenderer.showDialog(false);
         }
-        if (type == 'bldg') {
+        if (mode == me.Constants.MODE.ROUTE) {
             me.feederRenderer.showSlider(false);
+            me.feederRenderer.showDialog(false);
+
             me.hierarchyRenderer.showSlider(false);
+            me.hierarchyRenderer.showDialog(false);
+
             me.routeRenderer.showSlider(true);
+            me.routeRenderer.showDialog(true);
         }
     },
     /**
@@ -477,7 +686,7 @@ ViewContorller.prototype = {
 
                 },
                 helper: 'clone',
-                appendTo: "#" + canvas.getContainer().attr('id'),
+                appendTo: 'body',
                 stop: function (event) {
                     //TODO 여기서, 로케이션 및 맨홀 데이터를 드랍한 후 서버에서 REF_NAME_TO 값을 받아와야 하는 것으로 추정한다.
                     //그리고, 캔버스쪽에서는 이 로케이션이 빌딩위로 드랍된 것 을 감지하여, 이 로케이션의 LOC_REF_NAME 를 변경해야 한다.
@@ -737,7 +946,7 @@ ViewContorller.prototype = {
 
                         },
                         helper: 'clone',
-                        appendTo: "#" + canvas.getContainer().attr('id'),
+                        appendTo: 'body',
                         stop: function (event) {
                             canvas.getContainer().trigger('drop.viewController', [event, itemData]);
                         }
@@ -1002,14 +1211,15 @@ ViewContorller.prototype = {
                 } else {
                     for (var i = 0; i < gridData.length; i++) {
                         gridData[i]['model'] = model;
-                        gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + gridData[i]['ROU_REF_TOT_PATH'] + '</a>';
+                        gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' +
+                            gridData[i]['ROU_REF_FROM'] + ' - ' + gridData[i]['ROU_REF_TO'] + '</a>';
                     }
                     greedOptions = {
                         data: gridData,
                         columns: [
                             {
                                 data: 'label',
-                                title: 'Path',
+                                title: 'From - To',
                                 defaultContent: ''
                             },
                             {

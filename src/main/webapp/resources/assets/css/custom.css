@@ -88,6 +88,7 @@ div.tooltip-inner {
 }
 
 .toolbar {
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 
@@ -169,6 +170,17 @@ table.dataTable td {
     display: none;
 }
 
+.dropdown-menu-trigger {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+}
+.icon_shape{
+    width: 30px;height: 30px;
+}
+
 /*Jquery UI*/
 .ui-widget-header {
     background: #4765a0;
@@ -176,3 +188,7 @@ table.dataTable td {
     line-height: 1;
     color: white;
 }
+
+/*.custom {*/
+    /*cursor: url(../../../resources/images/symbol/connector_sequence.png), auto;*/
+/*}*/

@@ -24,6 +24,7 @@ OG.WireShape = OG.shape.elec.WireShape;
 
 OG.shape.elec.WireShape.prototype.createContextMenu = function () {
     var me = this;
+    var beforeShapeId,afterShapeId;
     this.contextMenu = {
         'delete': true,
         'format': true,
@@ -45,7 +46,10 @@ OG.shape.elec.WireShape.prototype.createContextMenu = function () {
                     value: 'OG.shape.elec.CableShape',
                     events: {
                         change: function (e) {
+                            beforeShapeId = me.currentElement.shape.SHAPE_ID;
                             me.currentCanvas.getEventHandler().changeShape(e.target.value, null);
+                            afterShapeId = me.currentElement.shape.SHAPE_ID;
+                            $(me.currentCanvas.getRootElement()).trigger('cableChange', [me.currentElement, beforeShapeId, afterShapeId]);
                         }
                     }
                 },
@@ -56,7 +60,10 @@ OG.shape.elec.WireShape.prototype.createContextMenu = function () {
                     value: 'OG.shape.elec.BusductShape',
                     events: {
                         change: function (e) {
+                            beforeShapeId = me.currentElement.shape.SHAPE_ID;
                             me.currentCanvas.getEventHandler().changeShape(e.target.value, 'IPB');
+                            afterShapeId = me.currentElement.shape.SHAPE_ID;
+                            $(me.currentCanvas.getRootElement()).trigger('cableChange', [me.currentElement, beforeShapeId, afterShapeId]);
                         }
                     }
                 },
@@ -67,7 +74,10 @@ OG.shape.elec.WireShape.prototype.createContextMenu = function () {
                     value: 'OG.shape.elec.BusductShape',
                     events: {
                         change: function (e) {
+                            beforeShapeId = me.currentElement.shape.SHAPE_ID;
                             me.currentCanvas.getEventHandler().changeShape(e.target.value, 'SPB');
+                            afterShapeId = me.currentElement.shape.SHAPE_ID;
+                            $(me.currentCanvas.getRootElement()).trigger('cableChange', [me.currentElement, beforeShapeId, afterShapeId]);
                         }
                     }
                 },
@@ -78,7 +88,10 @@ OG.shape.elec.WireShape.prototype.createContextMenu = function () {
                     value: 'OG.shape.elec.BusductShape',
                     events: {
                         change: function (e) {
+                            beforeShapeId = me.currentElement.shape.SHAPE_ID;
                             me.currentCanvas.getEventHandler().changeShape(e.target.value, 'NSPB');
+                            afterShapeId = me.currentElement.shape.SHAPE_ID;
+                            $(me.currentCanvas.getRootElement()).trigger('cableChange', [me.currentElement, beforeShapeId, afterShapeId]);
                         }
                     }
                 },
@@ -89,7 +102,10 @@ OG.shape.elec.WireShape.prototype.createContextMenu = function () {
                     value: 'OG.shape.elec.BusductShape',
                     events: {
                         change: function (e) {
+                            beforeShapeId = me.currentElement.shape.SHAPE_ID;
                             me.currentCanvas.getEventHandler().changeShape(e.target.value, 'CRB');
+                            afterShapeId = me.currentElement.shape.SHAPE_ID;
+                            $(me.currentCanvas.getRootElement()).trigger('cableChange', [me.currentElement, beforeShapeId, afterShapeId]);
                         }
                     }
                 }

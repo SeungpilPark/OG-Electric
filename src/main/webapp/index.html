@@ -97,6 +97,7 @@
     <script type="text/javascript" src="doosan/shape/BLDG.js"></script>
     <script type="text/javascript" src="doosan/shape/Location.js"></script>
     <script type="text/javascript" src="doosan/shape/Manhole.js"></script>
+    <script type="text/javascript" src="doosan/shape/Backdoor.js"></script>
 
     <script type="text/javascript" src="doosan/dataController.js"></script>
     <script type="text/javascript" src="doosan/renderer.js"></script>
@@ -139,6 +140,26 @@
                 <div class="modal-footer">
                     <button class="btn-u" type="button" name="continue">확인</button>
                     <button class="btn-u btn-u-default" type="button" name="close">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Modal -->
+    <div class="modal fade" id="dataBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 class="modal-title">Data</h4>
+                </div>
+                <div class="modal-body">
+                    <textarea rows="12" style="width:100%"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-u" type="button" name="save">저장</button>
+                    <button class="btn-u" type="button" name="close">닫기</button>
                 </div>
             </div>
         </div>
@@ -190,38 +211,126 @@
     <div class="container" style="padding-top: 10px;padding-bottom: 30px;">
         <div class="tab-v1">
             <ul class="nav nav-tabs">
-                <li class="active delayTab renderTab" data-canvas="feeder"><a href="#swgrFeederEditor" data-toggle="tab" aria-expanded="true">SWGR / Assigned
+                <li class="active delayTab renderTab" data-canvas="feeder"><a href="#swgrFeederEditor" data-toggle="tab"
+                                                                              aria-expanded="true">SWGR / Assigned
                     Feeder
                     Editor</a></li>
                 <li class="delayTab renderTab" data-canvas="hierarchy"><a href="#hierarchyEditor" id="hierarchyTab"
-                                                                data-toggle="tab" aria-expanded="false">Hierarchy
+                                                                          data-toggle="tab" aria-expanded="false">Hierarchy
                     Editor</a></li>
-                <li class="delayTab renderTab" data-canvas="bldg"><a href="#bldgRouteEditor" id="bldgRouteTab" data-toggle="tab"
-                                                           aria-expanded="false">BLDG / Route Editor</a></li>
+                <li class="delayTab renderTab" data-canvas="route"><a href="#bldgRouteEditor" id="bldgRouteTab"
+                                                                      data-toggle="tab"
+                                                                      aria-expanded="false">BLDG / Route Editor</a></li>
             </ul>
+
+            <!--메뉴바-->
+            <div class="col-md-12 toolbar">
+                <button class="btn btn-xs rounded btn-default" id="editor-save" type="button"><i
+                        class="fa fa-plus"></i> Save
+                </button>
+                <button class="btn btn-xs rounded btn-default" id="editor-save-as" type="button"><i
+                        class="fa fa-refresh"></i> Save as
+                </button>
+                <button class="btn btn-xs rounded btn-default" id="editor-zoomIn" type="button"><i
+                        class="fa fa-search-plus"></i> Zoom | IN
+                </button>
+                <button class="btn btn-xs rounded btn-default" id="editor-zoomFit" type="button"><i
+                        class="fa fa-arrows-h"></i> Zoom | FIT
+                </button>
+                <button class="btn btn-xs rounded btn-default" id="editor-zoomOut" type="button"><i
+                        class="fa fa-search-minus"></i> Zoom | OUT
+                </button>
+                <button class="btn btn-xs rounded btn-default dropdown-menu-trigger" id="editor-backdoor"
+                        type="button"><i
+                        class="fa-file-image-o" style="display: none"></i> Backdoor
+                    <ul id="editor-backdoor-menu" class="dropdown-menu">
+                        <li>
+                            <small name="menu-importBackdoor">Import Backdoor</small>
+                        </li>
+                        <li class="preventClose">
+                            <small id="backdoor-size-range-text">Size : 100%</small>
+                            <input type="range" id="backdoor-size-range" max="200" min="20" value="100" step="10">
+                        </li>
+                        <li class="preventClose">
+                            <small id="backdoor-opacity-range-text">Opacity : 0.5</small>
+                            <input type="range" id="backdoor-opacity-range" max="1" min="0" value="0.5" step="0.1">
+                        </li>
+                    </ul>
+                    <input style="display: none" type="file" id="backdoor-upload">
+                </button>
+
+                <button class="btn btn-xs rounded btn-default dropdown-menu-trigger" id="editor-util"
+                        type="button"><i
+                        class="fa fa-search-minus"></i> Utils
+                    <ul id="editor-util-menu" class="dropdown-menu">
+                        <li>
+                            <small name="menu-printJson">Print Json</small>
+                        </li>
+                        <li>
+                            <small name="menu-printXml">Print Xml</small>
+                        </li>
+                        <li>
+                            <small name="menu-loadJson">Load Json</small>
+                        </li>
+                        <li>
+                            <small name="menu-loadXml">Load Xml</small>
+                        </li>
+                    </ul>
+                </button>
+
+                <button class="btn btn-xs rounded btn-default dropdown-menu-trigger" id="editor-shape"
+                        type="button"><i
+                        class="fa fa-search-minus"></i> Annotaion
+                    <ul id="editor-shape-menu" class="dropdown-menu">
+                        <li>
+                            <img src="resources/images/symbol/connector_sequence.png" class="icon_shape"
+                                 _shape_type="EDGE"
+                                 _shape_id="OG.shape.bpmn.C_Sequence" _width="200" _height="150"/>
+                            <small>Sequence</small>
+                        </li>
+                        <li>
+                            <img src="resources/images/symbol/connector_message.png" class="icon_shape"
+                                 _shape_type="EDGE"
+                                 _shape_id="OG.shape.bpmn.C_Message" _width="200" _height="150"/>
+                            <small>Message</small>
+                        </li>
+                        <li>
+                            <img src="resources/images/symbol/connector_conditional.png" class="icon_shape"
+                                 _shape_type="EDGE"
+                                 _shape_id="OG.shape.bpmn.C_Conditional" _width="200" _height="150"/>
+                            <small>Conditoinal</small>
+                        </li>
+                        <li>
+                            <img src="resources/images/symbol/connector_dataassociation.png" class="icon_shape"
+                                 _shape_type="EDGE"
+                                 _shape_id="OG.shape.bpmn.C_DataAssociation" _width="200" _height="150"/>
+                            <small>DataAssociation</small>
+                        </li>
+                        <li>
+                            <img src="resources/images/symbol/connector_association.png" class="icon_shape"
+                                 _shape_type="EDGE"
+                                 _shape_id="OG.shape.bpmn.C_Association" _width="200" _height="150"/>
+                            <small>Association</small>
+                        </li>
+                        <li>
+                            <img src="resources/images/symbol/annotation.png" class="icon_shape" _shape_type="GEOM"
+                                 _shape_id="OG.shape.bpmn.M_Annotation" _width="70" _height="30"/>
+                            <small>Annotation</small>
+                        </li>
+                        <li>
+                            <img src="resources/images/symbol/text.png" class="icon_shape" _shape_type="GEOM"
+                                 _shape_id="OG.shape.bpmn.M_Text" _width="50" _height="30"/>
+                            <small>Text</small>
+                        </li>
+                    </ul>
+                </button>
+            </div>
+
             <div class="tab-content">
 
                 <!--SWGR / Assigned Feeder Editor-->
                 <div class="tab-pane fade in active" id="swgrFeederEditor">
 
-                    <!--우측 메뉴바-->
-                    <div class="col-md-12 toolbar">
-                        <button class="btn btn-xs rounded btn-default" id="feeder-save" type="button"><i
-                                class="fa fa-plus"></i> Save
-                        </button>
-                        <button class="btn btn-xs rounded btn-default" id="feeder-save-as" type="button"><i
-                                class="fa fa-refresh"></i> Save as
-                        </button>
-                        <button class="btn btn-xs rounded btn-default" id="feeder-zoomIn" type="button"><i
-                                class="fa fa-search-plus"></i> Zoom | IN
-                        </button>
-                        <button class="btn btn-xs rounded btn-default" id="feeder-zoomFit" type="button"><i
-                                class="fa fa-arrows-h"></i> Zoom | FIT
-                        </button>
-                        <button class="btn btn-xs rounded btn-default" id="feeder-zoomOut" type="button"><i
-                                class="fa fa-search-minus"></i> Zoom | OUT
-                        </button>
-                    </div>
                     <div class="col-md-12">
                         <p id="feederCanvas-title" class="bg-info canvas-title"></p>
                     </div>
@@ -304,25 +413,6 @@
                 <!-- Hierarchy Editor -->
                 <div class="tab-pane fade in" id="hierarchyEditor">
 
-                    <!--우측 메뉴바-->
-                    <div class="col-md-12 toolbar">
-                        <button class="btn btn-xs rounded btn-default" id="hierarchy-save" type="button"><i
-                                class="fa fa-plus"></i> Save
-                        </button>
-                        <button class="btn btn-xs rounded btn-default" id="hierarchy-save-as" type="button"><i
-                                class="fa fa-refresh"></i> Save as
-                        </button>
-                        <button class="btn btn-xs rounded btn-default" id="hierarchy-zoomIn" type="button"><i
-                                class="fa fa-search-plus"></i> Zoom | IN
-                        </button>
-                        <button class="btn btn-xs rounded btn-default" id="hierarchy-zoomFit" type="button"><i
-                                class="fa fa-arrows-h"></i> Zoom | FIT
-                        </button>
-                        <button class="btn btn-xs rounded btn-default" id="hierarchy-zoomOut" type="button"><i
-                                class="fa fa-search-minus"></i> Zoom | OUT
-                        </button>
-                    </div>
-
                     <div class="col-md-12">
                         <p id="hierarchyCanvas-title" class="bg-info canvas-title"></p>
                     </div>
@@ -365,27 +455,6 @@
 
                 <!--BLDG / Route Editor-->
                 <div class="tab-pane fade in" id="bldgRouteEditor">
-                    <div class="col-md-12 toolbar">
-                        <button class="btn btn-xs rounded btn-default" id="route-save" type="button"><i
-                                class="fa fa-plus"></i> Save
-                        </button>
-                        <button class="btn btn-xs rounded btn-default" id="route-save-as" type="button"><i
-                                class="fa fa-refresh"></i> Save as
-                        </button>
-                        <button class="btn btn-xs rounded btn-default" id="route-zoomIn" type="button"><i
-                                class="fa fa-search-plus"></i> Zoom | IN
-                        </button>
-                        <button class="btn btn-xs rounded btn-default" id="route-zoomFit" type="button"><i
-                                class="fa fa-arrows-h"></i> Zoom | FIT
-                        </button>
-                        <button class="btn btn-xs rounded btn-default" id="route-zoomOut" type="button"><i
-                                class="fa fa-search-minus"></i> Zoom | OUT
-                        </button>
-                        <button class="btn btn-xs rounded btn-default" id="route-backdoor" type="button"><i
-                                class="fa-file-image-o"></i> Import Backdoor
-                        </button>
-                    </div>
-
                     <div class="col-md-12">
                         <p id="routeCanvas-title" class="bg-info canvas-title"></p>
                     </div>
@@ -429,7 +498,7 @@
                                                 <div class="tab-pane fade in" id="locationRef">
                                                     <div class="form-group col-md-5">
                                                         <div class="btn btn-xs rounded btn-default" id="newLocation"
-                                                                type="button"><i
+                                                             type="button"><i
                                                                 class="fa fa-plus"></i> Drag new location
                                                         </div>
                                                     </div>
