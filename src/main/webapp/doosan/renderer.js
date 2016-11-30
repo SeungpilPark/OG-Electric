@@ -32,7 +32,8 @@ var Renderer = function (mode, container, controller) {
             NEW_HIERARCHY_BLDG: 'NewHierarchyBldg'
         },
         PREFIX: {
-            DIALOG: '_DIALOG'
+            DIALOG: '_DIALOG',
+            DIALOG_TABLE: 'DIALOG_TABLE'
         }
     };
     this._CONFIG = {
@@ -44,7 +45,8 @@ var Renderer = function (mode, container, controller) {
             HIERARCHY_FEEDER: [50, 50],
             BLDG: [150, 150],
             LOCATION: [50, 50],
-            MANHOLE: [50, 50]
+            MANHOLE: [50, 50],
+            GRID_FONT: '12px'
         }
     };
 
@@ -492,47 +494,226 @@ Renderer.prototype = {
         /**
          * 라우트 보기 이벤트
          */
-        $(me.canvas.getRootElement()).bind('showRouteList', function (event, shapeElement) {
-            me.onShowRouteList(shapeElement);
+        $(me.canvas.getRootElement()).bind('showCableList', function (event, shapeElement) {
+            me.onShowCableList(shapeElement);
         });
 
     },
     /**
-     * 해당 레이스웨이를 지나는 라우트 리스트를 팝업하고, 라우트 선택시 다른 라우트 경로를 선택가능하게 한다.
+     * 해당 레이스웨이를 하이라이트 처리한다.
+     * @param element
+     * @param {Boolean} selected 선택 처리 여부
+     */
+    highLightRaceway: function (element, selected) {
+        var me = this;
+
+        //선택된 레이스웨이 애니메이션
+        if (!element.shape.data) {
+            element.shape.data = {};
+        }
+        if (selected) {
+            element.shape.data.selected = true;
+        } else {
+            element.shape.data.highlight = true;
+        }
+        me.canvas.getRenderer().redrawShape(element);
+    },
+    /**
+     * 해당 레이스웨이의 하이라이트를 종료한다.
      * @param element
      */
-    onShowRouteList: function (element) {
+    unHighLightRaceway: function (element) {
         var me = this;
-        var routes = me.getRoutesWithRaceway(element);
+        //선택된 레이스웨이 애니메이션
+        if (!element.shape.data) {
+            element.shape.data = {};
+        }
+        element.shape.data.selected = false;
+        element.shape.data.highlight = false;
+        me.canvas.getRenderer().redrawShape(element);
+    },
+    /**
+     * 주어진 path (도형 아이디) 목록으로부터 레이스웨이 리스트를 반환한다.
+     * @param {Array} path
+     * @returns {Array}
+     */
+    getRacewaysFromPath: function (path) {
+        var me = this, from, to, edge;
+        var list = [];
+        if (!path || !path.length) {
+            return list;
+        }
+        for (var i = 0, leni = path.length; i < leni; i++) {
+            if (i < leni - 1) {
+                from = me.canvas.getElementById(path[i]);
+                to = me.canvas.getElementById(path[i + 1]);
+                if (!from || !to) {
+                    continue;
+                }
+                edge = me.canvas.getRelatedEdgeFromShapes([from, to]);
+                list.push(edge);
+            }
+        }
+        return list;
+    },
+    /**
+     * 케이블 대화창을 삭제한다.
+     * @param dialog
+     * @param currentPath
+     * @param selectedRaceway
+     */
+    destroyCableDialog: function (dialog, currentPath, selectedRaceway) {
+        var me = this;
+        if (dialog && dialog.length) {
+            dialog.dialog('destroy');
+            dialog.remove();
+            if (currentPath) {
+                var racewaysFromPath = me.getRacewaysFromPath(currentPath);
+                for (var i = 0; i < racewaysFromPath.length; i++) {
+                    me.unHighLightRaceway(racewaysFromPath[i]);
+                }
+            } else {
+                me.unHighLightRaceway(selectedRaceway);
+            }
+        }
+    },
+    /**
+     * 해당 레이스웨이를 지나는 케이블 리스트를 팝업하고, 케이블 선택시 다른 라우트 경로를 선택가능하게 한다.
+     * @param element
+     */
+    onShowCableList: function (element) {
+        var me = this;
+
+        //하이라이팅 된 패스 리스트
+        var currentPath;
+
+        me.highLightRaceway(element, true);
+
+        //케이블 데이터를 불러온다.
+        var cables = me.getCablesWithRaceway(element);
+
+        //대화창의 네임스페이스
         var dialogName = me.getMode() + me.Constants.PREFIX.DIALOG;
+        var panelName = me.getMode() + me.Constants.PREFIX.DIALOG_TABLE;
         var dialogId = me._CONTAINER_ID + element.id;
+        var panelId = me._CONTAINER_ID + element.id + me.Constants.PREFIX.DIALOG_TABLE;
+
+
+        //기존 대화장이 있을 경우 삭제하도록 한다.
+        me.destroyCableDialog($('[name=' + dialogName + ']'), currentPath, element);
+
+        //대화창을 팝업시킨다.
         var dialog = $('<div></div>');
         dialog.attr('name', dialogName);
         dialog.attr('id', dialogId);
         $('body').append(dialog);
 
         dialog.dialog({
-                title: 'Routes',
+                title: 'Cables',
                 position: {my: "left top", at: "left top", of: document.getElementById(me._CONTAINER_ID)},
                 height: 400,
                 width: 300,
                 dialogClass: "",
-                appendTo: 'body'
+                appendTo: 'body',
+                close: function (event, ui) {
+                    me.destroyCableDialog(dialog, currentPath, element);
+                }
             }
         );
 
+        //케이블 그리드의 내용을 구성한다.
+        for (var i = 0; i < cables.length; i++) {
+            cables[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + cables[i]['name'] + '</a>';
+        }
+        var gridOptions = {
+            data: cables,
+            columns: [
+                {
+                    data: 'label',
+                    title: 'Name',
+                    defaultContent: ''
+                }
+            ],
+            pageLength: 10,
+            lengthChange: false,
+            info: false
+        };
 
-        //<div class="col-md-12">
-        //    <table id="unAssignedLoadGrid" class="display"
-        //width="100%"></table>
-        //    </div>
+        //대화창에 그리드를 삽입한다.
+        var panel = $('<table></table>');
+        panel.attr('name', panelName);
+        panel.attr('id', panelId);
+        panel.css('font-size', me._CONFIG.DEFAULT_SIZE.GRID_FONT);
+        dialog.append(panel);
+
+        //대화창에 버튼을 삽입한다.
+        var alternativeBtn = $('<button class="btn-u" type="button" disabled>Show Alternative Route</button>');
+        dialog.append(alternativeBtn);
+
+        if (!panel.data('table')) {
+            panel.data('table', true);
+            panel.DataTable(gridOptions);
+            me._CONTROLLER.modifyDataTablesStyle(panelId);
+        }
+
+        var gridPanelDiv = $('#' + panelId + '_wrapper');
+
+        /**
+         * 케이블 클릭시 해당 케이블의 패스를 바탕으로 레이스웨이를 하이라이트 처리하고, 변경 버튼을 활성화한다.
+         * 변경 버튼을 클릭시 그리드의 내용이 케이블이 지나갈 수 있는 변경가능한 라우트 리스트로 전환횐다.
+         * 변경가능한 라우트 리스트를 선택하면 케이블에 적용.
+         * @param item
+         * @param itemData
+         */
+        var nameClickEvent = function (item, itemData) {
+            item.unbind('click');
+            item.click(function (event) {
+                event.stopPropagation();
+                var racewaysFromPath;
+                if (currentPath) {
+                    racewaysFromPath = me.getRacewaysFromPath(currentPath);
+                    for (var i = 0; i < racewaysFromPath.length; i++) {
+                        me.unHighLightRaceway(racewaysFromPath[i]);
+                    }
+                }
+
+                currentPath = itemData['path'];
+
+                racewaysFromPath = me.getRacewaysFromPath(currentPath);
+                for (var i = 0; i < racewaysFromPath.length; i++) {
+                    if (racewaysFromPath[i].id == element.id) {
+                        me.highLightRaceway(racewaysFromPath[i], true);
+                    } else {
+                        me.highLightRaceway(racewaysFromPath[i]);
+                    }
+                }
+            });
+        };
+
+        // page event
+        panel.unbind('draw.dt');
+        panel.on('draw.dt', function () {
+            var item = gridPanelDiv.find("[name=item]");
+            item.each(function (index, aTag) {
+                var item = $(aTag);
+                var dataIndex = item.data('index');
+                var itemData = cables[parseInt(dataIndex)];
+                nameClickEvent(item, itemData);
+            });
+            blockStop();
+        });
+
+        var dataTable = panel.dataTable().api();
+        dataTable.clear();
+        dataTable.rows.add(cables);
+        dataTable.draw();
     },
     /**
-     * 해당 레이스웨이를 지나는 라우트 리스트를 구한다.
+     * 해당 레이스웨이를 지나는 케이블 리스트를 구한다.
      * @param element
      * @returns {Array}
      */
-    getRoutesWithRaceway: function (element) {
+    getCablesWithRaceway: function (element) {
         var me = this;
         var routes = [];
         var relatedElementsFromEdge = me.canvas.getRelatedElementsFromEdge(element);
@@ -619,7 +800,42 @@ Renderer.prototype = {
                 }
             }
         }
-        return routes;
+
+        /**
+         * 라우트 데이터 만들기
+         */
+        var data = [];
+        for (var i = 0, leni = routes.length; i < leni; i++) {
+            var routeData = {};
+            var fromBLDG;
+            var toBLDG;
+            for (var c = 0, lenc = routes[i].length; c < lenc; c++) {
+                //처음 또는 끝(로케이션) 이라면
+                if (c == 0 || c == lenc - 1) {
+                    var locationId = routes[i][c];
+                    var location = me.canvas.getElementById(locationId);
+                    if (location) {
+                        var parent = me.canvas.getParent(location);
+                        if (parent && parent.shape instanceof OG.BLDG) {
+                            if (c == 0) {
+                                fromBLDG = parent.shape.label;
+                            } else {
+                                toBLDG = parent.shape.label;
+                            }
+                        }
+                    }
+                }
+            }
+            //시작, 끝 로케이션이 모두 빌딩 안에 속해있다면
+            if (fromBLDG && toBLDG) {
+                routeData['path'] = routes[i];
+                routeData['from'] = fromBLDG;
+                routeData['to'] = toBLDG;
+                routeData['name'] = 'Cable ' + i + ' :' + fromBLDG + ' - ' + toBLDG;
+                data.push(routeData);
+            }
+        }
+        return data;
     }
 };
 Renderer.prototype.constructor = Renderer;

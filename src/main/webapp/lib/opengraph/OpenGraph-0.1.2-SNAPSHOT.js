@@ -16637,7 +16637,40 @@ OG.shape.elec.RacewayShape.prototype.createShape = function () {
                             'stroke': 'black'
                         }
                     },
-                    'stroke': 'none'
+                    'stroke': 'none',
+                }
+            },
+            {
+                top: 0,
+                from: 'start',
+                to: 'end',
+                style:{
+                    //'stroke': 'none',
+                    'fill-opacity': 1,
+                    animation: [
+                        {
+                            start: {
+                                stroke: 'white'
+                            },
+                            to: {
+                                stroke: '#d9534f'
+                            },
+                            ms: 1000
+                        },
+                        {
+                            start: {
+                                stroke: '#d9534f'
+                            },
+                            to: {
+                                stroke: 'white'
+                            },
+                            ms: 1000,
+                            delay: 1000
+                        }
+                    ],
+                    'animation-repeat': true,
+                    "stroke": "#d9534f",
+                    "stroke-width": "5"
                 }
             }
         ]
@@ -17538,7 +17571,7 @@ OG.renderer.IRenderer.prototype = {
      *
      * @param {Element|String} element Element 또는 ID
      */
-    bringForward: function(element){
+    bringForward: function (element) {
         throw new OG.NotImplementedException();
     },
 
@@ -17547,7 +17580,7 @@ OG.renderer.IRenderer.prototype = {
      *
      * @param {Element|String} element Element 또는 ID
      */
-    sendBackward: function(element){
+    sendBackward: function (element) {
         throw new OG.NotImplementedException();
     },
 
@@ -17845,6 +17878,41 @@ OG.renderer.IRenderer.prototype = {
     },
 
     /**
+     * 두 도형 사이의 연결된 Edge 를 반환한다.
+     * @param elements
+     * @returns {Element} edge
+     */
+    getRelatedEdgeFromShapes: function (elements) {
+        var edge;
+        var fromElement = elements[0];
+        var toElement = elements[1];
+        if (!fromElement || !toElement) {
+            return null;
+        }
+        var prevShapeId, nextShapeId;
+        var prevEdges = this.getPrevEdges(fromElement);
+        var nextEdges = this.getNextEdges(fromElement);
+        for (var i = 0; i < prevEdges.length; i++) {
+            prevShapeId = $(prevEdges[i]).attr('_from');
+            if (prevShapeId) {
+                prevShapeId = prevShapeId.substring(0, prevShapeId.indexOf(OG.Constants.TERMINAL));
+                if (prevShapeId == toElement.id) {
+                    edge = prevEdges[i];
+                }
+            }
+        }
+        for (var i = 0; i < nextEdges.length; i++) {
+            nextShapeId = $(nextEdges[i]).attr('_to');
+            if (nextShapeId) {
+                nextShapeId = nextShapeId.substring(0, nextShapeId.indexOf(OG.Constants.TERMINAL));
+                if (nextShapeId == toElement.id) {
+                    edge = nextEdges[i];
+                }
+            }
+        }
+        return edge;
+    },
+    /**
      * 연결된 이전 Edge Element 들을 반환한다.
      *
      * @param {Element|String} element Element 또는 ID
@@ -18003,7 +18071,7 @@ OG.renderer.IRenderer.prototype = {
      */
     isTopGroup: function (element) {
         var parent = element.parentElement;
-        if(!parent){
+        if (!parent) {
             parent = element.parentNode;
         }
         if (!element || !parent) {
@@ -18027,7 +18095,7 @@ OG.renderer.IRenderer.prototype = {
      */
     getParent: function (element) {
         var parent = element.parentElement;
-        if(!parent){
+        if (!parent) {
             parent = element.parentNode;
         }
         if (!element || !parent) {
@@ -18066,7 +18134,7 @@ OG.renderer.IRenderer.prototype = {
      */
     isGroup: function (element) {
         var parent = element.parentElement;
-        if(!parent){
+        if (!parent) {
             parent = element.parentNode;
         }
         if (!element || !parent) {
@@ -18142,7 +18210,7 @@ OG.renderer.IRenderer.prototype = {
     /**
      * 캔버스의 히스토리를 초기화한다.
      */
-    initHistory: function(){
+    initHistory: function () {
         throw new OG.NotImplementedException();
     },
     /**
@@ -18154,13 +18222,13 @@ OG.renderer.IRenderer.prototype = {
     /**
      * 캔버스의 Undo
      */
-    undo: function(){
+    undo: function () {
         throw new OG.NotImplementedException();
     },
     /**
      * 캔버스의 Redo
      */
-    redo: function(){
+    redo: function () {
         throw new OG.NotImplementedException();
     }
 };
@@ -20427,6 +20495,10 @@ OG.renderer.RaphaelRenderer.prototype.redrawShape = function (element, excludeEd
     };
 
     if (element && element.shape.geom) {
+        if(element.shape.redrawShape){
+            element.shape.redrawShape();
+        }
+
         switch ($(element).attr("_shape")) {
             case OG.Constants.SHAPE_TYPE.GEOM:
                 element = this.drawGeom(element.shape.geom, {}, element.id);
@@ -33922,6 +33994,15 @@ OG.graph.Canvas.prototype = {
         return $(root).find("[_type=SHAPE][_shape_id='" + shapeId + "']");
     }
     ,
+
+    /**
+     * 두 도형 사이의 연결된 Edge 를 반환한다.
+     * @param elements
+     * @returns {Element} edge
+     */
+    getRelatedEdgeFromShapes: function (elements) {
+        return this._RENDERER.getRelatedEdgeFromShapes(elements);
+    },
 
     /**
      * Edge 엘리먼트와 연결된 fromShape, toShape 엘리먼트를 반환한다.

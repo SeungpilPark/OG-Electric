@@ -70,13 +70,101 @@ OG.shape.elec.RacewayShape.prototype.createShape = function () {
             }
         ]
     };
-    if (this.data && this.data.selected) {
-        style['stroke'] = '#d9534f';
-        style['stroke-width'] = 2;
-        style['multi'][2]['style']['pattern']['style']['stroke'] = '#d9534f';
-    }
+
     this.geom.style = new OG.geometry.Style(style);
     return this.geom;
+};
+
+
+OG.shape.elec.RacewayShape.prototype.redrawShape = function () {
+    if (!this.data) {
+        return;
+    }
+
+    var multiStyle = [
+        {
+            top: -10,
+            from: 'start',
+            to: 'end',
+            style: {}
+        },
+        {
+            top: 10,
+            from: 'start',
+            to: 'end',
+            style: {}
+        },
+        {
+            top: 0,
+            from: 'start',
+            to: 'end',
+            style: {
+                pattern: {
+                    'id': 'OG.pattern.HatchedPattern',
+                    'thickness': 10,
+                    'unit-width': 12,
+                    'unit-height': 12,
+                    'pattern-width': 8,
+                    'pattern-height': 8,
+                    'style': {
+                        'stroke': 'black'
+                    }
+                },
+                'stroke': 'none'
+            }
+        }
+    ];
+
+    if (this.data && this.data.selected) {
+        multiStyle.push(
+            {
+                top: 0,
+                from: 'start',
+                to: 'end',
+                style: {
+                    'fill-opacity': 1,
+                    animation: [
+                        {
+                            start: {
+                                stroke: 'white'
+                            },
+                            to: {
+                                stroke: '#d9534f'
+                            },
+                            ms: 1000
+                        },
+                        {
+                            start: {
+                                stroke: '#d9534f'
+                            },
+                            to: {
+                                stroke: 'white'
+                            },
+                            ms: 1000,
+                            delay: 1000
+                        }
+                    ],
+                    'animation-repeat': true,
+                    "stroke": "#d9534f",
+                    "stroke-width": "5"
+                }
+            }
+        )
+    } else if (this.data && this.data.highlight) {
+        multiStyle.push(
+            {
+                top: 0,
+                from: 'start',
+                to: 'end',
+                style: {
+                    'fill-opacity': 1,
+                    "stroke": "#d9534f",
+                    "stroke-width": "5"
+                }
+            }
+        );
+    }
+    this.geom.style.map['multi'] = multiStyle;
 };
 
 
@@ -94,8 +182,8 @@ OG.shape.elec.RacewayShape.prototype.createContextMenu = function () {
             }
         },
         'pathList': {
-            name: '라우트 보기', callback: function () {
-                $(me.currentCanvas.getRootElement()).trigger('showRouteList', [me.currentElement]);
+            name: '케이블 보기', callback: function () {
+                $(me.currentCanvas.getRootElement()).trigger('showCableList', [me.currentElement]);
             }
         }
     };
