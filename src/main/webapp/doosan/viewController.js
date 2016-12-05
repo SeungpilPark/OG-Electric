@@ -517,6 +517,7 @@ ViewContorller.prototype = {
      * 캔버스 렌더러 로부터 메시지가 전달된 경우
      * @param renderer
      * @param data
+     * @param message
      */
     onMessage: function (renderer, data, message) {
         var me = this;
@@ -797,13 +798,13 @@ ViewContorller.prototype = {
                 }
                 /**
                  * 트리 구조는 디폴트로 model 프로퍼티를 등록한다.(테이블/트리 모델명)
-                 * 트리 구조중 스위치인 것은 드래그 시 NEW_FEEDER 로 넘어간다.(새로 생성하는 경우이다.)
+                 * 트리 구조중 스위치인 것은 드래그 시 MODIFY_FEEDER 로 넘어간다.(피더 수정.)
                  * 트리 구조중 로드인 것은 드래그 시 아무일도 하지 않는다.
                  */
                 for (var i = 0; i < treeData.length; i++) {
                     treeData[i]['data']['model'] = model;
                     if (treeData[i]['data']['FE_SWGR_LOAD_DIV'] == 'S') {
-                        treeData[i]['data']['shapeType'] = me.Constants.TYPE.NEW_FEEDER;
+                        treeData[i]['data']['shapeType'] = me.Constants.TYPE.MODIFY_FEEDER;
                     }
                 }
                 treeOptions = {
@@ -980,10 +981,15 @@ ViewContorller.prototype = {
                     msgBox('스위치 리스트를 불러올 수 없습니다.');
                 } else {
                     /**
-                     * 어사인 되지 않은 스위치 리스트는 NEW_FEEDER 로 넘어간다.
+                     * 어사인 되지 않은 스위치 리스트중 SWGR_TYPE 이 TR(트랜스포머) 인 것은 프랜스포머로 넘어간다.
+                     * 트랜스포머가 아닌것은 NEW_FEEDER 로 넘어간다.
                      */
                     for (var i = 0; i < gridData.length; i++) {
-                        gridData[i]['shapeType'] = me.Constants.TYPE.NEW_FEEDER;
+                        if (gridData[i]['SWGR_TYPE'] == 'TRANSFORMER') {
+                            gridData[i]['shapeType'] = me.Constants.TYPE.TRANSFORMER;
+                        } else {
+                            gridData[i]['shapeType'] = me.Constants.TYPE.NEW_FEEDER;
+                        }
                         gridData[i]['shapeLabel'] = gridData[i]['SWGR_NAME'];
                         gridData[i]['shapeFollowText'] = gridData[i]['SWGR_TAG_NO'] + ',' + gridData[i]['SWGR_SHORT_CIR_RATING'];
                         gridData[i]['model'] = model;
@@ -995,6 +1001,11 @@ ViewContorller.prototype = {
                             {
                                 data: 'label',
                                 title: 'SWGR',
+                                defaultContent: ''
+                            },
+                            {
+                                data: 'SWGR_TYPE',
+                                title: 'TYPE',
                                 defaultContent: ''
                             },
                             {

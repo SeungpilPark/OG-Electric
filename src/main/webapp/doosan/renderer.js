@@ -7,6 +7,7 @@ var Renderer = function (mode, container, controller) {
         },
         TYPE: {
             SWITCH_GEAR: 'SwitchGear',
+            TRANSFORMER: 'Transformer',
             LOAD: 'Load',
             NMLOAD: 'NMLoad',
             SHLOAD: 'SHLoad',
@@ -39,6 +40,7 @@ var Renderer = function (mode, container, controller) {
     this._CONFIG = {
         DEFAULT_SIZE: {
             SWITCH_GEAR: [350, 50],
+            TRANSFORMER: [60,90],
             LOAD: [70, 70],
             HIERARCHY_BLDG: [450, 300],
             HIERARCHY_FLOOR: [350, 200],
@@ -294,7 +296,12 @@ Renderer.prototype = {
             if (shapeType == me.Constants.TYPE.SWITCH_GEAR) {
                 shape = new OG.SwitchGear(shapeLabel);
                 size = me._CONFIG.DEFAULT_SIZE.SWITCH_GEAR;
-            } else if (
+            }
+            else if (shapeType == me.Constants.TYPE.TRANSFORMER) {
+                shape = new OG.SwitchTransformer(shapeLabel);
+                size = me._CONFIG.DEFAULT_SIZE.TRANSFORMER;
+            }
+            else if (
                 shapeType == me.Constants.TYPE.NMLOAD
                 || shapeType == me.Constants.TYPE.SHLOAD
                 || shapeType == me.Constants.TYPE.EHLOAD
@@ -362,7 +369,8 @@ Renderer.prototype = {
                     me.getContainer().removeData('DRAG_SHAPE');
 
                     //Load 일 경우 onLoadDrop 호출
-                    if (shape instanceof OG.Load) {
+                    //트랜스포머일 경우도 onLoadDrop 호출
+                    if (shape instanceof OG.Load || shape instanceof OG.SwitchTransformer) {
                         me.onLoadDrop(element);
                     }
                 }
@@ -397,7 +405,7 @@ Renderer.prototype = {
         var me = this;
         var swgrElement = me.canvas.getElementsByShapeId('OG.shape.elec.SwitchGear').get(0);
         if (!swgrElement) {
-            me.canvas.remove(loadElement);
+            me.canvas.removeShape(loadElement);
         }
 
         /**
@@ -647,8 +655,13 @@ Renderer.prototype = {
         dialog.append(panel);
 
         //대화창에 버튼을 삽입한다.
-        var alternativeBtn = $('<button class="btn-u" type="button" disabled>Show Alternative Route</button>');
+        var alternativeBtn = $('<button class="btn-u btn-u-default" type="button" disabled>Show Alternative Route</button>');
         dialog.append(alternativeBtn);
+
+        //어플라이 버튼을 삽입하고 숨김처리한다.
+        var applyBtn = $('<button class="btn-u btn-u-default" type="button" disabled>Apply</button>');
+        dialog.append(applyBtn);
+        applyBtn.hide();
 
         if (!panel.data('table')) {
             panel.data('table', true);
@@ -687,6 +700,14 @@ Renderer.prototype = {
                         me.highLightRaceway(racewaysFromPath[i]);
                     }
                 }
+
+                //어플라이 버튼 클릭 이벤트를 처리한다.
+                alternativeBtn.removeAttr('disabled');
+                alternativeBtn.removeClass('btn-u-default');
+                alternativeBtn.unbind('click');
+                alternativeBtn.bind('click', function () {
+
+                });
             });
         };
 

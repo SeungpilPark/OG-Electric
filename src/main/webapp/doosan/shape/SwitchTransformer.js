@@ -3,10 +3,9 @@ OG.shape.elec.SwitchTransformer = function (label) {
 
     this.SHAPE_ID = 'OG.shape.elec.SwitchTransformer';
     this.label = label;
-    this.DELETABLE = false;
-    this.ENABLE_TO = false;
     this.CONNECT_CLONEABLE = false;
     this.LABEL_EDITABLE = false;
+    this.ENABLE_FROM = false;
 };
 OG.shape.elec.SwitchTransformer.prototype = new OG.shape.GeomShape();
 OG.shape.elec.SwitchTransformer.superclass = OG.shape.GeomShape;
