@@ -2,20 +2,33 @@
  * Created by Seungpil, Park on 2016. 9. 6..
  */
 var DataController = function () {
-
+    this.dev = true;
+    if (parent && parent.window) {
+        this.dev = false;
+    }
 };
 DataController.prototype = {
     getProjectReference: function (callback) {
-        $.ajax({
-            url: 'doosan/data/project.json',
-            dataType: 'json',
-            success: function (data) {
+        if (this.dev) {
+            $.ajax({
+                url: 'doosan/data/project.json',
+                dataType: 'json',
+                success: function (data) {
+                    callback(null, data);
+                },
+                error: function (err) {
+                    callback(err, null);
+                }
+            });
+        } else {
+            var data;
+            try {
+                data = parent.getProjectInfo();
                 callback(null, data);
-            },
-            error: function (err) {
-                callback(err, null);
+            } catch (e) {
+                callback(e, null);
             }
-        });
+        }
     },
     getSwgrSelectBoxList: function (callback) {
         $.ajax({

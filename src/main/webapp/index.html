@@ -102,6 +102,9 @@
     <script type="text/javascript" src="doosan/dataController.js"></script>
     <script type="text/javascript" src="doosan/renderer.js"></script>
     <script type="text/javascript" src="doosan/viewController.js"></script>
+    
+    <!--gui interface-->
+    <script type="text/javascript" src="inerface/guiInterface.js"></script>
 
 </head>
 
@@ -167,7 +170,8 @@
 
 
     <script type="text/javascript">
-        var msgBox = function (message) {
+    	
+    	var msgBox = function (message) {
             var box = $('#messageBox');
             box.find('[name=content]').html(message);
             box.modal({
