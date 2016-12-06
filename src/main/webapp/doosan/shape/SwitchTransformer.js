@@ -33,3 +33,20 @@ OG.shape.elec.SwitchTransformer.prototype.createShape = function () {
 
     return this.geom;
 };
+
+
+OG.shape.elec.SwitchTransformer.prototype.createContextMenu = function () {
+    var me = this;
+    this.contextMenu = {
+        'format': true,
+        'text': true,
+        'bringToFront': true,
+        'sendToBack': true,
+        'property': {
+            name: '정보보기', callback: function () {
+                $(me.currentCanvas.getRootElement()).trigger('showProperty', [me.currentElement]);
+            }
+        }
+    };
+    return this.contextMenu;
+};

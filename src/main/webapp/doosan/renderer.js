@@ -28,9 +28,7 @@ var Renderer = function (mode, container, controller) {
             MANHOLE: 'Manhole',
 
             MODIFY_FEEDER: 'ModifyFeeder',
-            NEW_FEEDER: 'NewFeeder',
-            MODIFY_HIERARCHY_BLDG: 'ModifyHierarchyBldg',
-            NEW_HIERARCHY_BLDG: 'NewHierarchyBldg'
+            NEW_FEEDER: 'NewFeeder'
         },
         PREFIX: {
             DIALOG: '_DIALOG',
@@ -40,7 +38,7 @@ var Renderer = function (mode, container, controller) {
     this._CONFIG = {
         DEFAULT_SIZE: {
             SWITCH_GEAR: [350, 50],
-            TRANSFORMER: [60,90],
+            TRANSFORMER: [60, 90],
             LOAD: [70, 70],
             HIERARCHY_BLDG: [450, 300],
             HIERARCHY_FLOOR: [350, 200],
@@ -132,6 +130,11 @@ var Renderer = function (mode, container, controller) {
     this._HANDLER = this.canvas._HANDLER;
     this.init();
 
+    //캔버스 삭제시 관련 다이아로그도 삭제한다.
+    var me = this;
+    $(this._CONTAINER).on("remove", function () {
+        me.destroyAllDialog();
+    });
 };
 Renderer.prototype = {
     init: function () {
@@ -200,12 +203,77 @@ Renderer.prototype = {
      */
     showDialog: function (show) {
         var me = this;
-        var dialogName = me.getMode() + me.Constants.PREFIX.DIALOG;
+        //기존 대화장이 있을 경우 삭제하도록 한다.
+        var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         if (show) {
             $('[name=' + dialogName + ']').closest(".ui-dialog").show();
         } else {
             $('[name=' + dialogName + ']').closest(".ui-dialog").hide();
         }
+    },
+    /**
+     * 도형의 다이아로그 창을 생성한다.
+     * @param element
+     * @param options
+     * @returns {Mixed|jQuery|HTMLElement}
+     */
+    createDialog: function (element, options) {
+        var me = this;
+
+        //대화창의 네임스페이스
+        var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
+        var dialogId = me._CONTAINER_ID + element.id;
+
+        //대화창을 팝업시킨다.
+        var dialog = $('<div></div>');
+        dialog.attr('name', dialogName);
+        dialog.attr('id', dialogId);
+        $('body').append(dialog);
+
+        if (!options) {
+            options = {};
+        }
+
+        var defaultOptions = {
+            title: element.shape.label,
+            position: {my: "left top", at: "left top", of: document.getElementById(me._CONTAINER_ID)},
+            height: 400,
+            width: 300,
+            dialogClass: "",
+            appendTo: 'body',
+            close: function (event, ui) {
+                me.destroyDialog(element);
+            }
+        };
+
+        for (var key in options) {
+            defaultOptions[key] = options[key];
+        }
+        dialog.dialog(defaultOptions);
+
+        return dialog;
+    },
+    /**
+     * 도형의 다이아로그창을 삭제한다.
+     * @param element
+     */
+    destroyDialog: function (element) {
+        var me = this;
+        var dialogId = me._CONTAINER_ID + element.id;
+        var dialog = $('#' + dialogId);
+        if (dialog && dialog.length) {
+            dialog.dialog('destroy');
+            dialog.remove();
+        }
+    },
+    destroyAllDialog: function () {
+        var me = this;
+        var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
+        var dialogs = $('[name=' + dialogName + ']');
+        dialogs.each(function () {
+            $(this).dialog('destroy');
+            $(this).remove();
+        });
     },
 
     addBackDoor: function (url, scale, opacity) {
@@ -292,6 +360,7 @@ Renderer.prototype = {
             var shapeType = shapeInfo['shapeType'];
             var shapeLabel = shapeInfo['shapeLabel'] ? shapeInfo['shapeLabel'] : '';
 
+            console.log('shapeInfo', shapeInfo);
             //렌더링 대상들
             if (shapeType == me.Constants.TYPE.SWITCH_GEAR) {
                 shape = new OG.SwitchGear(shapeLabel);
@@ -337,12 +406,6 @@ Renderer.prototype = {
                 me._CONTROLLER.onMessage(me, shapeInfo, me._CONTROLLER.message.NEW);
                 return;
             } else if (shapeType == me.Constants.TYPE.MODIFY_FEEDER) {
-                me._CONTROLLER.onMessage(me, shapeInfo, me._CONTROLLER.message.NEW);
-                return;
-            } else if (shapeType == me.Constants.TYPE.MODIFY_HIERARCHY_BLDG) {
-                me._CONTROLLER.onMessage(me, shapeInfo, me._CONTROLLER.message.NEW);
-                return;
-            } else if (shapeType == me.Constants.TYPE.NEW_HIERARCHY_BLDG) {
                 me._CONTROLLER.onMessage(me, shapeInfo, me._CONTROLLER.message.NEW);
                 return;
             }
@@ -506,6 +569,19 @@ Renderer.prototype = {
             me.onShowCableList(shapeElement);
         });
 
+        /**
+         * 정보 보기 이벤트
+         */
+        $(me.canvas.getRootElement()).bind('showProperty', function (event, shapeElement) {
+            me.onShowProperty(shapeElement);
+        });
+    },
+    /**
+     * 정보 보기 이벤트를 처리한다.
+     * @param element
+     */
+    onShowProperty: function (element) {
+
     },
     /**
      * 해당 레이스웨이를 하이라이트 처리한다.
@@ -570,18 +646,14 @@ Renderer.prototype = {
      * @param currentPath
      * @param selectedRaceway
      */
-    destroyCableDialog: function (dialog, currentPath, selectedRaceway) {
+    destroyCableDialog: function (dialog) {
         var me = this;
         if (dialog && dialog.length) {
             dialog.dialog('destroy');
             dialog.remove();
-            if (currentPath) {
-                var racewaysFromPath = me.getRacewaysFromPath(currentPath);
-                for (var i = 0; i < racewaysFromPath.length; i++) {
-                    me.unHighLightRaceway(racewaysFromPath[i]);
-                }
-            } else {
-                me.unHighLightRaceway(selectedRaceway);
+            var raceways = me.canvas.getElementsByShapeId('OG.shape.elec.RacewayShape');
+            for (var i = 0; i < raceways.length; i++) {
+                me.unHighLightRaceway(raceways[i]);
             }
         }
     },
@@ -592,42 +664,30 @@ Renderer.prototype = {
     onShowCableList: function (element) {
         var me = this;
 
+        //기존 대화장이 있을 경우 삭제하도록 한다.
+        var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
+        me.destroyCableDialog($('[name=' + dialogName + ']'));
+
+        //다이어로그 창을 띄운다.
+        var dialog = me.createDialog(element, {
+            title: 'Cables',
+            height: 400,
+            width: 300,
+            close: function (event, ui) {
+                me.destroyCableDialog(dialog);
+            }
+        });
         //하이라이팅 된 패스 리스트
         var currentPath;
-
         me.highLightRaceway(element, true);
 
         //케이블 데이터를 불러온다.
         var cables = me.getCablesWithRaceway(element);
 
-        //대화창의 네임스페이스
-        var dialogName = me.getMode() + me.Constants.PREFIX.DIALOG;
-        var panelName = me.getMode() + me.Constants.PREFIX.DIALOG_TABLE;
-        var dialogId = me._CONTAINER_ID + element.id;
+        //패널의 네임스페이스
+        var panelName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG_TABLE;
         var panelId = me._CONTAINER_ID + element.id + me.Constants.PREFIX.DIALOG_TABLE;
 
-
-        //기존 대화장이 있을 경우 삭제하도록 한다.
-        me.destroyCableDialog($('[name=' + dialogName + ']'), currentPath, element);
-
-        //대화창을 팝업시킨다.
-        var dialog = $('<div></div>');
-        dialog.attr('name', dialogName);
-        dialog.attr('id', dialogId);
-        $('body').append(dialog);
-
-        dialog.dialog({
-                title: 'Cables',
-                position: {my: "left top", at: "left top", of: document.getElementById(me._CONTAINER_ID)},
-                height: 400,
-                width: 300,
-                dialogClass: "",
-                appendTo: 'body',
-                close: function (event, ui) {
-                    me.destroyCableDialog(dialog, currentPath, element);
-                }
-            }
-        );
 
         //케이블 그리드의 내용을 구성한다.
         for (var i = 0; i < cables.length; i++) {

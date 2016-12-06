@@ -592,7 +592,7 @@ ViewContorller.prototype = {
             title = 'FEEDER - ' + data['SWGR_NAME'];
         }
         if (mode == me.Constants.MODE.HIERARCHY) {
-            title = 'HIERARCHY - ' + data['NM'];
+            title = 'HIERARCHY PROJECT - ' + data['NM'];
         }
         if (mode == me.Constants.MODE.ROUTE) {
             title = 'BLDG/ROUTE PROJECT - ' + data['NM'];
@@ -609,30 +609,20 @@ ViewContorller.prototype = {
         //렌더러에 에디팅 오브젝트를 설정한다.
         renderer.editingObject = data;
 
-        //TODO 기존의 오브젝트인 경우 xml 을 바탕으로 캔버스에 새로 렌더링한다.
         //이때, 도형을 모두 그린 후 캔버스가 업데이트 되지 않은 상태로 변경한다.
         if (data['shapeType'] == me.Constants.TYPE.MODIFY_FEEDER) {
-
+            //TODO 기존의 오브젝트인 경우 xml 을 바탕으로 캔버스에 새로 렌더링한다.
+            data['shapeType'] = me.Constants.TYPE.SWITCH_GEAR;
+            renderer.drawImmediately(null, data);
             renderer.setIsUpdated(false);
         }
-        if (data['shapeType'] == me.Constants.TYPE.MODIFY_HIERARCHY_BLDG) {
 
-            renderer.setIsUpdated(false);
-        }
-
-        //아닌경우, 렌더러에 새로 생성할 도형을 그린다.
-        //이떄, 캔버스가 업데이트 된 처리를 하도록 한다.
+        //아닌경우, 렌더러에 새로 생성할 도형을 그린다. 캔버스가 업데이트 된 처리를 하도록 한다.
         if (data['shapeType'] == me.Constants.TYPE.NEW_FEEDER) {
             data['shapeType'] = me.Constants.TYPE.SWITCH_GEAR;
             renderer.drawImmediately(null, data);
             renderer.setIsUpdated(true);
         }
-        if (data['shapeType'] == me.Constants.TYPE.NEW_HIERARCHY_BLDG) {
-            data['shapeType'] = me.Constants.TYPE.HIERARCHY_BLDG;
-            renderer.drawImmediately(null, data);
-            renderer.setIsUpdated(true);
-        }
-
     },
 
     /**
@@ -647,6 +637,7 @@ ViewContorller.prototype = {
             }
             me.projectData = data;
             me.setEditingObject(me.routeRenderer, data);
+            me.setEditingObject(me.hierarchyRenderer, data);
         });
     },
     /**
@@ -726,7 +717,6 @@ ViewContorller.prototype = {
                 }
             });
         }
-        ;
     },
     /**
      * 트리의 드래그 드랍 이벤트를 담당한다.
@@ -805,6 +795,7 @@ ViewContorller.prototype = {
                     treeData[i]['data']['model'] = model;
                     if (treeData[i]['data']['FE_SWGR_LOAD_DIV'] == 'S') {
                         treeData[i]['data']['shapeType'] = me.Constants.TYPE.MODIFY_FEEDER;
+                        treeData[i]['data']['shapeLabel'] = treeData[i]['data']['SWGR_NAME'];
                     }
                 }
                 treeOptions = {
@@ -833,23 +824,7 @@ ViewContorller.prototype = {
                                     "label": "UnAssign",
                                     "action": function (obj) {
                                         $node = tree.create_node($node);
-                                        tree.edit($node);
-                                    }
-                                },
-                                "Rename": {
-                                    "separator_before": false,
-                                    "separator_after": false,
-                                    "label": "Rename",
-                                    "action": function (obj) {
-                                        tree.edit($node);
-                                    }
-                                },
-                                "Remove": {
-                                    "separator_before": false,
-                                    "separator_after": false,
-                                    "label": "Remove",
-                                    "action": function (obj) {
-                                        tree.delete_node($node);
+                                        //Do something
                                     }
                                 }
                             };
@@ -872,20 +847,14 @@ ViewContorller.prototype = {
                 }
                 /**
                  * 트리 구조는 디폴트로 model 프로퍼티를 등록한다.(테이블/트리 모델명)
-                 * 트리 구조중 빌딩인 것은 MODIFY_HIERARCHY_BLDG(기존 빌딩 하이어라키 수정) 으로 넘어간다.
-                 * 오픈그래프 데이터가 없다면 NEW_HIERARCHY_BLDG(신규 빌딩 하이러라키) 으로 넘어간다.
+                 * 트리 구조중 빌딩인 것은 HIERARCHY_BLDG 로 넘긴다.
                  * 트리 구조중 플루어 인 것은 HIERARCHY_FLOOR 로 넘긴다.
                  */
                 for (var i = 0; i < treeData.length; i++) {
                     treeData[i]['data']['model'] = model;
                     if (treeData[i]['data']['LV'] == 1) {
-                        if (treeData[i]['data']['GUI_XML'] && treeData[i]['data']['GUI_XML'].length > 0) {
-                            treeData[i]['data']['shapeType'] = me.Constants.TYPE.MODIFY_HIERARCHY_BLDG;
-                            treeData[i]['data']['shapeLabel'] = treeData[i]['data']['NM'];
-                        } else {
-                            treeData[i]['data']['shapeType'] = me.Constants.TYPE.NEW_HIERARCHY_BLDG;
-                            treeData[i]['data']['shapeLabel'] = treeData[i]['data']['NM'];
-                        }
+                        treeData[i]['data']['shapeType'] = me.Constants.TYPE.HIERARCHY_BLDG;
+                        treeData[i]['data']['shapeLabel'] = treeData[i]['data']['NM'];
                     }
                     if (treeData[i]['data']['LV'] == 2) {
                         treeData[i]['data']['shapeType'] = me.Constants.TYPE.HIERARCHY_FLOOR;
@@ -1039,6 +1008,7 @@ ViewContorller.prototype = {
                         }
                         if (model == me.model.FeederList.name) {
                             gridData[i]['shapeType'] = me.Constants.TYPE.MODIFY_FEEDER;
+                            gridData[i]['shapeLabel'] = gridData[i]['SWGR_NAME'];
                         }
                         gridData[i]['model'] = model;
                         gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + gridData[i]['SWGR_NAME'] + '</a>';

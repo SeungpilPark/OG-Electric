@@ -1,6 +1,6 @@
 [
   {
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "SWGR_LIST_SEQ": 182,
     "SWGR_TAG_NO": "P0BFE01",
     "KKS_NUM": "400V INTAKE SWGR A",
@@ -38,7 +38,7 @@
     "SAVE_YN": "N"
   },
   {
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "SWGR_LIST_SEQ": 184,
     "SWGR_TAG_NO": "P0BFF01",
     "KKS_NUM": "400V WT SWGR A",
@@ -76,7 +76,7 @@
     "SAVE_YN": "N"
   },
   {
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "SWGR_LIST_SEQ": 185,
     "SWGR_TAG_NO": "P0BFF02",
     "KKS_NUM": "400V WT SWGR B",
@@ -114,7 +114,7 @@
     "SAVE_YN": "N"
   },
   {
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "SWGR_LIST_SEQ": 188,
     "SWGR_TAG_NO": "P1BRA01",
     "KKS_NUM": "230V Unit UPS DB A",
@@ -152,7 +152,7 @@
     "SAVE_YN": "N"
   },
   {
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "SWGR_LIST_SEQ": 189,
     "SWGR_TAG_NO": "P1BRA02",
     "KKS_NUM": "230V Unit UPS DB B",
@@ -190,7 +190,7 @@
     "SAVE_YN": "N"
   },
   {
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "SWGR_LIST_SEQ": 190,
     "SWGR_TAG_NO": "P0BJC01",
     "KKS_NUM": "230V Common DB A",
@@ -228,7 +228,7 @@
     "SAVE_YN": "N"
   },
   {
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "SWGR_LIST_SEQ": 191,
     "SWGR_TAG_NO": "P0BJC02",
     "KKS_NUM": "230V Common DB B",
@@ -266,7 +266,7 @@
     "SAVE_YN": "N"
   },
   {
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "SWGR_LIST_SEQ": 192,
     "SWGR_TAG_NO": "P0BJE01",
     "KKS_NUM": "230V Intake DB",
@@ -304,7 +304,7 @@
     "SAVE_YN": "N"
   },
   {
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "SWGR_LIST_SEQ": 193,
     "SWGR_TAG_NO": "P0BJF01",
     "KKS_NUM": "230V WT DB",
@@ -342,7 +342,7 @@
     "SAVE_YN": "N"
   },
   {
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "SWGR_LIST_SEQ": 194,
     "SWGR_TAG_NO": "P0BJA01",
     "KKS_NUM": "230V Unit DB A",
@@ -380,7 +380,7 @@
     "SAVE_YN": "N"
   },
   {
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "SWGR_LIST_SEQ": 195,
     "SWGR_TAG_NO": "P1BJA02",
     "KKS_NUM": "230V Unit DB B",
@@ -418,7 +418,7 @@
     "SAVE_YN": "N"
   },
   {
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "SWGR_LIST_SEQ": 196,
     "SWGR_TAG_NO": "P0BRB01",
     "KKS_NUM": "230V WT UPS DB",
@@ -456,7 +456,7 @@
     "SAVE_YN": "N"
   },
   {
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "SWGR_LIST_SEQ": 197,
     "SWGR_TAG_NO": "P0BUA01",
     "KKS_NUM": "220V Common DC DB A",
@@ -494,7 +494,7 @@
     "SAVE_YN": "N"
   },
   {
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "SWGR_LIST_SEQ": 198,
     "SWGR_TAG_NO": "P0BUA02",
     "KKS_NUM": "220V Common DC DB B",
@@ -532,7 +532,7 @@
     "SAVE_YN": "N"
   },
   {
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "SWGR_LIST_SEQ": 199,
     "SWGR_TAG_NO": "P1BUA01",
     "KKS_NUM": "220V Unit DC DB",
@@ -570,7 +570,7 @@
     "SAVE_YN": "N"
   },
   {
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "SWGR_LIST_SEQ": 200,
     "SWGR_TAG_NO": "P0BUB01",
     "KKS_NUM": "220V WT DC DB",

@@ -65,7 +65,7 @@ OG.shape.elec.SwitchGear.prototype.createSubShape = function () {
 
     this.sub = [
         {
-            shape: new OG.TextShape(this.data['PJT_SQ']),
+            shape: new OG.TextShape(this.data['PJT_SEQ']),
             width: '100%',
             height: '15px',
             right: '0px',

@@ -17,7 +17,7 @@
     "LO_EQUIP_LOC": "",
     "FE_CABLE_DUCT_DIV": "C",
     "SWGR_LIST_SEQ": 172,
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "FE_DE_CB_TYPE": "",
     "SWGR_OWNER_NM": "김기율"
   },
@@ -39,7 +39,7 @@
     "LO_EQUIP_LOC": "1. TBN BLDG",
     "FE_CABLE_DUCT_DIV": "C",
     "SWGR_LIST_SEQ": 172,
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "FE_DE_CB_TYPE": "",
     "SWGR_OWNER_NM": "김기율"
   },
@@ -61,7 +61,7 @@
     "LO_EQUIP_LOC": "",
     "FE_CABLE_DUCT_DIV": "C",
     "SWGR_LIST_SEQ": 201,
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "FE_DE_CB_TYPE": "",
     "SWGR_OWNER_NM": ""
   },
@@ -83,7 +83,7 @@
     "LO_EQUIP_LOC": "",
     "FE_CABLE_DUCT_DIV": "C",
     "SWGR_LIST_SEQ": 180,
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "FE_DE_CB_TYPE": "",
     "SWGR_OWNER_NM": "김기율"
   },
@@ -105,7 +105,7 @@
     "LO_EQUIP_LOC": "60. WTP_GND",
     "FE_CABLE_DUCT_DIV": "C",
     "SWGR_LIST_SEQ": 180,
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "FE_DE_CB_TYPE": "TS250H-ETS-160-4",
     "SWGR_OWNER_NM": "김기율"
   },
@@ -127,7 +127,7 @@
     "LO_EQUIP_LOC": "60. WTP_GND",
     "FE_CABLE_DUCT_DIV": "C",
     "SWGR_LIST_SEQ": 180,
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "FE_DE_CB_TYPE": "TS250H-ETS-160-4",
     "SWGR_OWNER_NM": "김기율"
   },
@@ -149,7 +149,7 @@
     "LO_EQUIP_LOC": "60. WTP_GND",
     "FE_CABLE_DUCT_DIV": "C",
     "SWGR_LIST_SEQ": 180,
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "FE_DE_CB_TYPE": "TS100H-ETS-080-4",
     "SWGR_OWNER_NM": "김기율"
   },
@@ -171,7 +171,7 @@
     "LO_EQUIP_LOC": "60. WTP_GND",
     "FE_CABLE_DUCT_DIV": "C",
     "SWGR_LIST_SEQ": 180,
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "FE_DE_CB_TYPE": "TS100H-ETS-080-4",
     "SWGR_OWNER_NM": "김기율"
   },
@@ -193,7 +193,7 @@
     "LO_EQUIP_LOC": "65. WWTP_GND",
     "FE_CABLE_DUCT_DIV": "C",
     "SWGR_LIST_SEQ": 180,
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "FE_DE_CB_TYPE": "TS100H-ETS-080-4",
     "SWGR_OWNER_NM": "김기율"
   },
@@ -215,7 +215,7 @@
     "LO_EQUIP_LOC": "",
     "FE_CABLE_DUCT_DIV": "C",
     "SWGR_LIST_SEQ": 180,
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "FE_DE_CB_TYPE": "",
     "SWGR_OWNER_NM": "김기율"
   },
@@ -237,7 +237,7 @@
     "LO_EQUIP_LOC": "60. WTP_GND",
     "FE_CABLE_DUCT_DIV": "C",
     "SWGR_LIST_SEQ": 180,
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "FE_DE_CB_TYPE": "TS250H-ETS-160-4",
     "SWGR_OWNER_NM": "김기율"
   },
@@ -259,7 +259,7 @@
     "LO_EQUIP_LOC": "",
     "FE_CABLE_DUCT_DIV": "C",
     "SWGR_LIST_SEQ": 174,
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "FE_DE_CB_TYPE": "",
     "SWGR_OWNER_NM": "김기율"
   },
@@ -281,7 +281,7 @@
     "LO_EQUIP_LOC": "66. CHS ELEC. & CONTROL BLDG",
     "FE_CABLE_DUCT_DIV": "C",
     "SWGR_LIST_SEQ": 174,
-    "PJT_SQ": "SIM0004",
+    "PJT_SEQ": "SIM0004",
     "FE_DE_CB_TYPE": "AH-1250-4",
     "SWGR_OWNER_NM": "김기율"
   }
