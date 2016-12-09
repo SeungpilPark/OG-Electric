@@ -3,12 +3,16 @@
  */
 var DataController = function () {
     this.dev = true;
-    if (parent && parent.window) {
+    if (window.parent && window.parent.document) {
         this.dev = false;
     }
 };
 DataController.prototype = {
-    getProjectReference: function (callback) {
+    /**
+     * 프로젝트 데이터를 불러온다.
+     * @param callback
+     */
+    getProjectInfo: function (callback) {
         if (this.dev) {
             $.ajax({
                 url: 'doosan/data/project.json',
@@ -30,53 +34,161 @@ DataController.prototype = {
             }
         }
     },
-    getSwgrSelectBoxList: function (callback) {
-        $.ajax({
-            url: 'doosan/data/swgr-select-box.json',
-            dataType: 'json',
-            success: function (data) {
+    /**
+     * 스위치 셀렉트 박스의 내용을 불러온다.
+     * @param callback
+     */
+    getSwitchgearTypeList: function (callback) {
+        if (this.dev) {
+            $.ajax({
+                url: 'doosan/data/swgr-select-box.json',
+                dataType: 'json',
+                success: function (data) {
+                    callback(null, data);
+                },
+                error: function (err) {
+                    callback(err, null);
+                }
+            });
+        } else {
+            var data;
+            try {
+                data = parent.getSwitchgearTypeList();
                 callback(null, data);
-            },
-            error: function (err) {
-                callback(err, null);
+            } catch (e) {
+                callback(e, null);
             }
-        });
+        }
     },
-    getSwgrList: function (callback) {
-        $.ajax({
-            url: 'doosan/data/swgr-list.json',
-            dataType: 'json',
-            success: function (data) {
+    /**
+     * 사용되지 않은 스위치 리스트를 불러온다.
+     * @param callback
+     */
+    getSwitchgearUnused: function (callback) {
+        if (this.dev) {
+            $.ajax({
+                url: 'doosan/data/swgr-list.json',
+                dataType: 'json',
+                success: function (data) {
+                    callback(null, data);
+                },
+                error: function (err) {
+                    callback(err, null);
+                }
+            });
+        } else {
+            var data;
+            try {
+                data = parent.getSwitchgearUnused();
                 callback(null, data);
-            },
-            error: function (err) {
-                callback(err, null);
+            } catch (e) {
+                callback(e, null);
             }
-        });
+        }
     },
-    getUnAssignedLoadList: function (callback) {
-        $.ajax({
-            url: 'doosan/data/load-list.json',
-            dataType: 'json',
-            success: function (data) {
+    /**
+     * 사용된 스위치 리스트를 불러온다.
+     * @param callback
+     */
+    getSwitchgearUse: function (callback) {
+        if (this.dev) {
+            $.ajax({
+                url: 'doosan/data/swgr-use-list.json',
+                dataType: 'json',
+                success: function (data) {
+                    callback(null, data);
+                },
+                error: function (err) {
+                    callback(err, null);
+                }
+            });
+        } else {
+            var data;
+            try {
+                data = parent.getSwitchgearUse();
                 callback(null, data);
-            },
-            error: function (err) {
-                callback(err, null);
+            } catch (e) {
+                callback(e, null);
             }
-        });
+        }
     },
+    /**
+     * 사용되지 않은 로드 리스트를 불러온다.
+     * @param callback
+     */
+    getLoadUnused: function (callback) {
+        if (this.dev) {
+            $.ajax({
+                url: 'doosan/data/load-list.json',
+                dataType: 'json',
+                success: function (data) {
+                    callback(null, data);
+                },
+                error: function (err) {
+                    callback(err, null);
+                }
+            });
+        } else {
+            var data;
+            try {
+                data = parent.getLoadUnused();
+                callback(null, data);
+            } catch (e) {
+                callback(e, null);
+            }
+        }
+    },
+    /**
+     * 사용된 로드 리스트를 불러온다.
+     * @param callback
+     */
+    getLoadUse: function (callback) {
+        if (this.dev) {
+            $.ajax({
+                url: 'doosan/data/load-use-list.json',
+                dataType: 'json',
+                success: function (data) {
+                    callback(null, data);
+                },
+                error: function (err) {
+                    callback(err, null);
+                }
+            });
+        } else {
+            var data;
+            try {
+                data = parent.getLoadUnused();
+                callback(null, data);
+            } catch (e) {
+                callback(e, null);
+            }
+        }
+    },
+    /**
+     * 피더 리스트를 불러온다.
+     * @param callback
+     */
     getFeederList: function (callback) {
-        $.ajax({
-            url: 'doosan/data/feeder-list.json',
-            dataType: 'json',
-            success: function (data) {
+        if (this.dev) {
+            $.ajax({
+                url: 'doosan/data/feeder-list.json',
+                dataType: 'json',
+                success: function (data) {
+                    callback(null, data);
+                },
+                error: function (err) {
+                    callback(err, null);
+                }
+            });
+        } else {
+            var data;
+            try {
+                data = parent.getFeederList();
                 callback(null, data);
-            },
-            error: function (err) {
-                callback(err, null);
+            } catch (e) {
+                callback(e, null);
             }
-        });
+        }
     },
     getLocationReferenceList: function (callback) {
         $.ajax({

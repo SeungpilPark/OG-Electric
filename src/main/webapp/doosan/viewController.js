@@ -630,7 +630,7 @@ ViewContorller.prototype = {
      */
     renderProjectReference: function () {
         var me = this;
-        me.dataController.getProjectReference(function (err, data) {
+        me.dataController.getProjectInfo(function (err, data) {
             if (err) {
                 console.log(err);
                 msgBox('프로젝트 정보를 불러올 수 없습니다.');
@@ -646,7 +646,7 @@ ViewContorller.prototype = {
     renderSwgrSelectBox: function () {
         var me = this;
         var selectBox = $('#swgrSelectBox');
-        me.dataController.getSwgrSelectBoxList(function (err, data) {
+        me.dataController.getSwitchgearTypeList(function (err, data) {
             if (err) {
                 console.log(err);
                 msgBox('스위치 타입 셀리트박스 리스트를 불러올 수 없습니다.');
@@ -944,7 +944,7 @@ ViewContorller.prototype = {
             dataTable.draw();
         };
         if (model == me.model.SwgrList.name) {
-            me.dataController.getSwgrList(function (err, gridData) {
+            me.dataController.getSwitchgearUnused(function (err, gridData) {
                 if (err) {
                     console.log(err);
                     msgBox('스위치 리스트를 불러올 수 없습니다.');
@@ -1041,7 +1041,7 @@ ViewContorller.prototype = {
             });
         }
         if (model == me.model.UnAssignedLoadList.name) {
-            me.dataController.getUnAssignedLoadList(function (err, gridData) {
+            me.dataController.getLoadUnused(function (err, gridData) {
                 if (err) {
                     console.log(err);
                     msgBox('로드 리스트를 불러올 수 없습니다.');
