@@ -59,9 +59,9 @@ var ViewContorller = function () {
         /**
          * 어사인된 로드리스트 (feederRenderer)
          */
-        AssignedLoadList: {
-            name: 'AssignedLoadList',
-            panel: $('#AssignedLoadTree')
+        AssignedFeederList: {
+            name: 'AssignedFeederList',
+            panel: $('#AssignedFeederTree')
         },
 
         /**
@@ -368,7 +368,7 @@ ViewContorller.prototype = {
         me.renderSwgrSelectBox();
         me.renderGrid(me.model.SwgrList.name);
         me.renderGrid(me.model.UnAssignedLoadList.name);
-        me.renderTree(me.model.AssignedLoadList.name);
+        me.renderTree(me.model.AssignedFeederList.name);
         me.renderGrid(me.model.FeederList.name);
 
         /**
@@ -417,7 +417,7 @@ ViewContorller.prototype = {
     getRendererByModel: function (modelName) {
         var me = this;
         var feederRenderer = [
-            me.model.AssignedLoadList.name,
+            me.model.AssignedFeederList.name,
             me.model.SwgrList.name,
             me.model.FeederList.name,
             me.model.UnAssignedLoadList.name
@@ -589,13 +589,13 @@ ViewContorller.prototype = {
         var containerId = renderer.getContainerId();
         var mode = renderer.getMode();
         if (mode == me.Constants.MODE.FEEDER) {
-            title = 'FEEDER - ' + data['SWGR_NAME'];
+            title = 'FEEDER - ' + data['swgr_name'];
         }
         if (mode == me.Constants.MODE.HIERARCHY) {
-            title = 'HIERARCHY PROJECT - ' + data['NM'];
+            title = 'HIERARCHY PROJECT - ' + data['pjt_nm'];
         }
         if (mode == me.Constants.MODE.ROUTE) {
-            title = 'BLDG/ROUTE PROJECT - ' + data['NM'];
+            title = 'BLDG/ROUTE PROJECT - ' + data['pjt_nm'];
         }
         var titleBox = $('#' + containerId + '-title');
         titleBox.show();
@@ -653,7 +653,7 @@ ViewContorller.prototype = {
             }
             selectBox.append('<option value="" selected>--select new swgr type--</option>')
             for (var i = 0, leni = data.length; i < leni; i++) {
-                selectBox.append('<option value="' + data[i]['CD'] + '">' + data[i]['CD_NM'] + '</option>')
+                selectBox.append('<option value="' + data[i]['dtl_cd'] + '">' + data[i]['label'] + '</option>')
             }
         });
     },
@@ -775,8 +775,8 @@ ViewContorller.prototype = {
                 panel.jstree(true).refresh();
             }
         };
-        if (model == me.model.AssignedLoadList.name) {
-            me.dataController.getAssignedLoadList(function (err, treeData) {
+        if (model == me.model.AssignedFeederList.name) {
+            me.dataController.getAssignedFeederList(function (err, treeData) {
                 if (err) {
                     console.log(err);
                     if (typeof err == 'string') {
@@ -793,9 +793,9 @@ ViewContorller.prototype = {
                  */
                 for (var i = 0; i < treeData.length; i++) {
                     treeData[i]['data']['model'] = model;
-                    if (treeData[i]['data']['FE_SWGR_LOAD_DIV'] == 'S') {
+                    if (treeData[i]['data']['fe_swgr_load_div'] == 'S') {
                         treeData[i]['data']['shapeType'] = me.Constants.TYPE.MODIFY_FEEDER;
-                        treeData[i]['data']['shapeLabel'] = treeData[i]['data']['SWGR_NAME'];
+                        treeData[i]['data']['shapeLabel'] = treeData[i]['data']['swgr_name'];
                     }
                 }
                 treeOptions = {
@@ -954,15 +954,14 @@ ViewContorller.prototype = {
                      * 트랜스포머가 아닌것은 NEW_FEEDER 로 넘어간다.
                      */
                     for (var i = 0; i < gridData.length; i++) {
-                        if (gridData[i]['SWGR_TYPE'] == 'TRANSFORMER') {
+                        if (gridData[i]['swgr_type'] == 'TR') {
                             gridData[i]['shapeType'] = me.Constants.TYPE.TRANSFORMER;
                         } else {
                             gridData[i]['shapeType'] = me.Constants.TYPE.NEW_FEEDER;
                         }
-                        gridData[i]['shapeLabel'] = gridData[i]['SWGR_NAME'];
-                        gridData[i]['shapeFollowText'] = gridData[i]['SWGR_TAG_NO'] + ',' + gridData[i]['SWGR_SHORT_CIR_RATING'];
+                        gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
                         gridData[i]['model'] = model;
-                        gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + gridData[i]['SWGR_NAME'] + '</a>';
+                        gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + gridData[i]['swgr_name'] + '</a>';
                     }
                     greedOptions = {
                         data: gridData,
@@ -973,12 +972,12 @@ ViewContorller.prototype = {
                                 defaultContent: ''
                             },
                             {
-                                data: 'SWGR_TYPE',
+                                data: 'swgr_type',
                                 title: 'TYPE',
                                 defaultContent: ''
                             },
                             {
-                                data: 'SWGR_OWNER_NM',
+                                data: 'swgr_owner_nm',
                                 title: 'OWNER',
                                 defaultContent: ''
                             }
@@ -1004,14 +1003,14 @@ ViewContorller.prototype = {
                     for (var i = 0; i < gridData.length; i++) {
                         if (model == me.model.HierarchyFeederList.name) {
                             gridData[i]['shapeType'] = me.Constants.TYPE.HIERARCHY_FEEDER;
-                            gridData[i]['shapeLabel'] = gridData[i]['SWGR_NAME'];
+                            gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
                         }
                         if (model == me.model.FeederList.name) {
                             gridData[i]['shapeType'] = me.Constants.TYPE.MODIFY_FEEDER;
-                            gridData[i]['shapeLabel'] = gridData[i]['SWGR_NAME'];
+                            gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
                         }
                         gridData[i]['model'] = model;
-                        gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + gridData[i]['SWGR_NAME'] + '</a>';
+                        gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + gridData[i]['swgr_name'] + '</a>';
                     }
                     greedOptions = {
                         data: gridData,
@@ -1022,12 +1021,12 @@ ViewContorller.prototype = {
                                 defaultContent: ''
                             },
                             {
-                                data: 'SWGR_TYPE_CD',
+                                data: 'swgr_type_nm',
                                 title: 'Type',
                                 defaultContent: ''
                             },
                             {
-                                data: 'SWGR_TOTAL_KVA',
+                                data: 'swgr_total_kva',
                                 title: 'TOTAL LOAD(Kva)',
                                 defaultContent: ''
                             }
@@ -1050,33 +1049,33 @@ ViewContorller.prototype = {
                      * UnAssignedLoadList 는 로드 타입별로 shapeType 을 지정해 넘긴다.
                      */
                     for (var i = 0; i < gridData.length; i++) {
-                        if (gridData[i]['LO_TYPE'] == 'NM') {
+                        if (gridData[i]['lo_type'] == 'NM') {
                             gridData[i]['shapeType'] = me.Constants.TYPE.NMLOAD;
                         }
-                        if (gridData[i]['LO_TYPE'] == 'SH') {
+                        if (gridData[i]['lo_type'] == 'SH') {
                             gridData[i]['shapeType'] = me.Constants.TYPE.SHLOAD;
                         }
-                        if (gridData[i]['LO_TYPE'] == 'EH') {
+                        if (gridData[i]['lo_type'] == 'EH') {
                             gridData[i]['shapeType'] = me.Constants.TYPE.EHLOAD;
                         }
-                        if (gridData[i]['LO_TYPE'] == 'EHS') {
+                        if (gridData[i]['lo_type'] == 'EHS') {
                             gridData[i]['shapeType'] = me.Constants.TYPE.EHSLOAD;
                         }
-                        if (gridData[i]['LO_TYPE'] == 'MI') {
+                        if (gridData[i]['lo_type'] == 'MI') {
                             gridData[i]['shapeType'] = me.Constants.TYPE.MILOAD;
                         }
-                        if (gridData[i]['LO_TYPE'] == 'MK') {
+                        if (gridData[i]['lo_type'] == 'MK') {
                             gridData[i]['shapeType'] = me.Constants.TYPE.MKLOAD;
                         }
-                        if (gridData[i]['LO_TYPE'] == 'MO') {
+                        if (gridData[i]['lo_type'] == 'MO') {
                             gridData[i]['shapeType'] = me.Constants.TYPE.MOLOAD;
                         }
-                        if (gridData[i]['LO_TYPE'] == 'PKG') {
+                        if (gridData[i]['lo_type'] == 'PKG') {
                             gridData[i]['shapeType'] = me.Constants.TYPE.PKGLOAD;
                         }
-                        gridData[i]['shapeLabel'] = gridData[i]['LO_EQUIP_TAG_NO'];
+                        gridData[i]['shapeLabel'] = gridData[i]['lo_equip_tag_no'];
                         gridData[i]['model'] = model;
-                        gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + gridData[i]['LO_EQUIP_TAG_NO'] + '</a>';
+                        gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + gridData[i]['lo_equip_tag_no'] + '</a>';
                     }
                     greedOptions = {
                         data: gridData,
@@ -1087,7 +1086,12 @@ ViewContorller.prototype = {
                                 defaultContent: ''
                             },
                             {
-                                data: 'LO_PROC_SYS',
+                                data: 'lo_type',
+                                title: 'TYPE',
+                                defaultContent: ''
+                            },
+                            {
+                                data: 'lo_proc_sys',
                                 title: 'PROCESS/SYSTEM',
                                 defaultContent: ''
                             }

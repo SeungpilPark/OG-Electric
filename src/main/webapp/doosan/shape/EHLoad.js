@@ -59,7 +59,7 @@ OG.shape.elec.EHLoad.prototype.createSubShape = function () {
 
     this.sub = [
         {
-            shape: new OG.TextShape(this.data['LO_TYPE'] + ' Load'),
+            shape: new OG.TextShape(this.data['lo_type'] + ' Load'),
             width: '200%',
             height: '15%',
             left: '-50%',

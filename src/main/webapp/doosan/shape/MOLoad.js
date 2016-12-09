@@ -47,7 +47,7 @@ OG.shape.elec.MOLoad.prototype.createSubShape = function () {
     if (this.data) {
         this.sub.push(
             {
-                shape: new OG.TextShape(this.data['LO_TYPE'] + ' Load'),
+                shape: new OG.TextShape(this.data['lo_type'] + ' Load'),
                 width: '200%',
                 height: '15%',
                 left: '-50%',

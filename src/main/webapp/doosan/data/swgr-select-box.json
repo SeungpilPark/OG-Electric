@@ -1,26 +1,20 @@
 [
   {
-    "CD": "AC",
-    "CD_NM": "ACB"
+    "dtl_cd": "C",
+    "data": "C",
+    "dtl_cd_nm": "CABLE",
+    "label": "CABLE"
   },
   {
-    "CD": "VC",
-    "CD_NM": "VCB"
+    "dtl_cd": "D",
+    "data": "D",
+    "dtl_cd_nm": "DUCT",
+    "label": "DUCT"
   },
   {
-    "CD": "MC",
-    "CD_NM": "MCC"
-  },
-  {
-    "CD": "DB",
-    "CD_NM": "DB"
-  },
-  {
-    "CD": "TR",
-    "CD_NM": "TRANSFORMER"
-  },
-  {
-    "CD": "LO",
-    "CD_NM": "Local Controll Panel"
+    "dtl_cd": "S",
+    "data": "S",
+    "dtl_cd_nm": "SPARE",
+    "label": "SPARE"
   }
 ]

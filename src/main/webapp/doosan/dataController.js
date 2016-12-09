@@ -3,9 +3,6 @@
  */
 var DataController = function () {
     this.dev = true;
-    if (window.parent && window.parent.document) {
-        this.dev = false;
-    }
 };
 DataController.prototype = {
     /**
@@ -18,7 +15,7 @@ DataController.prototype = {
                 url: 'doosan/data/project.json',
                 dataType: 'json',
                 success: function (data) {
-                    callback(null, data);
+                    callback(null, data[0]);
                 },
                 error: function (err) {
                     callback(err, null);
@@ -28,7 +25,7 @@ DataController.prototype = {
             var data;
             try {
                 data = parent.getProjectInfo();
-                callback(null, data);
+                callback(null, data[0]);
             } catch (e) {
                 callback(e, null);
             }
@@ -165,16 +162,25 @@ DataController.prototype = {
         }
     },
     /**
-     * 피더 리스트를 불러온다.
+     * 피더 리스트를 불러온다.(스위치에 해당하는 것만 리스트로)
      * @param callback
      */
     getFeederList: function (callback) {
+        var getSwitchList = function(data){
+            var list = [];
+            for(var i = 0, leni = data.length; i < leni; i++){
+                if(data[i]['fe_swgr_load_div'] == 'S'){
+                    list.push(data[i]);
+                }
+            }
+            return list;
+        };
         if (this.dev) {
             $.ajax({
                 url: 'doosan/data/feeder-list.json',
                 dataType: 'json',
                 success: function (data) {
-                    callback(null, data);
+                    callback(null, getSwitchList(data));
                 },
                 error: function (err) {
                     callback(err, null);
@@ -184,7 +190,7 @@ DataController.prototype = {
             var data;
             try {
                 data = parent.getFeederList();
-                callback(null, data);
+                callback(null, getSwitchList(data));
             } catch (e) {
                 callback(e, null);
             }
@@ -238,9 +244,13 @@ DataController.prototype = {
             }
         });
     },
-    getAssignedLoadList: function (callback) {
+    /**
+     * 어사인된 피더 리스트 를 불러온다.
+     * @param callback
+     */
+    getAssignedFeederList: function (callback) {
         $.ajax({
-            url: 'doosan/data/assinged-load-list.json',
+            url: 'doosan/data/feeder-list.json',
             dataType: 'json',
             success: function (data) {
                 var prevItem;
@@ -251,42 +261,42 @@ DataController.prototype = {
                     var enableDisplay = true;
 
                     //LV 가 1이면 루트이다.
-                    if (data[i]['LV'] == 1) {
+                    if (data[i]['lv'] == 1) {
                         parent = '#';
                         lastLvMap[1] = data[i];
                     }
                     //prevItem 이 없다면 일단 루트로 등록하고, LV 맵에 자신을 등록
                     else if (!prevItem) {
                         parent = '#';
-                        lastLvMap[data[i]['LV']] = data[i];
+                        lastLvMap[data[i]['lv']] = data[i];
                     }
                     else {
                         //자신의 레벨이 마지막 아이템의 레벨보다 크다면
-                        if (prevItem['LV'] < data[i]['LV']) {
-                            parent = prevItem['FEEDER_LIST_MGT_SEQ'];
-                            lastLvMap[data[i]['LV']] = data[i];
+                        if (prevItem['lv'] < data[i]['lv']) {
+                            parent = prevItem['feeder_list_mgt_seq'];
+                            lastLvMap[data[i]['lv']] = data[i];
                         }
                         //자신의 레벨이 마지막 아이템의 레벨보다 같거나 작다면
-                        else if (prevItem['LV'] >= data[i]['LV']) {
-                            var parentLv = data[i]['LV'] - 1;
+                        else if (prevItem['lv'] >= data[i]['lv']) {
+                            var parentLv = data[i]['lv'] - 1;
                             if (lastLvMap[parentLv]) {
-                                parent = lastLvMap[parentLv]['FEEDER_LIST_MGT_SEQ'];
-                                lastLvMap[data[i]['LV']] = data[i];
+                                parent = lastLvMap[parentLv]['feeder_list_mgt_seq'];
+                                lastLvMap[data[i]['lv']] = data[i];
                             }
                             //자신의 전단계 레벨이 lastLvMap 에 없다면, 잘못된 데이터 형식임을 알린다.
                             else {
-                                callback('어사인드 로드 ' + data[i]['KKS_NUM'] + ' 의 상위 레벨 데이터가 누락되었습니다.')
+                                callback('어사인드 로드 ' + data[i]['kks_num'] + ' 의 상위 레벨 데이터가 누락되었습니다.')
                             }
                         }
                     }
                     if (enableDisplay) {
                         var item = {
-                            id: data[i]['FEEDER_LIST_MGT_SEQ'],
-                            text: data[i]['KKS_NUM'],
+                            id: data[i]['feeder_list_mgt_seq'],
+                            text: data[i]['kks_num'],
                             parent: parent,
                             data: data[i],
                             a_attr: {},
-                            type: data[i]['FE_SWGR_LOAD_DIV'] == 'L' ? 'load' : 'swgr'
+                            type: data[i]['fe_swgr_load_div'] == 'L' ? 'load' : 'swgr'
                         };
                         treeData.push(item);
                         prevItem = data[i];

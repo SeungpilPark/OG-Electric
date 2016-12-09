@@ -1,5 +1,17 @@
-{
-  "PJT_SQ": "SIM0004",
-  "NM": "SAMPLE-PROJECT-1",
-  "DSCR": "THIS IS A SAMPLE PROJECT"
-}
+[
+  {
+    "user_sq": "1",
+    "gui_back_img_path": null,
+    "pjt_nm": "Metis",
+    "email": "hakseok1.kim@doosan.com",
+    "pjt_cd": "129",
+    "gui_route_json": null,
+    "pjt_sq": "129",
+    "gui_hier_json": null,
+    "user_id": "SYSADMIN",
+    "user_eng_nm": "ADMIN",
+    "pjt_desc": null,
+    "user_nm": "ADMIN",
+    "pjt_ty": "A"
+  }
+]

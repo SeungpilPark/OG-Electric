@@ -372,39 +372,38 @@
 
                                     <!--로드 리스트 패널-->
                                     <div class="tab-pane fade in" id="load">
-                                        <div class="tab-v1">
-                                            <ul class="nav nav-tabs">
-                                                <li class="active" style="width: 50%;"><a href="#unAssignedLoad"
-                                                                                          data-toggle="tab">LIST</a>
-                                                </li>
-                                                <li style="width: 50%;"><a href="#AssignedLoad" data-toggle="tab">Assigned
-                                                    List</a></li>
-                                            </ul>
-
-                                            <div class="tab-content">
-                                                <!--언 어사인드 로드 리스트 패널-->
-                                                <div class="tab-pane fade in active" id="unAssignedLoad">
-                                                    <div class="col-md-12">
-                                                        <table id="unAssignedLoadGrid" class="display"
-                                                               width="100%"></table>
-                                                    </div>
-                                                </div>
-
-                                                <!--어사인드 로드 리스트 트리 패널-->
-                                                <div class="tab-pane fade in" id="AssignedLoad">
-                                                    <div class="col-md-12">
-                                                        <div id="AssignedLoadTree">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="col-md-12">
+                                            <table id="unAssignedLoadGrid" class="display"
+                                                   width="100%"></table>
                                         </div>
                                     </div>
 
                                     <!--피더 리스트 패널-->
                                     <div class="tab-pane fade in active" id="feeder">
-                                        <div class="col-md-12">
-                                            <table id="feederGrid" class="display" width="100%"></table>
+                                        <div class="tab-v1">
+                                            <ul class="nav nav-tabs">
+                                                <li class="active" style="width: 50%;"><a href="#AssignedFeederSwgr"
+                                                                                          data-toggle="tab">Assigned(Swgr)</a>
+                                                </li>
+                                                <li style="width: 50%;"><a href="#AssignedFeeder" data-toggle="tab">Assigned(All)</a></li>
+                                            </ul>
+
+                                            <div class="tab-content">
+                                                <!--피더 스위치 리스트 패널-->
+                                                <div class="tab-pane fade in active" id="AssignedFeederSwgr">
+                                                    <div class="col-md-12">
+                                                        <table id="feederGrid" class="display" width="100%"></table>
+                                                    </div>
+                                                </div>
+
+                                                <!--피더 리스트 트리 패널-->
+                                                <div class="tab-pane fade in" id="AssignedFeeder">
+                                                    <div class="col-md-12">
+                                                        <div id="AssignedFeederTree">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
