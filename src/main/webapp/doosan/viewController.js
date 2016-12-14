@@ -388,8 +388,38 @@ ViewContorller.prototype = {
 
 
         me.bindMenuEvent();
+        me.bindToolbarEvent();
 
         $('#editor-backdoor').hide();
+    },
+    /**
+     * 툴바 이벤트를 부여한다.
+     */
+    bindToolbarEvent: function(){
+        var me = this;
+        $('#editor-save').click(function(){
+            var mode = me.getCurrentMode();
+            var renderer = me.getRendererByMode(mode);
+            var json = renderer.getCanvas().toJSON();
+            var object = renderer.editingObject;
+
+            me.dataController.saveFeederGui(object['swgr_list_seq'], json);
+
+            //각 도형의 데이터를 불러오기
+            var locations = renderer.getCanvas().getElementsByShapeId('OG.shape.elec.Location');
+            //var itemData = locations[0].shape.data;
+            var itemData = renderer.getCanvas().getCustomData(locations[0]);
+            console.log(itemData);
+            //현업 및 차장님이 요구하시는 조건이라든지...
+            //필터링해서...전달.
+
+        });
+    },
+    /**
+     * 현재 모드를 불러온다.
+     */
+    getCurrentMode: function(){
+        return this.currentMode;
     },
 
     /**

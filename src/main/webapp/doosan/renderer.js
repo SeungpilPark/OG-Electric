@@ -68,6 +68,7 @@ var Renderer = function (mode, container, controller) {
     }
     this._MODE = mode;
     this._CONTROLLER = controller;
+    this._DATA_CONTROLLER = controller.dataController;
     this._CONTAINER = $('#' + container);
     this._CONTAINER_ID = container;
     this._SLIDER = null;
@@ -552,7 +553,16 @@ Renderer.prototype = {
 
         });
         me.canvas.onBeforeConnectShape(function (event, edgeElement, fromElement, toElement) {
-
+            var me = this;
+            if(this.getMode() == me.Constants.MODE.FEEDER){
+                var fromSeq = fromElement.shape.data['swgr_list_seq'];
+                var toSeq = toElement.shape.data['load_list_seq'];
+                var flag = me._DATA_CONTROLLER.블라블라(fromSeq,toSeq);
+                if(!flag){
+                    //펄스 리턴하면 연결안됨.
+                    return false;
+                }
+            }
         });
 
         /**
@@ -581,7 +591,14 @@ Renderer.prototype = {
      * @param element
      */
     onShowProperty: function (element) {
+        var me = this;
+        console.log(element.shape.data);
 
+            //팝업창 띄우는 메소드를 만들면 된다.
+
+
+        //서버에 바로 보내기
+        me._DATA_CONTROLLER.블라블라();
     },
     /**
      * 해당 레이스웨이를 하이라이트 처리한다.

@@ -24173,6 +24173,7 @@ OG.renderer.RaphaelRenderer.prototype.addHistory = function () {
 /**
  * 캔버스의 Undo
  *
+ *
  * @override
  */
 OG.renderer.RaphaelRenderer.prototype.undo = function () {
@@ -27897,7 +27898,7 @@ OG.handler.EventHandler.prototype = {
         $(rootEle).bind('mousewheel DOMMouseScroll', function (event) {
             event.preventDefault();
             event.stopPropagation();
-            if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
+            if (event.originalEvent.wheelDelta > 0 || event.deltaY > 0) {
                 // scroll up
                 updateScale(event, true);
             }
@@ -32997,9 +32998,18 @@ OG.graph.Canvas.prototype = {
         sliderBar.bind('input', function () {
             me.updateSlider($(this).val());
         });
+
+        /*
         sliderBar.css({
             position: 'relative',
-            'writing-mode': 'bt-lr', /* IE */
+            'writing-mode': 'bt-lr',
+            'width': '100%',
+            'height': '8px'
+        });
+        */
+
+        sliderBar.css({
+            position: 'relative',
             'width': '100%',
             'height': '8px'
         });

@@ -370,6 +370,9 @@ DataController.prototype = {
             }
         });
     },
+    saveFeederGui: function(swgrId, ogJson){
+
+    }
 }
 ;
 DataController.prototype.constructor = DataController;
