@@ -509,6 +509,8 @@ Renderer.prototype = {
      */
     bindEvent: function () {
         var me = this;
+        console.log(me);
+        console.log(this);
         //Action Event. 이 이벤트들은 렌더러의 isUpdated 값을 true 로 만든다.
         me.canvas.onDrawShape(function (event, element) {
             me.isUpdated = true;
@@ -553,16 +555,16 @@ Renderer.prototype = {
 
         });
         me.canvas.onBeforeConnectShape(function (event, edgeElement, fromElement, toElement) {
-            var me = this;
-            if(this.getMode() == me.Constants.MODE.FEEDER){
-                var fromSeq = fromElement.shape.data['swgr_list_seq'];
-                var toSeq = toElement.shape.data['load_list_seq'];
-                var flag = me._DATA_CONTROLLER.블라블라(fromSeq,toSeq);
-                if(!flag){
+            //var me = this;
+            //if(me.getMode() == me.Constants.MODE.FEEDER){
+            //    var fromSeq = fromElement.shape.data['swgr_list_seq'];
+            //    var toSeq = toElement.shape.data['load_list_seq'];
+            //    var flag = me._DATA_CONTROLLER.블라블라(fromSeq,toSeq);
+            //    if(!flag){
                     //펄스 리턴하면 연결안됨.
-                    return false;
-                }
-            }
+            //        return false;
+            //    }
+            //}
         });
 
         /**
