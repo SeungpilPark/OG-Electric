@@ -901,16 +901,26 @@ ViewContorller.prototype = {
                                     "label": "UnAssign",
                                     "action": function (obj) {
                                         //console.log($node);
-                                        var targetSeq = $node.data.feeder_list_mgt_seq;
-                                        var resultData = me.dataController.deleteFeeder(targetSeq);
-                                        if(resultData == '0') {
-                                            //새로운 데이터를 받아서 트리를 다시 그린다.
-                                            tree.destroy();
-                                            me.renderTree(model);
-                                        } else {
-                                            //에러시 status : 1, 에러메세지를 보낸다.
-                                            //do Something...
-                                        }
+
+                                        var infoMessage = "선택한 노드를 삭제하시겠습니까?";
+                                        confirmBox(infoMessage, function (result) {
+                                            if (result) {
+
+                                                var targetSeq = $node.data.feeder_list_mgt_seq;
+                                                var resultData = '0';
+                                                if(resultData == '0') {
+                                                    //새로운 데이터를 받아서 트리를 다시 그린다.
+                                                    //tree.destroy();
+                                                    me.dataController.getUpdateAssignedFeederList(tree);
+                                                    //me.renderTree(model);
+                                                } else {
+                                                    //에러시 status : 1, 에러메세지를 보낸다.
+                                                    //do Something...
+                                                }
+
+                                            }
+                                        });
+
                                     }
                                 }
                             };
