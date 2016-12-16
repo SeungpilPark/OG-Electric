@@ -5,6 +5,14 @@ var Renderer = function (mode, container, controller) {
             HIERARCHY: 'hierarchy',
             ROUTE: 'route',
         },
+
+        /*
+        MODE_WORKSET: {
+            FEEDER_WORKSET: 'NEW',
+            HIERARCHY_WORKSET: 'NEW',
+            ROUTE_WORKSET: 'NEW'
+        },
+        */
         TYPE: {
             SWITCH_GEAR: 'SwitchGear',
             TRANSFORMER: 'Transformer',
@@ -165,6 +173,29 @@ Renderer.prototype = {
     setMode: function (mode) {
         this._MODE = mode;
     },
+
+    /*
+    getModeSet: function () {
+        if(this._MODE == this.Constants.MODE.FEEDER) {
+            return this.Constants.MODE_WORKSET.FEEDER_WORKSET;
+        } else if(this._MODE == this.Constants.MODE.HIERARCHY) {
+            return this.Constants.MODE_WORKSET.HIERARCHY_WORKSET;
+        } else {
+            return this.Constants.MODE_WORKSET.ROUTE_WORKSET;
+        }
+    },
+
+    setModeSet: function (modeSet) {
+        if(this._MODE == this.Constants.MODE.FEEDER) {
+            this.Constants.MODE_WORKSET.FEEDER_WORKSET = modeSet;
+        } else if(this._MODE == this.Constants.MODE.HIERARCHY) {
+            this.Constants.MODE_WORKSET.HIERARCHY_WORKSET = modeSet;
+        } else {
+            this.Constants.MODE_WORKSET.ROUTE_WORKSET = modeSet;
+        }
+    },
+    */
+
     getIsUpdated: function () {
         return this.isUpdated;
     },
@@ -600,7 +631,7 @@ Renderer.prototype = {
 
 
         //서버에 바로 보내기
-        me._DATA_CONTROLLER.블라블라();
+        //me._DATA_CONTROLLER.블라블라();
     },
     /**
      * 해당 레이스웨이를 하이라이트 처리한다.

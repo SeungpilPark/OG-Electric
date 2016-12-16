@@ -147,21 +147,7 @@ ViewContorller.prototype = {
 
         // save click event binding
         $('#editor-save').click(function(){
-            var mode = me.getCurrentMode();
-            var renderer = me.getRendererByMode(mode);
-            var json = renderer.getCanvas().toJSON();
-            var object = renderer.editingObject;
-
-            me.dataController.saveFeederGui(object['swgr_list_seq'], json);
-
-            //각 도형의 데이터를 불러오기
-            //var locations = renderer.getCanvas().getElementsByShapeId('OG.shape.elec.Location');
-            //var itemData = locations[0].shape.data;
-           // var itemData = renderer.getCanvas().getCustomData(locations[0]);
-            //console.log(itemData);
-            //현업 및 차장님이 요구하시는 조건이라든지...
-            //필터링해서...전달.
-
+            me.dataController.saveFeederGui(me);
         });
 
         $('.dropdown-menu').menu();
@@ -202,6 +188,8 @@ ViewContorller.prototype = {
                 var json = JSON.parse(val);
                 var renderer = me.getRendererByMode(me.currentMode);
                 renderer.canvas.loadJSON(json);
+                //me.setEditingObjectFromLoadData(renderer);
+                //renderer.setModeSet('WORKED');
                 dataModal.find('.close').click();
             });
             dataModal.find('textarea').val('');
@@ -217,6 +205,8 @@ ViewContorller.prototype = {
                 var xml = dataModal.find('textarea').val();
                 var renderer = me.getRendererByMode(me.currentMode);
                 renderer.canvas.loadXML(xml);
+                //me.setEditingObjectFromLoadData(renderer);
+                //renderer.setModeSet('WORKED');
                 dataModal.find('.close').click();
             });
             dataModal.find('textarea').val('');
@@ -597,6 +587,64 @@ ViewContorller.prototype = {
     },
 
     /**
+     * json 또는 xml로 캔버스에 로딩할때 setEditingObject를 세팅한다.
+     * @param renderer
+     * @param loadData
+     */
+    /*
+    setEditingObjectFromLoadData: function (renderer) {
+
+
+        var me = this;
+        var currentCanvas = renderer.canvas;
+        var editingShape = currentCanvas.getAllShapes()[0];
+        var shapeData = currentCanvas.getCustomData(editingShape);
+
+        if (!renderer || !shapeData) {
+            return;
+        }
+
+        //데이터 혼용을 막기 위한 조치
+        var data = JSON.parse(JSON.stringify(shapeData));
+
+        //타이틀 박스를 세팅한다.
+        var title = '';
+        var containerId = renderer.getContainerId();
+        var mode = renderer.getMode();
+        if (mode == me.Constants.MODE.FEEDER) {
+            title = 'FEEDER - ' + data['swgr_name'];
+        }
+        if (mode == me.Constants.MODE.HIERARCHY) {
+            title = 'HIERARCHY PROJECT - ' + data['pjt_nm'];
+        }
+        if (mode == me.Constants.MODE.ROUTE) {
+            title = 'BLDG/ROUTE PROJECT - ' + data['pjt_nm'];
+        }
+        var titleBox = $('#' + containerId + '-title');
+        titleBox.show();
+        titleBox.html(title);
+
+        //렌더러에 에디팅 오브젝트를 설정한다.
+        renderer.editingObject = data;
+
+        //이때, 도형을 모두 그린 후 캔버스가 업데이트 되지 않은 상태로 변경한다.
+        if (data['shapeType'] == me.Constants.TYPE.MODIFY_FEEDER) {
+            //TODO 기존의 오브젝트인 경우 xml 을 바탕으로 캔버스에 새로 렌더링한다.
+            data['shapeType'] = me.Constants.TYPE.SWITCH_GEAR;
+            renderer.drawImmediately(null, data);
+            renderer.setIsUpdated(false);
+        }
+
+        //아닌경우, 렌더러에 새로 생성할 도형을 그린다. 캔버스가 업데이트 된 처리를 하도록 한다.
+        if (data['shapeType'] == me.Constants.TYPE.NEW_FEEDER) {
+            data['shapeType'] = me.Constants.TYPE.SWITCH_GEAR;
+            renderer.drawImmediately(null, data);
+            renderer.setIsUpdated(true);
+        }
+    },
+    */
+
+    /**
      * 렌더러에 새로운 에디팅 오브젝트를 설정하고, 타이틀을 세팅한다.
      * @param renderer
      * @param shapeData
@@ -629,6 +677,7 @@ ViewContorller.prototype = {
         //렌더러를 초기화한다.
         renderer.getCanvas().clear();
         renderer.getCanvas().setScale(1);
+        //renderer.setModeSet('NEW');
         renderer.fitCanvasSize();
 
         //렌더러에 에디팅 오브젝트를 설정한다.
@@ -790,6 +839,9 @@ ViewContorller.prototype = {
                     .on("select_node.jstree", function (evt, data) {
                         //console.log(data);
                     })
+                    .on("delete_node.jstree", function (evt, data) {
+                        //console.log(data);
+                    })
                     .on('dnd_start.vakata', function (e, data) {
                         //console.log(data);
                     });
@@ -848,8 +900,17 @@ ViewContorller.prototype = {
                                     "separator_after": false,
                                     "label": "UnAssign",
                                     "action": function (obj) {
-                                        $node = tree.create_node($node);
-                                        //Do something
+                                        //console.log($node);
+                                        var targetSeq = $node.data.feeder_list_mgt_seq;
+                                        var resultData = me.dataController.deleteFeeder(targetSeq);
+                                        if(resultData == '0') {
+                                            //새로운 데이터를 받아서 트리를 다시 그린다.
+                                            tree.destroy();
+                                            me.renderTree(model);
+                                        } else {
+                                            //에러시 status : 1, 에러메세지를 보낸다.
+                                            //do Something...
+                                        }
                                     }
                                 }
                             };

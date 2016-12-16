@@ -51,7 +51,11 @@
 	var getFeederList = function (jsonList) {
 	  alert("getFeederList : "+jsonList);
 	};
-	
+
+	// 트리에서 선택한 노드를 지운다.
+	var deleteFeeder = function (seq) {
+
+	};
 /*
  *Hierarchy Editor 
  */

@@ -161,6 +161,17 @@ DataController.prototype = {
             }
         }
     },
+
+    /**
+     * 피더 에디터의 Assigned(All)의 트리의 컨텍스트 메뉴의 unAssign 클릭 이벤트시 feeder_list_mgt_seq를 받아 지운다.
+     */
+    deleteFeeder: function (seq) {
+        // resultData는 성공이면 status : 0, 에러시에는 status : 1, errorMessage : "string"
+        //var resultData = parent.deleteFeeder(seq);
+        //return resultData;
+
+    },
+
     /**
      * 피더 리스트를 불러온다.(스위치에 해당하는 것만 리스트로)
      * @param callback
@@ -249,66 +260,86 @@ DataController.prototype = {
      * @param callback
      */
     getAssignedFeederList: function (callback) {
-        $.ajax({
-            url: 'doosan/data/feeder-list.json',
-            dataType: 'json',
-            success: function (data) {
-                var prevItem;
-                var lastLvMap = {};
-                var treeData = [];
-                for (var i = 0, leni = data.length; i < leni; i++) {
-                    var parent;
-                    var enableDisplay = true;
 
-                    //LV 가 1이면 루트이다.
-                    if (data[i]['lv'] == 1) {
-                        parent = '#';
-                        lastLvMap[1] = data[i];
-                    }
-                    //prevItem 이 없다면 일단 루트로 등록하고, LV 맵에 자신을 등록
-                    else if (!prevItem) {
-                        parent = '#';
+        var getTreeData = function(data){
+
+            var prevItem;
+            var lastLvMap = {};
+            var treeData = [];
+            for (var i = 0, leni = data.length; i < leni; i++) {
+                var parent;
+                var enableDisplay = true;
+
+                //LV 가 1이면 루트이다.
+                if (data[i]['lv'] == 1) {
+                    parent = '#';
+                    lastLvMap[1] = data[i];
+                }
+                //prevItem 이 없다면 일단 루트로 등록하고, LV 맵에 자신을 등록
+                else if (!prevItem) {
+                    parent = '#';
+                    lastLvMap[data[i]['lv']] = data[i];
+                }
+                else {
+                    //자신의 레벨이 마지막 아이템의 레벨보다 크다면
+                    if (prevItem['lv'] < data[i]['lv']) {
+                        parent = prevItem['feeder_list_mgt_seq'];
                         lastLvMap[data[i]['lv']] = data[i];
                     }
-                    else {
-                        //자신의 레벨이 마지막 아이템의 레벨보다 크다면
-                        if (prevItem['lv'] < data[i]['lv']) {
-                            parent = prevItem['feeder_list_mgt_seq'];
+                    //자신의 레벨이 마지막 아이템의 레벨보다 같거나 작다면
+                    else if (prevItem['lv'] >= data[i]['lv']) {
+                        var parentLv = data[i]['lv'] - 1;
+                        if (lastLvMap[parentLv]) {
+                            parent = lastLvMap[parentLv]['feeder_list_mgt_seq'];
                             lastLvMap[data[i]['lv']] = data[i];
                         }
-                        //자신의 레벨이 마지막 아이템의 레벨보다 같거나 작다면
-                        else if (prevItem['lv'] >= data[i]['lv']) {
-                            var parentLv = data[i]['lv'] - 1;
-                            if (lastLvMap[parentLv]) {
-                                parent = lastLvMap[parentLv]['feeder_list_mgt_seq'];
-                                lastLvMap[data[i]['lv']] = data[i];
-                            }
-                            //자신의 전단계 레벨이 lastLvMap 에 없다면, 잘못된 데이터 형식임을 알린다.
-                            else {
-                                callback('어사인드 로드 ' + data[i]['kks_num'] + ' 의 상위 레벨 데이터가 누락되었습니다.')
-                            }
+                        //자신의 전단계 레벨이 lastLvMap 에 없다면, 잘못된 데이터 형식임을 알린다.
+                        else {
+                            callback('어사인드 로드 ' + data[i]['kks_num'] + ' 의 상위 레벨 데이터가 누락되었습니다.')
                         }
                     }
-                    if (enableDisplay) {
-                        var item = {
-                            id: data[i]['feeder_list_mgt_seq'],
-                            text: data[i]['kks_num'],
-                            parent: parent,
-                            data: data[i],
-                            a_attr: {},
-                            type: data[i]['fe_swgr_load_div'] == 'L' ? 'load' : 'swgr'
-                        };
-                        treeData.push(item);
-                        prevItem = data[i];
-                    }
                 }
-                callback(null, treeData);
-            },
-            error: function (err) {
-                callback(err, null);
+                if (enableDisplay) {
+                    var item = {
+                        id: data[i]['feeder_list_mgt_seq'],
+                        text: data[i]['kks_num'],
+                        parent: parent,
+                        data: data[i],
+                        a_attr: {},
+                        type: data[i]['fe_swgr_load_div'] == 'L' ? 'load' : 'swgr'
+                    };
+                    treeData.push(item);
+                    prevItem = data[i];
+                }
             }
-        });
+
+            return treeData;
+        };
+
+        if (this.dev) {
+            $.ajax({
+                url: 'doosan/data/feeder-list.json',
+                dataType: 'json',
+                success: function (data) {
+                    var treeData = getTreeData(data);
+                    callback(null, treeData);
+                },
+                error: function (err) {
+                    callback(err, null);
+                }
+            });
+        } else {
+            var data;
+            try {
+                data = parent.getFeederList();
+                callback(null, getTreeData(data));
+            } catch (e) {
+                callback(e, null);
+            }
+        }
+
     },
+
     getHierarchyTreeList: function (callback) {
         $.ajax({
             url: 'doosan/data/hierarchy-list.json',
@@ -370,8 +401,71 @@ DataController.prototype = {
             }
         });
     },
-    saveFeederGui: function(swgrId, ogJson){
 
+    saveFeederGui: function(controller){
+
+        var mode = controller.getCurrentMode();
+        var renderer = controller.getRendererByMode(mode);
+        //console.log(renderer.getModeSet());
+        var currentCanvas = renderer.getCanvas();
+        var json = currentCanvas.toJSON();
+        var object = renderer.editingObject;
+        if(object === undefined) {
+            return;
+        }
+        var sendData = [];
+        var objectSeq = object['swgr_list_seq'];
+        /**
+         * GUI json data making and sendData setting
+         */
+        var GUI_DATA = {};
+        GUI_DATA['status'] = 'GUI';
+        GUI_DATA['seq'] =  object['swgr_list_seq'];
+        GUI_DATA['content'] = json;
+        sendData.push(GUI_DATA);
+
+        /**
+         * each object data Json making and sendDataSetting
+         */
+
+        var shapeList = currentCanvas.getAllShapes();
+        // find allShpaes, and check Objejct 'GEOM' on shpae
+        for(var i=0; i<shapeList.length; i++) {
+            var selectShapeType = $(shapeList[i]).attr('_shape');
+            if(selectShapeType == 'GEOM') {
+                var selectShapeId = $(shapeList[i]).attr('_shape_id');
+                var selectElement = currentCanvas.getElementsByShapeId(selectShapeId);
+                var selectItemData = currentCanvas.getCustomData(shapeList[i]);
+                console.log(selectItemData);
+                var jsonData = {};
+                jsonData['status'] = 'N';
+
+                var selectType = selectItemData.fe_swgr_load_div;
+                jsonData['type'] = selectType;
+                // In Case Of selectItemData.fe_swgr_load_div is 'S', check Mother Switch or Child
+                if(selectType == 'S') {
+                    jsonData['seq'] = selectItemData.swgr_list_seq;
+
+                    var prevShapes = currentCanvas.getPrevShapes(selectElement);
+                    var nextShapes = currentCanvas.getNextShapes(selectElement);
+
+                    // 이전 shapes의 정보를 통해 해당 S가 parent인지 child인지 체크
+                    if( (prevShapes.length == 0 && nextShapes.length == 0) || prevShapes.length == 0  ) {
+                        jsonData['root'] = 'Y';
+                    } else {
+                        jsonData['root'] = 'N';
+                    }
+
+                } else {
+                    jsonData['seq'] = selectItemData.load_list_seq;
+                }
+                sendData.push(jsonData);
+            }
+
+        }
+
+        //renderer.setModeSet('WORKED');
+        console.log(sendData);
     }
 }
 ;
