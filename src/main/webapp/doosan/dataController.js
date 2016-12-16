@@ -322,12 +322,13 @@ DataController.prototype = {
      */
     getUpdateAssignedFeederList: function (object) {
 
-        if (this.dev) {
+        var me = this;
+        if (me.dev) {
             $.ajax({
                 url: 'doosan/data/feeder-update-list.json',
                 dataType: 'json',
                 success: function (data) {
-                    var treeData = getAssignedTreeData(data);
+                    var treeData = me.getAssignedTreeData(data);
                     object.settings.core.data = treeData;
                     object.refresh();
                 },
@@ -338,7 +339,7 @@ DataController.prototype = {
             var data;
             try {
                 data = parent.getFeederList();
-                object.settings.core.data = this.getAssignedTreeData(data);
+                object.settings.core.data = me.getAssignedTreeData(data);
                 object.refresh();
             } catch (e) {
                 console.log('when refresh Tree Node, occur error');
@@ -351,13 +352,13 @@ DataController.prototype = {
      * @param callback
      */
     getAssignedFeederList: function (callback) {
-
-        if (this.dev) {
+        var me = this;
+        if (me.dev) {
             $.ajax({
                 url: 'doosan/data/feeder-list.json',
                 dataType: 'json',
                 success: function (data) {
-                    var treeData = this.getAssignedTreeData(data);
+                    var treeData = me.getAssignedTreeData(data);
                     callback(null, treeData);
                 },
                 error: function (err) {
@@ -368,7 +369,7 @@ DataController.prototype = {
             var data;
             try {
                 data = parent.getFeederList();
-                callback(null, this.getAssignedTreeData(data));
+                callback(null, me.getAssignedTreeData(data));
             } catch (e) {
                 callback(e, null);
             }
