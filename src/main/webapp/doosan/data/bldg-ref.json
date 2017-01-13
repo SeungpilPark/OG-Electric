@@ -1,34 +1,34 @@
 [
   {
-    "PJT_SQ": "SIM0004",
-    "BLDG_SEQ": "B000001",
-    "NM": "CCB",
-    "DSCR": "CCB BUILDING",
-    "LV": 1,
-    "GUI_XML": ""
+    "pjt_sq": "sim0004",
+    "bldg_seq": "b000001",
+    "nm": "ccb",
+    "dscr": "ccb building",
+    "lv": 1,
+    "gui_xml": ""
   },
   {
-    "PJT_SQ": "SIM0004",
-    "BLDG_SEQ": "B000002",
-    "NM": "TBN BLDG1",
-    "DSCR": "TBN BLDG1",
-    "LV": 1,
-    "GUI_XML": ""
+    "pjt_sq": "sim0004",
+    "bldg_seq": "b000002",
+    "nm": "tbn bldg1",
+    "dscr": "tbn bldg1",
+    "lv": 1,
+    "gui_xml": ""
   },
   {
-    "PJT_SQ": "SIM0004",
-    "BLDG_SEQ": "B000003",
-    "NM": "TBN BLDG2",
-    "DSCR": "TBN BLDG2",
-    "LV": 1,
-    "GUI_XML": ""
+    "pjt_sq": "sim0004",
+    "bldg_seq": "b000003",
+    "nm": "tbn bldg2",
+    "dscr": "tbn bldg2",
+    "lv": 1,
+    "gui_xml": ""
   },
   {
-    "PJT_SQ": "SIM0004",
-    "BLDG_SEQ": "B000004",
-    "NM": "TBN BLDG3",
-    "DSCR": "TBN BLDG3",
-    "LV": 1,
-    "GUI_XML": ""
+    "pjt_sq": "sim0004",
+    "bldg_seq": "b000004",
+    "nm": "tbn bldg3",
+    "dscr": "tbn bldg3",
+    "lv": 1,
+    "gui_xml": ""
   }
 ]
