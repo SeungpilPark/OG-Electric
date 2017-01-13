@@ -7,7 +7,8 @@ var ViewContorller = function () {
      */
     this.message = {
         NO_EDITOR_OBJECT: 'NO_EDITOR_OBJECT',
-        NEW: 'NEW'
+        NEW: 'NEW',
+        MOD: 'MOD'
     };
 
     /**
@@ -52,6 +53,73 @@ var ViewContorller = function () {
      * 프로젝트 데이터
      */
     this.projectData = undefined;
+
+    /**
+     * switch 리스트 reload를 위한 데이터
+     */
+    this.initUnusedSwitchList = [];
+    this.usedSwitchList = [];
+
+    /**
+     * load 리스트 reload를 위한 데이터
+     */
+    this.initUnusedLoadList = [];
+    this.usedLoadList = [];
+
+    /**
+     * 기존 피더에서 끌어와서 json데이터로 캔버스를 갱신할 경우.
+     * json데이터로 그려진 캔버스의 도형들의 data를 리스트로 갖는다.
+     * updateFeederList, deleteFeederList
+     */
+    this.feederMgtShapeList = [];
+    this.updateFeederList = [];
+    this.deleteFeederList = [];
+    this.tempElement = null;
+    this.parentSwitchElement = null;
+
+
+    /**
+     * hierarchyCanvas에 처음 그려지는 빌딩, 플로우, 피더의 정보를 담아낸다.
+     * 최종적으로 정보를 통해서 변경된 스위치나 빌딩이 존재한다면
+     * 피더 경우에는 hierarchy 피더 리스트가 삭제된 경우에는 최초 존재했던 피더를 캔버스에서 해당 피더를 지워야한다.
+     * 추가된 피더는 사용자가 그릴테니 그건 패스,
+     * 빌딩 추가시에는 기존 그려진 캔버스에서 겹치지 않게 임의의 위치에 해당 빌딩과 플로어를 그린다.
+     * 피더리스트 그리드를 갱신하기 위한 객체 추가
+     */
+    this.feederHierarchyMgtShapeList = [];
+    this.updateFeederHierarchyList = [];
+    this.deleteFeederHierarchyList = [];
+
+    this.initUnusedHierarchyFeederList = [];
+    this.usedHierarchyFeederList = [];
+    this.initHierarchyBldgs = [];
+    this.initHierarchyFloors = [];
+    this.initHierarchyFeeders = [];
+
+    /**
+     * 로케이션 초기 로드 데이터
+     */
+    this.initLocationReferenceList = [];
+
+    /**
+     * 빌딩 초기 로드 데이터
+     */
+    this.initBldgReferenceList = [];
+    this.usedBldgReferenceList = [];
+
+    /**
+     * 레이스웨이 초기 로드 데이터
+     */
+    this.initRacewayReferenceList = [];
+
+    /**
+     * 라우트 초기 로드 데이터
+     */
+    this.initRouteReferenceList = [];
+
+    this.removeFirstShapeTypeAtHierarchy = null;
+    this.removeFirstShapeTypeAtRoute = null;
+
     /**
      * 테이블/트리 구조모델. 캔버스의 각 shape 모델과는 다른 의미이다.
      */
@@ -134,6 +202,14 @@ var ViewContorller = function () {
         BldgReferenceList: {
             name: 'BldgReferenceList',
             panel: $('#bldgRefGrid')
+        },
+
+        /**
+         * 케이블 레퍼런스 (routeRenderer)
+         */
+        CableReferenceList: {
+            name: 'CableReferenceList',
+            panel: $('#cableRefGrid')
         }
     };
 };
@@ -145,14 +221,46 @@ ViewContorller.prototype = {
     bindMenuEvent: function () {
         var me = this;
 
-        // save click event binding
-        $('#editor-save').click(function(){
-            me.dataController.saveFeederGui(me);
+        // zoom fit
+        $('#editor-zoomFit').click(function(){
+            var renderer = me.getRendererByMode(me.currentMode);
+            var canvas = renderer.getCanvas();
+            canvas.setScale(1);
         });
 
-        $('.dropdown-menu').menu();
-        $('.dropdown-menu-trigger').click(function () {
-            $(this).find('.dropdown-menu').toggle();
+        // zoom in +
+        $('#editor-zoomIn').click(function(){
+            var renderer = me.getRendererByMode(me.currentMode);
+            var canvas = renderer.getCanvas();
+            var preScale = canvas.getScale();
+            var cuScale = preScale + 0.1;
+            canvas.setScale(cuScale);
+            canvas.updateNavigatior();
+        });
+
+        // zoom out -
+        $('#editor-zoomOut').click(function(){
+            var renderer = me.getRendererByMode(me.currentMode);
+            var canvas = renderer.getCanvas();
+            var preScale = canvas.getScale();
+            var cuScale = preScale - 0.1;
+            canvas.setScale(cuScale);
+            canvas.updateNavigatior();
+        });
+        // save click event binding
+        $('#editor-save').click(function(){
+
+            $.blockUI({ css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            } });
+
+            setTimeout(me.saveWrapper, 100, me);
         });
 
         //데이터 유틸리티
@@ -160,7 +268,22 @@ ViewContorller.prototype = {
         dataModal.find('[name=close]').click(function () {
             dataModal.find('.close').click();
         });
-        $('[name=menu-printJson]').click(function () {
+
+        $('.dropdown-menu-backdoor').menu();
+        $('#editor-backdoor').click(function (event) {
+            var left = $(this).position().left;
+            $('.dropdown-menu-backdoor').css('left', left);
+            $('.dropdown-menu-backdoor').toggle();
+        });
+
+        $('.dropdown-menu-data').menu();
+        $('#editor-util').click(function (event) {
+            var left = $(this).position().left;
+            $('.dropdown-menu-data').css('left', left);
+            $('.dropdown-menu-data').toggle();
+        });
+
+        $("li#menu-printJson").bind("click", function(){
             dataModal.find('[name=save]').hide();
             var renderer = me.getRendererByMode(me.currentMode);
             var json = JSON.stringify(renderer.canvas.toJSON());
@@ -168,9 +291,9 @@ ViewContorller.prototype = {
             dataModal.modal({
                 show: true
             });
-        });
+        })
 
-        $('[name=menu-printXml]').click(function () {
+        $('li#menu-printXml').bind('click', function () {
             dataModal.find('[name=save]').hide();
             var renderer = me.getRendererByMode(me.currentMode);
             var xml = renderer.canvas.toXML();
@@ -180,17 +303,26 @@ ViewContorller.prototype = {
             });
         });
 
-        $('[name=menu-loadJson]').click(function () {
+        $('li#menu-loadJson').bind('click', function () {
             dataModal.find('[name=save]').show();
             dataModal.find('[name=save]').unbind('click');
             dataModal.find('[name=save]').bind('click', function () {
                 var val = dataModal.find('textarea').val();
                 var json = JSON.parse(val);
                 var renderer = me.getRendererByMode(me.currentMode);
-                renderer.canvas.loadJSON(json);
-                //me.setEditingObjectFromLoadData(renderer);
-                //renderer.setModeSet('WORKED');
-                dataModal.find('.close').click();
+
+                $.blockUI({ css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                } });
+
+                setTimeout(renderer.loadWrapper, 100, renderer, dataModal, 'json', json);
+
             });
             dataModal.find('textarea').val('');
             dataModal.modal({
@@ -198,16 +330,25 @@ ViewContorller.prototype = {
             });
         });
 
-        $('[name=menu-loadXml]').click(function () {
+
+        $('li#menu-loadXml').bind('click', function () {
             dataModal.find('[name=save]').show();
             dataModal.find('[name=save]').unbind('click');
             dataModal.find('[name=save]').bind('click', function () {
                 var xml = dataModal.find('textarea').val();
                 var renderer = me.getRendererByMode(me.currentMode);
-                renderer.canvas.loadXML(xml);
-                //me.setEditingObjectFromLoadData(renderer);
-                //renderer.setModeSet('WORKED');
-                dataModal.find('.close').click();
+
+                $.blockUI({ css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                } });
+
+                setTimeout(renderer.loadWrapper, 100, renderer, dataModal, 'xml', xml);
             });
             dataModal.find('textarea').val('');
             dataModal.modal({
@@ -303,6 +444,174 @@ ViewContorller.prototype = {
         preventClose.bind('click', function (event) {
             event.stopPropagation();
         });
+
+        $.fn.dataTable.tables( { visible: true, api: true } ).columns.adjust();
+        // 해당 버튼을 클릭하면 swgr를 입력받을 수 있는 웹쪽 ui를 띄운다.
+        // 주소는 제공받는걸
+        $("#newSwgr").bind('click', function(event){
+            console.log('test');
+        });
+
+        $("#swgr-nav").bind('click', function(event){
+            if($(this).hasClass('clickedTab')) {
+                return;
+            } else {
+                $(this).addClass('clickedTab');
+            }
+            var panel = me.model.SwgrList.panel;
+            setTimeout(me.redrawDataTables, 160, panel, me.initUnusedSwitchList, me);
+        });
+
+        $("#load-nav").bind('click', function(event){
+            if($(this).hasClass('clickedTab')) {
+                return;
+            } else {
+                $(this).addClass('clickedTab');
+            }
+            var panel = me.model.UnAssignedLoadList.panel;
+            setTimeout(me.redrawDataTables, 170, panel, me.initUnusedLoadList, me);
+        });
+        $("#hier-feeder").bind('click', function(event){
+            if($(this).hasClass('clickedTab')) {
+                return;
+            } else {
+                $(this).addClass('clickedTab');
+            }
+            var panel = me.model.HierarchyFeederList.panel;
+            setTimeout(me.redrawDataTables, 170, panel, me.initUnusedHierarchyFeederList, me);
+        });
+        $("#locRefTab").bind('click', function(event){
+            if($(this).hasClass('clickedTab')) {
+                return;
+            } else {
+                $(this).addClass('clickedTab');
+            }
+            var panel = me.model.LocationReferenceList.panel;
+            setTimeout(me.redrawDataTables, 170, panel, me.initLocationReferenceList, me);
+        });
+        $("#racewayRefTab").bind('click', function(event){
+            if($(this).hasClass('clickedTab')) {
+                return;
+            } else {
+                $(this).addClass('clickedTab');
+            }
+            var panel = me.model.RacewayReferenceList.panel;
+            setTimeout(me.redrawDataTables, 170, panel, me.initRacewayReferenceList, me);
+        });
+        $("#routeParentTab").bind('click', function(event){
+            if($(this).hasClass('clickedTab')) {
+                return;
+            } else {
+                $(this).addClass('clickedTab');
+            }
+            var panel = me.model.RouteReferenceList.panel;
+            setTimeout(me.redrawDataTables, 170, panel, me.initRouteReferenceList, me);
+            $('#routeChildTab').addClass('clickedTab');
+        });
+        $("#cableRefTab").bind('click', function(event){
+            if($(this).hasClass('clickedTab')) {
+                return;
+            } else {
+                $(this).addClass('clickedTab');
+            }
+            var panel = me.model.CableReferenceList.panel;
+            setTimeout(me.redrawDataTables, 170, panel, me.initCableReferenceList, me);
+        });
+
+    },
+
+    redrawDataTables: function(panel, gridData, viewController) {
+        var dataTable = panel.dataTable().api();
+        var currentPage = dataTable.page();
+        dataTable.clear();
+        dataTable.rows.add(gridData);
+        dataTable.draw();
+        dataTable.page(currentPage).draw(false);
+    },
+
+    addRowDataTables: function(panel, data) {
+        var dataTable = panel.dataTable().api();
+        var currentPage = dataTable.page();
+        dataTable.rows.add(data);
+        dataTable.draw();
+        dataTable.page(currentPage).draw(false);
+    },
+
+    routeTabClickEvent: function(me) {
+        $.blockUI({ css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: .5,
+            color: '#fff'
+        } });
+
+        /**
+         * 클릭할때마다 프로젝트 정보를 가져온다.
+         * 이유는 웹에서 변경이 될 경우도 있기 때문이다.
+         * 최초에는 캔버스를 클리어
+         */
+        var projectInfo = me.projectData;
+        var routeJSON  = projectInfo.gui_route_json;
+
+        if((routeJSON !=null && routeJSON !== undefined ) && typeof routeJSON == 'string'){
+            routeJSON = JSON.parse(routeJSON);
+        }
+
+        var renderer = me.getRendererByMode(me.Constants.MODE.ROUTE);
+        if(routeJSON == null) {
+            setTimeout(me.drawToCanvasFromServerDataWrapper, 100, renderer, me, me.Constants.MODE.ROUTE);
+        } else {
+            //있다면....
+            setTimeout(renderer.loadWrapper, 100, renderer, null, 'json', routeJSON);
+        }
+        //me.refreshGridAndTree(me.Constants.MODE.HIERARCHY, renderer);
+    },
+
+    hierarchyTabClickEvent: function(me) {
+        $.blockUI({ css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: .5,
+            color: '#fff'
+        } });
+
+        /**
+         * 클릭할때마다 프로젝트 정보를 가져온다.
+         * 이유는 웹에서 변경이 될 경우도 있기 때문이다.
+         * 최초에는 캔버스를 클리어
+         */
+        var projectInfo = me.projectData;
+        var hierJSON  = projectInfo.gui_hier_json;
+
+        if((hierJSON !=null && hierJSON !== undefined ) && typeof hierJSON == 'string'){
+            hierJSON = JSON.parse(hierJSON);
+        }
+
+        var renderer = me.getRendererByMode(me.Constants.MODE.HIERARCHY);
+        if(hierJSON == null) {
+            setTimeout(me.drawToCanvasFromServerDataWrapper, 100, renderer, me, me.Constants.MODE.HIERARCHY);
+        } else {
+            //있다면....
+            setTimeout(renderer.loadWrapper, 100, renderer, null, 'json', hierJSON);
+        }
+        //me.refreshGridAndTree(me.Constants.MODE.HIERARCHY, renderer);
+    },
+
+    /**
+     * 프로젝트에 hierarchy의 제이슨 정보가 없다면
+     */
+    drawToCanvasFromServerDataWrapper: function(renderer, viewController, mode) {
+        if(mode == viewController.Constants.MODE.HIERARCHY) {
+            renderer.drawToHierarchyCanvasFromServerData(mode);
+        } else if(mode == viewController.Constants.MODE.ROUTE) {
+            renderer.drawToRouteCanvasFromServerData(mode);
+        }
     },
 
     init: function () {
@@ -328,12 +637,17 @@ ViewContorller.prototype = {
                     if (mode == me.Constants.MODE.HIERARCHY) {
                         me.hierarchyRenderer.setCanvasSize(
                             [$('#' + me.hierarchyRendererId).width(), $('#' + me.hierarchyRendererId).height()]);
+                        me.hierarchyTabClickEvent(me);
                         $('#editor-backdoor').hide();
                     }
                     if (mode == me.Constants.MODE.ROUTE) {
                         me.routeRenderer.setCanvasSize(
                             [$('#' + me.routeRendererId).width(), $('#' + me.routeRendererId).height()]);
                         $('#editor-backdoor').show();
+                        //var panel = me.model.BldgReferenceList.panel;
+                        //setTimeout(me.redrawDataTables, 170, panel, me.initBldgReferenceList, me);
+                        $('#bldgRefTab').addClass('clickedTab');
+                        me.routeTabClickEvent(me);
                     }
                     me.activeCanvasSlider(mode);
                     me.currentMode = mode;
@@ -391,20 +705,69 @@ ViewContorller.prototype = {
          * BLDG / Route Editor 그리드
          */
         me.renderGrid(me.model.BldgReferenceList.name);
-        me.renderGrid(me.model.LocationReferenceList.name);
+        //me.renderGrid(me.model.LocationReferenceList.name);
         me.renderGrid(me.model.RacewayReferenceList.name);
         me.renderGrid(me.model.RouteReferenceList.name);
+        me.renderGrid(me.model.CableReferenceList.name);
         me.bindLocationDragDrop();
 
 
         me.bindMenuEvent();
+
         $('#editor-backdoor').hide();
     },
+
+    saveWrapper: function(me) {
+        me.dataController.saveGui(me);
+    },
+
     /**
      * 현재 모드를 불러온다.
      */
     getCurrentMode: function(){
         return this.currentMode;
+    },
+
+    /**
+     * 피더 세이브 모드를 불러온다
+     */
+    getFeederSaveMode: function() {
+        return this.Constants.FEEDER_SAVE_MODE.ISNEW;
+    },
+
+    /**
+     * 피더 세이브 모드를 세팅한다.
+     */
+    setFeederSaveMode: function(saveMode) {
+        this.Constants.FEEDER_SAVE_MODE.ISNEW = saveMode;
+    },
+
+    /**
+     * 하이어라키 세이브 모드를 불러온다
+     */
+    getHierarchySaveMode: function() {
+        return this.Constants.HIERARCHY_SAVE_MODE.ISNEW;
+    },
+
+    /**
+     * 하이어라키 모드를 세팅한다.
+     */
+    setHierarchySaveMode: function(saveMode) {
+        this.Constants.HIERARCHY_SAVE_MODE.ISNEW = saveMode;
+    },
+
+    /**
+     * 라우트 세이브 모드를 불러온다
+     */
+    getRouteSaveMode: function() {
+        return this.Constants.ROUTE_SAVE_MODE.ISNEW;
+    },
+
+    /**
+     * 라우트 모드를 세팅한다.
+     */
+    setRouteSaveMode: function(saveMode) {
+        this.Constants.ROUTE_SAVE_MODE.ISNEW = saveMode;
     },
 
     /**
@@ -445,7 +808,8 @@ ViewContorller.prototype = {
             me.model.LocationReferenceList.name,
             me.model.RacewayReferenceList.name,
             me.model.RouteReferenceList.name,
-            me.model.BldgReferenceList.name
+            me.model.BldgReferenceList.name,
+            me.model.CableReferenceList.name
         ];
 
         if (feederRenderer.indexOf(modelName) != -1) {
@@ -528,13 +892,14 @@ ViewContorller.prototype = {
         $(dataTable.find('.dataTables_paginate')).parent().addClass('col-sm-12');
         $(dataTable.find('.dataTables_paginate')).css('text-align', 'center');
     },
+
     /**
      * 캔버스 렌더러 로부터 메시지가 전달된 경우
      * @param renderer
      * @param data
      * @param message
      */
-    onMessage: function (renderer, data, message) {
+    onMessage: function (renderer, data, message, panel) {
         var me = this;
         var model = data['model'];
         var mode = me.getModeByModel(model);
@@ -545,7 +910,7 @@ ViewContorller.prototype = {
          */
         if (message == me.message.NO_EDITOR_OBJECT) {
             if (mode == me.Constants.MODE.FEEDER) {
-                infoMessage = '캔버스에 에디팅할 피더가 지정되지 않았습니다.';
+                infoMessage = '캔버스에 에디팅할 스위치가 지정되지 않았습니다.';
             }
             if (mode == me.Constants.MODE.HIERARCHY) {
                 infoMessage = '캔버스에 에디팅할 빌딩이 지정되지 않았습니다.';
@@ -575,15 +940,75 @@ ViewContorller.prototype = {
                 }
                 confirmBox(infoMessage, function (result) {
                     if (result) {
-                        me.setEditingObject(renderer, data);
+                        me.setEditingObject(renderer, data, panel);
+                        me.renderGrid(me.model.SwgrList.name);
+                        me.renderGrid(me.model.UnAssignedLoadList.name);
+                        me.initTabClass();
                     }
                 });
             }
             //캔버스가 변경되지 않았을 경우(저장을 마치거나, 아직 에디팅할 오브젝트가 반영되지 않았을 경우이다.)
             else {
-                me.setEditingObject(renderer, data);
+                me.setEditingObject(renderer, data, panel);
+                me.renderGrid(me.model.SwgrList.name);
+                me.renderGrid(me.model.UnAssignedLoadList.name);
+                me.initTabClass();
+            }
+        } else if (message == me.message.MOD) {
+            //캔버스가 변경되었지만 저장되지 않았을 경우
+            if (renderer.getIsUpdated()) {
+                if (mode == me.Constants.MODE.FEEDER) {
+                    infoMessage = '작업중인 피더를 저장하지 않았습니다. 새로운 피더를 여시겠습니까?';
+                }
+                if (mode == me.Constants.MODE.HIERARCHY) {
+                    infoMessage = '작업중인 하이어라키를 저장하지 않았습니다. 새로운 하이어라키를 여시겠습니까?';
+                }
+                if (mode == me.Constants.MODE.ROUTE) {
+                    infoMessage = '작업중인 BLDG/라우터 프로젝트를 저장하지 않았습니다. 새로운 프로젝트를 여시겠습니까?';
+                }
+                confirmBox(infoMessage, function (result) {
+                    if (result) {
+
+                        $.blockUI({ css: {
+                            border: 'none',
+                            padding: '15px',
+                            backgroundColor: '#000',
+                            '-webkit-border-radius': '10px',
+                            '-moz-border-radius': '10px',
+                            opacity: .5,
+                            color: '#fff'
+                        } });
+
+                        setTimeout(me.setEditingObjectFromLoadDataWrapper, 100, me, renderer, data, panel);
+                    }
+                });
+            }
+            //캔버스가 변경되지 않았을 경우(저장을 마치거나, 아직 에디팅할 오브젝트가 반영되지 않았을 경우이다.)
+            else {
+                $.blockUI({ css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                } });
+
+                setTimeout(me.setEditingObjectFromLoadDataWrapper, 100, me, renderer, data, panel);
             }
         }
+    },
+
+    initTabClass: function() {
+        $('li').removeClass('clickedTab');
+    },
+
+    setEditingObjectFromLoadDataWrapper: function(me, renderer, data, panel) {
+        me.setEditingObjectFromLoadData(renderer, data, panel);
+        me.renderGrid(me.model.SwgrList.name);
+        me.renderGrid(me.model.UnAssignedLoadList.name);
+        me.initTabClass();
     },
 
     /**
@@ -591,17 +1016,19 @@ ViewContorller.prototype = {
      * @param renderer
      * @param loadData
      */
-    /*
-    setEditingObjectFromLoadData: function (renderer) {
-
+    setEditingObjectFromLoadData: function (renderer, shapeData, panel) {
 
         var me = this;
-        var currentCanvas = renderer.canvas;
-        var editingShape = currentCanvas.getAllShapes()[0];
-        var shapeData = currentCanvas.getCustomData(editingShape);
 
         if (!renderer || !shapeData) {
             return;
+        }
+
+        if(shapeData.content == '' || shapeData.content == null) {
+            renderer.drawToFeederCanvasFromServerData(shapeData, panel);
+        } else {
+            var json = JSON.parse(shapeData.content);
+            renderer.canvas.loadJSON(json);
         }
 
         //데이터 혼용을 막기 위한 조치
@@ -626,23 +1053,191 @@ ViewContorller.prototype = {
 
         //렌더러에 에디팅 오브젝트를 설정한다.
         renderer.editingObject = data;
+        if(panel != null) {
+            var panelId = panel[0].id;
+            if(panelId == 'feederGrid') {
+                renderer.editingObject['onDrop'] = panelId;
+            }
+        }
+        renderer.setIsUpdated(false);
 
-        //이때, 도형을 모두 그린 후 캔버스가 업데이트 되지 않은 상태로 변경한다.
-        if (data['shapeType'] == me.Constants.TYPE.MODIFY_FEEDER) {
-            //TODO 기존의 오브젝트인 경우 xml 을 바탕으로 캔버스에 새로 렌더링한다.
-            data['shapeType'] = me.Constants.TYPE.SWITCH_GEAR;
-            renderer.drawImmediately(null, data);
-            renderer.setIsUpdated(false);
+        /**
+         * canvas에 그려진 도형들의 list를 생성해서 세팅한다.
+         * 또한 그려진 canvas의 정보와 GUI가 아닌 웹상에서 해당 피더에 달려 있는 로드를 지웠을 경우에는
+         * 그 로드를 찾아서 캔바스에서 지워야 한다.
+         * me.feederMgtShapeList에서 해당 로드를 찾아서 지운다.
+         */
+        me.feederMgtShapeList = parent.getFeederInfo(renderer.editingObject.swgr_list_seq);
+        var geomShapeTypeElementList = [];
+
+        var currentCanvas = renderer.getCanvas();
+        var shapeList = currentCanvas.getAllShapes();
+        for(var i=0; i<shapeList.length; i++) {
+            var selectShapeType = $(shapeList[i]).attr('_shape');
+            if(selectShapeType == 'GEOM') {
+                var selectItemData = shapeList[i].shape.data;
+                geomShapeTypeElementList.push(shapeList[i]);
+                if(i==0) {
+                    me.parentSwitchElement = selectItemData;
+                }
+            }
+
         }
 
-        //아닌경우, 렌더러에 새로 생성할 도형을 그린다. 캔버스가 업데이트 된 처리를 하도록 한다.
-        if (data['shapeType'] == me.Constants.TYPE.NEW_FEEDER) {
-            data['shapeType'] = me.Constants.TYPE.SWITCH_GEAR;
-            renderer.drawImmediately(null, data);
-            renderer.setIsUpdated(true);
+        /**
+         * canvas의 제이슨 정보와 GUI가 아닌 웹상에서 해당 피더에 달려 있는 로드를 지웠을 경우에는
+         * 그 로드를 찾아서 캔바스에서 지워야 한다.
+         * me.feederMgtShapeList에서 해당 로드를 찾아서 지운다.
+         */
+        if(shapeData.content != '' && shapeData.content != null) {
+
+            for(var j=0; j<geomShapeTypeElementList.length; j++) {
+                var elementData = geomShapeTypeElementList[j].shape.data;
+                var isDelete = true;
+
+                if(elementData.fe_swgr_load_div == 'S') {
+                    me.feederMgtShapeList.some(function(item) {
+                        if(elementData.swgr_list_seq == item.swgr_list_seq && item.fe_swgr_load_div == 'S') {
+                            isDelete = false;
+                        }
+                    });
+                } else if(elementData.fe_swgr_load_div == 'L') {
+                    me.feederMgtShapeList.some(function(item) {
+                        if(elementData.load_list_seq == item.load_list_seq && item.fe_swgr_load_div == 'L') {
+                            isDelete = false;
+                        }
+                    });
+                } else if(!elementData.hasOwnProperty('fe_swgr_load_div')) {
+                    var shapeType = elementData.shapeType;
+                    if(shapeType.indexOf('Load') > -1) {
+                        elementData['fe_swgr_load_div'] = 'L';
+                        me.feederMgtShapeList.some(function(item) {
+                            if(elementData.load_list_seq == item.load_list_seq && item.fe_swgr_load_div == 'L') {
+                                isDelete = false;
+                            }
+                        });
+                    }
+
+                }
+
+                if(isDelete) {
+                    renderer.canvas.removeShape(geomShapeTypeElementList[j]);
+                }
+            }
+
+            $.unblockUI();
         }
+
+        /** 초기화 */
+        me.updateFeederList = [];
+        me.usedLoadList = [];
+        me.deleteFeederList = [];
+
+
     },
-    */
+
+    /**
+     * 하이어라키 빌딩/플로어 체크 로직
+     */
+    checkBldgsAndFloors: function(renderer, shapeData) {
+
+        var currentCanvas = renderer.getCanvas();
+        var checkedData = {};
+        var msg = '';
+        var shapeList = currentCanvas.getAllShapes();
+        var isDraw = true;
+        var msg = '';
+
+        if(shapeData.shapeType == renderer.Constants.TYPE.HIERARCHY_BLDG) {
+            shapeList.some(function(shapeElement){
+                if(shapeElement.shape.data.shapeType == renderer.Constants.TYPE.HIERARCHY_BLDG &&
+                    shapeElement.shape.data.hier_seq == shapeData.hier_seq
+                ){
+                    isDraw = false;
+                }
+            });
+            checkedData['isDraw'] = isDraw;
+            if(!isDraw) {
+                msg = "해당 빌딩이 이미 캔버스에 존재합니다.";
+            }
+
+        } else if(shapeData.shapeType == renderer.Constants.TYPE.HIERARCHY_FLOOR) {
+
+            shapeList.some(function(shapeElement){
+                if(shapeElement.shape.data.shapeType == renderer.Constants.TYPE.HIERARCHY_FLOOR &&
+                    shapeElement.shape.data.hier_seq == shapeData.hier_seq
+                ){
+                    isDraw = false;
+                }
+            });
+            checkedData['isDraw'] = isDraw;
+            if(!isDraw) {
+                msg = "해당 플로어가 이미 캔버스에 존재합니다.";
+            }
+        }
+
+        checkedData['isDraw'] = isDraw;
+        checkedData['msg'] = msg;
+
+        return checkedData;
+    },
+
+    /**
+     * save한 이후에는 새로운 setEditingObject를 세팅해야 한다.
+     * @param renderer
+     */
+    setEditingObjectFromSave: function (renderer) {
+
+        var me = this;
+
+        //타이틀 박스를 세팅한다.
+        var title = '';
+        var containerId = renderer.getContainerId();
+        var mode = renderer.getMode();
+        if (mode == me.Constants.MODE.FEEDER) {
+            title = 'FEEDER - ' + renderer.editingObject['swgr_name'];
+        }
+        if (mode == me.Constants.MODE.HIERARCHY) {
+            title = 'HIERARCHY PROJECT - ' + renderer.editingObject['pjt_nm'];
+        }
+        if (mode == me.Constants.MODE.ROUTE) {
+            title = 'BLDG/ROUTE PROJECT - ' + renderer.editingObject['pjt_nm'];
+        }
+        var titleBox = $('#' + containerId + '-title');
+        titleBox.show();
+        titleBox.html(title);
+
+        //feeder정보를 가져온다.
+        var feederInfo = parent.getFeederInfo(renderer.editingObject.swgr_list_seq);
+        feederInfo[0]['shapeType'] = me.Constants.TYPE.MODIFY_FEEDER;
+        //렌더러에 에디팅 오브젝트를 설정한다.
+        renderer.editingObject = feederInfo[0];
+        renderer.setIsUpdated(false);
+
+        /**
+         * canvas에 그려진 도형들의 list를 생성해서 세팅한다.
+         */
+        me.feederMgtShapeList = feederInfo;
+
+        var currentCanvas = renderer.getCanvas();
+        var shapeList = currentCanvas.getAllShapes();
+        for(var i=0; i<shapeList.length; i++) {
+            var selectShapeType = $(shapeList[i]).attr('_shape');
+            if(selectShapeType == 'GEOM' && i==0) {
+                var selectShapeId = $(shapeList[i]).attr('_shape_id');
+                var selectElement = currentCanvas.getElementsByShapeId(selectShapeId);
+                var selectItemData = currentCanvas.getCustomData(shapeList[i]);
+                me.parentSwitchElement = selectItemData;
+                break;
+            }
+        }
+
+        /** 초기화 */
+        me.updateFeederList = [];
+        me.usedLoadList = [];
+        me.deleteFeederList = [];
+
+    },
 
     /**
      * 렌더러에 새로운 에디팅 오브젝트를 설정하고, 타이틀을 세팅한다.
@@ -677,12 +1272,11 @@ ViewContorller.prototype = {
         //렌더러를 초기화한다.
         renderer.getCanvas().clear();
         renderer.getCanvas().setScale(1);
-        //renderer.setModeSet('NEW');
         renderer.fitCanvasSize();
 
         //렌더러에 에디팅 오브젝트를 설정한다.
         renderer.editingObject = data;
-
+        me.parentSwitchElement = data;
         //이때, 도형을 모두 그린 후 캔버스가 업데이트 되지 않은 상태로 변경한다.
         if (data['shapeType'] == me.Constants.TYPE.MODIFY_FEEDER) {
             //TODO 기존의 오브젝트인 경우 xml 을 바탕으로 캔버스에 새로 렌더링한다.
@@ -747,7 +1341,7 @@ ViewContorller.prototype = {
             return text;
         };
         if (canvas) {
-            $('#newLocation').draggable({
+            $('#newPoint').draggable({
                 start: function () {
 
                 },
@@ -756,37 +1350,33 @@ ViewContorller.prototype = {
                 stop: function (event) {
                     //TODO 여기서, 로케이션 및 맨홀 데이터를 드랍한 후 서버에서 REF_NAME_TO 값을 받아와야 하는 것으로 추정한다.
                     //그리고, 캔버스쪽에서는 이 로케이션이 빌딩위로 드랍된 것 을 감지하여, 이 로케이션의 LOC_REF_NAME 를 변경해야 한다.
-                    var value = $('#locationSelectBox').val();
-                    var itemData;
                     var refName = randomRefName();
-                    if (value == 'location') {
-                        itemData = {
-                            shapeLabel: refName,
-                            shapeType: me.Constants.TYPE.LOCATION,
-                            "PJT_SQ": "",
-                            "LOC_REF_SEQ": 151,
-                            "LOC_REF_NAME": "",
-                            "HIER_SEQ": "H000003",
-                            "LOC_REF_NAME_TO": refName,
-                            "LOC_REF_TEMP": 0,
-                            "LOC_REF_LENGTH": 0,
-                            "LOC_REF_REM": ""
-                        };
-                    }
-                    if (value == 'manhole') {
-                        itemData = {
-                            shapeLabel: refName,
-                            shapeType: me.Constants.TYPE.MANHOLE,
-                            "PJT_SQ": "",
-                            "LOC_REF_SEQ": 151,
-                            "LOC_REF_NAME": "",
-                            "HIER_SEQ": "H000003",
-                            "LOC_REF_NAME_TO": refName,
-                            "LOC_REF_TEMP": 0,
-                            "LOC_REF_LENGTH": 0,
-                            "LOC_REF_REM": ""
-                        };
-                    }
+                    var itemData = {
+                        shapeLabel: refName,
+                        shapeType: me.Constants.TYPE.LOCATION,
+                        "pjt_sq": "",
+                        "loc_ref_name_to": refName
+                    };
+                    canvas.getContainer().trigger('drop.viewController', [event, itemData]);
+                }
+            });
+
+            $('#newManhole').draggable({
+                start: function () {
+
+                },
+                helper: 'clone',
+                appendTo: 'body',
+                stop: function (event) {
+                    //TODO 여기서, 로케이션 및 맨홀 데이터를 드랍한 후 서버에서 REF_NAME_TO 값을 받아와야 하는 것으로 추정한다.
+                    //그리고, 캔버스쪽에서는 이 로케이션이 빌딩위로 드랍된 것 을 감지하여, 이 로케이션의 LOC_REF_NAME 를 변경해야 한다.
+                    var refName = randomRefName();
+                    var itemData = {
+                        shapeLabel: refName,
+                        shapeType: me.Constants.TYPE.MANHOLE,
+                        "pjt_sq": "",
+                        "loc_ref_name_to": refName
+                    };
                     canvas.getContainer().trigger('drop.viewController', [event, itemData]);
                 }
             });
@@ -837,9 +1427,6 @@ ViewContorller.prototype = {
                         //console.log(data);
                     })
                     .on("select_node.jstree", function (evt, data) {
-                        //console.log(data);
-                    })
-                    .on("delete_node.jstree", function (evt, data) {
                         //console.log(data);
                     })
                     .on('dnd_start.vakata', function (e, data) {
@@ -900,24 +1487,25 @@ ViewContorller.prototype = {
                                     "separator_after": false,
                                     "label": "UnAssign",
                                     "action": function (obj) {
-                                        //console.log($node);
-
+                                        //$node = tree.create_node($node);
+                                        //Do something
                                         var infoMessage = "선택한 노드를 삭제하시겠습니까?";
                                         confirmBox(infoMessage, function (result) {
                                             if (result) {
-
                                                 var targetSeq = $node.data.feeder_list_mgt_seq;
-                                                var resultData = '0';
+                                                var resultData = me.dataController.deleteFeeder(targetSeq);
                                                 if(resultData == '0') {
                                                     //새로운 데이터를 받아서 트리를 다시 그린다.
-                                                    //tree.destroy();
-                                                    me.dataController.getUpdateAssignedFeederList(tree);
-                                                    //me.renderTree(model);
+                                                    var renderer = me.getRendererByMode(me.currentMode);
+                                                    me.dataController.getUpdateTree(tree, renderer, me.Constants.MODE.FEEDER);
+                                                    me.renderGrid(me.model.SwgrList.name);
+                                                    me.renderGrid(me.model.UnAssignedLoadList.name);
+                                                    me.renderGrid(me.model.FeederList.name);
+                                                    me.renderGrid(me.model.HierarchyFeederList.name);
                                                 } else {
                                                     //에러시 status : 1, 에러메세지를 보낸다.
                                                     //do Something...
                                                 }
-
                                             }
                                         });
 
@@ -946,15 +1534,17 @@ ViewContorller.prototype = {
                  * 트리 구조중 빌딩인 것은 HIERARCHY_BLDG 로 넘긴다.
                  * 트리 구조중 플루어 인 것은 HIERARCHY_FLOOR 로 넘긴다.
                  */
-                for (var i = 0; i < treeData.length; i++) {
-                    treeData[i]['data']['model'] = model;
-                    if (treeData[i]['data']['LV'] == 1) {
-                        treeData[i]['data']['shapeType'] = me.Constants.TYPE.HIERARCHY_BLDG;
-                        treeData[i]['data']['shapeLabel'] = treeData[i]['data']['NM'];
-                    }
-                    if (treeData[i]['data']['LV'] == 2) {
-                        treeData[i]['data']['shapeType'] = me.Constants.TYPE.HIERARCHY_FLOOR;
-                        treeData[i]['data']['shapeLabel'] = treeData[i]['data']['NM'];
+                if(treeData !== undefined) {
+                    for (var i = 0; i < treeData.length; i++) {
+                        treeData[i]['data']['model'] = model;
+                        if (treeData[i]['data']['lv'] == 1) {
+                            treeData[i]['data']['shapeType'] = me.Constants.TYPE.HIERARCHY_BLDG;
+                            treeData[i]['data']['shapeLabel'] = treeData[i]['data']['nm'];
+                        }
+                        if (treeData[i]['data']['lv'] == 2) {
+                            treeData[i]['data']['shapeType'] = me.Constants.TYPE.HIERARCHY_FLOOR;
+                            treeData[i]['data']['shapeLabel'] = treeData[i]['data']['nm'];
+                        }
                     }
                 }
                 treeOptions = {
@@ -986,6 +1576,7 @@ ViewContorller.prototype = {
         var me = this;
         var panel = me.model[model].panel;
         var panelId = panel.attr('id');
+        var updateLoadData;
         var greedOptions = {};
         var canvas = me.getRendererByModel(model);
 
@@ -994,6 +1585,12 @@ ViewContorller.prototype = {
                 panel.data('table', true);
                 panel.DataTable(gridOptions);
                 me.modifyDataTablesStyle(panelId);
+            }
+
+            if(panel[0].id == "unAssignedLoadGrid") {
+                updateLoadData = gridData;
+            } else if(panel[0].id == "hierarchy-feederGrid") {
+                me.unUsedHierarchyFeederList  = gridData;
             }
 
             var gridPanelDiv = $('#' + panelId + '_wrapper');
@@ -1005,6 +1602,13 @@ ViewContorller.prototype = {
                 });
             };
 
+            var refreshGrid = function(dataTable) {
+
+                dataTable.clear().draw();
+                dataTable.rows.add(updateLoadData);
+                dataTable.columns.adjust().draw();
+            };
+
             var canvasDropEvent = function (element, itemData) {
                 if (canvas) {
                     element.draggable({
@@ -1014,7 +1618,7 @@ ViewContorller.prototype = {
                         helper: 'clone',
                         appendTo: 'body',
                         stop: function (event) {
-                            canvas.getContainer().trigger('drop.viewController', [event, itemData]);
+                            canvas.getContainer().trigger('drop.viewController', [event, itemData, panel]);
                         }
                     });
                 }
@@ -1038,6 +1642,11 @@ ViewContorller.prototype = {
             dataTable.clear();
             dataTable.rows.add(gridData);
             dataTable.draw();
+            $(".dataTables_paginate").find('a').css("font-size", "11px");
+            panel.on('draw.dt', function () {
+                $(".dataTables_paginate").find('a').css("font-size", "11px");
+            });
+
         };
         if (model == me.model.SwgrList.name) {
             me.dataController.getSwitchgearUnused(function (err, gridData) {
@@ -1049,71 +1658,142 @@ ViewContorller.prototype = {
                      * 어사인 되지 않은 스위치 리스트중 SWGR_TYPE 이 TR(트랜스포머) 인 것은 프랜스포머로 넘어간다.
                      * 트랜스포머가 아닌것은 NEW_FEEDER 로 넘어간다.
                      */
-                    for (var i = 0; i < gridData.length; i++) {
-                        if (gridData[i]['swgr_type'] == 'TR') {
-                            gridData[i]['shapeType'] = me.Constants.TYPE.TRANSFORMER;
-                        } else {
-                            gridData[i]['shapeType'] = me.Constants.TYPE.NEW_FEEDER;
+                    if(gridData !== undefined) {
+                        for (var i = 0; i < gridData.length; i++) {
+                            if (gridData[i]['swgr_type'] == 'TR') {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.TRANSFORMER;
+                            } else {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.NEW_FEEDER;
+                            }
+                            gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
+                            gridData[i]['model'] = model;
+                            gridData[i]['label'] = '<a href="javascript:popUpSWGRInfo(\''+ gridData[i]['swgr_list_seq']+'\');void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
                         }
-                        gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
-                        gridData[i]['model'] = model;
-                        gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + gridData[i]['swgr_name'] + '</a>';
                     }
                     greedOptions = {
                         data: gridData,
                         columns: [
                             {
                                 data: 'label',
-                                title: 'SWGR',
+                                title: 'Swgr',
                                 defaultContent: ''
                             },
                             {
                                 data: 'swgr_type',
-                                title: 'TYPE',
+                                title: 'Type',
                                 defaultContent: ''
                             },
                             {
                                 data: 'swgr_owner_nm',
-                                title: 'OWNER',
+                                title: 'Owner',
                                 defaultContent: ''
                             }
                         ],
-                        pageLength: 20,
+                        columnDefs: [
+                            {
+                                className: 'dt-left',
+                                targets: [0]
+                            },
+                            {
+                                className: 'dt-center',
+                                targets: [1,2]
+                            }
+                        ],
+                        pageLength: 50,
                         lengthChange: false,
-                        info: false
+                        info: false,
+                        scrollY: 600,
+                        scrollX: true,
+                        scrollCollapse: true
                     };
                 }
+
+                me.initUnusedSwitchList = gridData;
                 renderGridAction(greedOptions, gridData);
             });
         }
-        if (model == me.model.FeederList.name || model == me.model.HierarchyFeederList.name) {
+
+        if (model == me.model.FeederList.name) {
             me.dataController.getFeederList(function (err, gridData) {
                 if (err) {
                     console.log(err);
                     msgBox('피더 리스트를 불러올 수 없습니다.');
                 } else {
                     /**
-                     * HierarchyFeederList(하이어라키 에디터의 피더) 는 HIERARCHY_FEEDER 로 전달한다.
                      * FeederList(어사인 피더) 는 MODIFY_FEEDER(기존 피더 수정) 로 전달한다.
                      */
-                    for (var i = 0; i < gridData.length; i++) {
-                        if (model == me.model.HierarchyFeederList.name) {
-                            gridData[i]['shapeType'] = me.Constants.TYPE.HIERARCHY_FEEDER;
-                            gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
-                        }
-                        if (model == me.model.FeederList.name) {
+                    if(gridData !== undefined) {
+                        for (var i = 0; i < gridData.length; i++) {
                             gridData[i]['shapeType'] = me.Constants.TYPE.MODIFY_FEEDER;
                             gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
+                            gridData[i]['model'] = model;
+                            gridData[i]['label'] = '<a href="javascript:popUpSWGRInfo(\''+ gridData[i]['swgr_list_seq']+'\');void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
                         }
-                        gridData[i]['model'] = model;
-                        gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + gridData[i]['swgr_name'] + '</a>';
                     }
                     greedOptions = {
                         data: gridData,
                         columns: [
                             {
                                 data: 'label',
-                                title: 'EQUIPMENT DESCRIPTION',
+                                title: 'Equipment Description',
+                                defaultContent: ''
+                            },
+                            {
+                                data: 'swgr_type',
+                                title: 'Type',
+                                defaultContent: ''
+                            },
+                            {
+                                data: 'swgr_total_kva',
+                                title: 'Total Load(Kva)',
+                                defaultContent: ''
+                            }
+                        ],
+                        columnDefs: [
+                            {
+                                className: 'dt-left',
+                                targets: [0]
+                            },
+                            {
+                                className: 'dt-center',
+                                targets: [1,2]
+                            }
+                        ],
+                        pageLength: 50,
+                        lengthChange: false,
+                        info: false,
+                        scrollY: 600,
+                        scrollX: true,
+                        scrollCollapse: true
+                    };
+                }
+                renderGridAction(greedOptions, gridData);
+            });
+        }
+
+        if (model == me.model.HierarchyFeederList.name) {
+            me.dataController.getHierarchyFeederList(function (err, gridData) {
+                if (err) {
+                    console.log(err);
+                    msgBox('하이어라키 에디터의 피더 리스트를 불러올 수 없습니다.');
+                } else {
+                    /**
+                     * HierarchyFeederList(하이어라키 에디터의 피더) 는 HIERARCHY_FEEDER 로 전달한다.
+                     */
+                    if(gridData !== undefined) {
+                        for (var i = 0; i < gridData.length; i++) {
+                            gridData[i]['shapeType'] = me.Constants.TYPE.HIERARCHY_FEEDER;
+                            gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
+                            gridData[i]['model'] = model;
+                            gridData[i]['label'] = '<a href="javascript:popUpSWGRInfo(\''+ gridData[i]['swgr_seq']+'\');void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
+                        }
+                    }
+                    greedOptions = {
+                        data: gridData,
+                        columns: [
+                            {
+                                data: 'label',
+                                title: 'Equipment Description',
                                 defaultContent: ''
                             },
                             {
@@ -1123,18 +1803,33 @@ ViewContorller.prototype = {
                             },
                             {
                                 data: 'swgr_total_kva',
-                                title: 'TOTAL LOAD(Kva)',
+                                title: 'Total LY(Kva)',
                                 defaultContent: ''
                             }
                         ],
-                        pageLength: 20,
+                        columnDefs: [
+                            {
+                                className: 'dt-left',
+                                targets: [0]
+                            },
+                            {
+                                className: 'dt-center',
+                                targets: [1,2]
+                            }
+                        ],
+                        pageLength: 50,
                         lengthChange: false,
-                        info: false
+                        info: false,
+                        scrollY: 600,
+                        scrollX: true,
+                        scrollCollapse: true
                     };
                 }
+                me.initUnusedHierarchyFeederList = gridData;
                 renderGridAction(greedOptions, gridData);
             });
         }
+
         if (model == me.model.UnAssignedLoadList.name) {
             me.dataController.getLoadUnused(function (err, gridData) {
                 if (err) {
@@ -1144,59 +1839,115 @@ ViewContorller.prototype = {
                     /**
                      * UnAssignedLoadList 는 로드 타입별로 shapeType 을 지정해 넘긴다.
                      */
-                    for (var i = 0; i < gridData.length; i++) {
-                        if (gridData[i]['lo_type'] == 'NM') {
-                            gridData[i]['shapeType'] = me.Constants.TYPE.NMLOAD;
+                    if(gridData !== undefined) {
+                        for (var i = 0; i < gridData.length; i++) {
+                            if (gridData[i]['lo_type'] == 'NM') {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.NMLOAD;
+                            }
+                            if (gridData[i]['lo_type'] == 'SH') {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.SHLOAD;
+                            }
+                            if (gridData[i]['lo_type'] == 'EH') {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.EHLOAD;
+                            }
+                            if (gridData[i]['lo_type'] == 'EHS') {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.EHSLOAD;
+                            }
+                            if (gridData[i]['lo_type'] == 'MI') {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.MILOAD;
+                            }
+                            if (gridData[i]['lo_type'] == 'MK') {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.MKLOAD;
+                            }
+                            if (gridData[i]['lo_type'] == 'MO') {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.MOLOAD;
+                            }
+                            if (gridData[i]['lo_type'] == 'PKG') {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.PKGLOAD;
+                            }
+                            gridData[i]['shapeLabel'] = gridData[i]['lo_equip_tag_no'];
+                            gridData[i]['model'] = model;
+                            gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['lo_equip_tag_no'] + '</a>';
+                            gridData[i]['lo_equip_desc_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['lo_equip_desc'] + '</span>';
+                            gridData[i]['lo_unit_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['lo_unit'] + '</span>';
+                            gridData[i]['lo_proc_sys_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['lo_proc_sys'] + '</span>';
+                            gridData[i]['lo_equip_loc_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['lo_equip_loc'] + '</span>';
                         }
-                        if (gridData[i]['lo_type'] == 'SH') {
-                            gridData[i]['shapeType'] = me.Constants.TYPE.SHLOAD;
-                        }
-                        if (gridData[i]['lo_type'] == 'EH') {
-                            gridData[i]['shapeType'] = me.Constants.TYPE.EHLOAD;
-                        }
-                        if (gridData[i]['lo_type'] == 'EHS') {
-                            gridData[i]['shapeType'] = me.Constants.TYPE.EHSLOAD;
-                        }
-                        if (gridData[i]['lo_type'] == 'MI') {
-                            gridData[i]['shapeType'] = me.Constants.TYPE.MILOAD;
-                        }
-                        if (gridData[i]['lo_type'] == 'MK') {
-                            gridData[i]['shapeType'] = me.Constants.TYPE.MKLOAD;
-                        }
-                        if (gridData[i]['lo_type'] == 'MO') {
-                            gridData[i]['shapeType'] = me.Constants.TYPE.MOLOAD;
-                        }
-                        if (gridData[i]['lo_type'] == 'PKG') {
-                            gridData[i]['shapeType'] = me.Constants.TYPE.PKGLOAD;
-                        }
-                        gridData[i]['shapeLabel'] = gridData[i]['lo_equip_tag_no'];
-                        gridData[i]['model'] = model;
-                        gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + gridData[i]['lo_equip_tag_no'] + '</a>';
                     }
                     greedOptions = {
                         data: gridData,
                         columns: [
                             {
                                 data: 'label',
-                                title: 'EQUIPMENT TAG NO',
+                                title: 'Equipment Tag No.',
+                                defaultContent: ''
+                            },
+
+                            {
+                                data: 'lo_equip_desc_style',
+                                title: 'Equipment Description',
                                 defaultContent: ''
                             },
                             {
                                 data: 'lo_type',
-                                title: 'TYPE',
+                                title: 'Type',
                                 defaultContent: ''
                             },
                             {
-                                data: 'lo_proc_sys',
-                                title: 'PROCESS/SYSTEM',
+                                data: 'lo_pow_sou',
+                                title: 'Power Source',
+                                defaultContent: ''
+                            },
+                            {
+                                data: 'lo_equip_vol',
+                                title: 'Equipment Voltage',
+                                defaultContent: ''
+                            },
+                            {
+                                data: 'lo_rated_pow',
+                                title: 'Rated Power',
+                                defaultContent: ''
+                            },
+                            {
+                                data: 'lo_unit_style',
+                                title: 'Unit',
+                                defaultContent: ''
+                            },
+                            {
+                                data: 'lo_proc_sys_style',
+                                title: 'Process/System',
+                                defaultContent: ''
+                            },
+                            {
+                                data: 'lo_equip_loc_style',
+                                title: 'Equipment Location',
+                                defaultContent: ''
+                            },
+                            {
+                                data: 'lo_duty',
+                                title: 'Duty',
                                 defaultContent: ''
                             }
                         ],
-                        pageLength: 20,
+                        columnDefs: [
+                            {
+                                className: 'dt-left',
+                                targets: [0, 1, 7, 8]
+                            },
+                            {
+                                className: 'dt-center',
+                                targets: '_all'
+                            }
+                        ],
+                        pageLength: 50,
                         lengthChange: false,
-                        info: false
+                        info: false,
+                        scrollY: 600,
+                        scrollX: true,
+                        scrollCollapse: true
                     };
                 }
+                me.initUnusedLoadList = gridData;
                 renderGridAction(greedOptions, gridData);
             });
         }
@@ -1206,9 +1957,11 @@ ViewContorller.prototype = {
                     console.log(err);
                     msgBox('로케이션 레퍼런스 데이터를 불러올 수 없습니다.');
                 } else {
-                    for (var i = 0; i < gridData.length; i++) {
-                        gridData[i]['model'] = model;
-                        gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + gridData[i]['LOC_REF_NAME'] + '</a>';
+                    if(gridData !== undefined) {
+                        for (var i = 0; i < gridData.length; i++) {
+                            gridData[i]['model'] = model;
+                            gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['loc_ref_name'] + '</a>';
+                        }
                     }
                     greedOptions = {
                         data: gridData,
@@ -1219,26 +1972,40 @@ ViewContorller.prototype = {
                                 defaultContent: ''
                             },
                             {
-                                data: 'LOC_REF_NAME_TO',
+                                data: 'loc_ref_name_to',
                                 title: 'Point',
                                 defaultContent: ''
                             },
                             {
-                                data: 'LOC_REF_TEMP',
+                                data: 'loc_ref_temp',
                                 title: 'Temp',
                                 defaultContent: ''
                             },
                             {
-                                data: 'LOC_REF_LENGTH',
+                                data: 'loc_ref_length',
                                 title: 'Length',
                                 defaultContent: ''
                             }
                         ],
-                        pageLength: 20,
+                        columnDefs: [
+                            {
+                                className: 'dt-left',
+                                targets: [0]
+                            },
+                            {
+                                className: 'dt-center',
+                                targets: '_all'
+                            }
+                        ],
+                        pageLength: 50,
                         lengthChange: false,
-                        info: false
+                        info: false,
+                        scrollY: 600,
+                        scrollX: true,
+                        scrollCollapse: true
                     };
                 }
+                me.initLocationReferenceList = gridData;
                 renderGridAction(greedOptions, gridData);
             });
         }
@@ -1248,9 +2015,11 @@ ViewContorller.prototype = {
                     console.log(err);
                     msgBox('레이스웨이 레퍼런스 데이터를 불러올 수 없습니다.');
                 } else {
-                    for (var i = 0; i < gridData.length; i++) {
-                        gridData[i]['model'] = model;
-                        gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + gridData[i]['RACE_REF_TRAYEDM_NO'] + '</a>';
+                    if(gridData !== undefined) {
+                        for (var i = 0; i < gridData.length; i++) {
+                            gridData[i]['model'] = model;
+                            gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['race_ref_trayedm_no'] + '</a>';
+                        }
                     }
                     greedOptions = {
                         data: gridData,
@@ -1261,26 +2030,40 @@ ViewContorller.prototype = {
                                 defaultContent: ''
                             },
                             {
-                                data: 'RACE_REF_FROM',
+                                data: 'race_ref_from',
                                 title: 'From',
                                 defaultContent: ''
                             },
                             {
-                                data: 'RACE_REF_TO',
+                                data: 'race_ref_to',
                                 title: 'To',
                                 defaultContent: ''
                             },
                             {
-                                data: 'RACE_REF_LEN',
+                                data: 'race_ref_len',
                                 title: 'Length',
                                 defaultContent: ''
                             }
                         ],
-                        pageLength: 20,
+                        columnDefs: [
+                            {
+                                className: 'dt-left',
+                                targets: [0]
+                            },
+                            {
+                                className: 'dt-center',
+                                targets: '_all'
+                            }
+                        ],
+                        pageLength: 50,
                         lengthChange: false,
-                        info: false
+                        info: false,
+                        scrollY: 600,
+                        scrollX: true,
+                        scrollCollapse: true
                     };
                 }
+                me.initRacewayReferenceList = gridData;
                 renderGridAction(greedOptions, gridData);
             });
         }
@@ -1290,30 +2073,51 @@ ViewContorller.prototype = {
                     console.log(err);
                     msgBox('라우트 레퍼런스 데이터를 불러올 수 없습니다.');
                 } else {
-                    for (var i = 0; i < gridData.length; i++) {
-                        gridData[i]['model'] = model;
-                        gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' +
-                            gridData[i]['ROU_REF_FROM'] + ' - ' + gridData[i]['ROU_REF_TO'] + '</a>';
+                    if(gridData !== undefined) {
+                        for (var i = 0; i < gridData.length; i++) {
+                            gridData[i]['model'] = model;
+                            gridData[i]['fromLabel'] = '<a href="#" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['rou_ref_from'] + '</a>';
+                            gridData[i]['toLabel'] = '<a href="#" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['rou_ref_to'] + '</a>';
+                        }
                     }
                     greedOptions = {
                         data: gridData,
                         columns: [
                             {
-                                data: 'label',
-                                title: 'From - To',
+                                data: 'fromLabel',
+                                title: 'From',
                                 defaultContent: ''
                             },
                             {
-                                data: 'ROU_REF_TOT_LEN',
+                                data: 'toLabel',
+                                title: 'To',
+                                defaultContent: ''
+                            },
+                            {
+                                data: 'rou_ref_tot_len',
                                 title: 'Length',
                                 defaultContent: ''
                             }
                         ],
-                        pageLength: 10,
+                        columnDefs: [
+                            {
+                                className: 'dt-left',
+                                targets: [0, 1]
+                            },
+                            {
+                                className: 'dt-center',
+                                targets: '_all'
+                            }
+                        ],
+                        pageLength: 50,
                         lengthChange: false,
-                        info: false
+                        info: false,
+                        scrollY: 600,
+                        scrollX: true,
+                        scrollCollapse: true
                     };
                 }
+                me.initRouteReferenceList = gridData;
                 renderGridAction(greedOptions, gridData);
             });
         }
@@ -1326,11 +2130,15 @@ ViewContorller.prototype = {
                     /**
                      * BldgReferenceList(라우트 에디터) 는 BLDG 로 넘긴다.
                      */
-                    for (var i = 0; i < gridData.length; i++) {
-                        gridData[i]['shapeType'] = me.Constants.TYPE.BLDG;
-                        gridData[i]['shapeLabel'] = gridData[i]['NM'];
-                        gridData[i]['model'] = model;
-                        gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + gridData[i]['NM'] + '</a>';
+                    if(gridData !== undefined) {
+                        for (var i = 0; i < gridData.length; i++) {
+                            gridData[i]['shapeType'] = me.Constants.TYPE.BLDG;
+                            gridData[i]['shapeLabel'] = gridData[i]['loc_ref_name'];
+                            gridData[i]['model'] = model;
+                            gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['loc_ref_name'] + '</a>';
+                            //gridData[i]['dscr_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['dscr'] + '</span>';
+                            gridData[i]['dscr_style'] = '<span style="margin-left: 5px;margin-right: 5px;"></span>';
+                        }
                     }
                     greedOptions = {
                         data: gridData,
@@ -1341,19 +2149,187 @@ ViewContorller.prototype = {
                                 defaultContent: ''
                             },
                             {
-                                data: 'DSCR',
+                                data: 'dscr_style',
                                 title: 'Description',
                                 defaultContent: ''
                             }
                         ],
-                        pageLength: 10,
+                        columnDefs: [
+                            {
+                                className: 'dt-left',
+                                targets: '_all'
+                            }
+                        ],
+                        bAutoWidth: true,
+                        pageLength: 50,
                         lengthChange: false,
-                        info: false
+                        info: false,
+                        scrollY: 600,
+                        scrollX: true,
+                        scrollCollapse: true
                     };
                 }
+                me.initBldgReferenceList = gridData;
                 renderGridAction(greedOptions, gridData);
             });
         }
+        if (model == me.model.CableReferenceList.name) {
+            me.dataController.getCableReferenceList(function (err, gridData) {
+                if (err) {
+                    console.log(err);
+                    msgBox('케이블 레퍼런스 데이터를 불러올 수 없습니다.');
+                } else {
+                    /**
+                     * CableReferenceList(라우트 에디터) 는 BLDG 로 넘긴다.
+                     */
+                    if(gridData !== undefined) {
+                        for (var i = 0; i < gridData.length; i++) {
+                            gridData[i]['shapeType'] = me.Constants.TYPE.BLDG;
+                            gridData[i]['shapeLabel'] = gridData[i]['nm'];
+                            gridData[i]['model'] = model;
+                            gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['nm'] + '</a>';
+                        }
+                    }
+                    greedOptions = {
+                        data: gridData,
+                        columns: [
+                            {
+                                data: 'label',
+                                title: 'Name',
+                                defaultContent: ''
+                            },
+                            {
+                                data: 'dscr',
+                                title: 'Description',
+                                defaultContent: ''
+                            }
+                        ],
+                        columnDefs: [
+                            {
+                                className: 'dt-center',
+                                targets: '_all'
+                            }
+                        ],
+                        pageLength: 50,
+                        lengthChange: false,
+                        info: false,
+                        scrollY: 600,
+                        scrollX: true,
+                        scrollCollapse: true
+                    };
+                }
+                me.initCableReferenceList = gridData;
+                renderGridAction(greedOptions, gridData);
+            });
+        }
+    },
+
+    /**
+     * 저장 이후 그리드 및 트리를 새로 그린다.
+     * 피더에서 이벤트 발생시에는 피더 에디터의 그리드 및 트리를 리프레쉬한다.
+     * 추가적으로 피더일때는 하이어라키의 피더리스트도 갱신해야한다.
+     *
+     */
+    refreshGridAndTree: function (mode, renderer) {
+        var me = this;
+        /**
+         * 피더에서 넘어왔다면
+         */
+        if(mode == me.Constants.MODE.FEEDER) {
+            me.renderSwgrSelectBox();
+            me.renderGrid(me.model.SwgrList.name);
+            me.renderGrid(me.model.UnAssignedLoadList.name);
+            //update
+            var tree = me.model.AssignedFeederList.panel.jstree(true).destroy();
+            me.renderTree(me.model.AssignedFeederList.name);
+
+            me.renderGrid(me.model.FeederList.name);
+            me.renderGrid(me.model.HierarchyFeederList.name);
+            /**
+             * 기존의 변수들의 값들을 초기화 하고 setEditingObjectFromLoadData을 태워서
+             * 바뀐 정보들로 채워넣어야 한다.
+             */
+            me.setEditingObjectFromSave(renderer);
+        } else if(mode == me.Constants.MODE.HIERARCHY) {
+
+            me.renderGrid(me.model.HierarchyFeederList.name);
+            //update
+            var tree = me.model.HierarchyTreeList.panel.jstree(true).destroy();
+            me.renderTree(me.model.HierarchyTreeList.name);
+
+            me.saveSettingHierarchyMode(renderer);
+
+        } else if(mode == me.Constants.MODE.ROUTE) {
+
+            me.renderGrid(me.model.BldgReferenceList.name);
+            //me.renderGrid(me.model.LocationReferenceList.name);
+            me.renderGrid(me.model.RacewayReferenceList.name);
+            me.renderGrid(me.model.RouteReferenceList.name);
+            me.renderGrid(me.model.CableReferenceList.name);
+            me.saveSettingRouteMode(renderer);
+        }
+    },
+
+    /**
+     * 하이어라키 에디터에서 저장이후 모드값들 후처리
+     */
+    saveSettingRouteMode: function(renderer) {
+        var me = this;
+        var currentCanvas = renderer.getCanvas();
+        me.projectData.gui_route_json = currentCanvas.toJSON();
+        me.setRouteSaveMode(true);
+
+    },
+
+    /**
+     * 하이어라키 에디터에서 저장이후 모드값들 후처리
+     */
+    saveSettingHierarchyMode: function(renderer) {
+        var me = this;
+        var currentCanvas = renderer.getCanvas();
+        me.projectData.gui_hier_json = currentCanvas.toJSON();
+        me.setHierarchySaveMode(true);
+
+        var shapeList = currentCanvas.getAllShapes();
+        me.feederHierarchyMgtShapeList = [];
+        shapeList.forEach(function(element){
+            if(element.shape instanceof OG.HierarchyFloor) {
+
+                var childShape = currentCanvas.getChilds(element);
+                childShape.forEach(function(child){
+                    var jsonData = {};
+
+                    jsonData['feeder_list_mgt_seq'] = child.shape.data.feeder_list_mgt_seq;
+                    jsonData['hier_seq'] = element.shape.data.hier_seq;
+                    jsonData['up_hier_seq'] = element.shape.data.up_hier_seq;
+
+                    /**
+                     * prevEdges가 있다는 것은 상위 피더가 있다는 것.
+                     * 없다면 자신이 상위이기 때문에
+                     */
+                    var prevEdges = currentCanvas.getPrevEdges(child);
+                    var nextEdges = currentCanvas.getNextEdges(child);
+                    if(prevEdges.length > 0) {
+                        prevEdges.forEach(function(edge){
+                            var edge = currentCanvas.getRelatedElementsFromEdge(edge);
+                            var fromShapeData = edge.from.shape.data;
+                            // 자기 자신이면 자신이 상위이기 때문에 pass
+                            if(fromShapeData.feeder_list_mgt_seq != child.shape.data.feeder_list_mgt_seq) {
+                                jsonData['up_feeder_list_mgt_seq'] = fromShapeData.feeder_list_mgt_seq;
+                            }
+                        });
+                    }
+
+                    jsonData['status'] = 'U';
+                    me.feederHierarchyMgtShapeList.push(jsonData);
+
+                });
+            }
+        });
+
+        me.usedHierarchyFeederList = [];
+        me.updateFeederHierarchyList = [];
+        me.deleteFeederHierarchyList = [];
     }
 }
 ;
