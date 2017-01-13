@@ -70,7 +70,7 @@
     <!--JS Tree-->
     <link rel="stylesheet" href="lib/jstree/themes/default/style.css"/>
     <script type="text/javascript" src="lib/jstree/jstree.js"></script>
-
+    <script type="text/javascript" src="lib/jquery-blockui/jquery.blockUI.js"></script>
     <!-- CSS Customization -->
     <link rel="stylesheet" href="resources/assets/css/custom.css">
 
@@ -102,14 +102,26 @@
     <script type="text/javascript" src="doosan/dataController.js"></script>
     <script type="text/javascript" src="doosan/renderer.js"></script>
     <script type="text/javascript" src="doosan/viewController.js"></script>
-    
     <!--gui interface-->
     <script type="text/javascript" src="inerface/guiInterface.js"></script>
     <style>
-        * {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
+
+        .inputHighlight {
+            -webkit-transition: all 0.30s ease-in-out;
+            -moz-transition: all 0.30s ease-in-out;
+            -ms-transition: all 0.30s ease-in-out;
+            -o-transition: all 0.30s ease-in-out;
+            outline: none;
+            padding: 3px 0px 3px 3px;
+            margin: 5px 1px 3px 0px;
+            border: 1px solid #DDDDDD;
+        }
+
+        .inputHighlight:focus {
+            box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+            padding: 3px 0px 3px 3px;
+            margin: 5px 1px 3px 0px;
+            border: 1px solid rgba(81, 203, 238, 1);
         }
 
         input[type="range"] {
@@ -174,11 +186,46 @@
             border: 0;
             background-image: linear-gradient(to bottom, #529de1 0, #245e8f 100%); /* W3C */
         }
+
+        .gridTable th,
+        .gridTable td {
+            white-space: nowrap;
+        }
+
+        .gridTable thead,
+        .gridTable th {
+            text-align: center;
+        }
+
+        .col-md-5 {
+            width: 30%;
+        }
+
+        table.propertyDialog {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            line-height: 1.5;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            margin: 20px 0px 10px 3px;
+        }
+        table.propertyDialog tbody th {
+            width: 40%;
+            border-bottom: 1px solid #ccc;
+        }
+        table.propertyDialog .even {
+            background: #fdf3f5;
+        }
+
+        table.propertyDialog td {
+            width: 60%;
+            border-bottom: 1px solid #ccc;
+        }
+
     </style>
 </head>
-
 <div class="wrapper">
-
     <!-- 메시지 Modal -->
     <div class="modal fade" id="messageBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
@@ -239,10 +286,38 @@
 
 
     <script type="text/javascript">
-    	
-    	var msgBox = function (message) {
+
+        var orgTimeout = setTimeout;
+
+        window.setTimeout = function() {
+            var func, delay;
+            func = arguments[0];
+            delay = arguments[1];
+
+            if(arguments.length > 2) {
+
+                var arg = Array.prototype.slice.call(arguments, 2);
+                return orgTimeout(
+                        function() {
+                            func.apply(null, arg);
+                        }, delay);
+            } else {
+                return orgTimeout(func, delay);
+            }
+        };
+
+        if (window.Worker) {
+            var worker = new Worker("doosan/drawSwitchAndLoad.js");
+        }
+        var msgBox = function (message, obj) {
             var box = $('#messageBox');
             box.find('[name=content]').html(message);
+            box.find('[name=close]').click(function () {
+                box.find('.close').click();
+                if(obj) {
+                    obj.focus();
+                }
+            });
             box.modal({
                 show: true
             });
@@ -272,6 +347,11 @@
                 $('#messageBox').find('.close').click();
             });
         });
+
+        var msgBoxClose = function() {
+            $('#messageBox').find('.close').click();
+        }
+
     </script>
 
     <div class="breadcrumbs">
@@ -281,7 +361,7 @@
     </div>
 
     <!--=== Content Part ===-->
-    <div class="container" style="padding-top: 10px;padding-bottom: 30px;">
+    <div class="container" id="blockArea" style="padding-top: 10px;padding-bottom: 30px;">
         <div class="tab-v1">
             <ul class="nav nav-tabs">
                 <li class="active delayTab renderTab" data-canvas="feeder"><a href="#swgrFeederEditor" data-toggle="tab"
@@ -301,9 +381,9 @@
                 <button class="btn btn-xs rounded btn-default" id="editor-save" type="button"><i
                         class="fa fa-plus"></i> Save
                 </button>
-                <button class="btn btn-xs rounded btn-default" id="editor-save-as" type="button"><i
-                        class="fa fa-refresh"></i> Save as
-                </button>
+                <!--                 <button class="btn btn-xs rounded btn-default" id="editor-save-as" type="button"><i -->
+                <!--                         class="fa fa-refresh"></i> Save as -->
+                <!--                 </button> -->
                 <button class="btn btn-xs rounded btn-default" id="editor-zoomIn" type="button"><i
                         class="fa fa-search-plus"></i> Zoom | IN
                 </button>
@@ -316,87 +396,86 @@
                 <button class="btn btn-xs rounded btn-default dropdown-menu-trigger" id="editor-backdoor"
                         type="button"><i
                         class="fa-file-image-o" style="display: none"></i> Backdoor
-                    <ul id="editor-backdoor-menu" class="dropdown-menu">
-                        <li>
-                            <small name="menu-importBackdoor">Import Backdoor</small>
-                        </li>
-                        <li class="preventClose">
-                            <small id="backdoor-size-range-text">Size : 100%</small>
-                            <input type="range" id="backdoor-size-range" max="200" min="20" value="100" step="10">
-                        </li>
-                        <li class="preventClose">
-                            <small id="backdoor-opacity-range-text">Opacity : 0.5</small>
-                            <input type="range" id="backdoor-opacity-range" max="1" min="0" value="0.5" step="0.1">
-                        </li>
-                    </ul>
-                    <input style="display: none" type="file" id="backdoor-upload">
                 </button>
-
+                <ul id="editor-backdoor-menu" class="dropdown-menu dropdown-menu-backdoor">
+                    <li>
+                        <small name="menu-importBackdoor">Import Backdoor</small>
+                    </li>
+                    <li class="preventClose">
+                        <small id="backdoor-size-range-text">Size : 100%</small>
+                        <input type="range" id="backdoor-size-range" max="200" min="20" value="100" step="10">
+                    </li>
+                    <li class="preventClose">
+                        <small id="backdoor-opacity-range-text">Opacity : 0.5</small>
+                        <input type="range" id="backdoor-opacity-range" max="1" min="0" value="0.5" step="0.1">
+                    </li>
+                </ul>
+                <input style="display: none" type="file" id="backdoor-upload">
                 <button class="btn btn-xs rounded btn-default dropdown-menu-trigger" id="editor-util"
                         type="button"><i
                         class="fa fa-search-minus"></i> Utils
-                    <ul id="editor-util-menu" class="dropdown-menu">
-                        <li>
-                            <small name="menu-printJson">Print Json</small>
-                        </li>
-                        <li>
-                            <small name="menu-printXml">Print Xml</small>
-                        </li>
-                        <li>
-                            <small name="menu-loadJson">Load Json</small>
-                        </li>
-                        <li>
-                            <small name="menu-loadXml">Load Xml</small>
-                        </li>
-                    </ul>
                 </button>
+                <ul id="editor-util-menu" class="dropdown-menu dropdown-menu-data">
+                    <li id="menu-printJson">
+                        <small name="menu-printJson">Print Json</small>
+                    </li>
+                    <li id="menu-printXml">
+                        <small name="menu-printXml">Print Xml</small>
+                    </li>
+                    <li id="menu-loadJson">
+                        <small name="menu-loadJson">Load Json</small>
+                    </li>
+                    <li id="menu-loadXml">
+                        <small name="menu-loadXml">Load Xml</small>
+                    </li>
+                </ul>
 
-                <button class="btn btn-xs rounded btn-default dropdown-menu-trigger" id="editor-shape"
-                        type="button"><i
-                        class="fa fa-search-minus"></i> Annotaion
-                    <ul id="editor-shape-menu" class="dropdown-menu">
-                        <li>
-                            <img src="resources/images/symbol/connector_sequence.png" class="icon_shape"
-                                 _shape_type="EDGE"
-                                 _shape_id="OG.shape.bpmn.C_Sequence" _width="200" _height="150"/>
-                            <small>Sequence</small>
-                        </li>
-                        <li>
-                            <img src="resources/images/symbol/connector_message.png" class="icon_shape"
-                                 _shape_type="EDGE"
-                                 _shape_id="OG.shape.bpmn.C_Message" _width="200" _height="150"/>
-                            <small>Message</small>
-                        </li>
-                        <li>
-                            <img src="resources/images/symbol/connector_conditional.png" class="icon_shape"
-                                 _shape_type="EDGE"
-                                 _shape_id="OG.shape.bpmn.C_Conditional" _width="200" _height="150"/>
-                            <small>Conditoinal</small>
-                        </li>
-                        <li>
-                            <img src="resources/images/symbol/connector_dataassociation.png" class="icon_shape"
-                                 _shape_type="EDGE"
-                                 _shape_id="OG.shape.bpmn.C_DataAssociation" _width="200" _height="150"/>
-                            <small>DataAssociation</small>
-                        </li>
-                        <li>
-                            <img src="resources/images/symbol/connector_association.png" class="icon_shape"
-                                 _shape_type="EDGE"
-                                 _shape_id="OG.shape.bpmn.C_Association" _width="200" _height="150"/>
-                            <small>Association</small>
-                        </li>
-                        <li>
-                            <img src="resources/images/symbol/annotation.png" class="icon_shape" _shape_type="GEOM"
-                                 _shape_id="OG.shape.bpmn.M_Annotation" _width="70" _height="30"/>
-                            <small>Annotation</small>
-                        </li>
-                        <li>
-                            <img src="resources/images/symbol/text.png" class="icon_shape" _shape_type="GEOM"
-                                 _shape_id="OG.shape.bpmn.M_Text" _width="50" _height="30"/>
-                            <small>Text</small>
-                        </li>
-                    </ul>
-                </button>
+                <!--                 <button class="btn btn-xs rounded btn-default dropdown-menu-trigger" id="editor-shape" -->
+                <!--                         type="button"><i -->
+                <!--                         class="fa fa-search-minus"></i> Annotaion -->
+                <!--                     <ul id="editor-shape-menu" class="dropdown-menu"> -->
+                <!--                         <li> -->
+                <!--                             <img src="resources/images/symbol/connector_sequence.png" class="icon_shape" -->
+                <!--                                  _shape_type="EDGE" -->
+                <!--                                  _shape_id="OG.shape.bpmn.C_Sequence" _width="200" _height="150"/> -->
+                <!--                             <small>Sequence</small> -->
+                <!--                         </li> -->
+                <!--                         <li> -->
+                <!--                             <img src="resources/images/symbol/connector_message.png" class="icon_shape" -->
+                <!--                                  _shape_type="EDGE" -->
+                <!--                                  _shape_id="OG.shape.bpmn.C_Message" _width="200" _height="150"/> -->
+                <!--                             <small>Message</small> -->
+                <!--                         </li> -->
+                <!--                         <li> -->
+                <!--                             <img src="resources/images/symbol/connector_conditional.png" class="icon_shape" -->
+                <!--                                  _shape_type="EDGE" -->
+                <!--                                  _shape_id="OG.shape.bpmn.C_Conditional" _width="200" _height="150"/> -->
+                <!--                             <small>Conditoinal</small> -->
+                <!--                         </li> -->
+                <!--                         <li> -->
+                <!--                             <img src="resources/images/symbol/connector_dataassociation.png" class="icon_shape" -->
+                <!--                                  _shape_type="EDGE" -->
+                <!--                                  _shape_id="OG.shape.bpmn.C_DataAssociation" _width="200" _height="150"/> -->
+                <!--                             <small>DataAssociation</small> -->
+                <!--                         </li> -->
+                <!--                         <li> -->
+                <!--                             <img src="resources/images/symbol/connector_association.png" class="icon_shape" -->
+                <!--                                  _shape_type="EDGE" -->
+                <!--                                  _shape_id="OG.shape.bpmn.C_Association" _width="200" _height="150"/> -->
+                <!--                             <small>Association</small> -->
+                <!--                         </li> -->
+                <!--                         <li> -->
+                <!--                             <img src="resources/images/symbol/annotation.png" class="icon_shape" _shape_type="GEOM" -->
+                <!--                                  _shape_id="OG.shape.bpmn.M_Annotation" _width="70" _height="30"/> -->
+                <!--                             <small>Annotation</small> -->
+                <!--                         </li> -->
+                <!--                         <li> -->
+                <!--                             <img src="resources/images/symbol/text.png" class="icon_shape" _shape_type="GEOM" -->
+                <!--                                  _shape_id="OG.shape.bpmn.M_Text" _width="50" _height="30"/> -->
+                <!--                             <small>Text</small> -->
+                <!--                         </li> -->
+                <!--                     </ul> -->
+                <!--                 </button> -->
             </div>
 
             <div class="tab-content">
@@ -415,10 +494,10 @@
                         <div style="position: absolute;top: 0px;left:70%;width:30%;height: 100%;border: solid 1px #eee">
                             <div class="tab-v1">
                                 <ul class="nav nav-tabs">
-                                    <li style="width: 33%;"><a href="#swgr" data-toggle="tab">SWGR</a></li>
-                                    <li style="width: 33%;"><a href="#load" data-toggle="tab">Load</a></li>
-                                    <li class="active" style="width: 34%;"><a href="#feeder"
-                                                                              data-toggle="tab">Feeder</a></li>
+                                    <li style="width: 33%;" id="swgr-nav"><a href="#swgr" data-toggle="tab">SWGR</a></li>
+                                    <li style="width: 33%;" id="load-nav"><a href="#load" data-toggle="tab">Load</a></li>
+                                    <li class="active" style="width: 34%;" id="feeder-nav"><a href="#feeder"
+                                                                                              data-toggle="tab">Feeder</a></li>
                                 </ul>
 
                                 <div class="tab-content">
@@ -435,14 +514,14 @@
                                             </button>
                                         </div>
                                         <div class="col-md-12">
-                                            <table id="swgrGrid" class="display" width="100%"></table>
+                                            <table id="swgrGrid" class="display gridTable cell-border" width="100%"></table>
                                         </div>
                                     </div>
 
                                     <!--로드 리스트 패널-->
                                     <div class="tab-pane fade in" id="load">
                                         <div class="col-md-12">
-                                            <table id="unAssignedLoadGrid" class="display"
+                                            <table id="unAssignedLoadGrid" class="display gridTable cell-border"
                                                    width="100%"></table>
                                         </div>
                                     </div>
@@ -461,7 +540,7 @@
                                                 <!--피더 스위치 리스트 패널-->
                                                 <div class="tab-pane fade in active" id="AssignedFeederSwgr">
                                                     <div class="col-md-12">
-                                                        <table id="feederGrid" class="display" width="100%"></table>
+                                                        <table id="feederGrid" class="display gridTable cell-border" width="100%"></table>
                                                     </div>
                                                 </div>
 
@@ -497,7 +576,7 @@
                         <div style="position: absolute;top: 0px;left:70%;width:30%;height: 100%;border: solid 1px #eee">
                             <div class="tab-v1">
                                 <ul class="nav nav-tabs">
-                                    <li style="width: 50%;"><a href="#hierarchy-feeder" data-toggle="tab">Feeder</a>
+                                    <li style="width: 50%;" id="hier-feeder"><a href="#hierarchy-feeder" data-toggle="tab">Feeder</a>
                                     </li>
                                     <li class="active" style="width: 50%;"><a href="#hierarchy" data-toggle="tab">Hierarchy</a>
                                     </li>
@@ -507,7 +586,7 @@
                                     <!--피더 리스트 패널-->
                                     <div class="tab-pane fade in" id="hierarchy-feeder">
                                         <div class="col-md-12">
-                                            <table id="hierarchy-feederGrid" class="display" width="100%"></table>
+                                            <table id="hierarchy-feederGrid" class="display gridTable cell-border" width="100%"></table>
                                         </div>
                                     </div>
 
@@ -541,7 +620,7 @@
                                 <ul class="nav nav-tabs">
                                     <li class="active" style="width: 50%;"><a href="#location" data-toggle="tab">Location</a>
                                     </li>
-                                    <li style="width: 50%;"><a href="#route" data-toggle="tab">Route</a></li>
+                                    <li style="width: 50%;" id="routeParentTab"><a href="#route" data-toggle="tab">Route</a></li>
                                 </ul>
 
                                 <div class="tab-content">
@@ -549,48 +628,45 @@
                                     <div class="tab-pane fade in active" id="location">
                                         <div class="tab-v1">
                                             <ul class="nav nav-tabs">
-                                                <li class="active" style="width: 33%;"><a href="#bldgRef"
-                                                                                          data-toggle="tab">BLDG</a>
+                                                <li class="active" style="width:50%;" id="bldgRefTab"><a href="#bldgRef"
+                                                                                                         data-toggle="tab">Location</a>
                                                 </li>
-                                                <li style="width: 33%;"><a href="#locationRef" data-toggle="tab">Location</a>
+                                                <!--                                                 <li style="width: 33%;" id="locRefTab"><a href="#locationRef" data-toggle="tab">Location</a> -->
                                                 </li>
-                                                <li style="width: 34%;"><a href="#racewayRef"
-                                                                           data-toggle="tab">Raceway</a></li>
+                                                <li style="width: 50%;" id="racewayRefTab"><a href="#racewayRef"
+                                                                                              data-toggle="tab">Raceway</a></li>
                                             </ul>
 
                                             <div class="tab-content">
                                                 <!--빌딩 리스트-->
                                                 <div class="tab-pane fade in active" id="bldgRef">
-                                                    <div class="col-md-12">
-                                                        <table id="bldgRefGrid" class="display"
-                                                               width="100%"></table>
-                                                    </div>
-                                                </div>
-                                                <!--로케이션 레퍼런스(빌딩) 리스트-->
-                                                <div class="tab-pane fade in" id="locationRef">
                                                     <div class="form-group col-md-5">
-                                                        <div class="btn btn-xs rounded btn-default" id="newLocation"
-                                                             type="button"><i
-                                                                class="fa fa-plus"></i> Drag new location
+                                                        <div class="btn btn-xs rounded btn-default" id="newPoint" type="button">
+                                                            <i class="fa fa-plus"></i> Drag New Point
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-7">
-                                                        <select id="locationSelectBox" name="locationSelectBox"
-                                                                class="custom-form-control">
-                                                            <option value="location" selected>BLDG point</option>
-                                                            <option value="manhole">Manhole</option>
-                                                        </select>
+                                                        <div class="btn btn-xs rounded btn-default" id="newManhole" type="button">
+                                                            <i class="fa fa-plus"></i> Drag New Manhole
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-12">
-                                                        <table id="locationRefGrid" class="display"
+                                                        <table id="bldgRefGrid" class="display gridTable cell-border"
                                                                width="100%"></table>
                                                     </div>
                                                 </div>
-
+                                                <!--로케이션 레퍼런스(빌딩) 리스트 
+                                                <div class="tab-pane fade in" id="locationRef">
+                                                    <div class="col-md-12">
+                                                        <table id="locationRefGrid" class="display gridTable cell-border"
+                                                               width="100%"></table>
+                                                    </div>
+                                                </div>
+												-->
                                                 <!--레이스웨이 레퍼런스 리스트-->
                                                 <div class="tab-pane fade in" id="racewayRef">
                                                     <div class="col-md-12">
-                                                        <table id="racewayRefGrid" class="display"
+                                                        <table id="racewayRefGrid" class="display gridTable cell-border"
                                                                width="100%"></table>
                                                     </div>
                                                 </div>
@@ -602,10 +678,10 @@
                                     <div class="tab-pane fade in" id="route">
                                         <div class="tab-v1">
                                             <ul class="nav nav-tabs">
-                                                <li class="active" style="width: 50%;"><a href="#routeRef"
-                                                                                          data-toggle="tab">Route</a>
+                                                <li class="active" style="width: 50%;" id="routeChildTab"><a href="#routeRef"
+                                                                                                             data-toggle="tab">Route</a>
                                                 </li>
-                                                <li style="width: 50%;"><a href="#cableRef" data-toggle="tab">Cable</a>
+                                                <li style="width: 50%;" id="cableRefTab"><a href="#cableRef" data-toggle="tab">Cable</a>
                                                 </li>
                                             </ul>
 
@@ -613,7 +689,7 @@
                                                 <!--라우트 레퍼런스(레이스 웨이를 지나가는 패스) 리스트-->
                                                 <div class="tab-pane fade in active" id="routeRef">
                                                     <div class="col-md-12">
-                                                        <table id="routeRefGrid" class="display"
+                                                        <table id="routeRefGrid" class="display gridTable cell-border"
                                                                width="100%"></table>
                                                     </div>
                                                 </div>
@@ -621,7 +697,7 @@
                                                 <!--케이블 레퍼런스(라우트 레퍼런스에 실제 깔리는 케이블) 리스트-->
                                                 <div class="tab-pane fade in" id="cableRef">
                                                     <div class="col-md-12">
-                                                        <table id="cableRefGrid" class="display"
+                                                        <table id="cableRefGrid" class="display gridTable"
                                                                width="100%"></table>
                                                     </div>
                                                 </div>
@@ -711,7 +787,72 @@
         </div>
     </div>
 </div>
-
+<div style="display:none">
+    <table id="locationProperty" class='propertyDialog'>
+        <tbody>
+        <tr>
+            <th>Length</th>
+            <td><input type="text" name="locationLength" class="locationLength inputHighlight"/></td>
+        </tr>
+        <tr>
+            <th>Temp</th>
+            <td><input type="text" name="locationTemp" class="locationTemp inputHighlight"/></td>
+        </tr>
+        <tr>
+            <th>Remark</th>
+            <td><input type="text" name="locationRemark" class="locationRemark inputHighlight"/></td>
+        </tr>
+        </tbody>
+    </table>
+    <table id="pointProperty" class='propertyDialog'>
+        <tbody>
+        <tr>
+            <th>Point</th>
+            <td><input type="text" name="pointName" class="pointName inputHighlight"/></td>
+        </tr>
+        </tbody>
+    </table>
+    <table id="manholeProperty" class='propertyDialog'>
+        <tbody>
+        <tr>
+            <th>Manhole Point</th>
+            <td><input type="text" name="manholeName" class="manholeName inputHighlight"/></td>
+        </tr>
+        </tbody>
+    </table>
+    <table id="raceWayProperty" class='propertyDialog'>
+        <tbody>
+        <tr>
+            <th>From</th>
+            <td class="raceWayFrom"></td>
+        </tr>
+        <tr>
+            <th>To</th>
+            <td class="raceWayTo"></td>
+        </tr>
+        <tr>
+            <th>Length</th>
+            <td><input type="text" name="raceWayLength" class="raceWayLength inputHighlight"/></td>
+        </tr>
+        <tr>
+            <th>Temp</th>
+            <td><input type="text" name="raceWayTemp" class="raceWayTemp inputHighlight"/></td>
+        </tr>
+        <tr>
+            <th>Method of Installation</th>
+            <td><select class="race_ref_method">
+                <option selected value="A">Air</option>
+                <option value="U">Underground</option>
+            </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Remark</th>
+            <td><input type="text" name="raceWayRemark" class="raceWayRemark inputHighlight"/></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 <!-- ajax 호출 UI 블락커 && 커스터마이징 -->
 <script type="text/javascript" src="resources/plugins/blockUI/blockUI.js"></script>
 <script type="text/javascript" src="resources/js/blockUIcustom.js"></script>
