@@ -708,7 +708,7 @@ ViewContorller.prototype = {
         //me.renderGrid(me.model.LocationReferenceList.name);
         me.renderGrid(me.model.RacewayReferenceList.name);
         me.renderGrid(me.model.RouteReferenceList.name);
-        me.renderGrid(me.model.CableReferenceList.name);
+        //me.renderGrid(me.model.CableReferenceList.name);
         me.bindLocationDragDrop();
 
 

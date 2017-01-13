@@ -413,8 +413,8 @@ Renderer.prototype = {
         var me = this;
 
         if(mode == me.Constants.MODE.HIERARCHY ) {
-            var dataInfo = parent.getFeederSWGRTree();
-
+            //var dataInfo = parent.getFeederSWGRTree();
+            var dataInfo = [];
             /**
              * 빌딩과 플로우를 추출해서 각각의 리스트에 넣는다.
              */
@@ -530,6 +530,7 @@ Renderer.prototype = {
     drawToRouteCanvasFromServerData: function(mode) {
         var me = this;
         console.log('drawRouteCanvas');
+        $.unblockUI();
     },
 
     // renderer.canvas, dataModal, 'json', data

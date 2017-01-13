@@ -2,7 +2,7 @@
  * Created by Seungpil, Park on 2016. 9. 6..
  */
 var DataController = function () {
-    this.dev = false;
+    this.dev = true;
 };
 DataController.prototype = {
     /**
@@ -277,12 +277,13 @@ DataController.prototype = {
      * @param callback
      */
     getAssignedFeederList: function (callback) {
+        var me = this;
         if(this.dev) {
             $.ajax({
                 url: 'doosan/data/feeder-list.json',
                 dataType: 'json',
                 success: function (data) {
-                    var treeData = getFeederTreeData(data);
+                    var treeData = me.getFeederTreeData(data);
                     callback(null, treeData);
                 },
                 error: function (err) {
@@ -293,7 +294,7 @@ DataController.prototype = {
             var data;
             try {
                 data = parent.getFeederList();
-                callback(null, this.getFeederTreeData(data));
+                callback(null, me.getFeederTreeData(data));
             } catch (e) {
                 callback(e, null);
             }
@@ -306,13 +307,13 @@ DataController.prototype = {
      * @param callback
      */
     getUpdateTree: function (object, renderer, mode) {
-
+        var me = this;
         if (this.dev) {
             $.ajax({
                 url: 'doosan/data/feeder-update-list.json',
                 dataType: 'json',
                 success: function (data) {
-                    var treeData = this.getFeederTreeData(data);
+                    var treeData = me.getFeederTreeData(data);
                     object.settings.core.data = treeData;
                     object.refresh();
                 },
@@ -326,10 +327,10 @@ DataController.prototype = {
 
                 if(mode == renderer.Constants.MODE.FEEDER) {
                     var feederList = parent.getFeederList();
-                    data = this.getFeederTreeData(feederList)
+                    data = me.getFeederTreeData(feederList)
                 } else if(mode == renderer.Constants.MODE.HIERARCHY) {
                     var feederSwgrList = parent.getFeederSWGRTree();
-                    data = this.getHierarchyTreeData(feederSwgrList)
+                    data = me.getHierarchyTreeData(feederSwgrList)
                 }
 
                 object.on("dblclick.jstree", function (event, data) {
@@ -467,13 +468,13 @@ DataController.prototype = {
 
     /** Hierarchy tree list   */
     getHierarchyTreeList: function (callback) {
-
+        var me = this;
         if (this.dev) {
             $.ajax({
                 url: 'doosan/data/hierarchy-list.json',
                 dataType: 'json',
                 success: function (data) {
-                    callback(null, this.getHierarchyTreeData(data));
+                    callback(null, me.getHierarchyTreeData(data));
                 },
                 error: function (err) {
                     callback(err, null);
@@ -483,7 +484,7 @@ DataController.prototype = {
             var data;
             try {
                 data = parent.getFeederSWGRTree();
-                callback(null, this.getHierarchyTreeData(data));
+                callback(null, me.getHierarchyTreeData(data));
             } catch (e) {
                 callback(e, null);
             }
