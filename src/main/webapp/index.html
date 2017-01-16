@@ -12,11 +12,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Doosan Inc | Editor</title>
-
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Doosan Inc | Editor</title>
 
     <!-- 타이틀 -->
     <meta name="title" content="Doosan Inc"/>
@@ -25,28 +23,28 @@
     <meta name="Location" content="South Korea"/>
     <meta name="Distribution" content="Global"/>
 
+    <!-- Summer Note -->
+    <link href="/resources/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="/resources/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 
-    <!-- CSS Global Compulsory -->
-    <link rel="stylesheet" href="resources/assets/plugins/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="resources/assets/css/style.css">
+    <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <!-- CSS Header and Footer -->
-    <link rel="stylesheet" href="resources/assets/css/headers/header-default.css">
-    <link rel="stylesheet" href="resources/assets/css/footers/footer-v1.css">
+    <link href="/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
 
-    <!-- CSS Implementing Plugins -->
-    <link rel="stylesheet" href="resources/assets/plugins/animate.css">
-    <link rel="stylesheet" href="resources/assets/plugins/line-icons/line-icons.css">
-    <link rel="stylesheet" href="resources/assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link href="/resources/css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="resources/assets/plugins/scrollbar/css/jquery.mCustomScrollbar.css">
-    <link rel="stylesheet" href="resources/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css">
-    <link rel="stylesheet" href="resources/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css">
+    <!-- Toastr style -->
+    <link href="/resources/css/plugins/toastr/toastr.min.css" rel="stylesheet">
 
-    <!-- JS Global Compulsory -->
+    <!-- Gritter -->
+    <link href="/resources/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <link href="/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+    <!-- Jquery -->
     <script type="text/javascript" src="lib/jquery-1.11.1/jquery-1.11.1.min.js"></script>
-    <!--<script type="text/javascript" src="resources/assets/plugins/jquery/jquery-migrate.min.js"></script>-->
-    <script type="text/javascript" src="resources/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!--<script src="/resources/js/jquery-2.1.1.js"></script>-->
 
     <!-- jquery-ui, jquery.contextmenu -->
     <link rel="stylesheet" type="text/css"
@@ -57,12 +55,13 @@
     <script type="text/javascript" src="lib/jquery-contextMenu/jquery.contextMenu.js"></script>
     <link rel="stylesheet" type="text/css" href="lib/jquery-contextMenu/jquery.contextMenu.css"/>
 
-    <!-- CSS Theme -->
-    <link rel="stylesheet" href="resources/assets/css/theme-colors/dark-blue.css">
-
     <!-- data table -->
-    <link rel="stylesheet" href="resources/plugins/datatable/datatables.css">
-    <script type="text/javascript" src="resources/plugins/datatable/datatables.js"></script>
+    <link rel="stylesheet" href="resources/js/plugins/datatable/datatables.css">
+    <script type="text/javascript" src="resources/js/plugins/datatable/datatables.js"></script>
+
+    <!-- ajax 호출 UI 블락커 && 커스터마이징 -->
+    <script type="text/javascript" src="/resources/js/plugins/blockUI/blockUI.js"></script>
+    <script type="text/javascript" src="/resources/js/plugins/blockUI/blockUIcustom.js"></script>
 
     <!-- libs -->
     <script type="text/javascript" src="lib/jqueryXML2JSON/jquery.xml2json.js"></script>
@@ -70,162 +69,25 @@
     <!--JS Tree-->
     <link rel="stylesheet" href="lib/jstree/themes/default/style.css"/>
     <script type="text/javascript" src="lib/jstree/jstree.js"></script>
-    <script type="text/javascript" src="lib/jquery-blockui/jquery.blockUI.js"></script>
-    <!-- CSS Customization -->
-    <link rel="stylesheet" href="resources/assets/css/custom.css">
 
-    <!--OpenGraph-->
-    <script type="text/javascript" src="lib/opengraph/OpenGraph-0.1.2-SNAPSHOT.js"></script>
-    <script type="text/javascript" src="doosan/shape/SwitchGear.js"></script>
-    <script type="text/javascript" src="doosan/shape/WireShape.js"></script>
-    <script type="text/javascript" src="doosan/shape/BusductShape.js"></script>
-    <script type="text/javascript" src="doosan/shape/RacewayShape.js"></script>
-    <script type="text/javascript" src="doosan/shape/CableShape.js"></script>
-    <script type="text/javascript" src="doosan/shape/SwitchTransformer.js"></script>
-    <script type="text/javascript" src="doosan/shape/Load.js"></script>
-    <script type="text/javascript" src="doosan/shape/SHLoad.js"></script>
-    <script type="text/javascript" src="doosan/shape/NMLoad.js"></script>
-    <script type="text/javascript" src="doosan/shape/EHLoad.js"></script>
-    <script type="text/javascript" src="doosan/shape/EHSLoad.js"></script>
-    <script type="text/javascript" src="doosan/shape/MILoad.js"></script>
-    <script type="text/javascript" src="doosan/shape/MKLoad.js"></script>
-    <script type="text/javascript" src="doosan/shape/MOLoad.js"></script>
-    <script type="text/javascript" src="doosan/shape/PKGLoad.js"></script>
-    <script type="text/javascript" src="doosan/shape/HierarchyFeeder.js"></script>
-    <script type="text/javascript" src="doosan/shape/HierarchyFloor.js"></script>
-    <script type="text/javascript" src="doosan/shape/HierarchyBldg.js"></script>
-    <script type="text/javascript" src="doosan/shape/BLDG.js"></script>
-    <script type="text/javascript" src="doosan/shape/Location.js"></script>
-    <script type="text/javascript" src="doosan/shape/Manhole.js"></script>
-    <script type="text/javascript" src="doosan/shape/Backdoor.js"></script>
+    <!-- IE scrollbar -->
+    <link href="/resources/css/ie-scrollbar.css" rel="stylesheet">
 
-    <script type="text/javascript" src="doosan/dataController.js"></script>
-    <script type="text/javascript" src="doosan/renderer.js"></script>
-    <script type="text/javascript" src="doosan/viewController.js"></script>
-    <!--gui interface-->
-    <script type="text/javascript" src="inerface/guiInterface.js"></script>
-    <style>
+    <link href="/resources/css/animate.css" rel="stylesheet">
+    <link href="/resources/css/style.css" rel="stylesheet">
+    <link href="/resources/css/custom.css" rel="stylesheet">
 
-        .inputHighlight {
-            -webkit-transition: all 0.30s ease-in-out;
-            -moz-transition: all 0.30s ease-in-out;
-            -ms-transition: all 0.30s ease-in-out;
-            -o-transition: all 0.30s ease-in-out;
-            outline: none;
-            padding: 3px 0px 3px 3px;
-            margin: 5px 1px 3px 0px;
-            border: 1px solid #DDDDDD;
-        }
-
-        .inputHighlight:focus {
-            box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-            padding: 3px 0px 3px 3px;
-            margin: 5px 1px 3px 0px;
-            border: 1px solid rgba(81, 203, 238, 1);
-        }
-
-        input[type="range"] {
-            -webkit-appearance: none;
-            -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-            width: 100%;
-            height: 8px;
-            margin: 0;
-            border: none;
-            padding: 1px 2px;
-            border-radius: 14px;
-            background: #232528;
-            box-shadow: inset 0 1px 0 0 #0d0e0f, inset 0 -1px 0 0 #3a3d42;
-            -webkit-box-shadow: inset 0 1px 0 0 #0d0e0f, inset 0 -1px 0 0 #3a3d42;
-            outline: none; /* no focus outline */
-        }
-
-        input[type="range"]::-moz-range-track {
-            border: inherit;
-            background: transparent;
-        }
-
-        input[type="range"]::-ms-track {
-            border: inherit;
-            color: transparent; /* don't drawn vertical reference line */
-            background: transparent;
-        }
-
-        input[type="range"]::-ms-fill-lower,
-        input[type="range"]::-ms-fill-upper {
-            background: transparent;
-        }
-
-        input[type="range"]::-ms-tooltip {
-            display: none;
-        }
-
-        /* thumb */
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 20px;
-            height: 8px;
-            border: none;
-            border-radius: 12px;
-            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #529de1), color-stop(100%, #245e8f)); /* android <= 2.2 */
-            background-image: -webkit-linear-gradient(top , #529de1 0, #245e8f 100%); /* older mobile safari and android > 2.2 */;
-            background-image: linear-gradient(to bottom, #529de1 0, #245e8f 100%); /* W3C */
-        }
-        input[type="range"]::-moz-range-thumb {
-            width: 20px;
-            height: 8px;
-            border: none;
-            border-radius: 12px;
-            background-image: linear-gradient(to bottom, #529de1 0, #245e8f 100%); /* W3C */
-        }
-
-        input[type="range"]::-ms-thumb {
-            width: 20px;
-            height: 8px;
-            border-radius: 12px;
-            border: 0;
-            background-image: linear-gradient(to bottom, #529de1 0, #245e8f 100%); /* W3C */
-        }
-
-        .gridTable th,
-        .gridTable td {
-            white-space: nowrap;
-        }
-
-        .gridTable thead,
-        .gridTable th {
-            text-align: center;
-        }
-
-        .col-md-5 {
-            width: 30%;
-        }
-
-        table.propertyDialog {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            line-height: 1.5;
-            border-top: 1px solid #ccc;
-            border-bottom: 1px solid #ccc;
-            margin: 20px 0px 10px 3px;
-        }
-        table.propertyDialog tbody th {
-            width: 40%;
-            border-bottom: 1px solid #ccc;
-        }
-        table.propertyDialog .even {
-            background: #fdf3f5;
-        }
-
-        table.propertyDialog td {
-            width: 60%;
-            border-bottom: 1px solid #ccc;
-        }
-
-    </style>
 </head>
-<div class="wrapper">
+
+<body class="top-navigation">
+<div id="wrapper">
+    <div id="canvas-progress" style="display: none">
+        <div class="progress">
+            <div style="width: 35%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="35" role="progressbar" class="canvas-progress-bar progress-bar progress-bar-success">
+            </div>
+        </div>
+    </div>
+
     <!-- 메시지 Modal -->
     <div class="modal fade" id="messageBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
@@ -239,7 +101,7 @@
                     <p style="text-align: center" name="content"></p>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn-u" type="button" name="close">확인</button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal" name="close">확인</button>
                 </div>
             </div>
         </div>
@@ -257,16 +119,15 @@
                     <p style="text-align: center" name="content"></p>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn-u" type="button" name="continue">확인</button>
-                    <button class="btn-u btn-u-default" type="button" name="close">취소</button>
+                    <button class="btn btn-primary" data-dismiss="modal" type="button" name="continue">확인</button>
+                    <button class="btn btn-white" data-dismiss="modal" type="button" name="close">취소</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Data Modal -->
-    <div class="modal fade" id="dataBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
+    <div class="modal fade" id="dataBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -277,28 +138,26 @@
                     <textarea rows="12" style="width:100%"></textarea>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn-u" type="button" name="save">저장</button>
-                    <button class="btn-u" type="button" name="close">닫기</button>
+                    <button class="btn btn-primary" data-dismiss="modal" type="button" name="save">저장</button>
+                    <button class="btn btn-white" data-dismiss="modal" type="button" name="close">닫기</button>
                 </div>
             </div>
         </div>
     </div>
-
-
     <script type="text/javascript">
 
         var orgTimeout = setTimeout;
 
-        window.setTimeout = function() {
+        window.setTimeout = function () {
             var func, delay;
             func = arguments[0];
             delay = arguments[1];
 
-            if(arguments.length > 2) {
+            if (arguments.length > 2) {
 
                 var arg = Array.prototype.slice.call(arguments, 2);
                 return orgTimeout(
-                        function() {
+                        function () {
                             func.apply(null, arg);
                         }, delay);
             } else {
@@ -306,12 +165,15 @@
             }
         };
 
+        if (window.Worker) {
+            var worker = new Worker("doosan/drawSwitchAndLoad.js");
+        }
         var msgBox = function (message, obj) {
             var box = $('#messageBox');
             box.find('[name=content]').html(message);
             box.find('[name=close]').click(function () {
                 box.find('.close').click();
-                if(obj) {
+                if (obj) {
                     obj.focus();
                 }
             });
@@ -344,358 +206,190 @@
                 $('#messageBox').find('.close').click();
             });
         });
-
-        var msgBoxClose = function() {
+        var msgBoxClose = function () {
             $('#messageBox').find('.close').click();
         }
 
     </script>
 
-    <div class="breadcrumbs">
-        <div class="container">
-            <h4 class="pull-left">Doosan I-Elec Editor </h4>
+    <script type="text/javascript">$('[name=list-menu-feeder]').addClass('active');</script>
+
+    <div id="page-wrapper" class="white-bg dashbard-1">
+
+        <div class="row border-bottom white-bg">
+            <nav class="navbar navbar-static-top" role="navigation">
+                <div class="navbar-header">
+                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                        <i class="fa fa-reorder"></i>
+                    </button>
+                    <a href="#" class="navbar-brand">GUI Editor</a>
+                </div>
+                <div class="navbar-collapse collapse" id="navbar">
+                    <ul class="nav navbar-nav">
+                        <li class="delayTab active feederTab" data-canvas="feeder">
+                            <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Feeder Editor</span></a>
+                        </li>
+                        <li class="delayTab hierarchyTab" data-canvas="hierarchy">
+                            <a href="#"><i class="fa fa-shopping-cart"></i> <span
+                                    class="nav-label">Hierarchy Editor</span></a>
+                        </li>
+                        <li class="delayTab routeTab" data-canvas="route">
+                            <a href="#"><i class="fa fa-user"></i> <span
+                                    class="nav-label">BLDG / Route Editor</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </div>
-    </div>
 
-    <!--=== Content Part ===-->
-    <div class="container" id="blockArea" style="padding-top: 10px;padding-bottom: 30px;">
-        <div class="tab-v1">
-            <ul class="nav nav-tabs">
-                <li class="active delayTab renderTab" data-canvas="feeder"><a href="#swgrFeederEditor" data-toggle="tab"
-                                                                              aria-expanded="true">SWGR / Assigned
-                    Feeder
-                    Editor</a></li>
-                <li class="delayTab renderTab" data-canvas="hierarchy"><a href="#hierarchyEditor" id="hierarchyTab"
-                                                                          data-toggle="tab" aria-expanded="false">Hierarchy
-                    Editor</a></li>
-                <li class="delayTab renderTab" data-canvas="route"><a href="#bldgRouteEditor" id="bldgRouteTab"
-                                                                      data-toggle="tab"
-                                                                      aria-expanded="false">BLDG / Route Editor</a></li>
-            </ul>
 
-            <!--메뉴바-->
-            <div class="col-md-12 toolbar">
-                <button class="btn btn-xs rounded btn-default" id="editor-save" type="button"><i
-                        class="fa fa-plus"></i> Save
-                </button>
-                <!--                 <button class="btn btn-xs rounded btn-default" id="editor-save-as" type="button"><i -->
-                <!--                         class="fa fa-refresh"></i> Save as -->
-                <!--                 </button> -->
-                <button class="btn btn-xs rounded btn-default" id="editor-zoomIn" type="button"><i
-                        class="fa fa-search-plus"></i> Zoom | IN
-                </button>
-                <button class="btn btn-xs rounded btn-default" id="editor-zoomFit" type="button"><i
-                        class="fa fa-arrows-h"></i> Zoom | FIT
-                </button>
-                <button class="btn btn-xs rounded btn-default" id="editor-zoomOut" type="button"><i
-                        class="fa fa-search-minus"></i> Zoom | OUT
-                </button>
-                <button class="btn btn-xs rounded btn-default dropdown-menu-trigger" id="editor-backdoor"
-                        type="button"><i
-                        class="fa-file-image-o" style="display: none"></i> Backdoor
-                </button>
-                <ul id="editor-backdoor-menu" class="dropdown-menu dropdown-menu-backdoor">
-                    <li>
-                        <small name="menu-importBackdoor">Import Backdoor</small>
-                    </li>
-                    <li class="preventClose">
-                        <small id="backdoor-size-range-text">Size : 100%</small>
-                        <input type="range" id="backdoor-size-range" max="200" min="20" value="100" step="10">
-                    </li>
-                    <li class="preventClose">
-                        <small id="backdoor-opacity-range-text">Opacity : 0.5</small>
-                        <input type="range" id="backdoor-opacity-range" max="1" min="0" value="0.5" step="0.1">
-                    </li>
-                </ul>
-                <input style="display: none" type="file" id="backdoor-upload">
-                <button class="btn btn-xs rounded btn-default dropdown-menu-trigger" id="editor-util"
-                        type="button"><i
-                        class="fa fa-search-minus"></i> Utils
-                </button>
-                <ul id="editor-util-menu" class="dropdown-menu dropdown-menu-data">
-                    <li id="menu-printJson">
-                        <small name="menu-printJson">Print Json</small>
-                    </li>
-                    <li id="menu-printXml">
-                        <small name="menu-printXml">Print Xml</small>
-                    </li>
-                    <li id="menu-loadJson">
-                        <small name="menu-loadJson">Load Json</small>
-                    </li>
-                    <li id="menu-loadXml">
-                        <small name="menu-loadXml">Load Xml</small>
-                    </li>
-                </ul>
+        <div class="row">
+            <div class="col-md-8 padding-1 box-custom-content">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <div class="ibox-tools">
+                            <button href="#" type="button" class="btn btn-primary btn-sm" id="editor-save"><i
+                                    class="fa fa-plus"></i> Save
+                            </button>
+                            <button href="#" type="button" class="btn btn-default btn-sm" id="editor-zoomIn"><i
+                                    class="fa fa-search-plus"></i> Zoom | IN
+                            </button>
+                            <button href="#" type="button" class="btn btn-default btn-sm" id="editor-zoomFit"><i
+                                    class="fa fa-arrows-h"></i> Zoom | FIT
+                            </button>
+                            <button href="#" type="button" class="btn btn-default btn-sm" id="editor-zoomOut"><i
+                                    class="fa fa-search-minus"></i> Zoom | OUT
+                            </button>
 
-                <!--                 <button class="btn btn-xs rounded btn-default dropdown-menu-trigger" id="editor-shape" -->
-                <!--                         type="button"><i -->
-                <!--                         class="fa fa-search-minus"></i> Annotaion -->
-                <!--                     <ul id="editor-shape-menu" class="dropdown-menu"> -->
-                <!--                         <li> -->
-                <!--                             <img src="resources/images/symbol/connector_sequence.png" class="icon_shape" -->
-                <!--                                  _shape_type="EDGE" -->
-                <!--                                  _shape_id="OG.shape.bpmn.C_Sequence" _width="200" _height="150"/> -->
-                <!--                             <small>Sequence</small> -->
-                <!--                         </li> -->
-                <!--                         <li> -->
-                <!--                             <img src="resources/images/symbol/connector_message.png" class="icon_shape" -->
-                <!--                                  _shape_type="EDGE" -->
-                <!--                                  _shape_id="OG.shape.bpmn.C_Message" _width="200" _height="150"/> -->
-                <!--                             <small>Message</small> -->
-                <!--                         </li> -->
-                <!--                         <li> -->
-                <!--                             <img src="resources/images/symbol/connector_conditional.png" class="icon_shape" -->
-                <!--                                  _shape_type="EDGE" -->
-                <!--                                  _shape_id="OG.shape.bpmn.C_Conditional" _width="200" _height="150"/> -->
-                <!--                             <small>Conditoinal</small> -->
-                <!--                         </li> -->
-                <!--                         <li> -->
-                <!--                             <img src="resources/images/symbol/connector_dataassociation.png" class="icon_shape" -->
-                <!--                                  _shape_type="EDGE" -->
-                <!--                                  _shape_id="OG.shape.bpmn.C_DataAssociation" _width="200" _height="150"/> -->
-                <!--                             <small>DataAssociation</small> -->
-                <!--                         </li> -->
-                <!--                         <li> -->
-                <!--                             <img src="resources/images/symbol/connector_association.png" class="icon_shape" -->
-                <!--                                  _shape_type="EDGE" -->
-                <!--                                  _shape_id="OG.shape.bpmn.C_Association" _width="200" _height="150"/> -->
-                <!--                             <small>Association</small> -->
-                <!--                         </li> -->
-                <!--                         <li> -->
-                <!--                             <img src="resources/images/symbol/annotation.png" class="icon_shape" _shape_type="GEOM" -->
-                <!--                                  _shape_id="OG.shape.bpmn.M_Annotation" _width="70" _height="30"/> -->
-                <!--                             <small>Annotation</small> -->
-                <!--                         </li> -->
-                <!--                         <li> -->
-                <!--                             <img src="resources/images/symbol/text.png" class="icon_shape" _shape_type="GEOM" -->
-                <!--                                  _shape_id="OG.shape.bpmn.M_Text" _width="50" _height="30"/> -->
-                <!--                             <small>Text</small> -->
-                <!--                         </li> -->
-                <!--                     </ul> -->
-                <!--                 </button> -->
+                            <button class="dropdown-toggle btn btn-default btn-sm" data-toggle="dropdown" href="#"
+                                    id="editor-backdoor"><i
+                                    class="fa fa-file-image-o"></i> Backdoor
+                            </button>
+                            <ul class="dropdown-menu dropdown-user" id="editor-backdoor-menu">
+                                <li>
+                                    <a href="#" name="menu-importBackdoor">Import Backdoor</a>
+                                </li>
+                                <li class="preventClose">
+                                    <a>
+                                        <small id="backdoor-size-range-text">Size : 100%</small>
+                                        <input type="range" id="backdoor-size-range" max="200" min="20" value="100"
+                                               step="10">
+                                    </a>
+                                </li>
+                                <li class="preventClose">
+                                    <a>
+                                        <small id="backdoor-opacity-range-text">Opacity : 0.5</small>
+                                        <input type="range" id="backdoor-opacity-range" max="1" min="0" value="0.5"
+                                               step="0.1">
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <input style="display: none" type="file" id="backdoor-upload">
+
+                            <div class="pull-right" style="margin-left: 5px">
+                                <button class="dropdown-toggle btn btn-default btn-sm" data-toggle="dropdown" href="#"
+                                        id="editor-util"><i
+                                        class="fa fa-search-minus"></i> Utils
+                                </button>
+                                <ul class="dropdown-menu dropdown-user" id="editor-util-menu">
+                                    <li id="menu-printJson">
+                                        <a name="menu-printJson">Print Json</a>
+                                    </li>
+                                    <li id="menu-printXml">
+                                        <a name="menu-printXml">Print Xml</a>
+                                    </li>
+                                    <li id="menu-loadJson">
+                                        <a name="menu-loadJson">Load Json</a>
+                                    </li>
+                                    <li id="menu-loadXml">
+                                        <a name="menu-loadXml">Load Xml</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <br>
+                        <h2 class="feeder-content" id="feederCanvas-title">Empty Object</h2>
+                        <h2 class="hierarchy-content" id="hierarchyCanvas-title">Empty Object</h2>
+                        <h2 class="route-content" id="routeCanvas-title">Empty Object</h2>
+                    </div>
+                    <div class="ibox-content padding-no">
+                        <div class="col-md-12 feeder-content" id="feeder-content-wrapper">
+                            <div id="feederCanvas" class="ogCanvas">
+
+                            </div>
+                        </div>
+                        <div class="col-md-12 hierarchy-content" id="hierarchy-content-wrapper">
+                            <div id="hierarchyCanvas" class="ogCanvas">
+
+                            </div>
+                        </div>
+                        <div class="col-md-12 route-content" id="route-content-wrapper">
+                            <div id="routeCanvas" class="ogCanvas">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="tab-content">
-
-                <!--SWGR / Assigned Feeder Editor-->
-                <div class="tab-pane fade in active" id="swgrFeederEditor">
-
-                    <div class="col-md-12">
-                        <p id="feederCanvas-title" class="bg-info canvas-title"></p>
-                    </div>
-                    <div class="col-md-12" id="feeder-content-wrapper">
-                        <!--SWGR / Assigned Feeder 캔버스-->
-                        <div id="feederCanvas" class="ogCanvas">
-
-                        </div>
-                        <div style="position: absolute;top: 0px;left:70%;width:30%;height: 100%;border: solid 1px #eee">
-                            <div class="tab-v1">
-                                <ul class="nav nav-tabs">
-                                    <li style="width: 33%;" id="swgr-nav"><a href="#swgr" data-toggle="tab">SWGR</a></li>
-                                    <li style="width: 33%;" id="load-nav"><a href="#load" data-toggle="tab">Load</a></li>
-                                    <li class="active" style="width: 34%;" id="feeder-nav"><a href="#feeder"
-                                                                                              data-toggle="tab">Feeder</a></li>
-                                </ul>
-
-                                <div class="tab-content">
-                                    <!--스위치 리스트 패널-->
-                                    <div class="tab-pane fade in" id="swgr">
-                                        <div class="form-group col-md-8">
-                                            <select id="swgrSelectBox" name="swgrSelectBox" class="custom-form-control">
-
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <button class="btn btn-xs rounded btn-default" id="newSwgr" type="button"><i
-                                                    class="fa fa-plus"></i> New swgr
-                                            </button>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <table id="swgrGrid" class="display gridTable cell-border" width="100%"></table>
-                                        </div>
-                                    </div>
-
-                                    <!--로드 리스트 패널-->
-                                    <div class="tab-pane fade in" id="load">
-                                        <div class="col-md-12">
-                                            <table id="unAssignedLoadGrid" class="display gridTable cell-border"
-                                                   width="100%"></table>
-                                        </div>
-                                    </div>
-
-                                    <!--피더 리스트 패널-->
-                                    <div class="tab-pane fade in active" id="feeder">
-                                        <div class="tab-v1">
-                                            <ul class="nav nav-tabs">
-                                                <li class="active" style="width: 50%;"><a href="#AssignedFeederSwgr"
-                                                                                          data-toggle="tab">Assigned(Swgr)</a>
-                                                </li>
-                                                <li style="width: 50%;"><a href="#AssignedFeeder" data-toggle="tab">Assigned(All)</a></li>
-                                            </ul>
-
-                                            <div class="tab-content">
-                                                <!--피더 스위치 리스트 패널-->
-                                                <div class="tab-pane fade in active" id="AssignedFeederSwgr">
-                                                    <div class="col-md-12">
-                                                        <table id="feederGrid" class="display gridTable cell-border" width="100%"></table>
-                                                    </div>
-                                                </div>
-
-                                                <!--피더 리스트 트리 패널-->
-                                                <div class="tab-pane fade in" id="AssignedFeeder">
-                                                    <div class="col-md-12">
-                                                        <div id="AssignedFeederTree">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hierarchy Editor -->
-                <div class="tab-pane fade in" id="hierarchyEditor">
-
-                    <div class="col-md-12">
-                        <p id="hierarchyCanvas-title" class="bg-info canvas-title"></p>
-                    </div>
-
-                    <div class="col-md-12" id="hierarchy-content-wrapper">
-                        <!--Hierarchy 캔버스-->
-                        <div id="hierarchyCanvas" class="ogCanvas">
-
-                        </div>
-                        <div style="position: absolute;top: 0px;left:70%;width:30%;height: 100%;border: solid 1px #eee">
-                            <div class="tab-v1">
-                                <ul class="nav nav-tabs">
-                                    <li style="width: 50%;" id="hier-feeder"><a href="#hierarchy-feeder" data-toggle="tab">Feeder</a>
-                                    </li>
-                                    <li class="active" style="width: 50%;"><a href="#hierarchy" data-toggle="tab">Hierarchy</a>
-                                    </li>
-                                </ul>
-
-                                <div class="tab-content">
-                                    <!--피더 리스트 패널-->
-                                    <div class="tab-pane fade in" id="hierarchy-feeder">
-                                        <div class="col-md-12">
-                                            <table id="hierarchy-feederGrid" class="display gridTable cell-border" width="100%"></table>
-                                        </div>
-                                    </div>
-
-                                    <!--하이어라키 리스트 패널-->
-                                    <div class="tab-pane fade in active" id="hierarchy">
-                                        <div class="col-md-12">
-                                            <div id="hierarchyTree">
-                                            </div>
-                                        </div>
+            <!--SWGR / Assigned Feeder Editor-->
+            <div class="col-md-4 padding-1 box-custom-content feeder-content">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content padding-no">
+                        <div class="tabs-container">
+                            <ul class="nav nav-tabs">
+                                <li class="" id="swgr-nav"><a data-toggle="tab" href="#swgr"
+                                                              aria-expanded="true">SWGR</a>
+                                </li>
+                                <li class="" id="load-nav"><a data-toggle="tab" href="#load"
+                                                              aria-expanded="true">Load</a>
+                                </li>
+                                <li class="active" id="feeder-nav"><a data-toggle="tab" href="#feeder"
+                                                                      aria-expanded="true">Feeder</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <!--스위치 리스트 패널-->
+                                <div class="tab-pane fade in" id="swgr">
+                                    <div class="col-md-12">
+                                        <table id="swgrGrid" class="table table-bordered table-hover display gridTable cell-border" width="100%"></table>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
+                                <!--로드 리스트 패널-->
+                                <div class="tab-pane fade in" id="load">
+                                    <div class="col-md-12">
+                                        <table id="unAssignedLoadGrid" class="table table-bordered table-hover display gridTable cell-border"
+                                               width="100%"></table>
+                                    </div>
+                                </div>
 
-                <!--BLDG / Route Editor-->
-                <div class="tab-pane fade in" id="bldgRouteEditor">
-                    <div class="col-md-12">
-                        <p id="routeCanvas-title" class="bg-info canvas-title"></p>
-                    </div>
+                                <!--피더 리스트 패널-->
+                                <div class="tab-pane fade in active" id="feeder">
+                                    <div class="tabs-container margin-top-5">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active" style="width: 50%;"><a href="#AssignedFeederSwgr"
+                                                                                      data-toggle="tab">Assigned(Swgr)</a>
+                                            </li>
+                                            <li style="width: 50%;"><a href="#AssignedFeeder" data-toggle="tab">Assigned(All)</a>
+                                            </li>
+                                        </ul>
 
-                    <div class="col-md-12" id="route-content-wrapper">
-                        <!--BLDG / Route Editor-->
-                        <div id="routeCanvas" class="ogCanvas">
-
-                        </div>
-                        <div style="position: absolute;top: 0px;left:70%;width:30%;height: 100%;border: solid 1px #eee">
-                            <div class="tab-v1">
-                                <ul class="nav nav-tabs">
-                                    <li class="active" style="width: 50%;"><a href="#location" data-toggle="tab">Location</a>
-                                    </li>
-                                    <li style="width: 50%;" id="routeParentTab"><a href="#route" data-toggle="tab">Route</a></li>
-                                </ul>
-
-                                <div class="tab-content">
-                                    <!--로케이션 리스트 패널-->
-                                    <div class="tab-pane fade in active" id="location">
-                                        <div class="tab-v1">
-                                            <ul class="nav nav-tabs">
-                                                <li class="active" style="width:50%;" id="bldgRefTab"><a href="#bldgRef"
-                                                                                                         data-toggle="tab">Location</a>
-                                                </li>
-                                                <!--                                                 <li style="width: 33%;" id="locRefTab"><a href="#locationRef" data-toggle="tab">Location</a> -->
-                                                </li>
-                                                <li style="width: 50%;" id="racewayRefTab"><a href="#racewayRef"
-                                                                                              data-toggle="tab">Raceway</a></li>
-                                            </ul>
-
-                                            <div class="tab-content">
-                                                <!--빌딩 리스트-->
-                                                <div class="tab-pane fade in active" id="bldgRef">
-                                                    <div class="form-group col-md-5">
-                                                        <div class="btn btn-xs rounded btn-default" id="newPoint" type="button">
-                                                            <i class="fa fa-plus"></i> Drag New Point
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-7">
-                                                        <div class="btn btn-xs rounded btn-default" id="newManhole" type="button">
-                                                            <i class="fa fa-plus"></i> Drag New Manhole
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <table id="bldgRefGrid" class="display gridTable cell-border"
-                                                               width="100%"></table>
-                                                    </div>
-                                                </div>
-                                                <!--로케이션 레퍼런스(빌딩) 리스트 
-                                                <div class="tab-pane fade in" id="locationRef">
-                                                    <div class="col-md-12">
-                                                        <table id="locationRefGrid" class="display gridTable cell-border"
-                                                               width="100%"></table>
-                                                    </div>
-                                                </div>
-												-->
-                                                <!--레이스웨이 레퍼런스 리스트-->
-                                                <div class="tab-pane fade in" id="racewayRef">
-                                                    <div class="col-md-12">
-                                                        <table id="racewayRefGrid" class="display gridTable cell-border"
-                                                               width="100%"></table>
-                                                    </div>
+                                        <div class="tab-content">
+                                            <!--피더 스위치 리스트 패널-->
+                                            <div class="tab-pane fade in active" id="AssignedFeederSwgr">
+                                                <div class="col-md-12">
+                                                    <table id="feederGrid" class="table table-bordered table-hover display gridTable cell-border"
+                                                           width="100%"></table>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
 
-                                    <!--라우트 리스트 패널-->
-                                    <div class="tab-pane fade in" id="route">
-                                        <div class="tab-v1">
-                                            <ul class="nav nav-tabs">
-                                                <li class="active" style="width: 50%;" id="routeChildTab"><a href="#routeRef"
-                                                                                                             data-toggle="tab">Route</a>
-                                                </li>
-                                                <li style="width: 50%;" id="cableRefTab"><a href="#cableRef" data-toggle="tab">Cable</a>
-                                                </li>
-                                            </ul>
-
-                                            <div class="tab-content">
-                                                <!--라우트 레퍼런스(레이스 웨이를 지나가는 패스) 리스트-->
-                                                <div class="tab-pane fade in active" id="routeRef">
-                                                    <div class="col-md-12">
-                                                        <table id="routeRefGrid" class="display gridTable cell-border"
-                                                               width="100%"></table>
-                                                    </div>
-                                                </div>
-
-                                                <!--케이블 레퍼런스(라우트 레퍼런스에 실제 깔리는 케이블) 리스트-->
-                                                <div class="tab-pane fade in" id="cableRef">
-                                                    <div class="col-md-12">
-                                                        <table id="cableRefGrid" class="display gridTable"
-                                                               width="100%"></table>
+                                            <!--피더 리스트 트리 패널-->
+                                            <div class="tab-pane fade in" id="AssignedFeeder">
+                                                <div class="col-md-12">
+                                                    <div id="AssignedFeederTree">
                                                     </div>
                                                 </div>
                                             </div>
@@ -707,83 +401,137 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!--/container-->
-    <!-- End Content Part -->
 
-</div>
-<!--/wrapper-->
+            <!-- Hierarchy Editor -->
+            <div class="col-md-4 padding-1 box-custom-content hierarchy-content">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content padding-no">
+                        <div class="tabs-container">
+                            <ul class="nav nav-tabs">
+                                <li class="" id="hier-feeder"><a data-toggle="tab" href="#hierarchy-feeder"
+                                                                 aria-expanded="true">Feeder</a>
+                                </li>
+                                <li class="active"><a data-toggle="tab" href="#hierarchy"
+                                                      aria-expanded="true">Hierarchy</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <!--피더 리스트 패널-->
+                                <div class="tab-pane fade in" id="hierarchy-feeder">
+                                    <div class="col-md-12">
+                                        <table id="hierarchy-feederGrid" class="table table-bordered table-hover display gridTable cell-border" width="100%"></table>
+                                    </div>
+                                </div>
 
-<div class="modal fade" id="listRelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                <h4 class="modal-title">List Relations</h4>
-            </div>
-            <div class="modal-body">
-                <table id="listRelGrid" class="display" width="100%"></table>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-u" type="button" name="close">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="pickEdModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                <h4 class="modal-title">Pick Ed List</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-inline" role="form">
-                    <div class="form-group">
-                        <label class="sr-only" for="pickEdNumber">Ed number</label>
-                        <input type="text" class="custom-form-control" id="pickEdNumber" placeholder="Ed number">
+                                <!--하이어라키 리스트 패널-->
+                                <div class="tab-pane fade in active" id="hierarchy">
+                                    <div class="col-md-12">
+                                        <div id="hierarchyTree">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="sr-only" for="pickEdName">Ed name</label>
-                        <input type="text" class="custom-form-control" id="pickEdName" placeholder="Ed name">
+                </div>
+            </div>
+
+            <!--BLDG / Route Editor-->
+            <div class="col-md-4 padding-1 box-custom-content route-content">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content padding-no">
+                        <div class="tabs-container">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#location"
+                                                      aria-expanded="true">Location</a>
+                                </li>
+                                <li class="" id="routeParentTab"><a data-toggle="tab" href="#route"
+                                                                    aria-expanded="true">Route</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="location">
+                                    <div class="tabs-container margin-top-5">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active" style="width:50%;" id="bldgRefTab"><a href="#bldgRef"
+                                                                                                     data-toggle="tab">Location</a>
+                                            </li>
+                                            <!--                                                 <li style="width: 33%;" id="locRefTab"><a href="#locationRef" data-toggle="tab">Location</a> -->
+                                            </li>
+                                            <li style="width: 50%;" id="racewayRefTab"><a href="#racewayRef"
+                                                                                          data-toggle="tab">Raceway</a></li>
+                                        </ul>
+
+                                        <div class="tab-content">
+                                            <!--빌딩 리스트-->
+                                            <div class="tab-pane fade in active" id="bldgRef">
+                                                <div class="form-group col-md-5">
+                                                    <div class="btn btn-xs rounded btn-default" id="newPoint" type="button">
+                                                        <i class="fa fa-plus"></i> Drag New Point
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-7">
+                                                    <div class="btn btn-xs rounded btn-default" id="newManhole" type="button">
+                                                        <i class="fa fa-plus"></i> Drag New Manhole
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <table id="bldgRefGrid" class="table table-bordered table-hover display gridTable cell-border"
+                                                           width="100%"></table>
+                                                </div>
+                                            </div>
+
+                                            <!--레이스웨이 레퍼런스 리스트-->
+                                            <div class="tab-pane fade in" id="racewayRef">
+                                                <div class="col-md-12">
+                                                    <table id="racewayRefGrid" class="table table-bordered table-hover display gridTable cell-border"
+                                                           width="100%"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--라우트 리스트 패널-->
+                                <div class="tab-pane fade in" id="route">
+                                    <div class="tabs-container margin-top-5">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active" style="width: 50%;" id="routeChildTab"><a href="#routeRef"
+                                                                                                         data-toggle="tab">Route</a>
+                                            </li>
+                                            <li style="width: 50%;" id="cableRefTab"><a href="#cableRef" data-toggle="tab">Cable</a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-content">
+                                            <!--라우트 레퍼런스(레이스 웨이를 지나가는 패스) 리스트-->
+                                            <div class="tab-pane fade in active" id="routeRef">
+                                                <div class="col-md-12">
+                                                    <table id="routeRefGrid" class="table table-bordered table-hover display gridTable cell-border"
+                                                           width="100%"></table>
+                                                </div>
+                                            </div>
+
+                                            <!--케이블 레퍼런스(라우트 레퍼런스에 실제 깔리는 케이블) 리스트-->
+                                            <div class="tab-pane fade in" id="cableRef">
+                                                <div class="col-md-12">
+                                                    <table id="cableRefGrid" class="table table-bordered table-hover display gridTable cell-border"
+                                                           width="100%"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <a href="Javascript:void(0)" class="btn-u btn-u-default" style="margin-top: 2px"
-                       name="search">Load</a>
-                </form>
-
-                <table id="pickEdGrid" class="display" width="100%"></table>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-u" type="button" name="action">Pick</button>
-                <button class="btn-u" type="button" name="close">Close</button>
+                </div>
             </div>
         </div>
+
     </div>
 </div>
 
-<div class="modal fade" id="deleteConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                <h4 class="modal-title">Delete Confirm</h4>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete?</p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-u btn-u-red" type="button" name="action">Delete</button>
-                <button class="btn-u" type="button" name="close">Cancle</button>
-            </div>
-        </div>
-    </div>
-</div>
 <div style="display:none">
     <table id="locationProperty" class='propertyDialog'>
         <tbody>
@@ -850,47 +598,57 @@
         </tbody>
     </table>
 </div>
-<!-- ajax 호출 UI 블락커 && 커스터마이징 -->
-<script type="text/javascript" src="resources/plugins/blockUI/blockUI.js"></script>
-<script type="text/javascript" src="resources/js/blockUIcustom.js"></script>
+
+<!-- Mainly scripts -->
+<script src="/resources/js/bootstrap.min.js"></script>
+<script src="/resources/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="/resources/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Flot -->
+<script src="/resources/js/plugins/flot/jquery.flot.js"></script>
+<script src="/resources/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<script src="/resources/js/plugins/flot/jquery.flot.spline.js"></script>
+<script src="/resources/js/plugins/flot/jquery.flot.resize.js"></script>
+<script src="/resources/js/plugins/flot/jquery.flot.pie.js"></script>
+<script src="/resources/js/plugins/flot/jquery.flot.symbol.js"></script>
+<script src="/resources/js/plugins/flot/jquery.flot.time.js"></script>
 
 
-<!-- Jquery Validator -->
-<script type="text/javascript" src="resources/plugins/validator/jquery.validate.js"></script>
-<script type="text/javascript" src="resources/plugins/validator/additional-methods.js"></script>
+<!-- Custom and plugin javascript -->
+<script src="/resources/js/inspinia.js"></script>
+<script src="/resources/js/plugins/pace/pace.min.js"></script>
 
-<!-- JS Implementing Plugins -->
-<script type="text/javascript" src="resources/assets/plugins/back-to-top.js"></script>
-<!--<script type="text/javascript" src="resources/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>-->
-<script type="text/javascript" src="resources/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
-<script type="text/javascript"
-        src="resources/assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js"></script>
-<script type="text/javascript"
-        src="resources/assets/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<!-- Toastr -->
+<script src="/resources/js/plugins/toastr/toastr.min.js"></script>
 
-<!-- JS Customization -->
-<script type="text/javascript" src="resources/assets/js/custom.js"></script>
+<!--OpenGraph-->
+<script type="text/javascript" src="lib/opengraph/OpenGraph-0.1.2-SNAPSHOT.js"></script>
+<script type="text/javascript" src="doosan/shape/SwitchGear.js"></script>
+<script type="text/javascript" src="doosan/shape/WireShape.js"></script>
+<script type="text/javascript" src="doosan/shape/BusductShape.js"></script>
+<script type="text/javascript" src="doosan/shape/RacewayShape.js"></script>
+<script type="text/javascript" src="doosan/shape/CableShape.js"></script>
+<script type="text/javascript" src="doosan/shape/SwitchTransformer.js"></script>
+<script type="text/javascript" src="doosan/shape/Load.js"></script>
+<script type="text/javascript" src="doosan/shape/SHLoad.js"></script>
+<script type="text/javascript" src="doosan/shape/NMLoad.js"></script>
+<script type="text/javascript" src="doosan/shape/EHLoad.js"></script>
+<script type="text/javascript" src="doosan/shape/EHSLoad.js"></script>
+<script type="text/javascript" src="doosan/shape/MILoad.js"></script>
+<script type="text/javascript" src="doosan/shape/MKLoad.js"></script>
+<script type="text/javascript" src="doosan/shape/MOLoad.js"></script>
+<script type="text/javascript" src="doosan/shape/PKGLoad.js"></script>
+<script type="text/javascript" src="doosan/shape/HierarchyFeeder.js"></script>
+<script type="text/javascript" src="doosan/shape/HierarchyFloor.js"></script>
+<script type="text/javascript" src="doosan/shape/HierarchyBldg.js"></script>
+<script type="text/javascript" src="doosan/shape/BLDG.js"></script>
+<script type="text/javascript" src="doosan/shape/Location.js"></script>
+<script type="text/javascript" src="doosan/shape/Manhole.js"></script>
+<script type="text/javascript" src="doosan/shape/Backdoor.js"></script>
 
-<!-- JS Page Level -->
-<script type="text/javascript" src="resources/assets/js/app.js"></script>
-<script type="text/javascript" src="resources/assets/js/forms/reg.js"></script>
-<script type="text/javascript" src="resources/assets/js/forms/checkout.js"></script>
-<script type="text/javascript">
-    var editorMode = true;
-    jQuery(document).ready(function () {
-        App.init();
-    });
-</script>
+<script type="text/javascript" src="doosan/dataController.js"></script>
+<script type="text/javascript" src="doosan/renderer.js"></script>
+<script type="text/javascript" src="doosan/viewController.js"></script>
 
-
-<!--[if lt IE 9]>
-<script src="resources/assets/plugins/respond.js"></script>
-<script src="resources/assets/plugins/html5shiv.js"></script>
-<script src="resources/assets/plugins/placeholder-IE-fixes.js"></script>
-<script src="resources/assets/plugins/sky-forms-pro/skyforms/js/sky-forms-ie8.js"></script>
-<![endif]-->
-
-<!--[if lt IE 10]>
-<script src="resources/assets/plugins/sky-forms-pro/skyforms/js/jquery.placeholder.min.js"></script>
-<![endif]-->
+</body>
 </html>

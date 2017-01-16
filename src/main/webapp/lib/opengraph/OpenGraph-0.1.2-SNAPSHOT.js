@@ -33187,7 +33187,7 @@ OG.graph.Canvas.prototype = {
     }
     ,
     updateSlider: function (val) {
-        if(this._CONFIG.AUTO_SLIDER_UPDATE){
+        if (this._CONFIG.AUTO_SLIDER_UPDATE) {
             var me = this;
             if (!this._CONFIG.SLIDER) {
                 return;
@@ -34235,15 +34235,18 @@ OG.graph.Canvas.prototype = {
         var CANVAS = this,
             rootBBox = this._RENDERER.getRootBBox(),
             rootGroup = this._RENDERER.getRootGroup(),
+            scale = this.getScale(),
+            canvasWidth = this.getCanvasSize()[0],
+            canvasHeight = this.getCanvasSize()[1],
             jsonObj = {
                 opengraph: {
-                    '@width': rootBBox.width,
-                    '@height': rootBBox.height,
+                    '@width': canvasWidth,
+                    '@height': canvasHeight,
+                    '@scale': scale,
                     cell: []
                 }
             },
             childShape, i, cellMap;
-
         cellMap = {};
 
         childShape = function (node) {
@@ -34414,16 +34417,25 @@ OG.graph.Canvas.prototype = {
      */
     loadJSON: function (json) {
         this.fastLoadingON();
-        var canvasWidth, canvasHeight, rootGroup,
+        var canvasWidth, canvasHeight, rootGroup, canvasScale,
             minX = Number.MAX_VALUE, minY = Number.MAX_VALUE, maxX = Number.MIN_VALUE, maxY = Number.MIN_VALUE,
             i, cell, shape, id, parent, shapeType, shapeId, x, y, width, height, style, geom, from, to,
             fromEdge, toEdge, label, fromLabel, toLabel, angle, value, data, dataExt, element, loopType, taskType, swimlane, textList;
 
         this._RENDERER.clear();
+        var renderer = this._RENDERER;
+        $(renderer._PAPER.canvas).trigger('loading', ['start']);
 
         if (json && json.opengraph && json.opengraph.cell && OG.Util.isArray(json.opengraph.cell)) {
             canvasWidth = json.opengraph['@width'];
             canvasHeight = json.opengraph['@height'];
+            canvasScale = json.opengraph['@scale'];
+            if (canvasScale) {
+                this.setScale(canvasScale);
+            } else {
+                this.setScale(1);
+            }
+            this.setCanvasSize([canvasWidth, canvasHeight]);
 
             data = json.opengraph['@data'];
             dataExt = json.opengraph['@dataExt'];
@@ -34437,6 +34449,9 @@ OG.graph.Canvas.prototype = {
             }
 
             cell = json.opengraph.cell;
+            var totalCount = cell.length;
+            var cellCount = 0;
+
             for (var i = 0, leni = cell.length; i < leni; i++) {
                 id = cell[i]['@id'];
                 parent = cell[i]['@parent'];
@@ -34585,11 +34600,13 @@ OG.graph.Canvas.prototype = {
                 if (dataExt) {
                     element.dataExt = OG.JSON.decode(unescape(dataExt));
                 }
+
+                cellCount++;
+                $(renderer._PAPER.canvas).trigger('loading', [Math.round((cellCount/totalCount)*100)]);
             }
 
-            this.setCanvasSize([canvasWidth, canvasHeight]);
-
             this.fastLoadingOFF();
+            $(renderer._PAPER.canvas).trigger('loading', ['end']);
 
             return {
                 width: maxX - minX,
@@ -34602,6 +34619,7 @@ OG.graph.Canvas.prototype = {
         }
 
         this.fastLoadingOFF();
+        $(renderer._PAPER.canvas).trigger('loading', ['end']);
 
         return {
             width: 0,
@@ -34938,6 +34956,15 @@ OG.graph.Canvas.prototype = {
     onExpanded: function (callbackFunc) {
         $(this.getRootElement()).bind('expanded', function (event, element) {
             callbackFunc(event, element);
+        });
+    },
+
+    /**
+     * 캔버스 로딩 이벤트 리스너
+     */
+    onLoading: function(callbackFunc){
+        $(this.getRootElement()).bind('loading', function (event, progress) {
+            callbackFunc(event, progress);
         });
     }
 }

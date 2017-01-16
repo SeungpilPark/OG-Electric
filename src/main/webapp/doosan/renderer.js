@@ -24,13 +24,13 @@ var Renderer = function (mode, container, controller) {
             ROUTE: 'route',
         },
 
-        FROM : {
-            ISFROM : true
+        FROM: {
+            ISFROM: true
         },
 
-        SHAPE : {
-            EDGE : 'EDGE',
-            GEOM : 'GEOM',
+        SHAPE: {
+            EDGE: 'EDGE',
+            GEOM: 'GEOM',
             GROUP: 'GROUP'
         },
 
@@ -44,15 +44,15 @@ var Renderer = function (mode, container, controller) {
          *
          */
         FEEDER_SAVE_MODE: {
-            ISNEW : false
+            ISNEW: false
         },
 
         HIERARCHY_SAVE_MODE: {
-            ISNEW : false
+            ISNEW: false
         },
 
         ROUTE_SAVE_MODE: {
-            ISNEW : false
+            ISNEW: false
         },
 
         TYPE: {
@@ -414,10 +414,10 @@ Renderer.prototype = {
     /**
      * HierarchyCanvas에 기존 정보를 그린다.
      */
-    drawToHierarchyCanvasFromServerData: function(mode) {
+    drawToHierarchyCanvasFromServerData: function (mode) {
         var me = this;
 
-        if(mode == me.Constants.MODE.HIERARCHY ) {
+        if (mode == me.Constants.MODE.HIERARCHY) {
             var dataInfo = parent.getFeederSWGRTree();
 
             /**
@@ -425,12 +425,12 @@ Renderer.prototype = {
              */
             var bldgList = [];
             var floorList = [];
-            dataInfo.forEach(function(item) {
-                if(item.lv == 1) {
+            dataInfo.forEach(function (item) {
+                if (item.lv == 1) {
                     item['shapeType'] = me.Constants.TYPE.HIERARCHY_BLDG;
                     item['shapeLabel'] = item.nm;
                     bldgList.push(item);
-                } else if(item.lv == 2) {
+                } else if (item.lv == 2) {
                     item['shapeType'] = me.Constants.TYPE.HIERARCHY_FLOOR;
                     item['shapeLabel'] = item.nm;
                     floorList.push(item);
@@ -441,7 +441,7 @@ Renderer.prototype = {
              * 캔버스 사이즈 조정
              */
             var initHeight = (me._CONFIG.DEFAULT_SIZE.HIERARCHY_FLOOR[1] + 40) * floorList.length + (100 * floorList.length);
-            if(initHeight < me.getContainer().height()) {
+            if (initHeight < me.getContainer().height()) {
                 initHeight = me.getContainer().height();
             }
             //canvas의 사이즈를 재조절한다.
@@ -465,11 +465,11 @@ Renderer.prototype = {
              */
             var bldgIdx = 0;
             var totalBldgHeight = 0;
-            bldgList.forEach(function(bldg, idx) {
+            bldgList.forEach(function (bldg, idx) {
                 var bldgInFloorIdx = 0;
-                floorList.forEach(function(floor){
-                    if(bldg.hier_seq == floor.up_hier_seq) {
-                        bldgInFloorIdx ++;
+                floorList.forEach(function (floor) {
+                    if (bldg.hier_seq == floor.up_hier_seq) {
+                        bldgInFloorIdx++;
                     }
                 });
 
@@ -479,22 +479,22 @@ Renderer.prototype = {
                  */
                 var bldgHeight = (me._CONFIG.DEFAULT_SIZE.HIERARCHY_FLOOR[1] + 40) * bldgInFloorIdx;
                 var adjustBldgY = 0;
-                if( bldgIdx == 0) {
-                    adjustBldgY = bldgHeight/2;
+                if (bldgIdx == 0) {
+                    adjustBldgY = bldgHeight / 2;
                     totalBldgHeight = bldgHeight + 50;
                 } else {
-                    adjustBldgY = totalBldgHeight + bldgHeight/2;
+                    adjustBldgY = totalBldgHeight + bldgHeight / 2;
                     totalBldgHeight = totalBldgHeight + bldgHeight + 50;
                 }
 
                 var bldgSize = [me._CONFIG.DEFAULT_SIZE.HIERARCHY_BLDG[0], bldgHeight, adjustBldgY];
 
-                me.drawImmediately(null, bldg, null, bldgSize ,false);
+                me.drawImmediately(null, bldg, null, bldgSize, false);
                 bldgIdx++;
             });
 
             var bldgElements = me.getCanvas().getAllShapes();
-            bldgElements.forEach(function(bldg){
+            bldgElements.forEach(function (bldg) {
 
                 var upperCenterY = bldg.shape.geom.boundary._upperCenter.y;
                 var centroidX = bldg.shape.geom.boundary._centroid.x;
@@ -507,12 +507,12 @@ Renderer.prototype = {
                  */
                 var floorIdx = 0;
                 var preveFloorCenterY = 0;
-                floorList.forEach(function(floor, idx) {
-                    if(bldg.data.hier_seq == floor.up_hier_seq) {
+                floorList.forEach(function (floor, idx) {
+                    if (bldg.data.hier_seq == floor.up_hier_seq) {
 
                         var newCenterY = 0;
-                        if(floorIdx == 0 ) {
-                            newCenterY = upperCenterY + me._CONFIG.DEFAULT_SIZE.HIERARCHY_FLOOR[1]/2;
+                        if (floorIdx == 0) {
+                            newCenterY = upperCenterY + me._CONFIG.DEFAULT_SIZE.HIERARCHY_FLOOR[1] / 2;
                         } else {
                             newCenterY = preveFloorCenterY + me._CONFIG.DEFAULT_SIZE.HIERARCHY_FLOOR[1] + 40;
                         }
@@ -520,7 +520,7 @@ Renderer.prototype = {
                         preveFloorCenterY = newCenterY;
                         var floorSize = [centroidX, newCenterY];
 
-                        me.drawImmediately(null, floor, null, floorSize ,false);
+                        me.drawImmediately(null, floor, null, floorSize, false);
                         floorIdx++;
                     }
                 });
@@ -532,21 +532,21 @@ Renderer.prototype = {
 
     },
 
-    drawToRouteCanvasFromServerData: function(mode) {
+    drawToRouteCanvasFromServerData: function (mode) {
         var me = this;
         console.log('drawRouteCanvas');
         $.unblockUI();
     },
 
     // renderer.canvas, dataModal, 'json', data
-    loadWrapper: function(renderer, modal, type, data) {
-        if(modal != null) {
+    loadWrapper: function (renderer, modal, type, data) {
+        if (modal != null) {
             modal.find('.close').click();
         }
 
         var canvas = renderer.getCanvas();
 
-        if(type == 'json') {
+        if (type == 'json') {
             console.log('before');
             console.log(canvas.getCanvasSize());
             canvas.loadJSON(data);
@@ -556,22 +556,22 @@ Renderer.prototype = {
             canvas.loadXML(data)
         }
 
-        if(renderer.getMode() == renderer.Constants.MODE.HIERARCHY) {
+        if (renderer.getMode() == renderer.Constants.MODE.HIERARCHY) {
             /**
              * 지워진 스위치피더가 있는지 체크하고 해당 스위치 피더는 지운다.
              * 하지만 하이어라키 피더 리스트는 이미 지워진 피더가 존재하기 때문에
              * 지울 때 파라미터를 통해 그리드를 상신하지 않게 만든다.
              */
             renderer._CONTROLLER.saveSettingHierarchyMode(renderer);
-        } else if(renderer.getMode() == renderer.Constants.MODE.ROUTE) {
+        } else if (renderer.getMode() == renderer.Constants.MODE.ROUTE) {
 
             /**
              * ROUTE는 그리고 난 이후 캔버스에 그리진 Bldg를 제외한 그리드를 새로 그려야 한다.
              */
 
             var shapeList = canvas.getAllShapes();
-            shapeList.forEach(function(shapeElement){
-                if(shapeElement.shape instanceof OG.BLDG) {
+            shapeList.forEach(function (shapeElement) {
+                if (shapeElement.shape instanceof OG.BLDG) {
                     renderer._CONTROLLER.usedBldgReferenceList.push(shapeElement.shape.data);
                 }
             });
@@ -612,7 +612,7 @@ Renderer.prototype = {
      * 그 리스트로 캔바스에 모델을 그린다.
      *
      */
-    drawToFeederCanvasFromServerData: function(shapeData, panel) {
+    drawToFeederCanvasFromServerData: function (shapeData, panel) {
 
         var me = this;
         var list = parent.getFeederInfo(shapeData.swgr_list_seq);
@@ -623,14 +623,14 @@ Renderer.prototype = {
         me.editingObject = data;
 
         var switchGear = null;
-        for(var i=0; i<list.length; i++) {
+        for (var i = 0; i < list.length; i++) {
             var item = list[i];
-            if(item.fe_swgr_load_div == 'S' && item.swgr_seq == shapeData.swgr_seq) {
+            if (item.fe_swgr_load_div == 'S' && item.swgr_seq == shapeData.swgr_seq) {
                 switchGear = item;
                 continue;
             }
 
-            if(item.fe_swgr_load_div != 'SPARE') {
+            if (item.fe_swgr_load_div != 'SPARE') {
                 totalList.push(item);
             }
         }
@@ -642,9 +642,9 @@ Renderer.prototype = {
          * 2. 이 값을 곱한 사이즈가 최종 리사이즈 값이 된다.
          */
         var shapeResize = defaultSwitchGearSize[0];
-        if(totalList.length > 1) {
-            shapeResize = ( (totalList.length-1)*(me._CONFIG.DEFAULT_SIZE.LOAD[0]+20) );
-            if(shapeResize < defaultSwitchGearSize[0]) {
+        if (totalList.length > 1) {
+            shapeResize = ( (totalList.length - 1) * (me._CONFIG.DEFAULT_SIZE.LOAD[0] + 20) );
+            if (shapeResize < defaultSwitchGearSize[0]) {
                 shapeResize = defaultSwitchGearSize[0];
             }
         }
@@ -653,7 +653,7 @@ Renderer.prototype = {
          * 캔버스의 초기 사이즈를 스위치의 전체 길이에서 200을 더한 만큼 설정한다.
          */
         var adjustNewWidth = shapeResize + 200;
-        if(adjustNewWidth < me.getContainer().width()) {
+        if (adjustNewWidth < me.getContainer().width()) {
             adjustNewWidth = me.getContainer().width();
         }
 
@@ -669,7 +669,7 @@ Renderer.prototype = {
 
         // 정중앙 좌표는 position = [me.getContainer().width() / 2, me.getContainer().height() / 2]
         // 현재 스위치의 정 중앙 좌표에서 좌측 끝의 좌표는 (me.getContainer().width()/2) - (adjustNewWidth/2)
-        var newCenterPosition = shapeResize/2 + 100;
+        var newCenterPosition = shapeResize / 2 + 100;
         // 스위치의 길이가 길어지는 것을 예상해서 캔버스 맨 끝에서 100정도의 간격을 띄워서 중앙을 잡아 그린다.
         var newShapeAdjustSize = [shapeResize, newCenterPosition, 100];
         // 메인 스위치를 먼저 그린다.
@@ -686,20 +686,20 @@ Renderer.prototype = {
         //worker.onmessage = function (event) {
 
         me.getCanvas().fastLoadingON();
-        totalList.forEach(function(element){
-            if(element.fe_swgr_load_div == 'L') {
-                element['shapeType'] = element.lo_type+"Load";
+        totalList.forEach(function (element) {
+            if (element.fe_swgr_load_div == 'L') {
+                element['shapeType'] = element.lo_type + "Load";
                 element['shapeLabel'] = element.lo_equip_tag_no;
-            } else if(element.fe_swgr_load_div == 'S') {
+            } else if (element.fe_swgr_load_div == 'S') {
                 element['shapeType'] = me.Constants.TYPE.TRANSFORMER;
                 element['shapeLabel'] = element.swgr_name;
-            } else if(element.fe_swgr_load_div == 'SPARE') {
+            } else if (element.fe_swgr_load_div == 'SPARE') {
                 return;
             }
-            if(initLeftPosition == 0) {
+            if (initLeftPosition == 0) {
                 // 최초 위치는 스위치 맨 끝 좌표로부터 우측으로 로드의 중앙 사이즈의 절반만큼 이동시켜야한다.
                 // 스위치의 맨 끝은 캔바스 좌측 끝에서 100을 띄워서 그렸기 때문에
-                initLeftPosition = 100 + me._CONFIG.DEFAULT_SIZE.LOAD[0]/2;
+                initLeftPosition = 100 + me._CONFIG.DEFAULT_SIZE.LOAD[0] / 2;
             } else {
                 // 최초에 그려진 것이 아니라면 기존 포지션에서 로드의 절반만큼 이동시킨다. 그리고
                 // 스위치의 width를 결정할 때 로드 또는 트랜스포머 수만큼 +20을 했기 때문에 그 숫자도 함께 던진다.
@@ -715,7 +715,7 @@ Renderer.prototype = {
     /**
      * drawImmediately이후에 그리드 redraw에 대한 로직을 태운다.
      */
-    reloadGridAfterDrawImmediately: function(shape, shapeInfo, panel) {
+    reloadGridAfterDrawImmediately: function (shape, shapeInfo, panel) {
 
         var me = this;
 
@@ -726,7 +726,7 @@ Renderer.prototype = {
 
         var newList = [];
         //해당 아이템이 로드이고 UnAssignedLoadList에서 넘어온 아이템이라면
-        if(shape instanceof OG.Load &&
+        if (shape instanceof OG.Load &&
             (shapeInfo.model == me._CONTROLLER.model.UnAssignedLoadList.name)
         ) {
 
@@ -735,15 +735,15 @@ Renderer.prototype = {
             usedLoadList.push(shapeInfo);
             // 전체 도형을 그린 이후에 사용한 load item은 제외하고 해당 그리드를 다시 그려야 한다.
             var unloadList = me._CONTROLLER.initUnusedLoadList;
-            for(var i=0; i<unloadList.length; i++) {
+            for (var i = 0; i < unloadList.length; i++) {
                 var isDuplicated = false;
-                for(var j=0; j<usedLoadList.length; j++) {
-                    if(unloadList[i].load_list_seq == usedLoadList[j].load_list_seq) {
+                for (var j = 0; j < usedLoadList.length; j++) {
+                    if (unloadList[i].load_list_seq == usedLoadList[j].load_list_seq) {
                         isDuplicated = true;
                     }
                 }
 
-                if(!isDuplicated) {
+                if (!isDuplicated) {
                     newList.push(unloadList[i]);
                 }
             }
@@ -758,7 +758,7 @@ Renderer.prototype = {
 
         }
         // 해당 아이템이 트랜스포머이고 model이 SwgrList라면
-        else if(shape instanceof OG.SwitchTransformer &&
+        else if (shape instanceof OG.SwitchTransformer &&
             (shapeInfo.model == me._CONTROLLER.model.SwgrList.name)
         ) {
 
@@ -767,15 +767,15 @@ Renderer.prototype = {
             usedSwitchList.push(shapeInfo);
             // 전체 도형을 그린 이후에 사용한 load item은 제외하고 해당 그리드를 다시 그려야 한다.
             var unswitchList = me._CONTROLLER.initUnusedSwitchList;
-            for(var i=0; i<unswitchList.length; i++) {
+            for (var i = 0; i < unswitchList.length; i++) {
                 var isDuplicated = false;
-                for(var j=0; j<usedSwitchList.length; j++) {
-                    if(unswitchList[i].swgr_list_seq == usedSwitchList[j].swgr_list_seq) {
+                for (var j = 0; j < usedSwitchList.length; j++) {
+                    if (unswitchList[i].swgr_list_seq == usedSwitchList[j].swgr_list_seq) {
                         isDuplicated = true;
                     }
                 }
 
-                if(!isDuplicated) {
+                if (!isDuplicated) {
                     newList.push(unswitchList[i]);
                 }
             }
@@ -790,7 +790,7 @@ Renderer.prototype = {
 
         }
         // 해당 아이템이 스위치이고 model이 SwgrList라면
-        else if(shape instanceof OG.HierarchyFeeder &&
+        else if (shape instanceof OG.HierarchyFeeder &&
             (shapeInfo.model == me._CONTROLLER.model.HierarchyFeederList.name)
         ) {
 
@@ -799,15 +799,15 @@ Renderer.prototype = {
             usedHierarchyFeederList.push(shapeInfo);
             // 전체 도형을 그린 이후에 사용한 load item은 제외하고 해당 그리드를 다시 그려야 한다.
             var unUsedHierarchyFeederList = me._CONTROLLER.initUnusedHierarchyFeederList;
-            for(var i=0; i<unUsedHierarchyFeederList.length; i++) {
+            for (var i = 0; i < unUsedHierarchyFeederList.length; i++) {
                 var isDuplicated = false;
-                for(var j=0; j<usedHierarchyFeederList.length; j++) {
-                    if(unUsedHierarchyFeederList[i].swgr_seq == usedHierarchyFeederList[j].swgr_seq) {
+                for (var j = 0; j < usedHierarchyFeederList.length; j++) {
+                    if (unUsedHierarchyFeederList[i].swgr_seq == usedHierarchyFeederList[j].swgr_seq) {
                         isDuplicated = true;
                     }
                 }
 
-                if(!isDuplicated) {
+                if (!isDuplicated) {
                     newList.push(unUsedHierarchyFeederList[i]);
                 }
             }
@@ -822,7 +822,7 @@ Renderer.prototype = {
 
         }
         // 해당 아이템이 빌딩이고 model이 SwgrList라면.
-        else if(shape instanceof OG.BLDG &&
+        else if (shape instanceof OG.BLDG &&
             (shapeInfo.model == me._CONTROLLER.model.BldgReferenceList.name)
         ) {
 
@@ -831,15 +831,15 @@ Renderer.prototype = {
             usedBldgReferenceList.push(shapeInfo);
             // 전체 도형을 그린 이후에 사용한 load item은 제외하고 해당 그리드를 다시 그려야 한다.
             var unUsedBldgReferenceList = me._CONTROLLER.initBldgReferenceList;
-            for(var i=0; i<unUsedBldgReferenceList.length; i++) {
+            for (var i = 0; i < unUsedBldgReferenceList.length; i++) {
                 var isDuplicated = false;
-                for(var j=0; j<usedBldgReferenceList.length; j++) {
-                    if(unUsedBldgReferenceList[i].loc_ref_seq == usedBldgReferenceList[j].loc_ref_seq) {
+                for (var j = 0; j < usedBldgReferenceList.length; j++) {
+                    if (unUsedBldgReferenceList[i].loc_ref_seq == usedBldgReferenceList[j].loc_ref_seq) {
                         isDuplicated = true;
                     }
                 }
 
-                if(!isDuplicated) {
+                if (!isDuplicated) {
                     newList.push(unUsedBldgReferenceList[i]);
                 }
             }
@@ -871,8 +871,8 @@ Renderer.prototype = {
             if (shapeType == me.Constants.TYPE.SWITCH_GEAR) {
                 shape = new OG.SwitchGear(shapeLabel);
                 size = me._CONFIG.DEFAULT_SIZE.SWITCH_GEAR;
-                if(newShapeAdjustSize != null) {
-                    if(newShapeAdjustSize[0] !=0) {
+                if (newShapeAdjustSize != null) {
+                    if (newShapeAdjustSize[0] != 0) {
                         size = [newShapeAdjustSize[0], 50];
                     }
                 }
@@ -898,7 +898,7 @@ Renderer.prototype = {
             } else if (shapeType == me.Constants.TYPE.HIERARCHY_BLDG) {
                 shape = new OG.HierarchyBldg(shapeLabel);
                 size = me._CONFIG.DEFAULT_SIZE.HIERARCHY_BLDG;
-                if(newShapeAdjustSize != null) {
+                if (newShapeAdjustSize != null) {
                     //SWITCH_GEAR: [350, 50]
                     size = newShapeAdjustSize;
                 }
@@ -931,11 +931,11 @@ Renderer.prototype = {
                     var initWidth = me.getContainer().width() / 2;
                     var initHeight = me.getContainer().height() / 2;
                     // 새로운 포지션이 존재한다면
-                    if(newShapeAdjustSize != null) {
-                        if(shapeType == me.Constants.TYPE.HIERARCHY_BLDG) {
-                            initWidth = newShapeAdjustSize[0]/2  + 100;
+                    if (newShapeAdjustSize != null) {
+                        if (shapeType == me.Constants.TYPE.HIERARCHY_BLDG) {
+                            initWidth = newShapeAdjustSize[0] / 2 + 100;
                             initHeight = newShapeAdjustSize[2] + 50;
-                        } else if(shapeType == me.Constants.TYPE.HIERARCHY_FLOOR) {
+                        } else if (shapeType == me.Constants.TYPE.HIERARCHY_FLOOR) {
                             initWidth = newShapeAdjustSize[0];
                             initHeight = newShapeAdjustSize[1] + 20;
                         } else {
@@ -962,15 +962,15 @@ Renderer.prototype = {
                     shape.data = shapeInfo;
 
                     // 로드 리스트에서 넘어온 정보라면
-                    if(shape.data.model == me._CONTROLLER.model.UnAssignedLoadList.name) {
+                    if (shape.data.model == me._CONTROLLER.model.UnAssignedLoadList.name) {
                         // parent.checkLSValidator(load_seq, swgr_seq)을 체크한다.
                         // false면 그리지 않을 경우. return
                         // returnData JSONList
                         //{error : "false", msg : ''
                         var isValidate = true;
                         var validateData = me._DATA_CONTROLLER.makeCheckLSValidatorData(me);
-                        parent.checkLSValidator(shape.data.load_list_seq, validateData, function(checked){
-                            if(checked == 'true') {
+                        parent.checkLSValidator(shape.data.load_list_seq, validateData, function (checked) {
+                            if (checked == 'true') {
                                 element = me.getCanvas().drawShape(position, shape, size);
                                 me.getContainer().removeData('DRAG_SHAPE');
 
@@ -989,14 +989,14 @@ Renderer.prototype = {
 
                     element = me.getCanvas().drawShape(position, shape, size);
                     $(element).bind('dblclick', function (event) {
-                        if(me.getMode() == me.Constants.MODE.ROUTE) {
-                            if(element.shape.data.shapeType == me.Constants.TYPE.LOCATION) {
+                        if (me.getMode() == me.Constants.MODE.ROUTE) {
+                            if (element.shape.data.shapeType == me.Constants.TYPE.LOCATION) {
                                 me.showPointDialog(null, null, panel, element, 'dblclick');
                                 event.stopPropagation();
-                            } else if(element.shape.data.shapeType == me.Constants.TYPE.MANHOLE) {
+                            } else if (element.shape.data.shapeType == me.Constants.TYPE.MANHOLE) {
                                 me.showManholeDialog(null, null, panel, element, 'dblclick');
                                 event.stopPropagation();
-                            } else if(element.shape.data.shapeType == me.Constants.TYPE.BLDG) {
+                            } else if (element.shape.data.shapeType == me.Constants.TYPE.BLDG) {
                                 me.showLocationDialog(null, null, panel, element, 'dblclick');
                                 event.stopPropagation();
                             }
@@ -1011,7 +1011,7 @@ Renderer.prototype = {
                     }
 
                     // 하이라키어 피더에서 넘어왔다면
-                    if(shape.data.shapeType == me.Constants.TYPE.HIERARCHY_FEEDER) {
+                    if (shape.data.shapeType == me.Constants.TYPE.HIERARCHY_FEEDER) {
                         me._CONTROLLER.updateFeederHierarchyList.push(shape.data);
                     }
                 }
@@ -1041,21 +1041,21 @@ Renderer.prototype = {
             var bottom = top + me.getContainer().height();
             if (pageX > left && pageX < right && pageY > top && pageY < bottom) {
 
-                if(jsonData.shapeType == me.Constants.TYPE.MODIFY_FEEDER){
+                if (jsonData.shapeType == me.Constants.TYPE.MODIFY_FEEDER) {
 
                     me._CONTROLLER.onMessage(me, jsonData, me._CONTROLLER.message.MOD, panel);
 
                 } else {
-                    if(me.getMode() == me.Constants.MODE.HIERARCHY) {
+                    if (me.getMode() == me.Constants.MODE.HIERARCHY) {
                         // 트리에서 넘어왔다면 panel은 undefined
-                        if(!panel) {
+                        if (!panel) {
                             /**
                              * canvas에 드래그 드랍할 빌딩, floor가 이미 존재한다면
                              * 그리지 않는다.
                              * 체크 로직 추가
                              */
                             var checkedData = me._CONTROLLER.checkBldgsAndFloors(me, jsonData);
-                            if(checkedData.isDraw) {
+                            if (checkedData.isDraw) {
                                 me.drawImmediately([pageX, pageY], jsonData, panel);
                             } else {
                                 msgBox(checkedData.msg);
@@ -1066,13 +1066,13 @@ Renderer.prototype = {
                             // 아니라면 msgBox와 함께 그리지 않는다...
                             me.drawImmediately([pageX, pageY], jsonData, panel);
                         }
-                    } else if(me.getMode() == me.Constants.MODE.ROUTE) {
+                    } else if (me.getMode() == me.Constants.MODE.ROUTE) {
 
-                        if(jsonData.shapeType == me.Constants.TYPE.LOCATION) {
+                        if (jsonData.shapeType == me.Constants.TYPE.LOCATION) {
                             me.showPointDialog([pageX, pageY], jsonData, panel, null, 'ondrop');
-                        } else if(jsonData.shapeType == me.Constants.TYPE.MANHOLE) {
+                        } else if (jsonData.shapeType == me.Constants.TYPE.MANHOLE) {
                             me.showManholeDialog([pageX, pageY], jsonData, panel, null, 'ondrop');
-                        }  else if(jsonData.shapeType == me.Constants.TYPE.BLDG) {
+                        } else if (jsonData.shapeType == me.Constants.TYPE.BLDG) {
                             me.showLocationDialog([pageX, pageY], jsonData, panel, null, 'ondrop');
                         } else {
                             me.drawImmediately([pageX, pageY], jsonData, panel);
@@ -1088,7 +1088,7 @@ Renderer.prototype = {
     /**
      * label변경시 연결된 raceway의 라벨도 변경이 되어야 한다.
      */
-    changeEdgeLabel: function(shapeElement) {
+    changeEdgeLabel: function (shapeElement) {
 
         var me = this;
         var currentCanvas = me.getCanvas();
@@ -1096,12 +1096,12 @@ Renderer.prototype = {
         var prevEdges = currentCanvas.getPrevEdges(shapeElement);
         var nextEdges = currentCanvas.getNextEdges(shapeElement);
 
-        prevEdges.forEach(function(prevEdge){
+        prevEdges.forEach(function (prevEdge) {
             var relatedElementsFromEdge = currentCanvas.getRelatedElementsFromEdge(prevEdge);
             currentCanvas.drawLabel(prevEdge, relatedElementsFromEdge.from.shape.label + relatedElementsFromEdge.to.shape.label);
         });
 
-        nextEdges.forEach(function(nextEdge){
+        nextEdges.forEach(function (nextEdge) {
             var relatedElementsFromEdge = currentCanvas.getRelatedElementsFromEdge(nextEdge);
             currentCanvas.drawLabel(nextEdge, relatedElementsFromEdge.from.shape.label + relatedElementsFromEdge.to.shape.label);
         });
@@ -1112,15 +1112,15 @@ Renderer.prototype = {
      * eventType이 ondrop이면 드래그 드랍으로 캔버스에 그린 경우이다.
      * 만일 'dblclick'이라면 그려진 도형의 속성을 변경하기 위한 이벤트이다.
      */
-    showLocationDialog: function(offset, jsonData, panel, shapeElement, eventType) {
+    showLocationDialog: function (offset, jsonData, panel, shapeElement, eventType) {
         var me = this;
-        var element ={};
+        var element = {};
         element['id'] = 'BldgDialog';
         element['shape'] = {};
-        element.shape = {label:'Location Properties'};
+        element.shape = {label: 'Location Properties'};
         //기존 대화장이 있을 경우 삭제하도록 한다.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
-        me.destroyAllDialog($('#'+dialogName));
+        me.destroyAllDialog($('#' + dialogName));
         // show Dialog
         var dialog = me.createDialog(element, {
             title: 'Location Properties',
@@ -1139,63 +1139,63 @@ Renderer.prototype = {
         panel[0].id = 'cloneLocationProperty';
         dialog.append(panel);
         // 적용 버튼
-        var applyBtn = $('<button class="btn-u btn-u-default" id="applyLocationProperty" type="button" style="left:48px">Apply</button>');
+        var applyBtn = $('<button class="btn btn-primary" id="applyLocationProperty" type="button" style="left:48px">Apply</button>');
         dialog.append(applyBtn);
         // 취소 버튼
-        var cancelBtn = $('<button class="btn-u btn-u-default" id="cancelLocationProperty" type="button" style="left:29px">Cancel</button>');
+        var cancelBtn = $('<button class="btn btn-white" id="cancelLocationProperty" type="button" style="left:29px">Cancel</button>');
         dialog.append(cancelBtn);
 
-        $("#cancelLocationProperty").click(function(event){
+        $("#cancelLocationProperty").click(function (event) {
             $(this).remove();
-            dialog.dialog( "close" );
+            dialog.dialog("close");
         });
 
-        if(eventType == 'dblclick') {
+        if (eventType == 'dblclick') {
             $("#cloneLocationProperty").find(".locationPoint").val(shapeElement.shape.data['shapeLabel']);
             $("#cloneLocationProperty").find(".locationLength").val(shapeElement.shape.data['loc_ref_length']);
             $("#cloneLocationProperty").find(".locationTemp").val(shapeElement.shape.data['loc_ref_temp']);
             $("#cloneLocationProperty").find(".locationRemark").val(shapeElement.shape.data['loc_ref_rem']);
         }
 
-        $("#applyLocationProperty").click(function(event){
+        $("#applyLocationProperty").click(function (event) {
 
-            if($("#cloneLocationProperty").find(".locationLength").val().trim().length == 0) {
+            if ($("#cloneLocationProperty").find(".locationLength").val().trim().length == 0) {
                 msgBox(me.MSGMessages.LENGTHMSG, $("#cloneLocationProperty").find(".locationLength"));
                 return;
             }
 
             var regNumber = /^[0-9]*$/;
-            if(!regNumber.test($("#cloneLocationProperty").find(".locationLength").val())) {
+            if (!regNumber.test($("#cloneLocationProperty").find(".locationLength").val())) {
                 msgBox(me.MSGMessages.LENGTHCKMSG, $("#cloneLocationProperty").find(".locationLength"));
                 return;
             }
 
-            if($("#cloneLocationProperty").find(".locationTemp").val().trim().length == 0) {
+            if ($("#cloneLocationProperty").find(".locationTemp").val().trim().length == 0) {
                 msgBox(me.MSGMessages.TEMPMSG, $("#cloneLocationProperty").find(".locationTemp"));
                 return;
             }
 
-            if(!regNumber.test($("#cloneLocationProperty").find(".locationTemp").val())) {
+            if (!regNumber.test($("#cloneLocationProperty").find(".locationTemp").val())) {
                 msgBox(me.MSGMessages.TEMPCKMSG, $("#cloneLocationProperty").find(".locationTemp"));
                 return;
             }
 
-            if(eventType == 'ondrop') {
+            if (eventType == 'ondrop') {
                 jsonData.loc_ref_length = $("#cloneLocationProperty").find(".locationLength").val().trim();
                 jsonData.loc_ref_temp = $("#cloneLocationProperty").find(".locationTemp").val().trim()
                 jsonData.loc_ref_rem = $("#cloneLocationProperty").find(".locationRemark").val().trim()
                 $(this).remove();
-                dialog.dialog( "close" );
+                dialog.dialog("close");
                 var gridPanel = me._CONTROLLER.model.BldgReferenceList.panel;
                 me.drawImmediately(offset, jsonData, gridPanel);
-            } else if(eventType == 'dblclick') {
-                shapeElement.shape.data['loc_ref_length']  = $("#cloneLocationProperty").find(".locationLength").val().trim();
-                shapeElement.shape.data['loc_ref_temp']    = $("#cloneLocationProperty").find(".locationTemp").val().trim();
-                shapeElement.shape.data['loc_ref_rem']     = $("#cloneLocationProperty").find(".locationRemark").val().trim();
+            } else if (eventType == 'dblclick') {
+                shapeElement.shape.data['loc_ref_length'] = $("#cloneLocationProperty").find(".locationLength").val().trim();
+                shapeElement.shape.data['loc_ref_temp'] = $("#cloneLocationProperty").find(".locationTemp").val().trim();
+                shapeElement.shape.data['loc_ref_rem'] = $("#cloneLocationProperty").find(".locationRemark").val().trim();
 
-                shapeElement.data['loc_ref_length']  = $("#cloneLocationProperty").find(".locationLength").val().trim();
-                shapeElement.data['loc_ref_temp'] 	 = $("#cloneLocationProperty").find(".locationTemp").val().trim();
-                shapeElement.data['loc_ref_rem'] 	 = $("#cloneLocationProperty").find(".locationRemark").val().trim();
+                shapeElement.data['loc_ref_length'] = $("#cloneLocationProperty").find(".locationLength").val().trim();
+                shapeElement.data['loc_ref_temp'] = $("#cloneLocationProperty").find(".locationTemp").val().trim();
+                shapeElement.data['loc_ref_rem'] = $("#cloneLocationProperty").find(".locationRemark").val().trim();
                 me.canvas.drawLabel(shapeElement, $("#cloneLocationProperty").find(".locationPoint").val());
                 /**
                  * 자신을 중심으로 연결된 edge의 라벨도 변경시켜야 한다.
@@ -1203,7 +1203,7 @@ Renderer.prototype = {
                 me.changeEdgeLabel(shapeElement);
 
                 $(this).remove();
-                dialog.dialog( "close" );
+                dialog.dialog("close");
             }
         });
 
@@ -1213,15 +1213,15 @@ Renderer.prototype = {
      * eventType이 ondrop이면 드래그 드랍으로 캔버스에 그린 경우이다.
      * 만일 'dblclick'이라면 그려진 도형의 속성을 변경하기 위한 이벤트이다.
      */
-    showPointDialog: function(offset, jsonData, panel, shapeElement, eventType) {
+    showPointDialog: function (offset, jsonData, panel, shapeElement, eventType) {
         var me = this;
-        var element ={};
+        var element = {};
         element['id'] = 'pointDialog';
         element['shape'] = {};
-        element.shape = {label:'Point Properties'};
+        element.shape = {label: 'Point Properties'};
         //기존 대화장이 있을 경우 삭제하도록 한다.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
-        me.destroyAllDialog($('#'+dialogName));
+        me.destroyAllDialog($('#' + dialogName));
         // show Dialog
         var dialog = me.createDialog(element, {
             title: 'Point Properties',
@@ -1240,50 +1240,50 @@ Renderer.prototype = {
         panel[0].id = 'clonePointProperty';
         dialog.append(panel);
         // 적용 버튼
-        var applyBtn = $('<button class="btn-u btn-u-default" id="applyPointProperty" type="button" style="left:31px">Apply</button>');
+        var applyBtn = $('<button class="btn btn-primary" id="applyPointProperty" type="button" style="left:31px">Apply</button>');
         dialog.append(applyBtn);
         // 취소 버튼
-        var cancelBtn = $('<button class="btn-u btn-u-default" id="cancelPointProperty" type="button" style="left:10px">Cancel</button>');
+        var cancelBtn = $('<button class="btn btn-white" id="cancelPointProperty" type="button" style="left:10px">Cancel</button>');
         dialog.append(cancelBtn);
 
-        if(eventType == 'dblclick') {
+        if (eventType == 'dblclick') {
             $("#clonePointProperty").find(".pointName").val(shapeElement.shape.data['shapeLabel']);
         }
 
-        $("#cancelPointProperty").click(function(event){
+        $("#cancelPointProperty").click(function (event) {
             $(this).remove();
-            dialog.dialog( "close" );
+            dialog.dialog("close");
         });
 
-        $("#applyPointProperty").click(function(event){
+        $("#applyPointProperty").click(function (event) {
 
-            if($("#clonePointProperty").find(".pointName").val().trim().length == 0) {
+            if ($("#clonePointProperty").find(".pointName").val().trim().length == 0) {
                 msgBox(me.MSGMessages.POINTMSG, $("#clonePointProperty").find(".pointName"));
                 return;
             } else {
                 var isDuplicate = me.checkDuplicationPointName($("#clonePointProperty").find(".pointName").val().trim());
-                if(eventType == 'dblclick') {
-                    if($("#clonePointProperty").find(".pointName").val().trim() == shapeElement.shape.data['loc_ref_name_to']) {
+                if (eventType == 'dblclick') {
+                    if ($("#clonePointProperty").find(".pointName").val().trim() == shapeElement.shape.data['loc_ref_name_to']) {
                         isDuplicate = false;
                     }
                 }
-                if(isDuplicate) {
+                if (isDuplicate) {
                     msgBox(me.MSGMessages.DUPLICATEMSG, $("#clonePointProperty").find(".pointName"));
                     return;
                 }
             }
 
-            if(eventType == 'ondrop') {
+            if (eventType == 'ondrop') {
                 jsonData.shapeLabel = $("#clonePointProperty").find(".pointName").val().trim();
                 jsonData.loc_ref_name_to = $("#clonePointProperty").find(".pointName").val().trim();
                 $(this).remove();
-                dialog.dialog( "close" );
+                dialog.dialog("close");
                 me.drawImmediately(offset, jsonData, panel);
-            } else if(eventType == 'dblclick') {
-                shapeElement.shape.data['shapeLabel']	   = $("#clonePointProperty").find(".pointName").val().trim();
+            } else if (eventType == 'dblclick') {
+                shapeElement.shape.data['shapeLabel'] = $("#clonePointProperty").find(".pointName").val().trim();
                 shapeElement.shape.data['loc_ref_name_to'] = $("#clonePointProperty").find(".pointName").val().trim();
 
-                shapeElement.data['shapeLabel']	  	 = $("#clonePointProperty").find(".pointName").val().trim();
+                shapeElement.data['shapeLabel'] = $("#clonePointProperty").find(".pointName").val().trim();
                 shapeElement.data['loc_ref_name_to'] = $("#clonePointProperty").find(".pointName").val().trim();
                 me.canvas.drawLabel(shapeElement, $("#clonePointProperty").find(".pointName").val());
                 /**
@@ -1292,7 +1292,7 @@ Renderer.prototype = {
                 me.changeEdgeLabel(shapeElement);
 
                 $(this).remove();
-                dialog.dialog( "close" );
+                dialog.dialog("close");
             }
         });
 
@@ -1301,15 +1301,15 @@ Renderer.prototype = {
     /**
      * 맨홀의 프로퍼티 창
      */
-    showManholeDialog: function(offset, jsonData, panel, shapeElement, eventType) {
+    showManholeDialog: function (offset, jsonData, panel, shapeElement, eventType) {
         var me = this;
-        var element ={};
+        var element = {};
         element['id'] = 'manholeDialog';
         element['shape'] = {};
-        element.shape = {label:'Manhole Properties'};
+        element.shape = {label: 'Manhole Properties'};
         //기존 대화장이 있을 경우 삭제하도록 한다.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
-        me.destroyAllDialog($('#'+dialogName));
+        me.destroyAllDialog($('#' + dialogName));
         // show Dialog
         var dialog = me.createDialog(element, {
             title: 'Manhole Properties',
@@ -1328,61 +1328,61 @@ Renderer.prototype = {
         panel[0].id = 'cloneManholeProperty';
         dialog.append(panel);
         // 적용 버튼
-        var applyBtn = $('<button class="btn-u btn-u-default" id="applyManholeProperty" type="button" style="left:65px">Apply</button>');
+        var applyBtn = $('<button class="btn btn-primary" id="applyManholeProperty" type="button" style="left:65px">Apply</button>');
         dialog.append(applyBtn);
 
         // 취소 버튼
-        var cancelBtn = $('<button class="btn-u btn-u-default" id="cancelManholeProperty" type="button" style="left:50px">Cancel</button>');
+        var cancelBtn = $('<button class="btn btn-white" id="cancelManholeProperty" type="button" style="left:50px">Cancel</button>');
         dialog.append(cancelBtn);
 
-        if(eventType == 'dblclick') {
+        if (eventType == 'dblclick') {
             $("#cloneManholeProperty").find(".manholeName").val(shapeElement.shape.data['shapeLabel']);
         }
 
-        $("#cancelManholeProperty").click(function(event){
+        $("#cancelManholeProperty").click(function (event) {
             $(this).remove();
-            dialog.dialog( "close" );
+            dialog.dialog("close");
         });
 
-        $("#applyManholeProperty").click(function(event){
+        $("#applyManholeProperty").click(function (event) {
 
-            if($("#cloneManholeProperty").find(".manholeName").val().trim().length == 0) {
+            if ($("#cloneManholeProperty").find(".manholeName").val().trim().length == 0) {
                 msgBox(me.MSGMessages.MHPOINTMSG, $("#cloneManholeProperty").find(".manholeName"));
                 return;
             } else {
                 // 포인트명 체크 로직
                 var isDuplicate = me.checkDuplicationPointName($("#cloneManholeProperty").find(".manholeName").val().trim());
-                if(eventType == 'dblclick') {
-                    if($("#cloneManholeProperty").find(".manholeName").val().trim() == shapeElement.shape.data['loc_ref_name_to']) {
+                if (eventType == 'dblclick') {
+                    if ($("#cloneManholeProperty").find(".manholeName").val().trim() == shapeElement.shape.data['loc_ref_name_to']) {
                         isDuplicate = false;
                     }
                 }
-                if(isDuplicate) {
+                if (isDuplicate) {
                     msgBox(me.MSGMessages.DUPLICATEMSG, $("#cloneManholeProperty").find(".manholeName"));
                     return;
                 }
             }
 
-            if(eventType == 'ondrop') {
+            if (eventType == 'ondrop') {
                 //jsonData.loc_ref_length = $("#cloneLocationProperty").find(".locationLength").val().trim();
                 jsonData.shapeLabel = $("#cloneManholeProperty").find(".manholeName").val().trim();
                 jsonData.loc_ref_name_to = $("#cloneManholeProperty").find(".manholeName").val().trim();
 
                 $(this).remove();
-                dialog.dialog( "close" );
+                dialog.dialog("close");
                 me.drawImmediately(offset, jsonData, panel);
-            } else if(eventType == 'dblclick') {
+            } else if (eventType == 'dblclick') {
                 shapeElement.shape.data['shapeLabel'] = $("#cloneManholeProperty").find(".manholeName").val().trim();
                 shapeElement.shape.data['loc_ref_name_to'] = $("#cloneManholeProperty").find(".manholeName").val().trim();
-                shapeElement.data['shapeLabel']  = $("#cloneManholeProperty").find(".manholeName").val().trim();
-                shapeElement.data['loc_ref_name_to']  = $("#cloneManholeProperty").find(".manholeName").val().trim();
+                shapeElement.data['shapeLabel'] = $("#cloneManholeProperty").find(".manholeName").val().trim();
+                shapeElement.data['loc_ref_name_to'] = $("#cloneManholeProperty").find(".manholeName").val().trim();
                 me.canvas.drawLabel(shapeElement, $("#cloneManholeProperty").find(".manholeName").val());
                 /**
                  * 자신을 중심으로 연결된 edge의 라벨도 변경시켜야 한다.
                  */
                 me.changeEdgeLabel(shapeElement);
                 $(this).remove();
-                dialog.dialog( "close" );
+                dialog.dialog("close");
 
             }
         });
@@ -1392,14 +1392,14 @@ Renderer.prototype = {
     /**
      * 맨홀 및 로케이션 포인트 지정시 중복 체크를 해야 한다.
      */
-    checkDuplicationPointName: function(pointName) {
+    checkDuplicationPointName: function (pointName) {
         var me = this;
         var currentCanvas = me.getCanvas();
         var shapeList = currentCanvas.getAllShapes();
         var isDuplicate = false;
-        shapeList.some(function(element){
-            if(element.shape instanceof OG.Location || element.shape instanceof OG.Manhole) {
-                if(pointName == element.shape.data.loc_ref_name_to) {
+        shapeList.some(function (element) {
+            if (element.shape instanceof OG.Location || element.shape instanceof OG.Manhole) {
+                if (pointName == element.shape.data.loc_ref_name_to) {
                     isDuplicate = true;
                 }
             }
@@ -1411,15 +1411,15 @@ Renderer.prototype = {
     /**
      * 레이스웨이 프로퍼티창
      */
-    showRaceWayDialog: function(edgeElement, fromElement, toElement, eventType) {
+    showRaceWayDialog: function (edgeElement, fromElement, toElement, eventType) {
         var me = this;
-        var element ={};
+        var element = {};
         element['id'] = 'raceWayDialog';
         element['shape'] = {};
-        element.shape = {label:'RaceWay Properties'};
+        element.shape = {label: 'RaceWay Properties'};
         //기존 대화장이 있을 경우 삭제하도록 한다.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
-        me.destroyAllDialog($('#'+dialogName));
+        me.destroyAllDialog($('#' + dialogName));
         // show Dialog
         var dialog = me.createDialog(element, {
             title: 'RaceWay Properties',
@@ -1440,45 +1440,45 @@ Renderer.prototype = {
         $("#cloneRaceWayProperty").find(".raceWayTo").html(toElement.shape.data.shapeLabel)
 
         // 적용 버튼
-        var applyBtn = $('<button class="btn-u btn-u-default" id="applyRaceWayProperty" type="button" style="left:52px">Apply</button>');
+        var applyBtn = $('<button class="btn btn-primary" id="applyRaceWayProperty" type="button" style="left:52px">Apply</button>');
         dialog.append(applyBtn);
 
         // 취소 버튼
-        var cancelBtn = $('<button class="btn-u btn-u-default" id="cancelRaceWayProperty" type="button" style="left:34px">Cancel</button>');
+        var cancelBtn = $('<button class="btn btn-white" id="cancelRaceWayProperty" type="button" style="left:34px">Cancel</button>');
         dialog.append(cancelBtn);
 
-        if(eventType == 'dblclick') {
+        if (eventType == 'dblclick') {
             $("#cloneRaceWayProperty").find(".raceWayLength").val(edgeElement.shape.data['race_ref_len']);
             $("#cloneRaceWayProperty").find(".raceWayTemp").val(edgeElement.shape.data['race_ref_temp']);
             $("#cloneRaceWayProperty").find(".race_ref_method").val(edgeElement.shape.data['race_ref_method']);
             $("#cloneRaceWayProperty").find(".raceWayRemark").val(edgeElement.shape.data['race_ref_rem']);
         }
 
-        $("#cancelRaceWayProperty").click(function(event){
-            if(eventType == 'connect') {
+        $("#cancelRaceWayProperty").click(function (event) {
+            if (eventType == 'connect') {
                 me.getCanvas().removeShape(edgeElement);
             }
             $(this).remove();
-            dialog.dialog( "close" );
+            dialog.dialog("close");
         });
 
-        $("#applyRaceWayProperty").click(function(event){
+        $("#applyRaceWayProperty").click(function (event) {
 
-            if($("#cloneRaceWayProperty").find(".raceWayLength").val().trim().length == 0) {
+            if ($("#cloneRaceWayProperty").find(".raceWayLength").val().trim().length == 0) {
                 msgBox(me.MSGMessages.LENGTHMSG, $("#cloneRaceWayProperty").find(".raceWayLength"));
                 return;
             }
 
             var lenghNumber = /^[0-9]*$/;
-            if(!lenghNumber.test($("#cloneRaceWayProperty").find(".raceWayLength").val())) {
+            if (!lenghNumber.test($("#cloneRaceWayProperty").find(".raceWayLength").val())) {
                 msgBox(me.MSGMessages.LENGTHCKMSG, $("#cloneRaceWayProperty").find(".raceWayLength"));
                 return;
             }
 
             var tempNumber = /^\d*(\.\d{0,3})?$/;
-            if(!tempNumber.test($("#cloneRaceWayProperty").find(".raceWayTemp").val())) {
+            if (!tempNumber.test($("#cloneRaceWayProperty").find(".raceWayTemp").val())) {
 
-                if(isNaN($("#cloneRaceWayProperty").find(".raceWayTemp").val())) {
+                if (isNaN($("#cloneRaceWayProperty").find(".raceWayTemp").val())) {
                     msgBox(me.MSGMessages.TEMPCKMSG, $("#cloneRaceWayProperty").find(".raceWayTemp"));
                 } else {
                     msgBox(me.MSGMessages.TEMPDECIMALPOINTCHK, $("#cloneRaceWayProperty").find(".raceWayTemp"));
@@ -1490,7 +1490,7 @@ Renderer.prototype = {
                 /**
                  * 소수점 입력하기 위해 .만 찍었을때.
                  */
-                if(inputChk == '') {
+                if (inputChk == '') {
                     msgBox(me.MSGMessages.TEMPINPUTCHK, $("#cloneRaceWayProperty").find(".raceWayTemp"));
                     return;
                 }
@@ -1498,7 +1498,7 @@ Renderer.prototype = {
                 /**
                  * 사이즈 체크
                  */
-                if(Number($("#cloneRaceWayProperty").find(".raceWayTemp").val()) > 80) {
+                if (Number($("#cloneRaceWayProperty").find(".raceWayTemp").val()) > 80) {
                     msgBox(me.MSGMessages.TEMPSIZECHK, $("#cloneRaceWayProperty").find(".raceWayTemp"));
                     return;
                 }
@@ -1515,13 +1515,13 @@ Renderer.prototype = {
             edgeCustomData['race_ref_rem'] = $("#cloneRaceWayProperty").find(".raceWayRemark").val().trim();
             edgeCustomData['race_ref_trayedm_no'] = fromElement.shape.data.shapeLabel + toElement.shape.data.shapeLabel;
             edgeCustomData['pjt_sq'] = me._CONTROLLER.projectData.pjt_sq;
-            edgeCustomData['label'] = "<a href='#' name='item' data-index='"+me._CONTROLLER.initRacewayReferenceList.length+"' style='margin-left: 5px;margin-right: 5px;'>" + edgeCustomData['race_ref_trayedm_no'] + "</a>";
+            edgeCustomData['label'] = "<a href='#' name='item' data-index='" + me._CONTROLLER.initRacewayReferenceList.length + "' style='margin-left: 5px;margin-right: 5px;'>" + edgeCustomData['race_ref_trayedm_no'] + "</a>";
             edgeCustomData['model'] = me._CONTROLLER.model.RacewayReferenceList.name;
             edgeCustomData['sort_ord'] = null;
             me.getCanvas().setCustomData(edgeElement, edgeCustomData);
             $(this).remove();
-            dialog.dialog( "close" );
-            if(eventType == 'connect') {
+            dialog.dialog("close");
+            if (eventType == 'connect') {
                 var panel = me._CONTROLLER.model.RacewayReferenceList.panel;
                 me._CONTROLLER.initRacewayReferenceList.push(edgeCustomData);
                 me._CONTROLLER.redrawDataTables(panel, me._CONTROLLER.initRacewayReferenceList, me._CONTROLLER);
@@ -1575,7 +1575,7 @@ Renderer.prototype = {
          * 해당 로드 정보는 updateList에 저장한다.
          * 하지만 서버로부터 그려지는 로드는 제외해야한다.
          */
-        if( from == null ) {
+        if (from == null) {
             me._CONTROLLER.updateFeederList.push(loadElement.shape.data);
         }
     },
@@ -1590,23 +1590,23 @@ Renderer.prototype = {
         me.canvas.onDrawShape(function (event, element) {
             me.isUpdated = true;
 
-            if(element.shape instanceof OG.Location) {
-                $(element).bind('dblclick', function(event){
+            if (element.shape instanceof OG.Location) {
+                $(element).bind('dblclick', function (event) {
                     event.stopPropagation();
                     me.showPointDialog(null, null, null, this, 'dblclick');
                 });
-            } else if(element.shape instanceof OG.Manhole) {
-                $(element).bind('dblclick', function(event){
+            } else if (element.shape instanceof OG.Manhole) {
+                $(element).bind('dblclick', function (event) {
                     event.stopPropagation();
                     me.showManholeDialog(null, null, null, this, 'dblclick');
                 });
-            } else if(element.shape instanceof OG.BLDG) {
-                $(element).bind('dblclick', function(event){
+            } else if (element.shape instanceof OG.BLDG) {
+                $(element).bind('dblclick', function (event) {
                     event.stopPropagation();
                     me.showLocationDialog(null, null, null, this, 'dblclick');
                 });
-            } else if(element.shape instanceof OG.RacewayShape) {
-                $(element).bind('dblclick', function(event){
+            } else if (element.shape instanceof OG.RacewayShape) {
+                $(element).bind('dblclick', function (event) {
                     event.stopPropagation();
                     var relatedElementsFromEdge = me.getCanvas().getRelatedElementsFromEdge(element);
                     me.showRaceWayDialog(element, relatedElementsFromEdge.from, relatedElementsFromEdge.to, 'dblclick');
@@ -1619,12 +1619,12 @@ Renderer.prototype = {
         });
         me.canvas.onRemoveShape(function (event, shapeElement) {
             me.isUpdated = true;
-            if( me.getMode() == me.Constants.MODE.FEEDER && me._CONTROLLER.tempElement != null) {
+            if (me.getMode() == me.Constants.MODE.FEEDER && me._CONTROLLER.tempElement != null) {
                 me._CONTROLLER.tempElement.shape.data['removeType'] = 'Y';
                 me.canvas.removeShape(me._CONTROLLER.tempElement);
                 return;
-            } else if( me.getMode() == me.Constants.MODE.HIERARCHY) {
-                if(me._CONTROLLER.tempElement != null) {
+            } else if (me.getMode() == me.Constants.MODE.HIERARCHY) {
+                if (me._CONTROLLER.tempElement != null) {
                     me._CONTROLLER.tempElement.shape.data['removeType'] = 'Y';
                     me.canvas.removeShape(me._CONTROLLER.tempElement);
                     me._CONTROLLER.tempElement = null;
@@ -1650,13 +1650,13 @@ Renderer.prototype = {
         });
         me.canvas.onDisconnectShape(function (event, edgeElement, fromElement, toElement) {
             me.isUpdated = true;
-            if(me.getMode() == me.Constants.MODE.HIERARCHY) {
-                if(me._CONTROLLER.removeFirstShapeTypeAtHierarchy == me.Constants.SHAPE.EDGE) {
+            if (me.getMode() == me.Constants.MODE.HIERARCHY) {
+                if (me._CONTROLLER.removeFirstShapeTypeAtHierarchy == me.Constants.SHAPE.EDGE) {
                     me._CONTROLLER.removeFirstShapeTypeAtHierarchy = null;
                     return false;
                 }
-            } else if(me.getMode() == me.Constants.MODE.ROUTE) {
-                if(me._CONTROLLER.removeFirstShapeTypeAtRoute == me.Constants.SHAPE.EDGE) {
+            } else if (me.getMode() == me.Constants.MODE.ROUTE) {
+                if (me._CONTROLLER.removeFirstShapeTypeAtRoute == me.Constants.SHAPE.EDGE) {
                     me._CONTROLLER.removeFirstShapeTypeAtRoute = null;
                     return false;
                 }
@@ -1675,11 +1675,11 @@ Renderer.prototype = {
         //Before Event
         me.canvas.onBeforeRemoveShape(function (event, shapeElement) {
 
-            if( shapeElement.shape.TYPE == me.Constants.SHAPE.GEOM || shapeElement.shape.TYPE == me.Constants.SHAPE.GROUP) {
+            if (shapeElement.shape.TYPE == me.Constants.SHAPE.GEOM || shapeElement.shape.TYPE == me.Constants.SHAPE.GROUP) {
 
-                if( me.getMode() == me.Constants.MODE.FEEDER ) {
-                    if(!shapeElement.shape.data.hasOwnProperty('removeType')) {
-                        if(shapeElement.shape.data.fe_swgr_load_div == 'S' &&
+                if (me.getMode() == me.Constants.MODE.FEEDER) {
+                    if (!shapeElement.shape.data.hasOwnProperty('removeType')) {
+                        if (shapeElement.shape.data.fe_swgr_load_div == 'S' &&
                             (shapeElement.shape.data.fe_swgr_load_div == me._CONTROLLER.parentSwitchElement.fe_swgr_load_div) &&
                             shapeElement.shape.data.swgr_list_seq == me._CONTROLLER.parentSwitchElement.swgr_list_seq
                         ) {
@@ -1699,33 +1699,33 @@ Renderer.prototype = {
                     /** 기존 데이터에서 정보를 검색한다 */
                     var swgrKey = 'swgr_list_seq';
                     var loadKey = 'load_list_seq';
-                    if(shapeElement.shape.data.fe_swgr_load_div == 'S') {
+                    if (shapeElement.shape.data.fe_swgr_load_div == 'S') {
                         /**
                          * 이 정보가 없다는 것은 서버로부터 저장된 json으로부터 그려진 캔버스 객체의 정보중
                          * 하나가 지워졌다고 판단할 수 있다.
                          * 해당 지워지는 shape가 스위치트랜스퍼머인지 로드인지 체크부터 하고
                          * 다음 로직을 수행해야한다.
                          */
-                        if(!shapeElement.shape.data.hasOwnProperty('model')){
+                        if (!shapeElement.shape.data.hasOwnProperty('model')) {
                             shapeElement.shape.data['model'] = me._CONTROLLER.model.SwgrList.name;
-                            shapeElement.shape.data['label'] = '<a href="javascript:popUpSWGRInfo(\''+ shapeElement.shape.data['swgr_list_seq']+'\');void(0)" name="item" data-index="' + (me._CONTROLLER.initUnusedSwitchList.length) + '" style="margin-left: 5px;margin-right: 5px;">' + shapeElement.shape.data['swgr_name'] + '</a>';
+                            shapeElement.shape.data['label'] = '<a href="javascript:popUpSWGRInfo(\'' + shapeElement.shape.data['swgr_list_seq'] + '\');void(0)" name="item" data-index="' + (me._CONTROLLER.initUnusedSwitchList.length) + '" style="margin-left: 5px;margin-right: 5px;">' + shapeElement.shape.data['swgr_name'] + '</a>';
                             me._CONTROLLER.initUnusedSwitchList.push(shapeElement.shape.data);
                         }
-                        feederMgtShapeList.some(function(item, idx){
-                            if( item.hasOwnProperty(swgrKey) && item[swgrKey] == shapeElement.shape.data[swgrKey]) {
+                        feederMgtShapeList.some(function (item, idx) {
+                            if (item.hasOwnProperty(swgrKey) && item[swgrKey] == shapeElement.shape.data[swgrKey]) {
                                 me._CONTROLLER.deleteFeederList.push(item);
                             }
                         });
 
                         /** updateList에서도 조회를 해야한다 **/
-                        updateFeederList.some(function(item, idx){
-                            if( item.hasOwnProperty(swgrKey) && item[swgrKey] == shapeElement.shape.data[swgrKey]) {
+                        updateFeederList.some(function (item, idx) {
+                            if (item.hasOwnProperty(swgrKey) && item[swgrKey] == shapeElement.shape.data[swgrKey]) {
                                 updateFeederList.splice(idx, 1);
                             }
                         });
 
                     } else {
-                        if(!shapeElement.shape.data.hasOwnProperty('model')){
+                        if (!shapeElement.shape.data.hasOwnProperty('model')) {
 
 
                             var loadObj = parent.getLoad(shapeElement.shape.data.load_list_seq);
@@ -1734,7 +1734,7 @@ Renderer.prototype = {
                              * 기존에 없는 프로퍼티들을 설정해야 한다.
                              */
                             loadObj['model'] = me._CONTROLLER.model.UnAssignedLoadList.name;
-                            loadObj['shapeType']= shapeElement.shape.data['shapeType'];
+                            loadObj['shapeType'] = shapeElement.shape.data['shapeType'];
                             loadObj['shapeLabel'] = shapeElement.shape.data['lo_equip_tag_no'];
                             loadObj['label'] = '<a href="#" name="item" data-index="' + (me._CONTROLLER.initUnusedLoadList.length) + '" style="margin-left: 5px;margin-right: 5px;">' + shapeElement.shape.data['lo_equip_tag_no'] + '</a>';
                             loadObj['lo_equip_desc_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + loadObj['lo_equip_desc'] + '</span>';
@@ -1744,21 +1744,21 @@ Renderer.prototype = {
                             shapeElement.shape.data = loadObj;
                             me._CONTROLLER.initUnusedLoadList.push(loadObj);
                         }
-                        feederMgtShapeList.some(function(item, idx){
-                            if( item.hasOwnProperty(loadKey) && item[loadKey] == shapeElement.shape.data[loadKey]) {
+                        feederMgtShapeList.some(function (item, idx) {
+                            if (item.hasOwnProperty(loadKey) && item[loadKey] == shapeElement.shape.data[loadKey]) {
                                 me._CONTROLLER.deleteFeederList.push(item);
                             }
                         });
 
                         /** updateList에서도 조회를 해야한다 **/
-                        updateFeederList.some(function(item, idx){
-                            if( item.hasOwnProperty(loadKey) && item[loadKey] == shapeElement.shape.data[loadKey]) {
+                        updateFeederList.some(function (item, idx) {
+                            if (item.hasOwnProperty(loadKey) && item[loadKey] == shapeElement.shape.data[loadKey]) {
                                 updateFeederList.splice(idx, 1);
                             }
                         });
                     }
 
-                    if(shapeElement.shape.data.model == me._CONTROLLER.model.UnAssignedLoadList.name) {
+                    if (shapeElement.shape.data.model == me._CONTROLLER.model.UnAssignedLoadList.name) {
 
                         //해당 아이템은 사용된 loadlist에서 삭제한다.
                         var usedLoadList = me._CONTROLLER.usedLoadList;
@@ -1792,7 +1792,7 @@ Renderer.prototype = {
 
                     }
                     //지워진 로드가 만일 switchtransfomer라면
-                    else if(shapeElement.shape.data.model == me._CONTROLLER.model.SwgrList.name) {
+                    else if (shapeElement.shape.data.model == me._CONTROLLER.model.SwgrList.name) {
 
                         //this.initUnusedSwitchList = [];
                         //this.usedSwitchList = [];
@@ -1828,10 +1828,10 @@ Renderer.prototype = {
 
                     }
 
-                } else if(me.getMode() == me.Constants.MODE.HIERARCHY) {
+                } else if (me.getMode() == me.Constants.MODE.HIERARCHY) {
 
                     // 도형을 먼저 지워서 타고 오는지 또는 edge를 지우면서 타고 오는지 체크한다.
-                    if(me._CONTROLLER.removeFirstShapeTypeAtHierarchy == null) {
+                    if (me._CONTROLLER.removeFirstShapeTypeAtHierarchy == null) {
                         me._CONTROLLER.removeFirstShapeTypeAtHierarchy = me.Constants.SHAPE.GEOM;
                     }
                     /**
@@ -1841,36 +1841,36 @@ Renderer.prototype = {
                      * me._CONTROLLER.tempElement에 들어온 정보를 세팅하고 리턴하면 된다.
                      * 하지만 지워진 shape이 빌딩인지 스위치피더인지 체크
                      */
-                    if(shapeElement.shape.data.model == me._CONTROLLER.model.HierarchyFeederList.name) {
+                    if (shapeElement.shape.data.model == me._CONTROLLER.model.HierarchyFeederList.name) {
 
                         var feederHierarchyMgtShapeList = me._CONTROLLER.feederHierarchyMgtShapeList;
                         var updateFeederHierarchyList = me._CONTROLLER.updateFeederHierarchyList;
                         var deleteFeederHierarchyList = me._CONTROLLER.deleteFeederHierarchyList;
-                        if(!shapeElement.shape.data.hasOwnProperty('label')) {
-                            shapeElement.shape.data.label = '<a href="javascript:popUpSWGRInfo(\''+ shapeElement.shape.data['swgr_seq']+'\');void(0)" name="item" data-index="' + (me._CONTROLLER.initUnusedHierarchyFeederList.length) + '" style="margin-left: 5px;margin-right: 5px;">' + shapeElement.shape.data['swgr_name'] + '</a>';
+                        if (!shapeElement.shape.data.hasOwnProperty('label')) {
+                            shapeElement.shape.data.label = '<a href="javascript:popUpSWGRInfo(\'' + shapeElement.shape.data['swgr_seq'] + '\');void(0)" name="item" data-index="' + (me._CONTROLLER.initUnusedHierarchyFeederList.length) + '" style="margin-left: 5px;margin-right: 5px;">' + shapeElement.shape.data['swgr_name'] + '</a>';
                         }
                         var isDup = false;
-                        me._CONTROLLER.initUnusedHierarchyFeederList.some(function(item){
-                            if(item.feeder_list_mgt_seq == shapeElement.shape.data.feeder_list_mgt_seq) {
+                        me._CONTROLLER.initUnusedHierarchyFeederList.some(function (item) {
+                            if (item.feeder_list_mgt_seq == shapeElement.shape.data.feeder_list_mgt_seq) {
                                 isDup = true;
                             }
                         });
 
-                        if(!isDup) {
+                        if (!isDup) {
                             me._CONTROLLER.initUnusedHierarchyFeederList.push(shapeElement.shape.data);
                         }
                         /**
                          *
                          */
-                        feederHierarchyMgtShapeList.some(function(item, idx){
-                            if(item.feeder_list_mgt_seq == shapeElement.shape.data.feeder_list_mgt_seq) {
+                        feederHierarchyMgtShapeList.some(function (item, idx) {
+                            if (item.feeder_list_mgt_seq == shapeElement.shape.data.feeder_list_mgt_seq) {
                                 me._CONTROLLER.deleteFeederHierarchyList.push(item);
                             }
                         });
 
                         /** updateList에서도 조회를 해야한다 **/
-                        updateFeederHierarchyList.some(function(item, idx){
-                            if(item.feeder_list_mgt_seq == shapeElement.shape.data.feeder_list_mgt_seq) {
+                        updateFeederHierarchyList.some(function (item, idx) {
+                            if (item.feeder_list_mgt_seq == shapeElement.shape.data.feeder_list_mgt_seq) {
                                 updateFeederHierarchyList.splice(idx, 1);
                             }
                         });
@@ -1908,17 +1908,17 @@ Renderer.prototype = {
                         me._CONTROLLER.redrawDataTables(panel, newList, me._CONTROLLER);
 
                     }
-                } else if(me.getMode() == me.Constants.MODE.ROUTE) {
+                } else if (me.getMode() == me.Constants.MODE.ROUTE) {
 
                     // 도형을 먼저 지워서 타고 오는지 또는 edge를 지우면서 타고 오는지 체크한다.
-                    if(me._CONTROLLER.removeFirstShapeTypeAtRoute == null) {
+                    if (me._CONTROLLER.removeFirstShapeTypeAtRoute == null) {
                         me._CONTROLLER.removeFirstShapeTypeAtRoute = me.Constants.SHAPE.GEOM;
                     }
 
                     /**
                      * 빌딩 그리드에서 넘어온 정보라면
                      */
-                    if(shapeElement.shape.data.model == me._CONTROLLER.model.BldgReferenceList.name) {
+                    if (shapeElement.shape.data.model == me._CONTROLLER.model.BldgReferenceList.name) {
 
                         var usedBldgReferenceList = me._CONTROLLER.usedBldgReferenceList;
                         var updateList = [];
@@ -1952,14 +1952,14 @@ Renderer.prototype = {
                     }
 
                 }
-            } else if( shapeElement.shape.TYPE == me.Constants.SHAPE.EDGE) {
+            } else if (shapeElement.shape.TYPE == me.Constants.SHAPE.EDGE) {
                 // 도형을 먼저 지워서 타고 오는지 또는 edge를 지우면서 타고 오는지 체크한다.
-                if(me.getMode() == me.Constants.MODE.HIERARCHY) {
-                    if(me._CONTROLLER.removeFirstShapeTypeAtHierarchy == null) {
+                if (me.getMode() == me.Constants.MODE.HIERARCHY) {
+                    if (me._CONTROLLER.removeFirstShapeTypeAtHierarchy == null) {
                         me._CONTROLLER.removeFirstShapeTypeAtHierarchy = me.Constants.SHAPE.EDGE;
                     }
-                } else if(me.getMode() == me.Constants.MODE.ROUTE) {
-                    if(me._CONTROLLER.removeFirstShapeTypeAtRoute == null) {
+                } else if (me.getMode() == me.Constants.MODE.ROUTE) {
+                    if (me._CONTROLLER.removeFirstShapeTypeAtRoute == null) {
                         me._CONTROLLER.removeFirstShapeTypeAtRoute = me.Constants.SHAPE.EDGE;
                     }
                 }
@@ -1978,14 +1978,14 @@ Renderer.prototype = {
              * 고려해야할 사항.
              * shape를 이동시 어떻게 관계를 설정해서 이 로직을 안태울 것인가를 고민해야함
              */
-            if( me.getMode() == me.Constants.MODE.HIERARCHY) {
+            if (me.getMode() == me.Constants.MODE.HIERARCHY) {
                 var prevEdges = me.canvas.getPrevEdges(toElement);
-                if(prevEdges.length > 0) {
-                    prevEdges.forEach(function(edge){
+                if (prevEdges.length > 0) {
+                    prevEdges.forEach(function (edge) {
                         var edge = me.canvas.getRelatedElementsFromEdge(edge);
                         var fromShapeData = edge.from.shape.data;
                         // from 데이터가 자신과 같다면 자신은 이미 상위 피더 리스트이다.
-                        if(fromShapeData.feeder_list_mgt_seq != null && fromShapeData.feeder_list_mgt_seq != fromElement.shape.data.feeder_list_mgt_seq) {
+                        if (fromShapeData.feeder_list_mgt_seq != null && fromShapeData.feeder_list_mgt_seq != fromElement.shape.data.feeder_list_mgt_seq) {
                             flag = false;
                             msg = "연결하려는 피더 스위치는 이미 상위 피더 스위치를 가지고 있습니다.";
                         }
@@ -1993,7 +1993,7 @@ Renderer.prototype = {
                 }
             }
 
-            if(!flag) {
+            if (!flag) {
                 msgBox(msg);
                 return false;
             }
@@ -2021,6 +2021,25 @@ Renderer.prototype = {
             me.onShowProperty(shapeElement);
         });
 
+        /**
+         * 캔버스 로딩 이벤트
+         */
+        me.canvas.onLoading(function (event, progress) {
+            if (progress == 'start') {
+                $.unblockUI();
+                $.blockUI({
+                    message: $('#canvas-progress').html()
+                });
+            }
+            if (typeof progress == 'number') {
+                $('.canvas-progress-bar').css('width', progress + '%');
+                $('.canvas-progress-bar').attr('aria-valuenow', progress + '')
+            }
+            if (progress == 'end') {
+                $.unblockUI();
+            }
+        });
+
     },
     /**
      * 정보 보기 이벤트를 처리한다.
@@ -2030,9 +2049,9 @@ Renderer.prototype = {
         var me = this;
         console.log(element.shape.data);
 
-        if(element.shape.data.hasOwnProperty('showProperty')) {
-            if(element.shape.data.showProperty) {
-                if(element.shape.data.hasOwnProperty('swgr_list_seq')) {
+        if (element.shape.data.hasOwnProperty('showProperty')) {
+            if (element.shape.data.showProperty) {
+                if (element.shape.data.hasOwnProperty('swgr_list_seq')) {
                     popUpSWGRInfo(element.shape.data.swgr_list_seq);
                 } else {
                     popUpSWGRInfo(element.shape.data.swgr_seq);
@@ -2043,7 +2062,7 @@ Renderer.prototype = {
         //me._DATA_CONTROLLER.블라블라();
     },
 
-    highLightHierarchyFeeder: function(element) {
+    highLightHierarchyFeeder: function (element) {
         var me = this;
         //선택된 HierarchyFeeder 애니메이션
         if (!element.shape.data) {
@@ -2055,11 +2074,11 @@ Renderer.prototype = {
         setTimeout(me.unHighLightHierarchyFeederWrapper, 5000, me, element);
     },
 
-    unHighLightHierarchyFeederWrapper: function(renderer, element) {
+    unHighLightHierarchyFeederWrapper: function (renderer, element) {
         renderer.unHighLightHierarchyFeeder(element);
     },
 
-    unHighLightHierarchyFeeder: function(element) {
+    unHighLightHierarchyFeeder: function (element) {
         var me = this;
         //선택된 HierarchyFeeder 애니메이션
         if (!element.shape.data) {
@@ -2145,16 +2164,16 @@ Renderer.prototype = {
         }
     },
 
-    onRoutePathToDialog: function(jsonData) {
+    onRoutePathToDialog: function (jsonData) {
         var me = this;
         var currentCanvas = me.getCanvas();
         console.log(jsonData);
-        if(jsonData.rou_ref_tot_path == null) {
+        if (jsonData.rou_ref_tot_path == null) {
             msgBox(me.MSGMessages.NOPATH);
             return;
         }
 
-        if(jsonData.same_loc == 'Y') {
+        if (jsonData.same_loc == 'Y') {
             msgBox(me.MSGMessages.SAMELOCATION);
             return;
         }
@@ -2163,9 +2182,9 @@ Renderer.prototype = {
         var firstRaceWay = rouRefTotPath.split('>')[1];
         console.log(firstRaceWay);
         var allEdges = currentCanvas.getAllEdges();
-        allEdges.some(function(edge){
+        allEdges.some(function (edge) {
             var label = edge.shape.data.race_ref_trayedm_no;
-            if(label == firstRaceWay) {
+            if (label == firstRaceWay) {
                 me.onShowCableList(edge, 'fromGrid');
             }
         });
@@ -2235,18 +2254,18 @@ Renderer.prototype = {
         panel.attr('id', panelId);
         panel.css('font-size', me._CONFIG.DEFAULT_SIZE.GRID_FONT);
         panel.css('width', '100%');
-        panel.addClass('display').addClass('gridTable').addClass('cell-border');
+        panel.addClass('table').addClass('table-bordered').addClass('table-hover').addClass('display').addClass('gridTable').addClass('cell-border');
 
         dialog.append(panel);
-        if(from) {
+        if (from) {
             //대화창에 버튼을 삽입한다.
-            var alternativeBtn = $('<button class="btn-u btn-u-default" type="button" disabled style="left:138px">Apply</button>');
+            var alternativeBtn = $('<button class="btn btn-primary" type="button" disabled style="left:138px">Apply</button>');
             dialog.append(alternativeBtn);
 
-            var cancelBtn = $('<button class="btn-u btn-u-default" type="button" id="cablesDClose" style="left:120px">Cancel</button>');
+            var cancelBtn = $('<button class="btn btn-white" type="button" id="cablesDClose" style="left:120px">Cancel</button>');
             dialog.append(cancelBtn);
         } else {
-            var cancelBtn = $('<button class="btn-u btn-u-default" type="button" id="cablesDClose" style="left:180px">Close</button>');
+            var cancelBtn = $('<button class="btn btn-white" type="button" id="cablesDClose" style="left:180px">Close</button>');
             dialog.append(cancelBtn);
         }
 
@@ -2257,9 +2276,9 @@ Renderer.prototype = {
         }
 
 
-        $("#cablesDClose").click(function(event){
+        $("#cablesDClose").click(function (event) {
             $(this).remove();
-            dialog.dialog( "close" );
+            dialog.dialog("close");
         });
 
         var gridPanelDiv = $('#' + panelId + '_wrapper');
@@ -2298,7 +2317,6 @@ Renderer.prototype = {
                 itemData['totalLength'] = racewaysLength + Number(itemData.fromPointLen) + Number(itemData.toPointLen);
                 //어플라이 버튼 클릭 이벤트를 처리한다.
                 alternativeBtn.removeAttr('disabled');
-                alternativeBtn.removeClass('btn-u-default');
                 alternativeBtn.unbind('click');
                 alternativeBtn.bind('click', function () {
                     console.log(itemData);
@@ -2307,9 +2325,9 @@ Renderer.prototype = {
                     updateCableData['rou_ref_tot_path'] = itemData.rou_ref_tot_path;
                     updateCableData['rou_ref_tot_len'] = itemData.rou_ref_tot_len;
                     var returnData = parent.updateCablePath(updateCableData);
-                    if(returnData == '0') {
+                    if (returnData == '0') {
                         $(this).remove();
-                        dialog.dialog( "close" );
+                        dialog.dialog("close");
                     }
                 });
             });
@@ -2467,13 +2485,13 @@ Renderer.prototype = {
 
                 var routeList = routes[i];
 
-                for(var t=0; t<routeList.length; t++) {
-                    if(t==0) {
+                for (var t = 0; t < routeList.length; t++) {
+                    if (t == 0) {
                         realRoutePaths.push(me.canvas.getElementById(routeList[t]).shape.data.loc_ref_name_to);
-                    } else if( t > 0) {
-                        var setRoutePath = me.canvas.getElementById(routeList[t-1]).shape.data.loc_ref_name_to + me.canvas.getElementById(routeList[t]).shape.data.loc_ref_name_to;
+                    } else if (t > 0) {
+                        var setRoutePath = me.canvas.getElementById(routeList[t - 1]).shape.data.loc_ref_name_to + me.canvas.getElementById(routeList[t]).shape.data.loc_ref_name_to;
                         realRoutePaths.push(setRoutePath);
-                        if(t == routeList.length -1) {
+                        if (t == routeList.length - 1) {
                             setRoutePath = me.canvas.getElementById(routeList[t]).shape.data.loc_ref_name_to;
                             realRoutePaths.push(setRoutePath);
                         }
@@ -2482,11 +2500,11 @@ Renderer.prototype = {
                 }
 
                 var realRoutePath = '';
-                realRoutePaths.forEach(function(path, index){
-                    if(index == 0) {
+                realRoutePaths.forEach(function (path, index) {
+                    if (index == 0) {
                         realRoutePath = fromBLDG + path;
-                    } else if(index > 0) {
-                        if(index == realRoutePaths.length-1) {
+                    } else if (index > 0) {
+                        if (index == realRoutePaths.length - 1) {
                             realRoutePath = realRoutePath + '>' + path + toBLDG;
                         } else {
                             realRoutePath = realRoutePath + '>' + path;

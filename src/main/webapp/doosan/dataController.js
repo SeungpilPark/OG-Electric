@@ -2,7 +2,7 @@
  * Created by Seungpil, Park on 2016. 9. 6..
  */
 var DataController = function () {
-    this.dev = false;
+    this.dev = true;
 };
 DataController.prototype = {
     /**
