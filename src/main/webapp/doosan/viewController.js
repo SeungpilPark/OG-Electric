@@ -226,6 +226,7 @@ ViewContorller.prototype = {
             var renderer = me.getRendererByMode(me.currentMode);
             var canvas = renderer.getCanvas();
             canvas.setScale(1);
+            canvas.updateNavigatior();
         });
 
         // zoom in +
@@ -708,7 +709,7 @@ ViewContorller.prototype = {
         //me.renderGrid(me.model.LocationReferenceList.name);
         me.renderGrid(me.model.RacewayReferenceList.name);
         me.renderGrid(me.model.RouteReferenceList.name);
-        //me.renderGrid(me.model.CableReferenceList.name);
+        me.renderGrid(me.model.CableReferenceList.name);
         me.bindLocationDragDrop();
 
 
@@ -1598,7 +1599,12 @@ ViewContorller.prototype = {
                 element.unbind('click');
                 element.click(function (event) {
                     event.stopPropagation();
-                    console.log(itemData);
+                    if(itemData.hasOwnProperty('popRouteDialog') && itemData.popRouteDialog == 'Y') {
+                        var renderer = me.getRendererByMode(me.currentMode);
+                        renderer.onRoutePathToDialog(itemData);
+                    } else {
+                        console.log(itemData);
+                    }
                 });
             };
 
@@ -2185,9 +2191,12 @@ ViewContorller.prototype = {
                     if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
                             gridData[i]['shapeType'] = me.Constants.TYPE.BLDG;
-                            gridData[i]['shapeLabel'] = gridData[i]['nm'];
+                            gridData[i]['shapeLabel'] = gridData[i]['rou_ref_tot_path'];
                             gridData[i]['model'] = model;
-                            gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['nm'] + '</a>';
+                            gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + (gridData[i]['rou_ref_tot_path']==null?'':gridData[i]['rou_ref_tot_path']) + '</a>';
+                            gridData[i]['rou_ref_from_style'] = '<span style="margin-left: 5px;margin-right: 5px;">'+ gridData[i]['rou_ref_from'] +'</span>';
+                            gridData[i]['rou_ref_to_style'] = '<span style="margin-left: 5px;margin-right: 5px;">'+ gridData[i]['rou_ref_to'] +'</span>';
+                            gridData[i]['popRouteDialog'] = 'Y';
                         }
                     }
                     greedOptions = {
@@ -2195,16 +2204,40 @@ ViewContorller.prototype = {
                         columns: [
                             {
                                 data: 'label',
-                                title: 'Name',
+                                title: 'Path',
                                 defaultContent: ''
                             },
                             {
-                                data: 'dscr',
-                                title: 'Description',
+                                data: 'rou_ref_from_style',
+                                title: 'SWGR_Location',
+                                defaultContent: ''
+                            },
+                            {
+                                data: 'equip_nm_from',
+                                title: 'SWGR_Group',
+                                defaultContent: ''
+                            },
+                            {
+                                data: 'rou_ref_to_style',
+                                title: 'Load_Location',
+                                defaultContent: ''
+                            },
+                            {
+                                data: 'equip_nm_to',
+                                title: 'KKS_NUMBER',
+                                defaultContent: ''
+                            },
+                            {
+                                data: 'rou_ref_tot_len',
+                                title: 'Length',
                                 defaultContent: ''
                             }
                         ],
                         columnDefs: [
+                            {
+                                className: 'dt-left',
+                                targets: [0, 1, 3, 4]
+                            },
                             {
                                 className: 'dt-center',
                                 targets: '_all'

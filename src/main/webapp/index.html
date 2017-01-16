@@ -306,9 +306,6 @@
             }
         };
 
-        if (window.Worker) {
-            var worker = new Worker("doosan/drawSwitchAndLoad.js");
-        }
         var msgBox = function (message, obj) {
             var box = $('#messageBox');
             box.find('[name=content]').html(message);

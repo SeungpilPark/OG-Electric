@@ -7,9 +7,14 @@ var Renderer = function (mode, container, controller) {
         LENGTHMSG: 'Legnth를 지정해야 합니다.',
         LENGTHCKMSG: 'Length는 숫자만 입력할 수 있습니다.',
         TEMPMSG: 'Temp를 지정해야 합니다.',
-        TEMPMCKSG: 'Temp는 숫자만 입력할 수 있습니다.',
+        TEMPCKMSG: 'Temp는 숫자만 입력할 수 있습니다.',
+        TEMPINPUTCHK: '소수점이하를 입력하십시오.',
+        TEMPDECIMALPOINTCHK: 'Temp는 소수점 3자리까지만 허용합니다.',
+        TEMPSIZECHK: 'Temp는 80이하로 입력해야 합니다.',
         REMARKMSG: 'Remark를 입력해야 합니다.',
-        SAVEMSG: '저장이 완료되었습니다.'
+        SAVEMSG: '저장이 완료되었습니다.',
+        NOPATH: 'Path가 없습니다.',
+        SAMELOCATION: '동일 Location에 있습니다.'
     }
 
     this.Constants = {
@@ -413,8 +418,8 @@ Renderer.prototype = {
         var me = this;
 
         if(mode == me.Constants.MODE.HIERARCHY ) {
-            //var dataInfo = parent.getFeederSWGRTree();
-            var dataInfo = [];
+            var dataInfo = parent.getFeederSWGRTree();
+
             /**
              * 빌딩과 플로우를 추출해서 각각의 리스트에 넣는다.
              */
@@ -676,16 +681,19 @@ Renderer.prototype = {
          *
          */
 
-        worker.postMessage(totalList.length);
+        //worker.postMessage(totalList.length);
         var initLeftPosition = 0;
-        worker.onmessage = function (event) {
-            if(totalList[event.data.idx].fe_swgr_load_div == 'L') {
-                totalList[event.data.idx]['shapeType'] = totalList[event.data.idx].lo_type+"Load";
-                totalList[event.data.idx]['shapeLabel'] = totalList[event.data.idx].lo_equip_tag_no;
-            } else if(totalList[event.data.idx].fe_swgr_load_div == 'S') {
-                totalList[event.data.idx]['shapeType'] = me.Constants.TYPE.TRANSFORMER;
-                totalList[event.data.idx]['shapeLabel'] = totalList[event.data.idx].swgr_name;
-            } else if(totalList[event.data.idx].fe_swgr_load_div == 'SPARE') {
+        //worker.onmessage = function (event) {
+
+        me.getCanvas().fastLoadingON();
+        totalList.forEach(function(element){
+            if(element.fe_swgr_load_div == 'L') {
+                element['shapeType'] = element.lo_type+"Load";
+                element['shapeLabel'] = element.lo_equip_tag_no;
+            } else if(element.fe_swgr_load_div == 'S') {
+                element['shapeType'] = me.Constants.TYPE.TRANSFORMER;
+                element['shapeLabel'] = element.swgr_name;
+            } else if(element.fe_swgr_load_div == 'SPARE') {
                 return;
             }
             if(initLeftPosition == 0) {
@@ -698,12 +706,10 @@ Renderer.prototype = {
                 initLeftPosition = initLeftPosition + me._CONFIG.DEFAULT_SIZE.LOAD[0] + 20;
             }
             var initShapeAdjustSize = [0, initLeftPosition, -100];
-            me.drawImmediately(null, totalList[event.data.idx], null, initShapeAdjustSize, me.Constants.FROM.ISFROM);
-            if(event.data.idx == totalList.length-1) {
-                $.unblockUI();
-            }
-        }
-
+            me.drawImmediately(null, element, null, initShapeAdjustSize, me.Constants.FROM.ISFROM);
+        });
+        me.getCanvas().fastLoadingOFF();
+        $.unblockUI();
     },
 
     /**
@@ -1161,7 +1167,6 @@ Renderer.prototype = {
             var regNumber = /^[0-9]*$/;
             if(!regNumber.test($("#cloneLocationProperty").find(".locationLength").val())) {
                 msgBox(me.MSGMessages.LENGTHCKMSG, $("#cloneLocationProperty").find(".locationLength"));
-                $("#cloneLocationProperty").find(".locationLength").val("");
                 return;
             }
 
@@ -1171,8 +1176,7 @@ Renderer.prototype = {
             }
 
             if(!regNumber.test($("#cloneLocationProperty").find(".locationTemp").val())) {
-                msgBox(me.MSGMessages.TEMPMCKSG, $("#cloneLocationProperty").find(".locationTemp"));
-                $("#cloneLocationProperty").find(".locationTemp").val("");
+                msgBox(me.MSGMessages.TEMPCKMSG, $("#cloneLocationProperty").find(".locationTemp"));
                 return;
             }
 
@@ -1465,22 +1469,40 @@ Renderer.prototype = {
                 return;
             }
 
-            var regNumber = /^[0-9]*$/;
-            if(!regNumber.test($("#cloneRaceWayProperty").find(".raceWayLength").val())) {
+            var lenghNumber = /^[0-9]*$/;
+            if(!lenghNumber.test($("#cloneRaceWayProperty").find(".raceWayLength").val())) {
                 msgBox(me.MSGMessages.LENGTHCKMSG, $("#cloneRaceWayProperty").find(".raceWayLength"));
-                $("#cloneRaceWayProperty").find(".raceWayLength").val("");
                 return;
             }
 
-            if($("#cloneRaceWayProperty").find(".raceWayTemp").val().trim().length == 0) {
-                msgBox(me.MSGMessages.TEMPMSG, $("#cloneRaceWayProperty").find(".raceWayTemp"));
-                return;
-            }
+            var tempNumber = /^\d*(\.\d{0,3})?$/;
+            if(!tempNumber.test($("#cloneRaceWayProperty").find(".raceWayTemp").val())) {
 
-            if(!regNumber.test($("#cloneRaceWayProperty").find(".raceWayTemp").val())) {
-                msgBox(me.MSGMessages.TEMPMCKSG, $("#cloneRaceWayProperty").find(".raceWayTemp"));
-                $("#cloneRaceWayProperty").find(".raceWayTemp").val("");
+                if(isNaN($("#cloneRaceWayProperty").find(".raceWayTemp").val())) {
+                    msgBox(me.MSGMessages.TEMPCKMSG, $("#cloneRaceWayProperty").find(".raceWayTemp"));
+                } else {
+                    msgBox(me.MSGMessages.TEMPDECIMALPOINTCHK, $("#cloneRaceWayProperty").find(".raceWayTemp"));
+                }
                 return;
+            } else {
+
+                var inputChk = $("#cloneRaceWayProperty").find(".raceWayTemp").val().split('.')[1];
+                /**
+                 * 소수점 입력하기 위해 .만 찍었을때.
+                 */
+                if(inputChk == '') {
+                    msgBox(me.MSGMessages.TEMPINPUTCHK, $("#cloneRaceWayProperty").find(".raceWayTemp"));
+                    return;
+                }
+
+                /**
+                 * 사이즈 체크
+                 */
+                if(Number($("#cloneRaceWayProperty").find(".raceWayTemp").val()) > 80) {
+                    msgBox(me.MSGMessages.TEMPSIZECHK, $("#cloneRaceWayProperty").find(".raceWayTemp"));
+                    return;
+                }
+
             }
 
             var edgeCustomData = {};
@@ -2122,11 +2144,39 @@ Renderer.prototype = {
             }
         }
     },
+
+    onRoutePathToDialog: function(jsonData) {
+        var me = this;
+        var currentCanvas = me.getCanvas();
+        console.log(jsonData);
+        if(jsonData.rou_ref_tot_path == null) {
+            msgBox(me.MSGMessages.NOPATH);
+            return;
+        }
+
+        if(jsonData.same_loc == 'Y') {
+            msgBox(me.MSGMessages.SAMELOCATION);
+            return;
+        }
+
+        var rouRefTotPath = jsonData.rou_ref_tot_path;
+        var firstRaceWay = rouRefTotPath.split('>')[1];
+        console.log(firstRaceWay);
+        var allEdges = currentCanvas.getAllEdges();
+        allEdges.some(function(edge){
+            var label = edge.shape.data.race_ref_trayedm_no;
+            if(label == firstRaceWay) {
+                me.onShowCableList(edge, 'fromGrid');
+            }
+        });
+
+    },
+
     /**
      * 해당 레이스웨이를 지나는 케이블 리스트를 팝업하고, 케이블 선택시 다른 라우트 경로를 선택가능하게 한다.
      * @param element
      */
-    onShowCableList: function (element) {
+    onShowCableList: function (element, from) {
         var me = this;
 
         //기존 대화장이 있을 경우 삭제하도록 한다.
@@ -2172,8 +2222,12 @@ Renderer.prototype = {
             info: false,
             scrollY: 600,
             scrollX: true,
-            scrollCollapse: true
+            scrollCollapse: true,
+            resizable: false,
+            dialogClass: "noClose"
         };
+
+        $('.noClose .ui-dialog-titlebar-close').css('display', 'none');
 
         //대화창에 그리드를 삽입한다.
         var panel = $('<table></table>');
@@ -2184,13 +2238,17 @@ Renderer.prototype = {
         panel.addClass('display').addClass('gridTable').addClass('cell-border');
 
         dialog.append(panel);
+        if(from) {
+            //대화창에 버튼을 삽입한다.
+            var alternativeBtn = $('<button class="btn-u btn-u-default" type="button" disabled style="left:138px">Apply</button>');
+            dialog.append(alternativeBtn);
 
-        //대화창에 버튼을 삽입한다.
-        var alternativeBtn = $('<button class="btn-u btn-u-default" type="button" disabled style="left:138px">Apply</button>');
-        dialog.append(alternativeBtn);
-
-        var cancelBtn = $('<button class="btn-u btn-u-default" type="button" id="cablesDClose" style="left:120px">Cancel</button>');
-        dialog.append(cancelBtn);
+            var cancelBtn = $('<button class="btn-u btn-u-default" type="button" id="cablesDClose" style="left:120px">Cancel</button>');
+            dialog.append(cancelBtn);
+        } else {
+            var cancelBtn = $('<button class="btn-u btn-u-default" type="button" id="cablesDClose" style="left:180px">Close</button>');
+            dialog.append(cancelBtn);
+        }
 
         if (!panel.data('table')) {
             panel.data('table', true);
@@ -2243,8 +2301,16 @@ Renderer.prototype = {
                 alternativeBtn.removeClass('btn-u-default');
                 alternativeBtn.unbind('click');
                 alternativeBtn.bind('click', function () {
-                    console.log(item);
                     console.log(itemData);
+                    var updateCableData = {};
+                    updateCableData['cable_list_seq'] = itemData.cable_list_seq;
+                    updateCableData['rou_ref_tot_path'] = itemData.rou_ref_tot_path;
+                    updateCableData['rou_ref_tot_len'] = itemData.rou_ref_tot_len;
+                    var returnData = parent.updateCablePath(updateCableData);
+                    if(returnData == '0') {
+                        $(this).remove();
+                        dialog.dialog( "close" );
+                    }
                 });
             });
         };
