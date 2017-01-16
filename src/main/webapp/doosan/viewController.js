@@ -222,7 +222,7 @@ ViewContorller.prototype = {
         var me = this;
 
         // zoom fit
-        $('#editor-zoomFit').click(function () {
+        $('#editor-zoomFit').click(function(){
             var renderer = me.getRendererByMode(me.currentMode);
             var canvas = renderer.getCanvas();
             canvas.setScale(1);
@@ -230,7 +230,7 @@ ViewContorller.prototype = {
         });
 
         // zoom in +
-        $('#editor-zoomIn').click(function () {
+        $('#editor-zoomIn').click(function(){
             var renderer = me.getRendererByMode(me.currentMode);
             var canvas = renderer.getCanvas();
             var preScale = canvas.getScale();
@@ -240,7 +240,7 @@ ViewContorller.prototype = {
         });
 
         // zoom out -
-        $('#editor-zoomOut').click(function () {
+        $('#editor-zoomOut').click(function(){
             var renderer = me.getRendererByMode(me.currentMode);
             var canvas = renderer.getCanvas();
             var preScale = canvas.getScale();
@@ -249,19 +249,17 @@ ViewContorller.prototype = {
             canvas.updateNavigatior();
         });
         // save click event binding
-        $('#editor-save').click(function () {
+        $('#editor-save').click(function(){
 
-            $.blockUI({
-                css: {
-                    border: 'none',
-                    padding: '15px',
-                    backgroundColor: '#000',
-                    '-webkit-border-radius': '10px',
-                    '-moz-border-radius': '10px',
-                    opacity: .5,
-                    color: '#fff'
-                }
-            });
+            $.blockUI({ css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            } });
 
             setTimeout(me.saveWrapper, 100, me);
         });
@@ -272,7 +270,7 @@ ViewContorller.prototype = {
             dataModal.find('.close').click();
         });
 
-        $("li#menu-printJson").bind("click", function () {
+        $("li#menu-printJson").bind("click", function(){
             dataModal.find('[name=save]').hide();
             var renderer = me.getRendererByMode(me.currentMode);
             var json = JSON.stringify(renderer.canvas.toJSON());
@@ -280,7 +278,7 @@ ViewContorller.prototype = {
             dataModal.modal({
                 show: true
             });
-        });
+        })
 
         $('li#menu-printXml').bind('click', function () {
             dataModal.find('[name=save]').hide();
@@ -300,17 +298,15 @@ ViewContorller.prototype = {
                 var json = JSON.parse(val);
                 var renderer = me.getRendererByMode(me.currentMode);
 
-                $.blockUI({
-                    css: {
-                        border: 'none',
-                        padding: '15px',
-                        backgroundColor: '#000',
-                        '-webkit-border-radius': '10px',
-                        '-moz-border-radius': '10px',
-                        opacity: .5,
-                        color: '#fff'
-                    }
-                });
+                $.blockUI({ css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                } });
 
                 setTimeout(renderer.loadWrapper, 100, renderer, dataModal, 'json', json);
 
@@ -329,17 +325,15 @@ ViewContorller.prototype = {
                 var xml = dataModal.find('textarea').val();
                 var renderer = me.getRendererByMode(me.currentMode);
 
-                $.blockUI({
-                    css: {
-                        border: 'none',
-                        padding: '15px',
-                        backgroundColor: '#000',
-                        '-webkit-border-radius': '10px',
-                        '-moz-border-radius': '10px',
-                        opacity: .5,
-                        color: '#fff'
-                    }
-                });
+                $.blockUI({ css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                } });
 
                 setTimeout(renderer.loadWrapper, 100, renderer, dataModal, 'xml', xml);
             });
@@ -438,15 +432,15 @@ ViewContorller.prototype = {
             event.stopPropagation();
         });
 
-        $.fn.dataTable.tables({visible: true, api: true}).columns.adjust();
+        $.fn.dataTable.tables( { visible: true, api: true } ).columns.adjust();
         // 해당 버튼을 클릭하면 swgr를 입력받을 수 있는 웹쪽 ui를 띄운다.
         // 주소는 제공받는걸
-        $("#newSwgr").bind('click', function (event) {
+        $("#newSwgr").bind('click', function(event){
             console.log('test');
         });
 
-        $("#swgr-nav").bind('click', function (event) {
-            if ($(this).hasClass('clickedTab')) {
+        $("#swgr-nav").bind('click', function(event){
+            if($(this).hasClass('clickedTab')) {
                 return;
             } else {
                 $(this).addClass('clickedTab');
@@ -455,8 +449,8 @@ ViewContorller.prototype = {
             setTimeout(me.redrawDataTables, 160, panel, me.initUnusedSwitchList, me);
         });
 
-        $("#load-nav").bind('click', function (event) {
-            if ($(this).hasClass('clickedTab')) {
+        $("#load-nav").bind('click', function(event){
+            if($(this).hasClass('clickedTab')) {
                 return;
             } else {
                 $(this).addClass('clickedTab');
@@ -464,8 +458,8 @@ ViewContorller.prototype = {
             var panel = me.model.UnAssignedLoadList.panel;
             setTimeout(me.redrawDataTables, 170, panel, me.initUnusedLoadList, me);
         });
-        $("#hier-feeder").bind('click', function (event) {
-            if ($(this).hasClass('clickedTab')) {
+        $("#hier-feeder").bind('click', function(event){
+            if($(this).hasClass('clickedTab')) {
                 return;
             } else {
                 $(this).addClass('clickedTab');
@@ -473,8 +467,8 @@ ViewContorller.prototype = {
             var panel = me.model.HierarchyFeederList.panel;
             setTimeout(me.redrawDataTables, 170, panel, me.initUnusedHierarchyFeederList, me);
         });
-        $("#locRefTab").bind('click', function (event) {
-            if ($(this).hasClass('clickedTab')) {
+        $("#locRefTab").bind('click', function(event){
+            if($(this).hasClass('clickedTab')) {
                 return;
             } else {
                 $(this).addClass('clickedTab');
@@ -482,8 +476,8 @@ ViewContorller.prototype = {
             var panel = me.model.LocationReferenceList.panel;
             setTimeout(me.redrawDataTables, 170, panel, me.initLocationReferenceList, me);
         });
-        $("#racewayRefTab").bind('click', function (event) {
-            if ($(this).hasClass('clickedTab')) {
+        $("#racewayRefTab").bind('click', function(event){
+            if($(this).hasClass('clickedTab')) {
                 return;
             } else {
                 $(this).addClass('clickedTab');
@@ -491,8 +485,8 @@ ViewContorller.prototype = {
             var panel = me.model.RacewayReferenceList.panel;
             setTimeout(me.redrawDataTables, 170, panel, me.initRacewayReferenceList, me);
         });
-        $("#routeParentTab").bind('click', function (event) {
-            if ($(this).hasClass('clickedTab')) {
+        $("#routeParentTab").bind('click', function(event){
+            if($(this).hasClass('clickedTab')) {
                 return;
             } else {
                 $(this).addClass('clickedTab');
@@ -501,8 +495,8 @@ ViewContorller.prototype = {
             setTimeout(me.redrawDataTables, 170, panel, me.initRouteReferenceList, me);
             $('#routeChildTab').addClass('clickedTab');
         });
-        $("#cableRefTab").bind('click', function (event) {
-            if ($(this).hasClass('clickedTab')) {
+        $("#cableRefTab").bind('click', function(event){
+            if($(this).hasClass('clickedTab')) {
                 return;
             } else {
                 $(this).addClass('clickedTab');
@@ -513,7 +507,7 @@ ViewContorller.prototype = {
 
     },
 
-    redrawDataTables: function (panel, gridData, viewController) {
+    redrawDataTables: function(panel, gridData, viewController) {
         var dataTable = panel.dataTable().api();
         var currentPage = dataTable.page();
         dataTable.clear();
@@ -522,7 +516,7 @@ ViewContorller.prototype = {
         dataTable.page(currentPage).draw(false);
     },
 
-    addRowDataTables: function (panel, data) {
+    addRowDataTables: function(panel, data) {
         var dataTable = panel.dataTable().api();
         var currentPage = dataTable.page();
         dataTable.rows.add(data);
@@ -530,18 +524,16 @@ ViewContorller.prototype = {
         dataTable.page(currentPage).draw(false);
     },
 
-    routeTabClickEvent: function (me) {
-        $.blockUI({
-            css: {
-                border: 'none',
-                padding: '15px',
-                backgroundColor: '#000',
-                '-webkit-border-radius': '10px',
-                '-moz-border-radius': '10px',
-                opacity: .5,
-                color: '#fff'
-            }
-        });
+    routeTabClickEvent: function(me) {
+        $.blockUI({ css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: .5,
+            color: '#fff'
+        } });
 
         /**
          * 클릭할때마다 프로젝트 정보를 가져온다.
@@ -549,14 +541,14 @@ ViewContorller.prototype = {
          * 최초에는 캔버스를 클리어
          */
         var projectInfo = me.projectData;
-        var routeJSON = projectInfo.gui_route_json;
+        var routeJSON  = projectInfo.gui_route_json;
 
-        if ((routeJSON != null && routeJSON !== undefined ) && typeof routeJSON == 'string') {
+        if((routeJSON !=null && routeJSON !== undefined ) && typeof routeJSON == 'string'){
             routeJSON = JSON.parse(routeJSON);
         }
 
         var renderer = me.getRendererByMode(me.Constants.MODE.ROUTE);
-        if (routeJSON == null) {
+        if(routeJSON == null) {
             setTimeout(me.drawToCanvasFromServerDataWrapper, 100, renderer, me, me.Constants.MODE.ROUTE);
         } else {
             //있다면....
@@ -565,18 +557,16 @@ ViewContorller.prototype = {
         //me.refreshGridAndTree(me.Constants.MODE.HIERARCHY, renderer);
     },
 
-    hierarchyTabClickEvent: function (me) {
-        $.blockUI({
-            css: {
-                border: 'none',
-                padding: '15px',
-                backgroundColor: '#000',
-                '-webkit-border-radius': '10px',
-                '-moz-border-radius': '10px',
-                opacity: .5,
-                color: '#fff'
-            }
-        });
+    hierarchyTabClickEvent: function(me) {
+        $.blockUI({ css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: .5,
+            color: '#fff'
+        } });
 
         /**
          * 클릭할때마다 프로젝트 정보를 가져온다.
@@ -584,14 +574,14 @@ ViewContorller.prototype = {
          * 최초에는 캔버스를 클리어
          */
         var projectInfo = me.projectData;
-        var hierJSON = projectInfo.gui_hier_json;
+        var hierJSON  = projectInfo.gui_hier_json;
 
-        if ((hierJSON != null && hierJSON !== undefined ) && typeof hierJSON == 'string') {
+        if((hierJSON !=null && hierJSON !== undefined ) && typeof hierJSON == 'string'){
             hierJSON = JSON.parse(hierJSON);
         }
 
         var renderer = me.getRendererByMode(me.Constants.MODE.HIERARCHY);
-        if (hierJSON == null) {
+        if(hierJSON == null) {
             setTimeout(me.drawToCanvasFromServerDataWrapper, 100, renderer, me, me.Constants.MODE.HIERARCHY);
         } else {
             //있다면....
@@ -603,10 +593,10 @@ ViewContorller.prototype = {
     /**
      * 프로젝트에 hierarchy의 제이슨 정보가 없다면
      */
-    drawToCanvasFromServerDataWrapper: function (renderer, viewController, mode) {
-        if (mode == viewController.Constants.MODE.HIERARCHY) {
+    drawToCanvasFromServerDataWrapper: function(renderer, viewController, mode) {
+        if(mode == viewController.Constants.MODE.HIERARCHY) {
             renderer.drawToHierarchyCanvasFromServerData(mode);
-        } else if (mode == viewController.Constants.MODE.ROUTE) {
+        } else if(mode == viewController.Constants.MODE.ROUTE) {
             renderer.drawToRouteCanvasFromServerData(mode);
         }
     },
@@ -669,6 +659,8 @@ ViewContorller.prototype = {
                         me.routeRenderer.setCanvasSize(
                             [$('#' + me.routeRendererId).width(), $('#' + me.routeRendererId).height()]);
                         $('#editor-backdoor').show();
+                        //var panel = me.model.BldgReferenceList.panel;
+                        //setTimeout(me.redrawDataTables, 170, panel, me.initBldgReferenceList, me);
                         $('#bldgRefTab').addClass('clickedTab');
                         me.routeTabClickEvent(me);
                     }
@@ -712,7 +704,7 @@ ViewContorller.prototype = {
         /**
          * SWGR / Assigned Feeder Editor 그리드
          */
-            //me.renderSwgrSelectBox();
+        me.renderSwgrSelectBox();
         me.renderGrid(me.model.SwgrList.name);
         me.renderGrid(me.model.UnAssignedLoadList.name);
         me.renderTree(me.model.AssignedFeederList.name);
@@ -740,56 +732,56 @@ ViewContorller.prototype = {
         $('#editor-backdoor').hide();
     },
 
-    saveWrapper: function (me) {
+    saveWrapper: function(me) {
         me.dataController.saveGui(me);
     },
 
     /**
      * 현재 모드를 불러온다.
      */
-    getCurrentMode: function () {
+    getCurrentMode: function(){
         return this.currentMode;
     },
 
     /**
      * 피더 세이브 모드를 불러온다
      */
-    getFeederSaveMode: function () {
+    getFeederSaveMode: function() {
         return this.Constants.FEEDER_SAVE_MODE.ISNEW;
     },
 
     /**
      * 피더 세이브 모드를 세팅한다.
      */
-    setFeederSaveMode: function (saveMode) {
+    setFeederSaveMode: function(saveMode) {
         this.Constants.FEEDER_SAVE_MODE.ISNEW = saveMode;
     },
 
     /**
      * 하이어라키 세이브 모드를 불러온다
      */
-    getHierarchySaveMode: function () {
+    getHierarchySaveMode: function() {
         return this.Constants.HIERARCHY_SAVE_MODE.ISNEW;
     },
 
     /**
      * 하이어라키 모드를 세팅한다.
      */
-    setHierarchySaveMode: function (saveMode) {
+    setHierarchySaveMode: function(saveMode) {
         this.Constants.HIERARCHY_SAVE_MODE.ISNEW = saveMode;
     },
 
     /**
      * 라우트 세이브 모드를 불러온다
      */
-    getRouteSaveMode: function () {
+    getRouteSaveMode: function() {
         return this.Constants.ROUTE_SAVE_MODE.ISNEW;
     },
 
     /**
      * 라우트 모드를 세팅한다.
      */
-    setRouteSaveMode: function (saveMode) {
+    setRouteSaveMode: function(saveMode) {
         this.Constants.ROUTE_SAVE_MODE.ISNEW = saveMode;
     },
 
@@ -992,17 +984,15 @@ ViewContorller.prototype = {
                 confirmBox(infoMessage, function (result) {
                     if (result) {
 
-                        $.blockUI({
-                            css: {
-                                border: 'none',
-                                padding: '15px',
-                                backgroundColor: '#000',
-                                '-webkit-border-radius': '10px',
-                                '-moz-border-radius': '10px',
-                                opacity: .5,
-                                color: '#fff'
-                            }
-                        });
+                        $.blockUI({ css: {
+                            border: 'none',
+                            padding: '15px',
+                            backgroundColor: '#000',
+                            '-webkit-border-radius': '10px',
+                            '-moz-border-radius': '10px',
+                            opacity: .5,
+                            color: '#fff'
+                        } });
 
                         setTimeout(me.setEditingObjectFromLoadDataWrapper, 100, me, renderer, data, panel);
                     }
@@ -1010,28 +1000,26 @@ ViewContorller.prototype = {
             }
             //캔버스가 변경되지 않았을 경우(저장을 마치거나, 아직 에디팅할 오브젝트가 반영되지 않았을 경우이다.)
             else {
-                $.blockUI({
-                    css: {
-                        border: 'none',
-                        padding: '15px',
-                        backgroundColor: '#000',
-                        '-webkit-border-radius': '10px',
-                        '-moz-border-radius': '10px',
-                        opacity: .5,
-                        color: '#fff'
-                    }
-                });
+                $.blockUI({ css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                } });
 
                 setTimeout(me.setEditingObjectFromLoadDataWrapper, 100, me, renderer, data, panel);
             }
         }
     },
 
-    initTabClass: function () {
+    initTabClass: function() {
         $('li').removeClass('clickedTab');
     },
 
-    setEditingObjectFromLoadDataWrapper: function (me, renderer, data, panel) {
+    setEditingObjectFromLoadDataWrapper: function(me, renderer, data, panel) {
         me.setEditingObjectFromLoadData(renderer, data, panel);
         me.renderGrid(me.model.SwgrList.name);
         me.renderGrid(me.model.UnAssignedLoadList.name);
@@ -1051,7 +1039,7 @@ ViewContorller.prototype = {
             return;
         }
 
-        if (shapeData.content == '' || shapeData.content == null) {
+        if(shapeData.content == '' || shapeData.content == null) {
             renderer.drawToFeederCanvasFromServerData(shapeData, panel);
         } else {
             var json = JSON.parse(shapeData.content);
@@ -1075,13 +1063,14 @@ ViewContorller.prototype = {
             title = 'BLDG/ROUTE PROJECT - ' + data['pjt_nm'];
         }
         var titleBox = $('#' + containerId + '-title');
+        //titleBox.show();
         titleBox.html(title);
 
         //렌더러에 에디팅 오브젝트를 설정한다.
         renderer.editingObject = data;
-        if (panel != null) {
+        if(panel != null) {
             var panelId = panel[0].id;
-            if (panelId == 'feederGrid') {
+            if(panelId == 'feederGrid') {
                 renderer.editingObject['onDrop'] = panelId;
             }
         }
@@ -1098,12 +1087,12 @@ ViewContorller.prototype = {
 
         var currentCanvas = renderer.getCanvas();
         var shapeList = currentCanvas.getAllShapes();
-        for (var i = 0; i < shapeList.length; i++) {
+        for(var i=0; i<shapeList.length; i++) {
             var selectShapeType = $(shapeList[i]).attr('_shape');
-            if (selectShapeType == 'GEOM') {
+            if(selectShapeType == 'GEOM') {
                 var selectItemData = shapeList[i].shape.data;
                 geomShapeTypeElementList.push(shapeList[i]);
-                if (i == 0) {
+                if(i==0) {
                     me.parentSwitchElement = selectItemData;
                 }
             }
@@ -1115,30 +1104,30 @@ ViewContorller.prototype = {
          * 그 로드를 찾아서 캔바스에서 지워야 한다.
          * me.feederMgtShapeList에서 해당 로드를 찾아서 지운다.
          */
-        if (shapeData.content != '' && shapeData.content != null) {
+        if(shapeData.content != '' && shapeData.content != null) {
 
-            for (var j = 0; j < geomShapeTypeElementList.length; j++) {
+            for(var j=0; j<geomShapeTypeElementList.length; j++) {
                 var elementData = geomShapeTypeElementList[j].shape.data;
                 var isDelete = true;
 
-                if (elementData.fe_swgr_load_div == 'S') {
-                    me.feederMgtShapeList.some(function (item) {
-                        if (elementData.swgr_list_seq == item.swgr_list_seq && item.fe_swgr_load_div == 'S') {
+                if(elementData.fe_swgr_load_div == 'S') {
+                    me.feederMgtShapeList.some(function(item) {
+                        if(elementData.swgr_list_seq == item.swgr_list_seq && item.fe_swgr_load_div == 'S') {
                             isDelete = false;
                         }
                     });
-                } else if (elementData.fe_swgr_load_div == 'L') {
-                    me.feederMgtShapeList.some(function (item) {
-                        if (elementData.load_list_seq == item.load_list_seq && item.fe_swgr_load_div == 'L') {
+                } else if(elementData.fe_swgr_load_div == 'L') {
+                    me.feederMgtShapeList.some(function(item) {
+                        if(elementData.load_list_seq == item.load_list_seq && item.fe_swgr_load_div == 'L') {
                             isDelete = false;
                         }
                     });
-                } else if (!elementData.hasOwnProperty('fe_swgr_load_div')) {
+                } else if(!elementData.hasOwnProperty('fe_swgr_load_div')) {
                     var shapeType = elementData.shapeType;
-                    if (shapeType.indexOf('Load') > -1) {
+                    if(shapeType.indexOf('Load') > -1) {
                         elementData['fe_swgr_load_div'] = 'L';
-                        me.feederMgtShapeList.some(function (item) {
-                            if (elementData.load_list_seq == item.load_list_seq && item.fe_swgr_load_div == 'L') {
+                        me.feederMgtShapeList.some(function(item) {
+                            if(elementData.load_list_seq == item.load_list_seq && item.fe_swgr_load_div == 'L') {
                                 isDelete = false;
                             }
                         });
@@ -1146,7 +1135,7 @@ ViewContorller.prototype = {
 
                 }
 
-                if (isDelete) {
+                if(isDelete) {
                     renderer.canvas.removeShape(geomShapeTypeElementList[j]);
                 }
             }
@@ -1165,7 +1154,7 @@ ViewContorller.prototype = {
     /**
      * 하이어라키 빌딩/플로어 체크 로직
      */
-    checkBldgsAndFloors: function (renderer, shapeData) {
+    checkBldgsAndFloors: function(renderer, shapeData) {
 
         var currentCanvas = renderer.getCanvas();
         var checkedData = {};
@@ -1174,30 +1163,30 @@ ViewContorller.prototype = {
         var isDraw = true;
         var msg = '';
 
-        if (shapeData.shapeType == renderer.Constants.TYPE.HIERARCHY_BLDG) {
-            shapeList.some(function (shapeElement) {
-                if (shapeElement.shape.data.shapeType == renderer.Constants.TYPE.HIERARCHY_BLDG &&
+        if(shapeData.shapeType == renderer.Constants.TYPE.HIERARCHY_BLDG) {
+            shapeList.some(function(shapeElement){
+                if(shapeElement.shape.data.shapeType == renderer.Constants.TYPE.HIERARCHY_BLDG &&
                     shapeElement.shape.data.hier_seq == shapeData.hier_seq
-                ) {
+                ){
                     isDraw = false;
                 }
             });
             checkedData['isDraw'] = isDraw;
-            if (!isDraw) {
+            if(!isDraw) {
                 msg = "해당 빌딩이 이미 캔버스에 존재합니다.";
             }
 
-        } else if (shapeData.shapeType == renderer.Constants.TYPE.HIERARCHY_FLOOR) {
+        } else if(shapeData.shapeType == renderer.Constants.TYPE.HIERARCHY_FLOOR) {
 
-            shapeList.some(function (shapeElement) {
-                if (shapeElement.shape.data.shapeType == renderer.Constants.TYPE.HIERARCHY_FLOOR &&
+            shapeList.some(function(shapeElement){
+                if(shapeElement.shape.data.shapeType == renderer.Constants.TYPE.HIERARCHY_FLOOR &&
                     shapeElement.shape.data.hier_seq == shapeData.hier_seq
-                ) {
+                ){
                     isDraw = false;
                 }
             });
             checkedData['isDraw'] = isDraw;
-            if (!isDraw) {
+            if(!isDraw) {
                 msg = "해당 플로어가 이미 캔버스에 존재합니다.";
             }
         }
@@ -1230,6 +1219,7 @@ ViewContorller.prototype = {
             title = 'BLDG/ROUTE PROJECT - ' + renderer.editingObject['pjt_nm'];
         }
         var titleBox = $('#' + containerId + '-title');
+        //titleBox.show();
         titleBox.html(title);
 
         //feeder정보를 가져온다.
@@ -1246,9 +1236,9 @@ ViewContorller.prototype = {
 
         var currentCanvas = renderer.getCanvas();
         var shapeList = currentCanvas.getAllShapes();
-        for (var i = 0; i < shapeList.length; i++) {
+        for(var i=0; i<shapeList.length; i++) {
             var selectShapeType = $(shapeList[i]).attr('_shape');
-            if (selectShapeType == 'GEOM' && i == 0) {
+            if(selectShapeType == 'GEOM' && i==0) {
                 var selectShapeId = $(shapeList[i]).attr('_shape_id');
                 var selectElement = currentCanvas.getElementsByShapeId(selectShapeId);
                 var selectItemData = currentCanvas.getCustomData(shapeList[i]);
@@ -1291,6 +1281,7 @@ ViewContorller.prototype = {
             title = 'BLDG/ROUTE PROJECT - ' + data['pjt_nm'];
         }
         var titleBox = $('#' + containerId + '-title');
+        //titleBox.show();
         titleBox.html(title);
 
         //렌더러를 초기화한다.
@@ -1518,7 +1509,7 @@ ViewContorller.prototype = {
                                             if (result) {
                                                 var targetSeq = $node.data.feeder_list_mgt_seq;
                                                 var resultData = me.dataController.deleteFeeder(targetSeq);
-                                                if (resultData == '0') {
+                                                if(resultData == '0') {
                                                     //새로운 데이터를 받아서 트리를 다시 그린다.
                                                     var renderer = me.getRendererByMode(me.currentMode);
                                                     me.dataController.getUpdateTree(tree, renderer, me.Constants.MODE.FEEDER);
@@ -1558,7 +1549,7 @@ ViewContorller.prototype = {
                  * 트리 구조중 빌딩인 것은 HIERARCHY_BLDG 로 넘긴다.
                  * 트리 구조중 플루어 인 것은 HIERARCHY_FLOOR 로 넘긴다.
                  */
-                if (treeData !== undefined) {
+                if(treeData !== undefined) {
                     for (var i = 0; i < treeData.length; i++) {
                         treeData[i]['data']['model'] = model;
                         if (treeData[i]['data']['lv'] == 1) {
@@ -1611,10 +1602,10 @@ ViewContorller.prototype = {
                 me.modifyDataTablesStyle(panelId);
             }
 
-            if (panel[0].id == "unAssignedLoadGrid") {
+            if(panel[0].id == "unAssignedLoadGrid") {
                 updateLoadData = gridData;
-            } else if (panel[0].id == "hierarchy-feederGrid") {
-                me.unUsedHierarchyFeederList = gridData;
+            } else if(panel[0].id == "hierarchy-feederGrid") {
+                me.unUsedHierarchyFeederList  = gridData;
             }
 
             var gridPanelDiv = $('#' + panelId + '_wrapper');
@@ -1622,7 +1613,7 @@ ViewContorller.prototype = {
                 element.unbind('click');
                 element.click(function (event) {
                     event.stopPropagation();
-                    if (itemData.hasOwnProperty('popRouteDialog') && itemData.popRouteDialog == 'Y') {
+                    if(itemData.hasOwnProperty('popRouteDialog') && itemData.popRouteDialog == 'Y') {
                         var renderer = me.getRendererByMode(me.currentMode);
                         renderer.onRoutePathToDialog(itemData);
                     } else {
@@ -1631,7 +1622,7 @@ ViewContorller.prototype = {
                 });
             };
 
-            var refreshGrid = function (dataTable) {
+            var refreshGrid = function(dataTable) {
 
                 dataTable.clear().draw();
                 dataTable.rows.add(updateLoadData);
@@ -1687,7 +1678,7 @@ ViewContorller.prototype = {
                      * 어사인 되지 않은 스위치 리스트중 SWGR_TYPE 이 TR(트랜스포머) 인 것은 프랜스포머로 넘어간다.
                      * 트랜스포머가 아닌것은 NEW_FEEDER 로 넘어간다.
                      */
-                    if (gridData !== undefined) {
+                    if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
                             if (gridData[i]['swgr_type'] == 'TR') {
                                 gridData[i]['shapeType'] = me.Constants.TYPE.TRANSFORMER;
@@ -1696,7 +1687,7 @@ ViewContorller.prototype = {
                             }
                             gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
                             gridData[i]['model'] = model;
-                            gridData[i]['label'] = '<a href="javascript:popUpSWGRInfo(\'' + gridData[i]['swgr_list_seq'] + '\');void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
+                            gridData[i]['label'] = '<a href="javascript:popUpSWGRInfo(\''+ gridData[i]['swgr_list_seq']+'\');void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
                         }
                     }
                     greedOptions = {
@@ -1725,7 +1716,7 @@ ViewContorller.prototype = {
                             },
                             {
                                 className: 'dt-center',
-                                targets: [1, 2]
+                                targets: [1,2]
                             }
                         ],
                         pageLength: 50,
@@ -1751,12 +1742,12 @@ ViewContorller.prototype = {
                     /**
                      * FeederList(어사인 피더) 는 MODIFY_FEEDER(기존 피더 수정) 로 전달한다.
                      */
-                    if (gridData !== undefined) {
+                    if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
                             gridData[i]['shapeType'] = me.Constants.TYPE.MODIFY_FEEDER;
                             gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
                             gridData[i]['model'] = model;
-                            gridData[i]['label'] = '<a href="javascript:popUpSWGRInfo(\'' + gridData[i]['swgr_list_seq'] + '\');void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
+                            gridData[i]['label'] = '<a href="javascript:popUpSWGRInfo(\''+ gridData[i]['swgr_list_seq']+'\');void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
                         }
                     }
                     greedOptions = {
@@ -1785,7 +1776,7 @@ ViewContorller.prototype = {
                             },
                             {
                                 className: 'dt-center',
-                                targets: [1, 2]
+                                targets: [1,2]
                             }
                         ],
                         pageLength: 50,
@@ -1809,12 +1800,12 @@ ViewContorller.prototype = {
                     /**
                      * HierarchyFeederList(하이어라키 에디터의 피더) 는 HIERARCHY_FEEDER 로 전달한다.
                      */
-                    if (gridData !== undefined) {
+                    if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
                             gridData[i]['shapeType'] = me.Constants.TYPE.HIERARCHY_FEEDER;
                             gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
                             gridData[i]['model'] = model;
-                            gridData[i]['label'] = '<a href="javascript:popUpSWGRInfo(\'' + gridData[i]['swgr_seq'] + '\');void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
+                            gridData[i]['label'] = '<a href="javascript:popUpSWGRInfo(\''+ gridData[i]['swgr_seq']+'\');void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
                         }
                     }
                     greedOptions = {
@@ -1843,7 +1834,7 @@ ViewContorller.prototype = {
                             },
                             {
                                 className: 'dt-center',
-                                targets: [1, 2]
+                                targets: [1,2]
                             }
                         ],
                         pageLength: 50,
@@ -1868,7 +1859,7 @@ ViewContorller.prototype = {
                     /**
                      * UnAssignedLoadList 는 로드 타입별로 shapeType 을 지정해 넘긴다.
                      */
-                    if (gridData !== undefined) {
+                    if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
                             if (gridData[i]['lo_type'] == 'NM') {
                                 gridData[i]['shapeType'] = me.Constants.TYPE.NMLOAD;
@@ -1986,7 +1977,7 @@ ViewContorller.prototype = {
                     console.log(err);
                     msgBox('로케이션 레퍼런스 데이터를 불러올 수 없습니다.');
                 } else {
-                    if (gridData !== undefined) {
+                    if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
                             gridData[i]['model'] = model;
                             gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['loc_ref_name'] + '</a>';
@@ -2044,7 +2035,7 @@ ViewContorller.prototype = {
                     console.log(err);
                     msgBox('레이스웨이 레퍼런스 데이터를 불러올 수 없습니다.');
                 } else {
-                    if (gridData !== undefined) {
+                    if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
                             gridData[i]['model'] = model;
                             gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['race_ref_trayedm_no'] + '</a>';
@@ -2102,7 +2093,7 @@ ViewContorller.prototype = {
                     console.log(err);
                     msgBox('라우트 레퍼런스 데이터를 불러올 수 없습니다.');
                 } else {
-                    if (gridData !== undefined) {
+                    if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
                             gridData[i]['model'] = model;
                             gridData[i]['fromLabel'] = '<a href="#" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['rou_ref_from'] + '</a>';
@@ -2159,7 +2150,7 @@ ViewContorller.prototype = {
                     /**
                      * BldgReferenceList(라우트 에디터) 는 BLDG 로 넘긴다.
                      */
-                    if (gridData !== undefined) {
+                    if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
                             gridData[i]['shapeType'] = me.Constants.TYPE.BLDG;
                             gridData[i]['shapeLabel'] = gridData[i]['loc_ref_name'];
@@ -2211,25 +2202,22 @@ ViewContorller.prototype = {
                     /**
                      * CableReferenceList(라우트 에디터) 는 BLDG 로 넘긴다.
                      */
-                    if (gridData !== undefined) {
+                    if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
                             gridData[i]['shapeType'] = me.Constants.TYPE.BLDG;
                             gridData[i]['shapeLabel'] = gridData[i]['rou_ref_tot_path'];
                             gridData[i]['model'] = model;
-                            gridData[i]['label'] = '<a href="#" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + (gridData[i]['rou_ref_tot_path'] == null ? '' : gridData[i]['rou_ref_tot_path']) + '</a>';
-                            gridData[i]['rou_ref_from_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['rou_ref_from'] + '</span>';
-                            gridData[i]['rou_ref_to_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['rou_ref_to'] + '</span>';
+                            gridData[i]['label'] = '<span style="margin-left: 5px;margin-right: 5px;">' + (gridData[i]['rou_ref_tot_path']==null?'':gridData[i]['rou_ref_tot_path']) + '</span>';
+                            gridData[i]['rou_ref_from_style'] = '<span style="margin-left: 5px;margin-right: 5px;">'+ gridData[i]['rou_ref_from'] +'</span>';
+                            gridData[i]['rou_ref_to_style'] = '<span style="margin-left: 5px;margin-right: 5px;">'+ gridData[i]['rou_ref_to'] +'</span>';
+                            gridData[i]['equip_nm_to_style'] = '<span style="margin-left: 5px;margin-right: 5px;">'+ gridData[i]['equip_nm_to'] +'</span>';
+                            gridData[i]['find'] = '<a href="#" name="item" data-index="' + i + '"><img width="16" height="16" src="resources/images/new_link.png"/></a>';
                             gridData[i]['popRouteDialog'] = 'Y';
                         }
                     }
                     greedOptions = {
                         data: gridData,
                         columns: [
-                            {
-                                data: 'label',
-                                title: 'Path',
-                                defaultContent: ''
-                            },
                             {
                                 data: 'rou_ref_from_style',
                                 title: 'SWGR_Location',
@@ -2246,20 +2234,30 @@ ViewContorller.prototype = {
                                 defaultContent: ''
                             },
                             {
-                                data: 'equip_nm_to',
+                                data: 'equip_nm_to_style',
                                 title: 'KKS_NUMBER',
+                                defaultContent: ''
+                            },
+                            {
+                                data: 'label',
+                                title: 'Path',
                                 defaultContent: ''
                             },
                             {
                                 data: 'rou_ref_tot_len',
                                 title: 'Length',
                                 defaultContent: ''
+                            },
+                            {
+                                data: 'find',
+                                title: 'find',
+                                defaultContent: ''
                             }
                         ],
                         columnDefs: [
                             {
                                 className: 'dt-left',
-                                targets: [0, 1, 3, 4]
+                                targets: [0, 2, 3, 4]
                             },
                             {
                                 className: 'dt-center',
@@ -2291,7 +2289,7 @@ ViewContorller.prototype = {
         /**
          * 피더에서 넘어왔다면
          */
-        if (mode == me.Constants.MODE.FEEDER) {
+        if(mode == me.Constants.MODE.FEEDER) {
             me.renderSwgrSelectBox();
             me.renderGrid(me.model.SwgrList.name);
             me.renderGrid(me.model.UnAssignedLoadList.name);
@@ -2306,7 +2304,7 @@ ViewContorller.prototype = {
              * 바뀐 정보들로 채워넣어야 한다.
              */
             me.setEditingObjectFromSave(renderer);
-        } else if (mode == me.Constants.MODE.HIERARCHY) {
+        } else if(mode == me.Constants.MODE.HIERARCHY) {
 
             me.renderGrid(me.model.HierarchyFeederList.name);
             //update
@@ -2315,7 +2313,7 @@ ViewContorller.prototype = {
 
             me.saveSettingHierarchyMode(renderer);
 
-        } else if (mode == me.Constants.MODE.ROUTE) {
+        } else if(mode == me.Constants.MODE.ROUTE) {
 
             me.renderGrid(me.model.BldgReferenceList.name);
             //me.renderGrid(me.model.LocationReferenceList.name);
@@ -2329,7 +2327,7 @@ ViewContorller.prototype = {
     /**
      * 하이어라키 에디터에서 저장이후 모드값들 후처리
      */
-    saveSettingRouteMode: function (renderer) {
+    saveSettingRouteMode: function(renderer) {
         var me = this;
         var currentCanvas = renderer.getCanvas();
         me.projectData.gui_route_json = currentCanvas.toJSON();
@@ -2340,7 +2338,7 @@ ViewContorller.prototype = {
     /**
      * 하이어라키 에디터에서 저장이후 모드값들 후처리
      */
-    saveSettingHierarchyMode: function (renderer) {
+    saveSettingHierarchyMode: function(renderer) {
         var me = this;
         var currentCanvas = renderer.getCanvas();
         me.projectData.gui_hier_json = currentCanvas.toJSON();
@@ -2348,11 +2346,13 @@ ViewContorller.prototype = {
 
         var shapeList = currentCanvas.getAllShapes();
         me.feederHierarchyMgtShapeList = [];
-        shapeList.forEach(function (element) {
-            if (element.shape instanceof OG.HierarchyFloor) {
+        shapeList.forEach(function(element){
+            if(element.shape instanceof OG.HierarchyFloor) {
 
                 var childShape = currentCanvas.getChilds(element);
-                childShape.forEach(function (child) {
+                childShape.forEach(function(child){
+                    delete child.shape.data['label'];
+                    delete child.data['label'];
                     var jsonData = {};
 
                     jsonData['feeder_list_mgt_seq'] = child.shape.data.feeder_list_mgt_seq;
@@ -2365,12 +2365,12 @@ ViewContorller.prototype = {
                      */
                     var prevEdges = currentCanvas.getPrevEdges(child);
                     var nextEdges = currentCanvas.getNextEdges(child);
-                    if (prevEdges.length > 0) {
-                        prevEdges.forEach(function (edge) {
+                    if(prevEdges.length > 0) {
+                        prevEdges.forEach(function(edge){
                             var edge = currentCanvas.getRelatedElementsFromEdge(edge);
                             var fromShapeData = edge.from.shape.data;
                             // 자기 자신이면 자신이 상위이기 때문에 pass
-                            if (fromShapeData.feeder_list_mgt_seq != child.shape.data.feeder_list_mgt_seq) {
+                            if(fromShapeData.feeder_list_mgt_seq != child.shape.data.feeder_list_mgt_seq) {
                                 jsonData['up_feeder_list_mgt_seq'] = fromShapeData.feeder_list_mgt_seq;
                             }
                         });
