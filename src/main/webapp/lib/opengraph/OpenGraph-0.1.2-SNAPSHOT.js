@@ -33011,7 +33011,7 @@ OG.graph.Canvas.prototype = {
         });
         sliderBar.css({
             position: 'relative',
-            'writing-mode': 'bt-lr', /* IE */
+            //'writing-mode': 'bt-lr', /* IE */
             'width': '100%',
             'height': '8px'
         });
