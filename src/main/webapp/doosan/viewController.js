@@ -3,7 +3,7 @@
  */
 var ViewContorller = function () {
     /**
-     * ì»¨íŠ¸ë¡¤ëŸ¬ì˜ ë©”ì‹œì§€ ì¼ëŒ
+     * ÄÁÆ®·Ñ·¯ÀÇ ¸Ş½ÃÁö ÀÏ¶÷
      */
     this.message = {
         NO_EDITOR_OBJECT: 'NO_EDITOR_OBJECT',
@@ -12,63 +12,63 @@ var ViewContorller = function () {
     };
 
     /**
-     * ìº”ë²„ìŠ¤ ë Œë”ëŸ¬ì˜ Constants ë° _CONFIG ì‚¬ìš©ìš©ë„(ë„¤ì„ìŠ¤í˜ì´ìŠ¤ ì´ìš©)
+     * Äµ¹ö½º ·»´õ·¯ÀÇ Constants ¹× _CONFIG »ç¿ë¿ëµµ(³×ÀÓ½ºÆäÀÌ½º ÀÌ¿ë)
      */
     this.Constants = new Renderer().Constants;
     this.Config = new Renderer()._CONFIG;
 
     /**
-     * í˜„ì¬ ì»¨íŠ¸ë¡¤ëŸ¬ì˜ ëª¨ë“œ
+     * ÇöÀç ÄÁÆ®·Ñ·¯ÀÇ ¸ğµå
      */
     this.currentMode = this.Constants.MODE.FEEDER;
 
     /**
-     * ì–´ì‚¬ì¸ í”¼ë” ì—ë””í„° ìº”ë²„ìŠ¤
+     * ¾î»çÀÎ ÇÇ´õ ¿¡µğÅÍ Äµ¹ö½º
      * @type {null}
      */
     this.feederRenderer = null;
     this.feederRendererId = 'feederCanvas';
 
     /**
-     * ë¼ìš°íŠ¸ ì—ë””í„° ìº”ë²„ìŠ¤
+     * ¶ó¿ìÆ® ¿¡µğÅÍ Äµ¹ö½º
      * @type {null}
      */
     this.routeRenderer = null;
     this.routeRendererId = 'routeCanvas';
 
     /**
-     * í•˜ì´ì–´ë¼í‚¤ ì—ë””í„° ìº”ë²„ìŠ¤
+     * ÇÏÀÌ¾î¶óÅ° ¿¡µğÅÍ Äµ¹ö½º
      * @type {null}
      */
     this.hierarchyRenderer = null;
     this.hierarchyRendererId = 'hierarchyCanvas';
 
     /**
-     * í…Œì˜¤ìŠ¤ì™€ì˜ ë°ì´í„° í†µì‹ ì„ ë‹´ë‹¹í•˜ëŠ” ì»¨íŠ¸ë¡¤ëŸ¬
+     * Å×¿À½º¿ÍÀÇ µ¥ÀÌÅÍ Åë½ÅÀ» ´ã´çÇÏ´Â ÄÁÆ®·Ñ·¯
      * @type {DataController}
      */
     this.dataController = new DataController();
 
     /**
-     * í”„ë¡œì íŠ¸ ë°ì´í„°
+     * ÇÁ·ÎÁ§Æ® µ¥ÀÌÅÍ
      */
     this.projectData = undefined;
-    
+
     /**
-     * switch ë¦¬ìŠ¤íŠ¸ reloadë¥¼ ìœ„í•œ ë°ì´í„°
+     * switch ¸®½ºÆ® reload¸¦ À§ÇÑ µ¥ÀÌÅÍ
      */
     this.initUnusedSwitchList = [];
     this.usedSwitchList = [];
-    
+
     /**
-     * load ë¦¬ìŠ¤íŠ¸ reloadë¥¼ ìœ„í•œ ë°ì´í„°
+     * load ¸®½ºÆ® reload¸¦ À§ÇÑ µ¥ÀÌÅÍ
      */
     this.initUnusedLoadList = [];
     this.usedLoadList = [];
-    
+
     /**
-     * ê¸°ì¡´ í”¼ë”ì—ì„œ ëŒì–´ì™€ì„œ jsonë°ì´í„°ë¡œ ìº”ë²„ìŠ¤ë¥¼ ê°±ì‹ í•  ê²½ìš°.
-     * jsonë°ì´í„°ë¡œ ê·¸ë ¤ì§„ ìº”ë²„ìŠ¤ì˜ ë„í˜•ë“¤ì˜ dataë¥¼ ë¦¬ìŠ¤íŠ¸ë¡œ ê°–ëŠ”ë‹¤.
+     * ±âÁ¸ ÇÇ´õ¿¡¼­ ²ø¾î¿Í¼­ jsonµ¥ÀÌÅÍ·Î Äµ¹ö½º¸¦ °»½ÅÇÒ °æ¿ì.
+     * jsonµ¥ÀÌÅÍ·Î ±×·ÁÁø Äµ¹ö½ºÀÇ µµÇüµéÀÇ data¸¦ ¸®½ºÆ®·Î °®´Â´Ù.
      * updateFeederList, deleteFeederList
      */
     this.feederMgtShapeList = [];
@@ -76,56 +76,56 @@ var ViewContorller = function () {
     this.deleteFeederList = [];
     this.tempElement = null;
     this.parentSwitchElement = null;
-    
-    
+
+
     /**
-     * hierarchyCanvasì— ì²˜ìŒ ê·¸ë ¤ì§€ëŠ” ë¹Œë”©, í”Œë¡œìš°, í”¼ë”ì˜ ì •ë³´ë¥¼ ë‹´ì•„ë‚¸ë‹¤.
-     * ìµœì¢…ì ìœ¼ë¡œ ì •ë³´ë¥¼ í†µí•´ì„œ ë³€ê²½ëœ ìŠ¤ìœ„ì¹˜ë‚˜ ë¹Œë”©ì´ ì¡´ì¬í•œë‹¤ë©´
-     * í”¼ë” ê²½ìš°ì—ëŠ” hierarchy í”¼ë” ë¦¬ìŠ¤íŠ¸ê°€ ì‚­ì œëœ ê²½ìš°ì—ëŠ” ìµœì´ˆ ì¡´ì¬í–ˆë˜ í”¼ë”ë¥¼ ìº”ë²„ìŠ¤ì—ì„œ í•´ë‹¹ í”¼ë”ë¥¼ ì§€ì›Œì•¼í•œë‹¤.
-     * ì¶”ê°€ëœ í”¼ë”ëŠ” ì‚¬ìš©ìê°€ ê·¸ë¦´í…Œë‹ˆ ê·¸ê±´ íŒ¨ìŠ¤,
-     * ë¹Œë”© ì¶”ê°€ì‹œì—ëŠ” ê¸°ì¡´ ê·¸ë ¤ì§„ ìº”ë²„ìŠ¤ì—ì„œ ê²¹ì¹˜ì§€ ì•Šê²Œ ì„ì˜ì˜ ìœ„ì¹˜ì— í•´ë‹¹ ë¹Œë”©ê³¼ í”Œë¡œì–´ë¥¼ ê·¸ë¦°ë‹¤.
-     * í”¼ë”ë¦¬ìŠ¤íŠ¸ ê·¸ë¦¬ë“œë¥¼ ê°±ì‹ í•˜ê¸° ìœ„í•œ ê°ì²´ ì¶”ê°€
+     * hierarchyCanvas¿¡ Ã³À½ ±×·ÁÁö´Â ºôµù, ÇÃ·Î¿ì, ÇÇ´õÀÇ Á¤º¸¸¦ ´ã¾Æ³½´Ù.
+     * ÃÖÁ¾ÀûÀ¸·Î Á¤º¸¸¦ ÅëÇØ¼­ º¯°æµÈ ½ºÀ§Ä¡³ª ºôµùÀÌ Á¸ÀçÇÑ´Ù¸é
+     * ÇÇ´õ °æ¿ì¿¡´Â hierarchy ÇÇ´õ ¸®½ºÆ®°¡ »èÁ¦µÈ °æ¿ì¿¡´Â ÃÖÃÊ Á¸ÀçÇß´ø ÇÇ´õ¸¦ Äµ¹ö½º¿¡¼­ ÇØ´ç ÇÇ´õ¸¦ Áö¿ö¾ßÇÑ´Ù.
+     * Ãß°¡µÈ ÇÇ´õ´Â »ç¿ëÀÚ°¡ ±×¸±Å×´Ï ±×°Ç ÆĞ½º,
+     * ºôµù Ãß°¡½Ã¿¡´Â ±âÁ¸ ±×·ÁÁø Äµ¹ö½º¿¡¼­ °ãÄ¡Áö ¾Ê°Ô ÀÓÀÇÀÇ À§Ä¡¿¡ ÇØ´ç ºôµù°ú ÇÃ·Î¾î¸¦ ±×¸°´Ù.
+     * ÇÇ´õ¸®½ºÆ® ±×¸®µå¸¦ °»½ÅÇÏ±â À§ÇÑ °´Ã¼ Ãß°¡
      */
     this.feederHierarchyMgtShapeList = [];
     this.updateFeederHierarchyList = [];
     this.deleteFeederHierarchyList = [];
-    
+
     this.initUnusedHierarchyFeederList = [];
     this.usedHierarchyFeederList = [];
     this.initHierarchyBldgs = [];
     this.initHierarchyFloors = [];
     this.initHierarchyFeeders = [];
-    
+
     /**
-     * ë¡œì¼€ì´ì…˜ ì´ˆê¸° ë¡œë“œ ë°ì´í„°
+     * ·ÎÄÉÀÌ¼Ç ÃÊ±â ·Îµå µ¥ÀÌÅÍ
      */
     this.initLocationReferenceList = [];
-    
+
     /**
-     * ë¹Œë”© ì´ˆê¸° ë¡œë“œ ë°ì´í„°
+     * ºôµù ÃÊ±â ·Îµå µ¥ÀÌÅÍ
      */
     this.initBldgReferenceList = [];
     this.usedBldgReferenceList = [];
-    
+
     /**
-     * ë ˆì´ìŠ¤ì›¨ì´ ì´ˆê¸° ë¡œë“œ ë°ì´í„°
+     * ·¹ÀÌ½º¿şÀÌ ÃÊ±â ·Îµå µ¥ÀÌÅÍ
      */
     this.initRacewayReferenceList = [];
-    
+
     /**
-     * ë¼ìš°íŠ¸ ì´ˆê¸° ë¡œë“œ ë°ì´í„°
+     * ¶ó¿ìÆ® ÃÊ±â ·Îµå µ¥ÀÌÅÍ
      */
     this.initRouteReferenceList = [];
-    
+
     this.removeFirstShapeTypeAtHierarchy = null;
     this.removeFirstShapeTypeAtRoute = null;
-    
+
     /**
-     * í…Œì´ë¸”/íŠ¸ë¦¬ êµ¬ì¡°ëª¨ë¸. ìº”ë²„ìŠ¤ì˜ ê° shape ëª¨ë¸ê³¼ëŠ” ë‹¤ë¥¸ ì˜ë¯¸ì´ë‹¤.
+     * Å×ÀÌºí/Æ®¸® ±¸Á¶¸ğµ¨. Äµ¹ö½ºÀÇ °¢ shape ¸ğµ¨°ú´Â ´Ù¸¥ ÀÇ¹ÌÀÌ´Ù.
      */
     this.model = {
         /**
-         * ì–´ì‚¬ì¸ëœ ë¡œë“œë¦¬ìŠ¤íŠ¸ (feederRenderer)
+         * ¾î»çÀÎµÈ ·Îµå¸®½ºÆ® (feederRenderer)
          */
         AssignedFeederList: {
             name: 'AssignedFeederList',
@@ -133,7 +133,7 @@ var ViewContorller = function () {
         },
 
         /**
-         * ìŠ¤ìœ„ì¹˜ê¸°ì–´ ë¦¬ìŠ¤íŠ¸ (feederRenderer)
+         * ½ºÀ§Ä¡±â¾î ¸®½ºÆ® (feederRenderer)
          */
         SwgrList: {
             name: 'SwgrList',
@@ -141,7 +141,7 @@ var ViewContorller = function () {
         },
 
         /**
-         * í”¼ë” ë¦¬ìŠ¤íŠ¸ (feederRenderer)
+         * ÇÇ´õ ¸®½ºÆ® (feederRenderer)
          */
         FeederList: {
             name: 'FeederList',
@@ -149,7 +149,7 @@ var ViewContorller = function () {
         },
 
         /**
-         * ì–´ì‚¬ì¸ ë˜ì§€ ì•Šì€ ë¡œë“œë¦¬ìŠ¤íŠ¸ (feederRenderer)
+         * ¾î»çÀÎ µÇÁö ¾ÊÀº ·Îµå¸®½ºÆ® (feederRenderer)
          */
         UnAssignedLoadList: {
             name: 'UnAssignedLoadList',
@@ -157,7 +157,7 @@ var ViewContorller = function () {
         },
 
         /**
-         * í•˜ì´ì–´ë¼í‚¤ íŠ¸ë¦¬ (hierarchyRenderer)
+         * ÇÏÀÌ¾î¶óÅ° Æ®¸® (hierarchyRenderer)
          */
         HierarchyTreeList: {
             name: 'HierarchyTreeList',
@@ -165,7 +165,7 @@ var ViewContorller = function () {
         },
 
         /**
-         * í”¼ë” ë¦¬ìŠ¤íŠ¸ (hierarchyRenderer)
+         * ÇÇ´õ ¸®½ºÆ® (hierarchyRenderer)
          */
         HierarchyFeederList: {
             name: 'HierarchyFeederList',
@@ -173,7 +173,7 @@ var ViewContorller = function () {
         },
 
         /**
-         * ë¡œì¼€ì´ì…˜ ë ˆí¼ëŸ°ìŠ¤ (routeRenderer)
+         * ·ÎÄÉÀÌ¼Ç ·¹ÆÛ·±½º (routeRenderer)
          */
         LocationReferenceList: {
             name: 'LocationReferenceList',
@@ -181,7 +181,7 @@ var ViewContorller = function () {
         },
 
         /**
-         * ë ˆì´ìŠ¤ì›¨ì´ ë ˆí¼ëŸ°ìŠ¤ (routeRenderer)
+         * ·¹ÀÌ½º¿şÀÌ ·¹ÆÛ·±½º (routeRenderer)
          */
         RacewayReferenceList: {
             name: 'RacewayReferenceList',
@@ -189,7 +189,7 @@ var ViewContorller = function () {
         },
 
         /**
-         * ë¼ìš°íŠ¸ ë ˆí¼ëŸ°ìŠ¤ (routeRenderer)
+         * ¶ó¿ìÆ® ·¹ÆÛ·±½º (routeRenderer)
          */
         RouteReferenceList: {
             name: 'RouteReferenceList',
@@ -197,15 +197,15 @@ var ViewContorller = function () {
         },
 
         /**
-         * ë¹Œë”© ë ˆí¼ëŸ°ìŠ¤ (routeRenderer)
+         * ºôµù ·¹ÆÛ·±½º (routeRenderer)
          */
         BldgReferenceList: {
             name: 'BldgReferenceList',
             panel: $('#bldgRefGrid')
         },
-        
+
         /**
-         * ì¼€ì´ë¸” ë ˆí¼ëŸ°ìŠ¤ (routeRenderer)
+         * ÄÉÀÌºí ·¹ÆÛ·±½º (routeRenderer)
          */
         CableReferenceList: {
             name: 'CableReferenceList',
@@ -214,72 +214,72 @@ var ViewContorller = function () {
     };
 };
 ViewContorller.prototype = {
-		
+
     /**
-     * íˆ´ë°”ì˜ ë“œëë‹¤ìš´ ë©”ë‰´ë¥¼ í™œì„±í™”í•˜ê³ , ì´ë²¤íŠ¸ë¥¼ ë“±ë¡í•œë‹¤.
+     * Åø¹ÙÀÇ µå¶ø´Ù¿î ¸Ş´º¸¦ È°¼ºÈ­ÇÏ°í, ÀÌº¥Æ®¸¦ µî·ÏÇÑ´Ù.
      */
     bindMenuEvent: function () {
         var me = this;
-        
+
         // zoom fit
         $('#editor-zoomFit').click(function(){
-        	var renderer = me.getRendererByMode(me.currentMode);
+            var renderer = me.getRendererByMode(me.currentMode);
             var canvas = renderer.getCanvas();
-        	canvas.setScale(1);
-        	canvas.updateNavigatior();
+            canvas.setScale(1);
+            canvas.updateNavigatior();
         });
-        
+
         // zoom in +
         $('#editor-zoomIn').click(function(){
-        	var renderer = me.getRendererByMode(me.currentMode);
+            var renderer = me.getRendererByMode(me.currentMode);
             var canvas = renderer.getCanvas();
-        	var preScale = canvas.getScale();
+            var preScale = canvas.getScale();
             var cuScale = preScale + 0.1;
             canvas.setScale(cuScale);
             canvas.updateNavigatior();
         });
-        
+
         // zoom out -
         $('#editor-zoomOut').click(function(){
-        	var renderer = me.getRendererByMode(me.currentMode);
+            var renderer = me.getRendererByMode(me.currentMode);
             var canvas = renderer.getCanvas();
-        	var preScale = canvas.getScale();
+            var preScale = canvas.getScale();
             var cuScale = preScale - 0.1;
             canvas.setScale(cuScale);
             canvas.updateNavigatior();
         });
         // save click event binding
         $('#editor-save').click(function(){
-        	
-        	$.blockUI({ css: { 
-                border: 'none', 
-                padding: '15px', 
-                backgroundColor: '#000', 
-                '-webkit-border-radius': '10px', 
-                '-moz-border-radius': '10px', 
-                opacity: .5, 
-                color: '#fff' 
-            } }); 
-        	
-        	setTimeout(me.saveWrapper, 100, me);
+
+            $.blockUI({ css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            } });
+
+            setTimeout(me.saveWrapper, 100, me);
         });
-        
-        //ë°ì´í„° ìœ í‹¸ë¦¬í‹°
+
+        //µ¥ÀÌÅÍ À¯Æ¿¸®Æ¼
         var dataModal = $('#dataBox');
         dataModal.find('[name=close]').click(function () {
             dataModal.find('.close').click();
         });
-        
+
         $("li#menu-printJson").bind("click", function(){
-	          dataModal.find('[name=save]').hide();
-	          var renderer = me.getRendererByMode(me.currentMode);
-	          var json = JSON.stringify(renderer.canvas.toJSON());
-	          dataModal.find('textarea').val(json);
-	          dataModal.modal({
-	              show: true
-	          });
+            dataModal.find('[name=save]').hide();
+            var renderer = me.getRendererByMode(me.currentMode);
+            var json = JSON.stringify(renderer.canvas.toJSON());
+            dataModal.find('textarea').val(json);
+            dataModal.modal({
+                show: true
+            });
         })
-        
+
         $('li#menu-printXml').bind('click', function () {
             dataModal.find('[name=save]').hide();
             var renderer = me.getRendererByMode(me.currentMode);
@@ -297,45 +297,19 @@ ViewContorller.prototype = {
                 var val = dataModal.find('textarea').val();
                 var json = JSON.parse(val);
                 var renderer = me.getRendererByMode(me.currentMode);
-                
-            	$.blockUI({ css: { 
-                    border: 'none', 
-                    padding: '15px', 
-                    backgroundColor: '#000', 
-                    '-webkit-border-radius': '10px', 
-                    '-moz-border-radius': '10px', 
-                    opacity: .5, 
-                    color: '#fff' 
-                } }); 
-            	
-            	setTimeout(renderer.loadWrapper, 100, renderer, dataModal, 'json', json);
-                
-            });
-            dataModal.find('textarea').val('');
-            dataModal.modal({
-                show: true
-            });
-        });
-        
-        
-        $('li#menu-loadXml').bind('click', function () {
-            dataModal.find('[name=save]').show();
-            dataModal.find('[name=save]').unbind('click');
-            dataModal.find('[name=save]').bind('click', function () {
-                var xml = dataModal.find('textarea').val();
-                var renderer = me.getRendererByMode(me.currentMode);
-                
-                $.blockUI({ css: { 
-                    border: 'none', 
-                    padding: '15px', 
-                    backgroundColor: '#000', 
-                    '-webkit-border-radius': '10px', 
-                    '-moz-border-radius': '10px', 
-                    opacity: .5, 
-                    color: '#fff' 
-                } }); 
-            	
-            	setTimeout(renderer.loadWrapper, 100, renderer, dataModal, 'xml', xml);
+
+                $.blockUI({ css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                } });
+
+                setTimeout(renderer.loadWrapper, 100, renderer, dataModal, 'json', json);
+
             });
             dataModal.find('textarea').val('');
             dataModal.modal({
@@ -343,7 +317,33 @@ ViewContorller.prototype = {
             });
         });
 
-        //ì–´ë…¸í…Œì´ì…˜ ë©”ë‰´
+
+        $('li#menu-loadXml').bind('click', function () {
+            dataModal.find('[name=save]').show();
+            dataModal.find('[name=save]').unbind('click');
+            dataModal.find('[name=save]').bind('click', function () {
+                var xml = dataModal.find('textarea').val();
+                var renderer = me.getRendererByMode(me.currentMode);
+
+                $.blockUI({ css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                } });
+
+                setTimeout(renderer.loadWrapper, 100, renderer, dataModal, 'xml', xml);
+            });
+            dataModal.find('textarea').val('');
+            dataModal.modal({
+                show: true
+            });
+        });
+
+        //¾î³ëÅ×ÀÌ¼Ç ¸Ş´º
         $('.ogCanvas').click(function (event) {
             var renderer = me.getRendererByMode(me.currentMode);
             var shapeInfo = renderer.getContainer().data('CLICK_SHAPE');
@@ -389,7 +389,7 @@ ViewContorller.prototype = {
             });
         });
 
-        //ë°±ë„ì–´ ë©”ë‰´
+        //¹éµµ¾î ¸Ş´º
         var backdoorBtn = $('[name=menu-importBackdoor]');
         var backDoorSize = $('#backdoor-size-range');
         var backDoorOpacity = $('#backdoor-opacity-range');
@@ -431,41 +431,41 @@ ViewContorller.prototype = {
         preventClose.bind('click', function (event) {
             event.stopPropagation();
         });
-        
+
         $.fn.dataTable.tables( { visible: true, api: true } ).columns.adjust();
-        // í•´ë‹¹ ë²„íŠ¼ì„ í´ë¦­í•˜ë©´ swgrë¥¼ ì…ë ¥ë°›ì„ ìˆ˜ ìˆëŠ” ì›¹ìª½ uië¥¼ ë„ìš´ë‹¤.
-        // ì£¼ì†ŒëŠ” ì œê³µë°›ëŠ”ê±¸
+        // ÇØ´ç ¹öÆ°À» Å¬¸¯ÇÏ¸é swgr¸¦ ÀÔ·Â¹ŞÀ» ¼ö ÀÖ´Â À¥ÂÊ ui¸¦ ¶ç¿î´Ù.
+        // ÁÖ¼Ò´Â Á¦°ø¹Ş´Â°É
         $("#newSwgr").bind('click', function(event){
-        	parent.editSWGRInfo('', '', me.editSWGRInfoCallBack);
+            parent.editSWGRInfo('', '', me.editSWGRInfoCallBack);
         });
-        
+
         $("#swgr-nav").bind('click', function(event){
-        	if($(this).hasClass('clickedTab')) {
-        		return;
-        	} else {
-        		$(this).addClass('clickedTab');
-        	}
-        	var panel = me.model.SwgrList.panel;
-        	setTimeout(me.redrawDataTables, 160, panel, me.initUnusedSwitchList, me);
+            if($(this).hasClass('clickedTab')) {
+                return;
+            } else {
+                $(this).addClass('clickedTab');
+            }
+            var panel = me.model.SwgrList.panel;
+            setTimeout(me.redrawDataTables, 160, panel, me.initUnusedSwitchList, me);
         });
-        
+
         $("#load-nav").bind('click', function(event){
-        	if($(this).hasClass('clickedTab')) {
-        		return;
-        	} else {
-        		$(this).addClass('clickedTab');
-        	}
-        	var panel = me.model.UnAssignedLoadList.panel;
+            if($(this).hasClass('clickedTab')) {
+                return;
+            } else {
+                $(this).addClass('clickedTab');
+            }
+            var panel = me.model.UnAssignedLoadList.panel;
             setTimeout(me.redrawDataTables, 170, panel, me.initUnusedLoadList, me);
         });
         $("#hier-feeder").bind('click', function(event){
-        	if($(this).hasClass('clickedTab')) {
-        		return;
-        	} else {
-        		$(this).addClass('clickedTab');
-        	}
-        	var panel = me.model.HierarchyFeederList.panel;
-        	setTimeout(me.redrawDataTables, 170, panel, me.initUnusedHierarchyFeederList, me);
+            if($(this).hasClass('clickedTab')) {
+                return;
+            } else {
+                $(this).addClass('clickedTab');
+            }
+            var panel = me.model.HierarchyFeederList.panel;
+            setTimeout(me.redrawDataTables, 170, panel, me.initUnusedHierarchyFeederList, me);
         });
         $("#bldgRefTab").bind('click', function(event){
 //        	if($(this).hasClass('clickedTab')) {
@@ -473,65 +473,65 @@ ViewContorller.prototype = {
 //        	} else {
 //        		$(this).addClass('clickedTab');
 //        	}
-        	var panel = me.model.BldgReferenceList.panel;
-        	setTimeout(me.redrawDataTables, 170, panel, me.initBldgReferenceList, me);
+            var panel = me.model.BldgReferenceList.panel;
+            setTimeout(me.redrawDataTables, 170, panel, me.initBldgReferenceList, me);
         });
-        
+
         $("#locationParentTab").bind('click', function(event){
-        	var panel = me.model.BldgReferenceList.panel;
-        	setTimeout(me.redrawDataTables, 170, panel, me.initBldgReferenceList, me);
+            var panel = me.model.BldgReferenceList.panel;
+            setTimeout(me.redrawDataTables, 170, panel, me.initBldgReferenceList, me);
         });
-        
+
         $("#racewayRefTab").bind('click', function(event){
-        	if($(this).hasClass('clickedTab')) {
-        		return;
-        	} else {
-        		$(this).addClass('clickedTab');
-        	}
-        	var panel = me.model.RacewayReferenceList.panel;
-        	setTimeout(me.redrawDataTables, 170, panel, me.initRacewayReferenceList, me);
+            if($(this).hasClass('clickedTab')) {
+                return;
+            } else {
+                $(this).addClass('clickedTab');
+            }
+            var panel = me.model.RacewayReferenceList.panel;
+            setTimeout(me.redrawDataTables, 170, panel, me.initRacewayReferenceList, me);
         });
         $("#routeParentTab").bind('click', function(event){
-        	if($(this).hasClass('clickedTab')) {
-        		return;
-        	} else {
-        		$(this).addClass('clickedTab');
-        	}
-        	var panel = me.model.RouteReferenceList.panel;
-        	setTimeout(me.redrawDataTables, 170, panel, me.initRouteReferenceList, me);
-        	$('#routeChildTab').addClass('clickedTab');
+            if($(this).hasClass('clickedTab')) {
+                return;
+            } else {
+                $(this).addClass('clickedTab');
+            }
+            var panel = me.model.RouteReferenceList.panel;
+            setTimeout(me.redrawDataTables, 170, panel, me.initRouteReferenceList, me);
+            $('#routeChildTab').addClass('clickedTab');
         });
         $("#cableRefTab").bind('click', function(event){
-        	if($(this).hasClass('clickedTab')) {
-        		return;
-        	} else {
-        		$(this).addClass('clickedTab');
-        	}
-        	var panel = me.model.CableReferenceList.panel;
-        	setTimeout(me.redrawDataTables, 170, panel, me.initCableReferenceList, me);
+            if($(this).hasClass('clickedTab')) {
+                return;
+            } else {
+                $(this).addClass('clickedTab');
+            }
+            var panel = me.model.CableReferenceList.panel;
+            setTimeout(me.redrawDataTables, 170, panel, me.initCableReferenceList, me);
         });
-        
+
     },
 
     redrawDataTables: function(panel, gridData, viewController) {
-    	
-    	if(panel[0].id == 'bldgRefGrid') {
-    		var newData = [];
-    		var usedBldgReferenceList = viewController.usedBldgReferenceList;
-    		gridData.forEach(function(gridItem){
-    			var dup = false;
-    			usedBldgReferenceList.some(function(useItem){
-    				if(gridItem.loc_ref_seq == useItem.loc_ref_seq) {
-    					dup = true;
-    				}
-    			});
-    			if(!dup) {
-    				newData.push(gridItem);
-    			}
-    		})
-    		gridData = newData;
-    	}
-    	//loc_ref_seq
+
+        if(panel[0].id == 'bldgRefGrid') {
+            var newData = [];
+            var usedBldgReferenceList = viewController.usedBldgReferenceList;
+            gridData.forEach(function(gridItem){
+                var dup = false;
+                usedBldgReferenceList.some(function(useItem){
+                    if(gridItem.loc_ref_seq == useItem.loc_ref_seq) {
+                        dup = true;
+                    }
+                });
+                if(!dup) {
+                    newData.push(gridItem);
+                }
+            })
+            gridData = newData;
+        }
+        //loc_ref_seq
         var dataTable = panel.dataTable().api();
         var currentPage = dataTable.page();
         dataTable.clear();
@@ -539,94 +539,94 @@ ViewContorller.prototype = {
         dataTable.draw();
         dataTable.page(currentPage).draw(false);
         $('.DTFC_LeftBodyWrapper').addClass('DTFC_TOP');
-    	$('.DTFC_LeftBodyLiner').addClass('DTFC_TOP');
+        $('.DTFC_LeftBodyLiner').addClass('DTFC_TOP');
     },
-    
+
     addRowDataTables: function(panel, data) {
-    	var dataTable = panel.dataTable().api();
-    	var currentPage = dataTable.page();
+        var dataTable = panel.dataTable().api();
+        var currentPage = dataTable.page();
         dataTable.rows.add(data);
         dataTable.draw();
         dataTable.page(currentPage).draw(false);
     },
-    
+
     routeTabClickEvent: function(me) {
-    	$.blockUI({ css: { 
-            border: 'none', 
-            padding: '15px', 
-            backgroundColor: '#000', 
-            '-webkit-border-radius': '10px', 
-            '-moz-border-radius': '10px', 
-            opacity: .5, 
-            color: '#fff' 
-        } }); 
-    	
-    	/**
-    	 * í´ë¦­í• ë•Œë§ˆë‹¤ í”„ë¡œì íŠ¸ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
-    	 * ì´ìœ ëŠ” ì›¹ì—ì„œ ë³€ê²½ì´ ë  ê²½ìš°ë„ ìˆê¸° ë•Œë¬¸ì´ë‹¤.
-    	 * ìµœì´ˆì—ëŠ” ìº”ë²„ìŠ¤ë¥¼ í´ë¦¬ì–´
-    	 */
-    	var projectInfo = me.projectData;
-    	var routeJSON  = projectInfo.gui_route_json;
-    	
-    	if((routeJSON !=null && routeJSON !== undefined ) && typeof routeJSON == 'string'){
-    		routeJSON = JSON.parse(routeJSON);
-    	}
-    	
-    	var renderer = me.getRendererByMode(me.Constants.MODE.ROUTE);
-    	if(routeJSON == null) {
-    		setTimeout(me.drawToCanvasFromServerDataWrapper, 100, renderer, me, me.Constants.MODE.ROUTE);
-    	} else {
-    		//ìˆë‹¤ë©´....
-        	setTimeout(renderer.loadWrapper, 100, renderer, null, 'json', routeJSON);
-    	}
-    	//me.refreshGridAndTree(me.Constants.MODE.HIERARCHY, renderer);
+        $.blockUI({ css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: .5,
+            color: '#fff'
+        } });
+
+        /**
+         * Å¬¸¯ÇÒ¶§¸¶´Ù ÇÁ·ÎÁ§Æ® Á¤º¸¸¦ °¡Á®¿Â´Ù.
+         * ÀÌÀ¯´Â À¥¿¡¼­ º¯°æÀÌ µÉ °æ¿ìµµ ÀÖ±â ¶§¹®ÀÌ´Ù.
+         * ÃÖÃÊ¿¡´Â Äµ¹ö½º¸¦ Å¬¸®¾î
+         */
+        var projectInfo = me.projectData;
+        var routeJSON  = projectInfo.gui_route_json;
+
+        if((routeJSON !=null && routeJSON !== undefined ) && typeof routeJSON == 'string'){
+            routeJSON = JSON.parse(routeJSON);
+        }
+
+        var renderer = me.getRendererByMode(me.Constants.MODE.ROUTE);
+        if(routeJSON == null) {
+            setTimeout(me.drawToCanvasFromServerDataWrapper, 100, renderer, me, me.Constants.MODE.ROUTE);
+        } else {
+            //ÀÖ´Ù¸é....
+            setTimeout(renderer.loadWrapper, 100, renderer, null, 'json', routeJSON);
+        }
+        //me.refreshGridAndTree(me.Constants.MODE.HIERARCHY, renderer);
     },
-    
+
     hierarchyTabClickEvent: function(me) {
-    	$.blockUI({ css: { 
-            border: 'none', 
-            padding: '15px', 
-            backgroundColor: '#000', 
-            '-webkit-border-radius': '10px', 
-            '-moz-border-radius': '10px', 
-            opacity: .5, 
-            color: '#fff' 
-        } }); 
-    	
-    	/**
-    	 * í´ë¦­í• ë•Œë§ˆë‹¤ í”„ë¡œì íŠ¸ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
-    	 * ì´ìœ ëŠ” ì›¹ì—ì„œ ë³€ê²½ì´ ë  ê²½ìš°ë„ ìˆê¸° ë•Œë¬¸ì´ë‹¤.
-    	 * ìµœì´ˆì—ëŠ” ìº”ë²„ìŠ¤ë¥¼ í´ë¦¬ì–´
-    	 */
-    	var projectInfo = me.projectData;
-    	var hierJSON  = projectInfo.gui_hier_json;
-    	
-    	if((hierJSON !=null && hierJSON != '' ) && typeof hierJSON == 'string'){
-    		hierJSON = JSON.parse(hierJSON);
-    	}
-    	
-    	var renderer = me.getRendererByMode(me.Constants.MODE.HIERARCHY);
-    	if(hierJSON == null || hierJSON == '') {
-    		setTimeout(me.drawToCanvasFromServerDataWrapper, 100, renderer, me, me.Constants.MODE.HIERARCHY);
-    	} else {
-    		//ìˆë‹¤ë©´....
-        	setTimeout(renderer.loadWrapper, 100, renderer, null, 'json', hierJSON);
-    	}
-    	//me.refreshGridAndTree(me.Constants.MODE.HIERARCHY, renderer);
+        $.blockUI({ css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: .5,
+            color: '#fff'
+        } });
+
+        /**
+         * Å¬¸¯ÇÒ¶§¸¶´Ù ÇÁ·ÎÁ§Æ® Á¤º¸¸¦ °¡Á®¿Â´Ù.
+         * ÀÌÀ¯´Â À¥¿¡¼­ º¯°æÀÌ µÉ °æ¿ìµµ ÀÖ±â ¶§¹®ÀÌ´Ù.
+         * ÃÖÃÊ¿¡´Â Äµ¹ö½º¸¦ Å¬¸®¾î
+         */
+        var projectInfo = me.projectData;
+        var hierJSON  = projectInfo.gui_hier_json;
+
+        if((hierJSON !=null && hierJSON != '' ) && typeof hierJSON == 'string'){
+            hierJSON = JSON.parse(hierJSON);
+        }
+
+        var renderer = me.getRendererByMode(me.Constants.MODE.HIERARCHY);
+        if(hierJSON == null || hierJSON == '') {
+            setTimeout(me.drawToCanvasFromServerDataWrapper, 100, renderer, me, me.Constants.MODE.HIERARCHY);
+        } else {
+            //ÀÖ´Ù¸é....
+            setTimeout(renderer.loadWrapper, 100, renderer, null, 'json', hierJSON);
+        }
+        //me.refreshGridAndTree(me.Constants.MODE.HIERARCHY, renderer);
     },
-    
+
     /**
-     * í”„ë¡œì íŠ¸ì— hierarchyì˜ ì œì´ìŠ¨ ì •ë³´ê°€ ì—†ë‹¤ë©´ 
+     * ÇÁ·ÎÁ§Æ®¿¡ hierarchyÀÇ Á¦ÀÌ½¼ Á¤º¸°¡ ¾ø´Ù¸é
      */
     drawToCanvasFromServerDataWrapper: function(renderer, viewController, mode) {
-    	if(mode == viewController.Constants.MODE.HIERARCHY) {
-    		renderer.drawToHierarchyCanvasFromServerData(mode);
-    	} else if(mode == viewController.Constants.MODE.ROUTE) {
-    		renderer.drawToRouteCanvasFromServerData(mode);
-    	}
+        if(mode == viewController.Constants.MODE.HIERARCHY) {
+            renderer.drawToHierarchyCanvasFromServerData(mode);
+        } else if(mode == viewController.Constants.MODE.ROUTE) {
+            renderer.drawToRouteCanvasFromServerData(mode);
+        }
     },
-    
+
     init: function () {
         var me = this;
         $(window).resize(function () {
@@ -661,12 +661,12 @@ ViewContorller.prototype = {
             hierarchyContent.hide();
             routeContent.show();
             var panel = me.model.BldgReferenceList.panel;
-        	setTimeout(me.redrawDataTables, 160, panel, me.initBldgReferenceList, me);
+            setTimeout(me.redrawDataTables, 160, panel, me.initBldgReferenceList, me);
         });
-        
+
         /**
-         * delayTab í´ë˜ìŠ¤ê°€ ë¶™ì€ Dom ì€ ì—ë””í„° ì„ íƒ íƒ­ì¤‘, active ê°€ ì•„ë‹Œê²ƒë“¤ì´ë‹¤.
-         * active ê°€ ì•„ë‹Œ íƒ­ì˜ ì½˜í…ì¸ ëŠ” css width,height ê°€ ìµœì´ˆ íƒ­ ì„ íƒì‹œ ì„¤ì •ë˜ë¯€ë¡œ, ìµœì´ˆ í´ë¦­ì— í•œí•´ ìº”ë²„ìŠ¤ ì‚¬ì´ì¦ˆë„ ë§ì¶”ì–´ì„œ ê·¸ë ¤ì£¼ë„ë¡ í•œë‹¤.
+         * delayTab Å¬·¡½º°¡ ºÙÀº Dom Àº ¿¡µğÅÍ ¼±ÅÃ ÅÇÁß, active °¡ ¾Æ´Ñ°ÍµéÀÌ´Ù.
+         * active °¡ ¾Æ´Ñ ÅÇÀÇ ÄÜÅÙÃ÷´Â css width,height °¡ ÃÖÃÊ ÅÇ ¼±ÅÃ½Ã ¼³Á¤µÇ¹Ç·Î, ÃÖÃÊ Å¬¸¯¿¡ ÇÑÇØ Äµ¹ö½º »çÀÌÁîµµ ¸ÂÃß¾î¼­ ±×·ÁÁÖµµ·Ï ÇÑ´Ù.
          */
         $('.delayTab').click(function () {
             var mode = $(this).data('canvas');
@@ -708,7 +708,7 @@ ViewContorller.prototype = {
         });
 
         /**
-         * í™”ë©´ ë¦¬ì‚¬ì´ì§• í›„ ìº”ë²„ìŠ¤ë¥¼ ë Œë”ë§í•œë‹¤.
+         * È­¸é ¸®»çÀÌÂ¡ ÈÄ Äµ¹ö½º¸¦ ·»´õ¸µÇÑ´Ù.
          */
         me.resizeContent();
         me.feederRenderer = new Renderer(me.Constants.MODE.FEEDER, me.feederRendererId, this);
@@ -717,101 +717,101 @@ ViewContorller.prototype = {
 
         me.resizeContent();
         /**
-         * feederCanvas ëŠ” ì²˜ìŒì— ìŠ¬ë¼ì´ë”ë¥¼ active ì‹œí‚¨ë‹¤.
+         * feederCanvas ´Â Ã³À½¿¡ ½½¶óÀÌ´õ¸¦ active ½ÃÅ²´Ù.
          */
         me.activeCanvasSlider('feeder');
 
         /**
-         * íŠ¸ë¦¬ ë…¸ë“œì˜ ë“œë˜ê·¸ ë“œë ì´ë²¤íŠ¸ë¥¼ Document ì— ì„¤ì •í•œë‹¤.
+         * Æ®¸® ³ëµåÀÇ µå·¡±× µå¶ø ÀÌº¥Æ®¸¦ Document ¿¡ ¼³Á¤ÇÑ´Ù.
          */
         me.bindTreeDragDrop();
 
         /**
-         * í”„ë¡œì íŠ¸ ë°ì´í„°
+         * ÇÁ·ÎÁ§Æ® µ¥ÀÌÅÍ
          */
         me.renderProjectReference();
         /**
-         * SWGR / Assigned Feeder Editor ê·¸ë¦¬ë“œ
+         * SWGR / Assigned Feeder Editor ±×¸®µå
          */
         me.renderSwgrSelectBox();
         me.renderGrid(me.model.FeederList.name);
         me.renderGrid(me.model.UnAssignedLoadList.name);
-        
+
         Pace.on("done", function(){
-        	setTimeout(me.settingOtherMenuLoad, 500, me);
+            setTimeout(me.settingOtherMenuLoad, 500, me);
         });
     },
-    
+
     settingOtherMenuLoad: function(viewController) {
-    	viewController.settingFeederEditorMenu(viewController);
+        viewController.settingFeederEditorMenu(viewController);
         /**
-         * Hierarchy Editor ê·¸ë¦¬ë“œ
+         * Hierarchy Editor ±×¸®µå
          */
-    	viewController.settingHierarchyEditorMenu(viewController);
+        viewController.settingHierarchyEditorMenu(viewController);
         /**
-         * BLDG / Route Editor ê·¸ë¦¬ë“œ
+         * BLDG / Route Editor ±×¸®µå
          */
-    	viewController.settingRouteEditorMenu(viewController);
-    	viewController.bindLocationDragDrop();
-    	viewController.bindMenuEvent();
+        viewController.settingRouteEditorMenu(viewController);
+        viewController.bindLocationDragDrop();
+        viewController.bindMenuEvent();
         $('#editor-backdoor').hide();
     },
-    
+
     saveWrapper: function(me) {
-    	me.dataController.saveGui(me);
+        me.dataController.saveGui(me);
     },
-    
+
     /**
-     * í˜„ì¬ ëª¨ë“œë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
+     * ÇöÀç ¸ğµå¸¦ ºÒ·¯¿Â´Ù.
      */
     getCurrentMode: function(){
         return this.currentMode;
     },
 
     /**
-     * í”¼ë” ì„¸ì´ë¸Œ ëª¨ë“œë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤
+     * ÇÇ´õ ¼¼ÀÌºê ¸ğµå¸¦ ºÒ·¯¿Â´Ù
      */
     getFeederSaveMode: function() {
         return this.Constants.FEEDER_SAVE_MODE.ISNEW;
     },
 
     /**
-     * í”¼ë” ì„¸ì´ë¸Œ ëª¨ë“œë¥¼ ì„¸íŒ…í•œë‹¤.
+     * ÇÇ´õ ¼¼ÀÌºê ¸ğµå¸¦ ¼¼ÆÃÇÑ´Ù.
      */
     setFeederSaveMode: function(saveMode) {
         this.Constants.FEEDER_SAVE_MODE.ISNEW = saveMode;
     },
-    
+
     /**
-     * í•˜ì´ì–´ë¼í‚¤ ì„¸ì´ë¸Œ ëª¨ë“œë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤
+     * ÇÏÀÌ¾î¶óÅ° ¼¼ÀÌºê ¸ğµå¸¦ ºÒ·¯¿Â´Ù
      */
     getHierarchySaveMode: function() {
         return this.Constants.HIERARCHY_SAVE_MODE.ISNEW;
     },
 
     /**
-     * í•˜ì´ì–´ë¼í‚¤ ëª¨ë“œë¥¼ ì„¸íŒ…í•œë‹¤.
+     * ÇÏÀÌ¾î¶óÅ° ¸ğµå¸¦ ¼¼ÆÃÇÑ´Ù.
      */
     setHierarchySaveMode: function(saveMode) {
         this.Constants.HIERARCHY_SAVE_MODE.ISNEW = saveMode;
     },
-    
+
     /**
-     * ë¼ìš°íŠ¸ ì„¸ì´ë¸Œ ëª¨ë“œë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤
+     * ¶ó¿ìÆ® ¼¼ÀÌºê ¸ğµå¸¦ ºÒ·¯¿Â´Ù
      */
     getRouteSaveMode: function() {
         return this.Constants.ROUTE_SAVE_MODE.ISNEW;
     },
 
     /**
-     * ë¼ìš°íŠ¸ ëª¨ë“œë¥¼ ì„¸íŒ…í•œë‹¤.
+     * ¶ó¿ìÆ® ¸ğµå¸¦ ¼¼ÆÃÇÑ´Ù.
      */
     setRouteSaveMode: function(saveMode) {
         this.Constants.ROUTE_SAVE_MODE.ISNEW = saveMode;
     },
-    
+
     /**
-     * ëª¨ë“œì— í•´ë‹¹í•˜ëŠ” ìº”ë²„ìŠ¤ ë Œë”ëŸ¬ë¥¼ ë¦¬í„´í•œë‹¤.
+     * ¸ğµå¿¡ ÇØ´çÇÏ´Â Äµ¹ö½º ·»´õ·¯¸¦ ¸®ÅÏÇÑ´Ù.
      * @param mode
      */
     getRendererByMode: function (mode) {
@@ -828,7 +828,7 @@ ViewContorller.prototype = {
     },
 
     /**
-     * í…Œì´ë¸”/íŠ¸ë¦¬ ëª¨ë¸ëª…ìœ¼ë¡œ í‘œí˜„ë˜ì•¼í•  ìº”ë²„ìŠ¤ ë Œë”ëŸ¬ë¥¼ ë¦¬í„´í•œë‹¤.
+     * Å×ÀÌºí/Æ®¸® ¸ğµ¨¸íÀ¸·Î Ç¥ÇöµÇ¾ßÇÒ Äµ¹ö½º ·»´õ·¯¸¦ ¸®ÅÏÇÑ´Ù.
      * @param modelName
      * @returns {*}
      */
@@ -864,7 +864,7 @@ ViewContorller.prototype = {
         return null;
     },
     /**
-     * í…Œì´ë¸”/íŠ¸ë¦¬ ëª¨ë¸ëª…ìœ¼ë¡œ í‘œí˜„ë˜ì•¼í•  ìº”ë²„ìŠ¤ì˜ ëª¨ë“œë¥¼ ë¦¬í„´í•œë‹¤.
+     * Å×ÀÌºí/Æ®¸® ¸ğµ¨¸íÀ¸·Î Ç¥ÇöµÇ¾ßÇÒ Äµ¹ö½ºÀÇ ¸ğµå¸¦ ¸®ÅÏÇÑ´Ù.
      * @param modelName
      * @returns {*}
      */
@@ -911,7 +911,7 @@ ViewContorller.prototype = {
         }
     },
     /**
-     * ìœˆë„ìš°ì˜ ë†’ì´ì— ë§ì¶”ì–´ì„œ ì½˜í…ì¸ ë¥¼ ë‹´ë‹¹í•˜ëŠ” Dom ì˜ ë†’ì´ë¥¼ ì¡°ì ˆí•œë‹¤.
+     * À©µµ¿ìÀÇ ³ôÀÌ¿¡ ¸ÂÃß¾î¼­ ÄÜÅÙÃ÷¸¦ ´ã´çÇÏ´Â Dom ÀÇ ³ôÀÌ¸¦ Á¶ÀıÇÑ´Ù.
      */
     resizeContent: function () {
         var top = $('#feeder-content-wrapper').offset().top;
@@ -921,7 +921,7 @@ ViewContorller.prototype = {
         $('#route-content-wrapper').css('height', windowHeight - top - 30 + 'px');
     },
     /**
-     * ë°ì´í„° í…Œì´ë¸”ì˜ ë¶€ê°€ ê¸°ëŠ¥ í™”ë©´ css ë¥¼ ì¬ì¡°ì •í•œë‹¤.
+     * µ¥ÀÌÅÍ Å×ÀÌºíÀÇ ºÎ°¡ ±â´É È­¸é css ¸¦ ÀçÁ¶Á¤ÇÑ´Ù.
      * @param gridPanelId
      */
     modifyDataTablesStyle: function (gridPanelId) {
@@ -932,9 +932,9 @@ ViewContorller.prototype = {
         $(dataTable.find('.dataTables_paginate')).parent().addClass('col-sm-12');
         $(dataTable.find('.dataTables_paginate')).css('text-align', 'center');
     },
-    
+
     /**
-     * ìº”ë²„ìŠ¤ ë Œë”ëŸ¬ ë¡œë¶€í„° ë©”ì‹œì§€ê°€ ì „ë‹¬ëœ ê²½ìš°
+     * Äµ¹ö½º ·»´õ·¯ ·ÎºÎÅÍ ¸Ş½ÃÁö°¡ Àü´ŞµÈ °æ¿ì
      * @param renderer
      * @param data
      * @param message
@@ -946,17 +946,17 @@ ViewContorller.prototype = {
         var infoMessage;
 
         /**
-         * ìº”ë²„ìŠ¤ì— ì—ë””íŒ… ëŒ€ìƒ ì˜¤ë¸Œì íŠ¸ê°€ ì—†ì„ ê²½ìš°
+         * Äµ¹ö½º¿¡ ¿¡µğÆÃ ´ë»ó ¿ÀºêÁ§Æ®°¡ ¾øÀ» °æ¿ì
          */
         if (message == me.message.NO_EDITOR_OBJECT) {
             if (mode == me.Constants.MODE.FEEDER) {
-                infoMessage = 'ìº”ë²„ìŠ¤ì— ì—ë””íŒ…í•  ìŠ¤ìœ„ì¹˜ê°€ ì§€ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.';
+                infoMessage = 'Äµ¹ö½º¿¡ ¿¡µğÆÃÇÒ ½ºÀ§Ä¡°¡ ÁöÁ¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.';
             }
             if (mode == me.Constants.MODE.HIERARCHY) {
-                infoMessage = 'ìº”ë²„ìŠ¤ì— ì—ë””íŒ…í•  ë¹Œë”©ì´ ì§€ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.';
+                infoMessage = 'Äµ¹ö½º¿¡ ¿¡µğÆÃÇÒ ºôµùÀÌ ÁöÁ¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.';
             }
             if (mode == me.Constants.MODE.ROUTE) {
-                infoMessage = 'ìº”ë²„ìŠ¤ì— ì—ë””íŒ…í•  í”„ë¡œì íŠ¸ê°€ ì§€ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.';
+                infoMessage = 'Äµ¹ö½º¿¡ ¿¡µğÆÃÇÒ ÇÁ·ÎÁ§Æ®°¡ ÁöÁ¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.';
             }
             if (infoMessage) {
                 msgBox(infoMessage);
@@ -964,19 +964,19 @@ ViewContorller.prototype = {
         }
 
         /**
-         * ìº”ë²„ìŠ¤ì— ìƒˆë¡œìš´ ì—ë””íŒ… ëŒ€ìƒ ì˜¤ë¸Œì íŠ¸ë¥¼ ì„¸íŒ…í• ê²½ìš°
+         * Äµ¹ö½º¿¡ »õ·Î¿î ¿¡µğÆÃ ´ë»ó ¿ÀºêÁ§Æ®¸¦ ¼¼ÆÃÇÒ°æ¿ì
          */
         if (message == me.message.NEW) {
-            //ìº”ë²„ìŠ¤ê°€ ë³€ê²½ë˜ì—ˆì§€ë§Œ ì €ì¥ë˜ì§€ ì•Šì•˜ì„ ê²½ìš°
+            //Äµ¹ö½º°¡ º¯°æµÇ¾úÁö¸¸ ÀúÀåµÇÁö ¾Ê¾ÒÀ» °æ¿ì
             if (renderer.getIsUpdated()) {
                 if (mode == me.Constants.MODE.FEEDER) {
-                    infoMessage = 'ì‘ì—…ì¤‘ì¸ í”¼ë”ë¥¼ ì €ì¥í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. ìƒˆë¡œìš´ í”¼ë”ë¥¼ ì—¬ì‹œê² ìŠµë‹ˆê¹Œ?';
+                    infoMessage = 'ÀÛ¾÷ÁßÀÎ ÇÇ´õ¸¦ ÀúÀåÇÏÁö ¾Ê¾Ò½À´Ï´Ù. »õ·Î¿î ÇÇ´õ¸¦ ¿©½Ã°Ú½À´Ï±î?';
                 }
                 if (mode == me.Constants.MODE.HIERARCHY) {
-                    infoMessage = 'ì‘ì—…ì¤‘ì¸ í•˜ì´ì–´ë¼í‚¤ë¥¼ ì €ì¥í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. ìƒˆë¡œìš´ í•˜ì´ì–´ë¼í‚¤ë¥¼ ì—¬ì‹œê² ìŠµë‹ˆê¹Œ?';
+                    infoMessage = 'ÀÛ¾÷ÁßÀÎ ÇÏÀÌ¾î¶óÅ°¸¦ ÀúÀåÇÏÁö ¾Ê¾Ò½À´Ï´Ù. »õ·Î¿î ÇÏÀÌ¾î¶óÅ°¸¦ ¿©½Ã°Ú½À´Ï±î?';
                 }
                 if (mode == me.Constants.MODE.ROUTE) {
-                    infoMessage = 'ì‘ì—…ì¤‘ì¸ BLDG/ë¼ìš°í„° í”„ë¡œì íŠ¸ë¥¼ ì €ì¥í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. ìƒˆë¡œìš´ í”„ë¡œì íŠ¸ë¥¼ ì—¬ì‹œê² ìŠµë‹ˆê¹Œ?';
+                    infoMessage = 'ÀÛ¾÷ÁßÀÎ BLDG/¶ó¿ìÅÍ ÇÁ·ÎÁ§Æ®¸¦ ÀúÀåÇÏÁö ¾Ê¾Ò½À´Ï´Ù. »õ·Î¿î ÇÁ·ÎÁ§Æ®¸¦ ¿©½Ã°Ú½À´Ï±î?';
                 }
                 confirmBox(infoMessage, function (result) {
                     if (result) {
@@ -987,7 +987,7 @@ ViewContorller.prototype = {
                     }
                 });
             }
-            //ìº”ë²„ìŠ¤ê°€ ë³€ê²½ë˜ì§€ ì•Šì•˜ì„ ê²½ìš°(ì €ì¥ì„ ë§ˆì¹˜ê±°ë‚˜, ì•„ì§ ì—ë””íŒ…í•  ì˜¤ë¸Œì íŠ¸ê°€ ë°˜ì˜ë˜ì§€ ì•Šì•˜ì„ ê²½ìš°ì´ë‹¤.)
+            //Äµ¹ö½º°¡ º¯°æµÇÁö ¾Ê¾ÒÀ» °æ¿ì(ÀúÀåÀ» ¸¶Ä¡°Å³ª, ¾ÆÁ÷ ¿¡µğÆÃÇÒ ¿ÀºêÁ§Æ®°¡ ¹İ¿µµÇÁö ¾Ê¾ÒÀ» °æ¿ìÀÌ´Ù.)
             else {
                 me.setEditingObject(renderer, data, panel);
                 me.renderGrid(me.model.SwgrList.name);
@@ -995,86 +995,86 @@ ViewContorller.prototype = {
                 me.initTabClass();
             }
         } else if (message == me.message.MOD) {
-            //ìº”ë²„ìŠ¤ê°€ ë³€ê²½ë˜ì—ˆì§€ë§Œ ì €ì¥ë˜ì§€ ì•Šì•˜ì„ ê²½ìš°
+            //Äµ¹ö½º°¡ º¯°æµÇ¾úÁö¸¸ ÀúÀåµÇÁö ¾Ê¾ÒÀ» °æ¿ì
             if (renderer.getIsUpdated()) {
                 if (mode == me.Constants.MODE.FEEDER) {
-                    infoMessage = 'ì‘ì—…ì¤‘ì¸ í”¼ë”ë¥¼ ì €ì¥í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. ìƒˆë¡œìš´ í”¼ë”ë¥¼ ì—¬ì‹œê² ìŠµë‹ˆê¹Œ?';
+                    infoMessage = 'ÀÛ¾÷ÁßÀÎ ÇÇ´õ¸¦ ÀúÀåÇÏÁö ¾Ê¾Ò½À´Ï´Ù. »õ·Î¿î ÇÇ´õ¸¦ ¿©½Ã°Ú½À´Ï±î?';
                 }
                 if (mode == me.Constants.MODE.HIERARCHY) {
-                    infoMessage = 'ì‘ì—…ì¤‘ì¸ í•˜ì´ì–´ë¼í‚¤ë¥¼ ì €ì¥í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. ìƒˆë¡œìš´ í•˜ì´ì–´ë¼í‚¤ë¥¼ ì—¬ì‹œê² ìŠµë‹ˆê¹Œ?';
+                    infoMessage = 'ÀÛ¾÷ÁßÀÎ ÇÏÀÌ¾î¶óÅ°¸¦ ÀúÀåÇÏÁö ¾Ê¾Ò½À´Ï´Ù. »õ·Î¿î ÇÏÀÌ¾î¶óÅ°¸¦ ¿©½Ã°Ú½À´Ï±î?';
                 }
                 if (mode == me.Constants.MODE.ROUTE) {
-                    infoMessage = 'ì‘ì—…ì¤‘ì¸ BLDG/ë¼ìš°í„° í”„ë¡œì íŠ¸ë¥¼ ì €ì¥í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. ìƒˆë¡œìš´ í”„ë¡œì íŠ¸ë¥¼ ì—¬ì‹œê² ìŠµë‹ˆê¹Œ?';
+                    infoMessage = 'ÀÛ¾÷ÁßÀÎ BLDG/¶ó¿ìÅÍ ÇÁ·ÎÁ§Æ®¸¦ ÀúÀåÇÏÁö ¾Ê¾Ò½À´Ï´Ù. »õ·Î¿î ÇÁ·ÎÁ§Æ®¸¦ ¿©½Ã°Ú½À´Ï±î?';
                 }
                 confirmBox(infoMessage, function (result) {
                     if (result) {
-                    	
-                    	$.blockUI({ css: { 
-                            border: 'none', 
-                            padding: '15px', 
-                            backgroundColor: '#000', 
-                            '-webkit-border-radius': '10px', 
-                            '-moz-border-radius': '10px', 
-                            opacity: .5, 
-                            color: '#fff' 
-                        } }); 
-                    	
-                    	setTimeout(me.setEditingObjectFromLoadDataWrapper, 100, me, renderer, data, panel);
+
+                        $.blockUI({ css: {
+                            border: 'none',
+                            padding: '15px',
+                            backgroundColor: '#000',
+                            '-webkit-border-radius': '10px',
+                            '-moz-border-radius': '10px',
+                            opacity: .5,
+                            color: '#fff'
+                        } });
+
+                        setTimeout(me.setEditingObjectFromLoadDataWrapper, 100, me, renderer, data, panel);
                     }
                 });
             }
-            //ìº”ë²„ìŠ¤ê°€ ë³€ê²½ë˜ì§€ ì•Šì•˜ì„ ê²½ìš°(ì €ì¥ì„ ë§ˆì¹˜ê±°ë‚˜, ì•„ì§ ì—ë””íŒ…í•  ì˜¤ë¸Œì íŠ¸ê°€ ë°˜ì˜ë˜ì§€ ì•Šì•˜ì„ ê²½ìš°ì´ë‹¤.)
+            //Äµ¹ö½º°¡ º¯°æµÇÁö ¾Ê¾ÒÀ» °æ¿ì(ÀúÀåÀ» ¸¶Ä¡°Å³ª, ¾ÆÁ÷ ¿¡µğÆÃÇÒ ¿ÀºêÁ§Æ®°¡ ¹İ¿µµÇÁö ¾Ê¾ÒÀ» °æ¿ìÀÌ´Ù.)
             else {
-            	$.blockUI({ css: { 
-                    border: 'none', 
-                    padding: '15px', 
-                    backgroundColor: '#000', 
-                    '-webkit-border-radius': '10px', 
-                    '-moz-border-radius': '10px', 
-                    opacity: .5, 
-                    color: '#fff' 
-                } }); 
-            	
-            	setTimeout(me.setEditingObjectFromLoadDataWrapper, 100, me, renderer, data, panel);
+                $.blockUI({ css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                } });
+
+                setTimeout(me.setEditingObjectFromLoadDataWrapper, 100, me, renderer, data, panel);
             }
         }
     },
 
     initTabClass: function() {
-    	$('li').removeClass('clickedTab');
+        $('li').removeClass('clickedTab');
     },
-    
+
     setEditingObjectFromLoadDataWrapper: function(me, renderer, data, panel) {
-    	me.setEditingObjectFromLoadData(renderer, data, panel);
-    	me.renderGrid(me.model.SwgrList.name);
-    	me.renderGrid(me.model.UnAssignedLoadList.name);
+        me.setEditingObjectFromLoadData(renderer, data, panel);
+        me.renderGrid(me.model.SwgrList.name);
+        me.renderGrid(me.model.UnAssignedLoadList.name);
         me.initTabClass();
     },
-    
+
     /**
-     * json ë˜ëŠ” xmlë¡œ ìº”ë²„ìŠ¤ì— ë¡œë”©í• ë•Œ setEditingObjectë¥¼ ì„¸íŒ…í•œë‹¤.
+     * json ¶Ç´Â xml·Î Äµ¹ö½º¿¡ ·ÎµùÇÒ¶§ setEditingObject¸¦ ¼¼ÆÃÇÑ´Ù.
      * @param renderer
      * @param loadData
      */
     setEditingObjectFromLoadData: function (renderer, shapeData, panel) {
-    	
-    	var me = this;
-    	
+
+        var me = this;
+
         if (!renderer || !shapeData) {
             return;
         }
-    	
+
         if(shapeData.content == '' || shapeData.content == null) {
-        	renderer.drawToFeederCanvasFromServerData(shapeData, panel);
+            renderer.drawToFeederCanvasFromServerData(shapeData, panel);
         } else {
-        	var json = JSON.parse(shapeData.content);
-        	renderer.canvas.loadJSON(json);
+            var json = JSON.parse(shapeData.content);
+            renderer.canvas.loadJSON(json);
         }
 
-        //ë°ì´í„° í˜¼ìš©ì„ ë§‰ê¸° ìœ„í•œ ì¡°ì¹˜
+        //µ¥ÀÌÅÍ È¥¿ëÀ» ¸·±â À§ÇÑ Á¶Ä¡
         var data = JSON.parse(JSON.stringify(shapeData));
 
-        //íƒ€ì´í‹€ ë°•ìŠ¤ë¥¼ ì„¸íŒ…í•œë‹¤.
+        //Å¸ÀÌÆ² ¹Ú½º¸¦ ¼¼ÆÃÇÑ´Ù.
         var title = '';
         var containerId = renderer.getContainerId();
         var mode = renderer.getMode();
@@ -1091,146 +1091,155 @@ ViewContorller.prototype = {
         //titleBox.show();
         titleBox.html(title);
 
-        //ë Œë”ëŸ¬ì— ì—ë””íŒ… ì˜¤ë¸Œì íŠ¸ë¥¼ ì„¤ì •í•œë‹¤.
+        //·»´õ·¯¿¡ ¿¡µğÆÃ ¿ÀºêÁ§Æ®¸¦ ¼³Á¤ÇÑ´Ù.
         renderer.editingObject = data;
         if(panel != null) {
-        	var panelId = panel[0].id;
-        	if(panelId == 'feederGrid') {
-        		renderer.editingObject['onDrop'] = panelId;
-        	}
+            var panelId = panel[0].id;
+            if(panelId == 'feederGrid') {
+                renderer.editingObject['onDrop'] = panelId;
+            }
         }
         renderer.setIsUpdated(false);
-        
+
         /**
-         * canvasì— ê·¸ë ¤ì§„ ë„í˜•ë“¤ì˜ listë¥¼ ìƒì„±í•´ì„œ ì„¸íŒ…í•œë‹¤.
-         * ë˜í•œ ê·¸ë ¤ì§„ canvasì˜ ì •ë³´ì™€ GUIê°€ ì•„ë‹Œ ì›¹ìƒì—ì„œ í•´ë‹¹ í”¼ë”ì— ë‹¬ë ¤ ìˆëŠ” ë¡œë“œë¥¼ ì§€ì› ì„ ê²½ìš°ì—ëŠ”
-         * ê·¸ ë¡œë“œë¥¼ ì°¾ì•„ì„œ ìº”ë°”ìŠ¤ì—ì„œ ì§€ì›Œì•¼ í•œë‹¤.
-         * me.feederMgtShapeListì—ì„œ í•´ë‹¹ ë¡œë“œë¥¼ ì°¾ì•„ì„œ ì§€ìš´ë‹¤.
+         * canvas¿¡ ±×·ÁÁø µµÇüµéÀÇ list¸¦ »ı¼ºÇØ¼­ ¼¼ÆÃÇÑ´Ù.
+         * ¶ÇÇÑ ±×·ÁÁø canvasÀÇ Á¤º¸¿Í GUI°¡ ¾Æ´Ñ À¥»ó¿¡¼­ ÇØ´ç ÇÇ´õ¿¡ ´Ş·Á ÀÖ´Â ·Îµå¸¦ Áö¿üÀ» °æ¿ì¿¡´Â
+         * ±× ·Îµå¸¦ Ã£¾Æ¼­ Äµ¹Ù½º¿¡¼­ Áö¿ö¾ß ÇÑ´Ù.
+         * me.feederMgtShapeList¿¡¼­ ÇØ´ç ·Îµå¸¦ Ã£¾Æ¼­ Áö¿î´Ù.
          */
-        me.feederMgtShapeList = parent.getFeederInfo(renderer.editingObject.swgr_list_seq);
+        try {
+            me.feederMgtShapeList = parent.getFeederInfo(renderer.editingObject.swgr_list_seq);
+        }catch(e) {
+            /** ì´ˆê¸°?™” */
+            me.updateFeederList = [];
+            me.usedLoadList = [];
+            me.deleteFeederList = [];
+            return;
+        }
+
         var geomShapeTypeElementList = [];
-        
+
         var currentCanvas = renderer.getCanvas();
         var shapeList = currentCanvas.getAllShapes();
         for(var i=0; i<shapeList.length; i++) {
-        	var selectShapeType = $(shapeList[i]).attr('_shape');
+            var selectShapeType = $(shapeList[i]).attr('_shape');
             if(selectShapeType == 'GEOM') {
                 var selectItemData = shapeList[i].shape.data;
                 geomShapeTypeElementList.push(shapeList[i]);
                 if(i==0) {
-                	me.parentSwitchElement = selectItemData;
+                    me.parentSwitchElement = selectItemData;
                 }
             }
-            
+
         }
-        
+
         /**
-         * canvasì˜ ì œì´ìŠ¨ ì •ë³´ì™€ GUIê°€ ì•„ë‹Œ ì›¹ìƒì—ì„œ í•´ë‹¹ í”¼ë”ì— ë‹¬ë ¤ ìˆëŠ” ë¡œë“œë¥¼ ì§€ì› ì„ ê²½ìš°ì—ëŠ”
-         * ê·¸ ë¡œë“œë¥¼ ì°¾ì•„ì„œ ìº”ë°”ìŠ¤ì—ì„œ ì§€ì›Œì•¼ í•œë‹¤.
-         * me.feederMgtShapeListì—ì„œ í•´ë‹¹ ë¡œë“œë¥¼ ì°¾ì•„ì„œ ì§€ìš´ë‹¤.
+         * canvasÀÇ Á¦ÀÌ½¼ Á¤º¸¿Í GUI°¡ ¾Æ´Ñ À¥»ó¿¡¼­ ÇØ´ç ÇÇ´õ¿¡ ´Ş·Á ÀÖ´Â ·Îµå¸¦ Áö¿üÀ» °æ¿ì¿¡´Â
+         * ±× ·Îµå¸¦ Ã£¾Æ¼­ Äµ¹Ù½º¿¡¼­ Áö¿ö¾ß ÇÑ´Ù.
+         * me.feederMgtShapeList¿¡¼­ ÇØ´ç ·Îµå¸¦ Ã£¾Æ¼­ Áö¿î´Ù.
          */
         if(shapeData.content != '' && shapeData.content != null) {
-        	
-        	for(var j=0; j<geomShapeTypeElementList.length; j++) {
-        		var elementData = geomShapeTypeElementList[j].shape.data;
-        		var isDelete = true;
-        		
-        		if(elementData.fe_swgr_load_div == 'S') {
-	        		me.feederMgtShapeList.some(function(item) {
-	        			if(elementData.swgr_list_seq == item.swgr_list_seq && item.fe_swgr_load_div == 'S') {
-	        				isDelete = false;
-	        			}
-	        		});
-        		} else if(elementData.fe_swgr_load_div == 'L') {
-        			me.feederMgtShapeList.some(function(item) {
-	        			if(elementData.load_list_seq == item.load_list_seq && item.fe_swgr_load_div == 'L') {
-	        				isDelete = false;
-	        			}
-	        		});
-        		} else if(!elementData.hasOwnProperty('fe_swgr_load_div')) {
-        			var shapeType = elementData.shapeType;
-        			if(shapeType.indexOf('Load') > -1) {
-        				elementData['fe_swgr_load_div'] = 'L';
-        				me.feederMgtShapeList.some(function(item) {
-    	        			if(elementData.load_list_seq == item.load_list_seq && item.fe_swgr_load_div == 'L') {
-    	        				isDelete = false;
-    	        			}
-    	        		});
-        			}
-        			
-        		}
-        		
-        		if(isDelete) {
-        			renderer.canvas.removeShape(geomShapeTypeElementList[j]);
-        		}
-        	}
-        	
-        	$.unblockUI();
+
+            for(var j=0; j<geomShapeTypeElementList.length; j++) {
+                var elementData = geomShapeTypeElementList[j].shape.data;
+                var isDelete = true;
+
+                if(elementData.fe_swgr_load_div == 'S') {
+                    me.feederMgtShapeList.some(function(item) {
+                        if(elementData.swgr_list_seq == item.swgr_list_seq && item.fe_swgr_load_div == 'S') {
+                            isDelete = false;
+                        }
+                    });
+                } else if(elementData.fe_swgr_load_div == 'L') {
+                    me.feederMgtShapeList.some(function(item) {
+                        if(elementData.load_list_seq == item.load_list_seq && item.fe_swgr_load_div == 'L') {
+                            isDelete = false;
+                        }
+                    });
+                } else if(!elementData.hasOwnProperty('fe_swgr_load_div')) {
+                    var shapeType = elementData.shapeType;
+                    if(shapeType.indexOf('Load') > -1) {
+                        elementData['fe_swgr_load_div'] = 'L';
+                        me.feederMgtShapeList.some(function(item) {
+                            if(elementData.load_list_seq == item.load_list_seq && item.fe_swgr_load_div == 'L') {
+                                isDelete = false;
+                            }
+                        });
+                    }
+
+                }
+
+                if(isDelete) {
+                    renderer.canvas.removeShape(geomShapeTypeElementList[j]);
+                }
+            }
+
+            $.unblockUI();
         }
-        
-        /** ì´ˆê¸°í™” */
+
+        /** ÃÊ±âÈ­ */
         me.updateFeederList = [];
         me.usedLoadList = [];
         me.deleteFeederList = [];
-        
-        
+
+
     },
-    
+
     /**
-     * í•˜ì´ì–´ë¼í‚¤ ë¹Œë”©/í”Œë¡œì–´ ì²´í¬ ë¡œì§
+     * ÇÏÀÌ¾î¶óÅ° ºôµù/ÇÃ·Î¾î Ã¼Å© ·ÎÁ÷
      */
     checkBldgsAndFloors: function(renderer, shapeData) {
-    	
-    	var currentCanvas = renderer.getCanvas();
-    	var checkedData = {};
-    	var msg = '';
-    	var shapeList = currentCanvas.getAllShapes();
-    	var isDraw = true;
-    	var msg = '';
-    	
-    	if(shapeData.shapeType == renderer.Constants.TYPE.HIERARCHY_BLDG) {
-    		shapeList.some(function(shapeElement){
-    			if(shapeElement.shape.data.shapeType == renderer.Constants.TYPE.HIERARCHY_BLDG &&
-    			   shapeElement.shape.data.hier_seq == shapeData.hier_seq		
-    				){
-    				isDraw = false;
-    			}
-    		});
-    		checkedData['isDraw'] = isDraw;
-    		if(!isDraw) {
-    			msg = "í•´ë‹¹ ë¹Œë”©ì´ ì´ë¯¸ ìº”ë²„ìŠ¤ì— ì¡´ì¬í•©ë‹ˆë‹¤.";	
-    		}
-    		
-    	} else if(shapeData.shapeType == renderer.Constants.TYPE.HIERARCHY_FLOOR) {
-    		
-    		shapeList.some(function(shapeElement){
-    			if(shapeElement.shape.data.shapeType == renderer.Constants.TYPE.HIERARCHY_FLOOR &&
-    	    			   shapeElement.shape.data.hier_seq == shapeData.hier_seq		
-    	    		){
-    				isDraw = false;
-    	    	}
-    		});
-    		checkedData['isDraw'] = isDraw;
-    		if(!isDraw) {
-    			msg = "í•´ë‹¹ í”Œë¡œì–´ê°€ ì´ë¯¸ ìº”ë²„ìŠ¤ì— ì¡´ì¬í•©ë‹ˆë‹¤.";	
-    		}
-    	}
-    	
-    	checkedData['isDraw'] = isDraw;
-    	checkedData['msg'] = msg;
-    	
-    	return checkedData;
+
+        var currentCanvas = renderer.getCanvas();
+        var checkedData = {};
+        var msg = '';
+        var shapeList = currentCanvas.getAllShapes();
+        var isDraw = true;
+        var msg = '';
+
+        if(shapeData.shapeType == renderer.Constants.TYPE.HIERARCHY_BLDG) {
+            shapeList.some(function(shapeElement){
+                if(shapeElement.shape.data.shapeType == renderer.Constants.TYPE.HIERARCHY_BLDG &&
+                    shapeElement.shape.data.hier_seq == shapeData.hier_seq
+                ){
+                    isDraw = false;
+                }
+            });
+            checkedData['isDraw'] = isDraw;
+            if(!isDraw) {
+                msg = "ÇØ´ç ºôµùÀÌ ÀÌ¹Ì Äµ¹ö½º¿¡ Á¸ÀçÇÕ´Ï´Ù.";
+            }
+
+        } else if(shapeData.shapeType == renderer.Constants.TYPE.HIERARCHY_FLOOR) {
+
+            shapeList.some(function(shapeElement){
+                if(shapeElement.shape.data.shapeType == renderer.Constants.TYPE.HIERARCHY_FLOOR &&
+                    shapeElement.shape.data.hier_seq == shapeData.hier_seq
+                ){
+                    isDraw = false;
+                }
+            });
+            checkedData['isDraw'] = isDraw;
+            if(!isDraw) {
+                msg = "ÇØ´ç ÇÃ·Î¾î°¡ ÀÌ¹Ì Äµ¹ö½º¿¡ Á¸ÀçÇÕ´Ï´Ù.";
+            }
+        }
+
+        checkedData['isDraw'] = isDraw;
+        checkedData['msg'] = msg;
+
+        return checkedData;
     },
-    
+
     /**
-     * saveí•œ ì´í›„ì—ëŠ” ìƒˆë¡œìš´ setEditingObjectë¥¼ ì„¸íŒ…í•´ì•¼ í•œë‹¤.
+     * saveÇÑ ÀÌÈÄ¿¡´Â »õ·Î¿î setEditingObject¸¦ ¼¼ÆÃÇØ¾ß ÇÑ´Ù.
      * @param renderer
      */
     setEditingObjectFromSave: function (renderer) {
-    	
-    	var me = this;
 
-        //íƒ€ì´í‹€ ë°•ìŠ¤ë¥¼ ì„¸íŒ…í•œë‹¤.
+        var me = this;
+
+        //Å¸ÀÌÆ² ¹Ú½º¸¦ ¼¼ÆÃÇÑ´Ù.
         var title = '';
         var containerId = renderer.getContainerId();
         var mode = renderer.getMode();
@@ -1247,18 +1256,18 @@ ViewContorller.prototype = {
         //titleBox.show();
         titleBox.html(title);
 
-        //feederì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+        //feederÁ¤º¸¸¦ °¡Á®¿Â´Ù.
         var feederInfo = parent.getFeederInfo(renderer.editingObject.swgr_list_seq);
         feederInfo[0]['shapeType'] = me.Constants.TYPE.MODIFY_FEEDER;
-        //ë Œë”ëŸ¬ì— ì—ë””íŒ… ì˜¤ë¸Œì íŠ¸ë¥¼ ì„¤ì •í•œë‹¤.
+        //·»´õ·¯¿¡ ¿¡µğÆÃ ¿ÀºêÁ§Æ®¸¦ ¼³Á¤ÇÑ´Ù.
         renderer.editingObject = feederInfo[0];
         renderer.setIsUpdated(false);
-        
+
         /**
-         * canvasì— ê·¸ë ¤ì§„ ë„í˜•ë“¤ì˜ listë¥¼ ìƒì„±í•´ì„œ ì„¸íŒ…í•œë‹¤.
+         * canvas¿¡ ±×·ÁÁø µµÇüµéÀÇ list¸¦ »ı¼ºÇØ¼­ ¼¼ÆÃÇÑ´Ù.
          */
         me.feederMgtShapeList = feederInfo;
-        
+
         var currentCanvas = renderer.getCanvas();
         var shapeList = currentCanvas.getAllShapes();
         for(var i=0; i<shapeList.length; i++) {
@@ -1267,20 +1276,20 @@ ViewContorller.prototype = {
                 var selectShapeId = $(shapeList[i]).attr('_shape_id');
                 var selectElement = currentCanvas.getElementsByShapeId(selectShapeId);
                 var selectItemData = currentCanvas.getCustomData(shapeList[i]);
-            	me.parentSwitchElement = selectItemData;
-            	break;
+                me.parentSwitchElement = selectItemData;
+                break;
             }
         }
-        
-        /** ì´ˆê¸°í™” */
+
+        /** ÃÊ±âÈ­ */
         me.updateFeederList = [];
         me.usedLoadList = [];
         me.deleteFeederList = [];
-        
+
     },
-    
+
     /**
-     * ë Œë”ëŸ¬ì— ìƒˆë¡œìš´ ì—ë””íŒ… ì˜¤ë¸Œì íŠ¸ë¥¼ ì„¤ì •í•˜ê³ , íƒ€ì´í‹€ì„ ì„¸íŒ…í•œë‹¤.
+     * ·»´õ·¯¿¡ »õ·Î¿î ¿¡µğÆÃ ¿ÀºêÁ§Æ®¸¦ ¼³Á¤ÇÏ°í, Å¸ÀÌÆ²À» ¼¼ÆÃÇÑ´Ù.
      * @param renderer
      * @param shapeData
      */
@@ -1289,10 +1298,10 @@ ViewContorller.prototype = {
             return;
         }
         var me = this;
-        //ë°ì´í„° í˜¼ìš©ì„ ë§‰ê¸° ìœ„í•œ ì¡°ì¹˜
+        //µ¥ÀÌÅÍ È¥¿ëÀ» ¸·±â À§ÇÑ Á¶Ä¡
         var data = JSON.parse(JSON.stringify(shapeData));
 
-        //íƒ€ì´í‹€ ë°•ìŠ¤ë¥¼ ì„¸íŒ…í•œë‹¤.
+        //Å¸ÀÌÆ² ¹Ú½º¸¦ ¼¼ÆÃÇÑ´Ù.
         var title = '';
         var containerId = renderer.getContainerId();
         var mode = renderer.getMode();
@@ -1309,23 +1318,23 @@ ViewContorller.prototype = {
         //titleBox.show();
         titleBox.html(title);
 
-        //ë Œë”ëŸ¬ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
+        //·»´õ·¯¸¦ ÃÊ±âÈ­ÇÑ´Ù.
         renderer.getCanvas().clear();
         renderer.getCanvas().setScale(1);
         renderer.fitCanvasSize();
 
-        //ë Œë”ëŸ¬ì— ì—ë””íŒ… ì˜¤ë¸Œì íŠ¸ë¥¼ ì„¤ì •í•œë‹¤.
+        //·»´õ·¯¿¡ ¿¡µğÆÃ ¿ÀºêÁ§Æ®¸¦ ¼³Á¤ÇÑ´Ù.
         renderer.editingObject = data;
         me.parentSwitchElement = data;
-        //ì´ë•Œ, ë„í˜•ì„ ëª¨ë‘ ê·¸ë¦° í›„ ìº”ë²„ìŠ¤ê°€ ì—…ë°ì´íŠ¸ ë˜ì§€ ì•Šì€ ìƒíƒœë¡œ ë³€ê²½í•œë‹¤.
+        //ÀÌ¶§, µµÇüÀ» ¸ğµÎ ±×¸° ÈÄ Äµ¹ö½º°¡ ¾÷µ¥ÀÌÆ® µÇÁö ¾ÊÀº »óÅÂ·Î º¯°æÇÑ´Ù.
         if (data['shapeType'] == me.Constants.TYPE.MODIFY_FEEDER) {
-            //TODO ê¸°ì¡´ì˜ ì˜¤ë¸Œì íŠ¸ì¸ ê²½ìš° xml ì„ ë°”íƒ•ìœ¼ë¡œ ìº”ë²„ìŠ¤ì— ìƒˆë¡œ ë Œë”ë§í•œë‹¤.
+            //TODO ±âÁ¸ÀÇ ¿ÀºêÁ§Æ®ÀÎ °æ¿ì xml À» ¹ÙÅÁÀ¸·Î Äµ¹ö½º¿¡ »õ·Î ·»´õ¸µÇÑ´Ù.
             data['shapeType'] = me.Constants.TYPE.SWITCH_GEAR;
             renderer.drawImmediately(null, data);
             renderer.setIsUpdated(false);
         }
 
-        //ì•„ë‹Œê²½ìš°, ë Œë”ëŸ¬ì— ìƒˆë¡œ ìƒì„±í•  ë„í˜•ì„ ê·¸ë¦°ë‹¤. ìº”ë²„ìŠ¤ê°€ ì—…ë°ì´íŠ¸ ëœ ì²˜ë¦¬ë¥¼ í•˜ë„ë¡ í•œë‹¤.
+        //¾Æ´Ñ°æ¿ì, ·»´õ·¯¿¡ »õ·Î »ı¼ºÇÒ µµÇüÀ» ±×¸°´Ù. Äµ¹ö½º°¡ ¾÷µ¥ÀÌÆ® µÈ Ã³¸®¸¦ ÇÏµµ·Ï ÇÑ´Ù.
         if (data['shapeType'] == me.Constants.TYPE.NEW_FEEDER) {
             data['shapeType'] = me.Constants.TYPE.SWITCH_GEAR;
             renderer.drawImmediately(null, data);
@@ -1334,14 +1343,14 @@ ViewContorller.prototype = {
     },
 
     /**
-     * í”„ë¡œì íŠ¸ ì •ë³´ë¥¼ ë¶ˆëŸ¬ì™€ì„œ ë‚´ìš©ì„ ë“±ë¡í•œë‹¤.
+     * ÇÁ·ÎÁ§Æ® Á¤º¸¸¦ ºÒ·¯¿Í¼­ ³»¿ëÀ» µî·ÏÇÑ´Ù.
      */
     renderProjectReference: function () {
         var me = this;
         me.dataController.getProjectInfo(function (err, data) {
             if (err) {
                 console.log(err);
-                msgBox('í”„ë¡œì íŠ¸ ì •ë³´ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
+                msgBox('ÇÁ·ÎÁ§Æ® Á¤º¸¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
             }
             me.projectData = data;
             me.setEditingObject(me.routeRenderer, data);
@@ -1349,7 +1358,7 @@ ViewContorller.prototype = {
         });
     },
     /**
-     * ìŠ¤ìœ„ì¹˜ ì…€ë ‰íŠ¸ ë°•ìŠ¤ì˜ ë‚´ìš©ì„ ë“±ë¡í•œë‹¤.
+     * ½ºÀ§Ä¡ ¼¿·ºÆ® ¹Ú½ºÀÇ ³»¿ëÀ» µî·ÏÇÑ´Ù.
      */
     renderSwgrSelectBox: function () {
         var me = this;
@@ -1357,7 +1366,7 @@ ViewContorller.prototype = {
         me.dataController.getSwitchgearTypeList(function (err, data) {
             if (err) {
                 console.log(err);
-                msgBox('ìŠ¤ìœ„ì¹˜ íƒ€ì… ì…€ë¦¬íŠ¸ë°•ìŠ¤ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
+                msgBox('½ºÀ§Ä¡ Å¸ÀÔ ¼¿¸®Æ®¹Ú½º ¸®½ºÆ®¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
             }
             selectBox.append('<option value="" selected>--select new swgr type--</option>')
             for (var i = 0, leni = data.length; i < leni; i++) {
@@ -1367,39 +1376,39 @@ ViewContorller.prototype = {
     },
 
     onlyRacewayPath: function(itemData) {
-    	var me = this;
-    	var renderer = me.getRendererByMode(me.currentMode);
-    	renderer.onRoutePathToDialog(itemData, 'path');
+        var me = this;
+        var renderer = me.getRendererByMode(me.currentMode);
+        renderer.onRoutePathToDialog(itemData, 'path');
     },
-    
+
     /**
      * Feeder Editor Grid And Tree Setting
      */
     settingFeederEditorMenu: function(viewController) {
-    	viewController.renderGrid(viewController.model.SwgrList.name);
-    	viewController.renderTree(viewController.model.AssignedFeederList.name);
+        viewController.renderGrid(viewController.model.SwgrList.name);
+        viewController.renderTree(viewController.model.AssignedFeederList.name);
     },
 
     /**
      * Hierarchy Editor Grid And Tree Setting
      */
     settingHierarchyEditorMenu: function(viewController) {
-    	viewController.renderTree(viewController.model.HierarchyTreeList.name);
-    	viewController.renderGrid(viewController.model.HierarchyFeederList.name);
+        viewController.renderTree(viewController.model.HierarchyTreeList.name);
+        viewController.renderGrid(viewController.model.HierarchyFeederList.name);
     },
-    
+
     /**
      * Route Editor Grid Setting
      */
     settingRouteEditorMenu: function(viewController) {
-    	viewController.renderGrid(viewController.model.BldgReferenceList.name);
-    	viewController.renderGrid(viewController.model.RacewayReferenceList.name);
-    	viewController.renderGrid(viewController.model.RouteReferenceList.name);
-    	viewController.renderGrid(viewController.model.CableReferenceList.name);
+        viewController.renderGrid(viewController.model.BldgReferenceList.name);
+        viewController.renderGrid(viewController.model.RacewayReferenceList.name);
+        viewController.renderGrid(viewController.model.RouteReferenceList.name);
+        viewController.renderGrid(viewController.model.CableReferenceList.name);
     },
-    
+
     /**
-     * ë¡œì¼€ì´ì…˜ ë“œë˜ê·¸ ë“œë ì´ë²¤íŠ¸ë¥¼ ë‹´ë‹¹í•œë‹¤.
+     * ·ÎÄÉÀÌ¼Ç µå·¡±× µå¶ø ÀÌº¥Æ®¸¦ ´ã´çÇÑ´Ù.
      */
     bindLocationDragDrop: function () {
         var me = this;
@@ -1420,19 +1429,19 @@ ViewContorller.prototype = {
                 helper: 'clone',
                 appendTo: 'body',
                 stop: function (event) {
-                    //TODO ì—¬ê¸°ì„œ, ë¡œì¼€ì´ì…˜ ë° ë§¨í™€ ë°ì´í„°ë¥¼ ë“œëí•œ í›„ ì„œë²„ì—ì„œ REF_NAME_TO ê°’ì„ ë°›ì•„ì™€ì•¼ í•˜ëŠ” ê²ƒìœ¼ë¡œ ì¶”ì •í•œë‹¤.
-                    //ê·¸ë¦¬ê³ , ìº”ë²„ìŠ¤ìª½ì—ì„œëŠ” ì´ ë¡œì¼€ì´ì…˜ì´ ë¹Œë”©ìœ„ë¡œ ë“œëëœ ê²ƒ ì„ ê°ì§€í•˜ì—¬, ì´ ë¡œì¼€ì´ì…˜ì˜ LOC_REF_NAME ë¥¼ ë³€ê²½í•´ì•¼ í•œë‹¤.
+                    //TODO ¿©±â¼­, ·ÎÄÉÀÌ¼Ç ¹× ¸ÇÈ¦ µ¥ÀÌÅÍ¸¦ µå¶øÇÑ ÈÄ ¼­¹ö¿¡¼­ REF_NAME_TO °ªÀ» ¹Ş¾Æ¿Í¾ß ÇÏ´Â °ÍÀ¸·Î ÃßÁ¤ÇÑ´Ù.
+                    //±×¸®°í, Äµ¹ö½ºÂÊ¿¡¼­´Â ÀÌ ·ÎÄÉÀÌ¼ÇÀÌ ºôµùÀ§·Î µå¶øµÈ °Í À» °¨ÁöÇÏ¿©, ÀÌ ·ÎÄÉÀÌ¼ÇÀÇ LOC_REF_NAME ¸¦ º¯°æÇØ¾ß ÇÑ´Ù.
                     var refName = randomRefName();
                     var itemData = {
-                            shapeLabel: refName,
-                            shapeType: me.Constants.TYPE.LOCATION,
-                            "pjt_sq": "",
-                            "loc_ref_name_to": refName
-                        };
+                        shapeLabel: refName,
+                        shapeType: me.Constants.TYPE.LOCATION,
+                        "pjt_sq": "",
+                        "loc_ref_name_to": refName
+                    };
                     canvas.getContainer().trigger('drop.viewController', [event, itemData]);
                 }
             });
-            
+
             $('#newManhole').draggable({
                 start: function () {
 
@@ -1440,22 +1449,22 @@ ViewContorller.prototype = {
                 helper: 'clone',
                 appendTo: 'body',
                 stop: function (event) {
-                    //TODO ì—¬ê¸°ì„œ, ë¡œì¼€ì´ì…˜ ë° ë§¨í™€ ë°ì´í„°ë¥¼ ë“œëí•œ í›„ ì„œë²„ì—ì„œ REF_NAME_TO ê°’ì„ ë°›ì•„ì™€ì•¼ í•˜ëŠ” ê²ƒìœ¼ë¡œ ì¶”ì •í•œë‹¤.
-                    //ê·¸ë¦¬ê³ , ìº”ë²„ìŠ¤ìª½ì—ì„œëŠ” ì´ ë¡œì¼€ì´ì…˜ì´ ë¹Œë”©ìœ„ë¡œ ë“œëëœ ê²ƒ ì„ ê°ì§€í•˜ì—¬, ì´ ë¡œì¼€ì´ì…˜ì˜ LOC_REF_NAME ë¥¼ ë³€ê²½í•´ì•¼ í•œë‹¤.
+                    //TODO ¿©±â¼­, ·ÎÄÉÀÌ¼Ç ¹× ¸ÇÈ¦ µ¥ÀÌÅÍ¸¦ µå¶øÇÑ ÈÄ ¼­¹ö¿¡¼­ REF_NAME_TO °ªÀ» ¹Ş¾Æ¿Í¾ß ÇÏ´Â °ÍÀ¸·Î ÃßÁ¤ÇÑ´Ù.
+                    //±×¸®°í, Äµ¹ö½ºÂÊ¿¡¼­´Â ÀÌ ·ÎÄÉÀÌ¼ÇÀÌ ºôµùÀ§·Î µå¶øµÈ °Í À» °¨ÁöÇÏ¿©, ÀÌ ·ÎÄÉÀÌ¼ÇÀÇ LOC_REF_NAME ¸¦ º¯°æÇØ¾ß ÇÑ´Ù.
                     var refName = randomRefName();
                     var itemData = {
-                            shapeLabel: refName,
-                            shapeType: me.Constants.TYPE.MANHOLE,
-                            "pjt_sq": "",
-                            "loc_ref_name_to": refName
-                        };
+                        shapeLabel: refName,
+                        shapeType: me.Constants.TYPE.MANHOLE,
+                        "pjt_sq": "",
+                        "loc_ref_name_to": refName
+                    };
                     canvas.getContainer().trigger('drop.viewController', [event, itemData]);
                 }
             });
         }
     },
     /**
-     * íŠ¸ë¦¬ì˜ ë“œë˜ê·¸ ë“œë ì´ë²¤íŠ¸ë¥¼ ë‹´ë‹¹í•œë‹¤.
+     * Æ®¸®ÀÇ µå·¡±× µå¶ø ÀÌº¥Æ®¸¦ ´ã´çÇÑ´Ù.
      */
     bindTreeDragDrop: function () {
         var me = this;
@@ -1481,8 +1490,8 @@ ViewContorller.prototype = {
         });
     },
     /**
-     * ìš°ì¸¡ ë©”ë‰´ì˜ íŠ¸ë¦¬êµ¬ì¡°ë¥¼ ìƒì„±í•œë‹¤.
-     * @param model ëª¨ë¸ëª…
+     * ¿ìÃø ¸Ş´ºÀÇ Æ®¸®±¸Á¶¸¦ »ı¼ºÇÑ´Ù.
+     * @param model ¸ğµ¨¸í
      */
     renderTree: function (model) {
         var me = this;
@@ -1518,14 +1527,14 @@ ViewContorller.prototype = {
                     if (typeof err == 'string') {
                         msgBox(err);
                     } else {
-                        msgBox('ì–´ì‚¬ì¸ëœ ë¡œë“œ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
+                        msgBox('¾î»çÀÎµÈ ·Îµå ¸®½ºÆ®¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
                     }
                     return;
                 }
                 /**
-                 * íŠ¸ë¦¬ êµ¬ì¡°ëŠ” ë””í´íŠ¸ë¡œ model í”„ë¡œí¼í‹°ë¥¼ ë“±ë¡í•œë‹¤.(í…Œì´ë¸”/íŠ¸ë¦¬ ëª¨ë¸ëª…)
-                 * íŠ¸ë¦¬ êµ¬ì¡°ì¤‘ ìŠ¤ìœ„ì¹˜ì¸ ê²ƒì€ ë“œë˜ê·¸ ì‹œ MODIFY_FEEDER ë¡œ ë„˜ì–´ê°„ë‹¤.(í”¼ë” ìˆ˜ì •.)
-                 * íŠ¸ë¦¬ êµ¬ì¡°ì¤‘ ë¡œë“œì¸ ê²ƒì€ ë“œë˜ê·¸ ì‹œ ì•„ë¬´ì¼ë„ í•˜ì§€ ì•ŠëŠ”ë‹¤.
+                 * Æ®¸® ±¸Á¶´Â µğÆúÆ®·Î model ÇÁ·ÎÆÛÆ¼¸¦ µî·ÏÇÑ´Ù.(Å×ÀÌºí/Æ®¸® ¸ğµ¨¸í)
+                 * Æ®¸® ±¸Á¶Áß ½ºÀ§Ä¡ÀÎ °ÍÀº µå·¡±× ½Ã MODIFY_FEEDER ·Î ³Ñ¾î°£´Ù.(ÇÇ´õ ¼öÁ¤.)
+                 * Æ®¸® ±¸Á¶Áß ·ÎµåÀÎ °ÍÀº µå·¡±× ½Ã ¾Æ¹«ÀÏµµ ÇÏÁö ¾Ê´Â´Ù.
                  */
                 for (var i = 0; i < treeData.length; i++) {
                     treeData[i]['data']['model'] = model;
@@ -1561,28 +1570,28 @@ ViewContorller.prototype = {
                                     "action": function (obj) {
                                         //$node = tree.create_node($node);
                                         //Do something
-                                    	var infoMessage = "ì„ íƒí•œ ë…¸ë“œë¥¼ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?";
+                                        var infoMessage = "¼±ÅÃÇÑ ³ëµå¸¦ »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?";
                                         confirmBox(infoMessage, function (result) {
                                             if (result) {
-                                            	var targetSeq = $node.data.feeder_list_mgt_seq;
-                                            	var resultData = me.dataController.deleteFeeder(targetSeq);
-                                            	if(resultData == '0') {
-                                            		//ìƒˆë¡œìš´ ë°ì´í„°ë¥¼ ë°›ì•„ì„œ íŠ¸ë¦¬ë¥¼ ë‹¤ì‹œ ê·¸ë¦°ë‹¤.
-                                            		var renderer = me.getRendererByMode(me.currentMode);
-                                            		me.dataController.getUpdateTree(tree, renderer, me.Constants.MODE.FEEDER);
+                                                var targetSeq = $node.data.feeder_list_mgt_seq;
+                                                var resultData = me.dataController.deleteFeeder(targetSeq);
+                                                if(resultData == '0') {
+                                                    //»õ·Î¿î µ¥ÀÌÅÍ¸¦ ¹Ş¾Æ¼­ Æ®¸®¸¦ ´Ù½Ã ±×¸°´Ù.
+                                                    var renderer = me.getRendererByMode(me.currentMode);
+                                                    me.dataController.getUpdateTree(tree, renderer, me.Constants.MODE.FEEDER);
                                                     me.renderGrid(me.model.SwgrList.name);
                                                     me.renderGrid(me.model.UnAssignedLoadList.name);
                                                     me.renderGrid(me.model.FeederList.name);
                                                     me.renderGrid(me.model.HierarchyFeederList.name);
-                                                    msgBox('ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.');
+                                                    msgBox('»èÁ¦µÇ¾ú½À´Ï´Ù.');
                                                     setTimeout(msgBoxClose, 1000);
-                                            	} else {
-                                            		//ì—ëŸ¬ì‹œ status : 1, ì—ëŸ¬ë©”ì„¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
-                                            		//do Something...
-                                            	}
+                                                } else {
+                                                    //¿¡·¯½Ã status : 1, ¿¡·¯¸Ş¼¼Áö¸¦ º¸³½´Ù.
+                                                    //do Something...
+                                                }
                                             }
-                                        });	
-                                    	
+                                        });
+
                                     }
                                 }
                             };
@@ -1599,27 +1608,27 @@ ViewContorller.prototype = {
                     if (typeof err == 'string') {
                         msgBox(err);
                     } else {
-                        msgBox('í•˜ì´ì–´ë¼í‚¤ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
+                        msgBox('ÇÏÀÌ¾î¶óÅ° ¸®½ºÆ®¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
                     }
                     return;
                 }
                 /**
-                 * íŠ¸ë¦¬ êµ¬ì¡°ëŠ” ë””í´íŠ¸ë¡œ model í”„ë¡œí¼í‹°ë¥¼ ë“±ë¡í•œë‹¤.(í…Œì´ë¸”/íŠ¸ë¦¬ ëª¨ë¸ëª…)
-                 * íŠ¸ë¦¬ êµ¬ì¡°ì¤‘ ë¹Œë”©ì¸ ê²ƒì€ HIERARCHY_BLDG ë¡œ ë„˜ê¸´ë‹¤.
-                 * íŠ¸ë¦¬ êµ¬ì¡°ì¤‘ í”Œë£¨ì–´ ì¸ ê²ƒì€ HIERARCHY_FLOOR ë¡œ ë„˜ê¸´ë‹¤.
+                 * Æ®¸® ±¸Á¶´Â µğÆúÆ®·Î model ÇÁ·ÎÆÛÆ¼¸¦ µî·ÏÇÑ´Ù.(Å×ÀÌºí/Æ®¸® ¸ğµ¨¸í)
+                 * Æ®¸® ±¸Á¶Áß ºôµùÀÎ °ÍÀº HIERARCHY_BLDG ·Î ³Ñ±ä´Ù.
+                 * Æ®¸® ±¸Á¶Áß ÇÃ·ç¾î ÀÎ °ÍÀº HIERARCHY_FLOOR ·Î ³Ñ±ä´Ù.
                  */
                 if(treeData !== undefined) {
-                	for (var i = 0; i < treeData.length; i++) {
-	                    treeData[i]['data']['model'] = model;
-	                    if (treeData[i]['data']['lv'] == 1) {
-	                        treeData[i]['data']['shapeType'] = me.Constants.TYPE.HIERARCHY_BLDG;
-	                        treeData[i]['data']['shapeLabel'] = treeData[i]['data']['nm'];
-	                    }
-	                    if (treeData[i]['data']['lv'] == 2) {
-	                        treeData[i]['data']['shapeType'] = me.Constants.TYPE.HIERARCHY_FLOOR;
-	                        treeData[i]['data']['shapeLabel'] = treeData[i]['data']['nm'];
-	                    }
-	                }
+                    for (var i = 0; i < treeData.length; i++) {
+                        treeData[i]['data']['model'] = model;
+                        if (treeData[i]['data']['lv'] == 1) {
+                            treeData[i]['data']['shapeType'] = me.Constants.TYPE.HIERARCHY_BLDG;
+                            treeData[i]['data']['shapeLabel'] = treeData[i]['data']['nm'];
+                        }
+                        if (treeData[i]['data']['lv'] == 2) {
+                            treeData[i]['data']['shapeType'] = me.Constants.TYPE.HIERARCHY_FLOOR;
+                            treeData[i]['data']['shapeLabel'] = treeData[i]['data']['nm'];
+                        }
+                    }
                 }
                 treeOptions = {
                     plugins: ["themes", "json_data", "ui", "cookies", "types", "dnd"],
@@ -1642,17 +1651,17 @@ ViewContorller.prototype = {
             });
         }
     },
-    
+
     /**
      * editSWGRInfoCallBack function
      */
     editSWGRInfoCallBack: function (returnData) {
-    	me.renderGrid(me.model.SwgrList.name);
+        me.renderGrid(me.model.SwgrList.name);
     },
-    
+
     /**
-     * ìš°ì¸¡ ë©”ë‰´ì˜ ê·¸ë¦¬ë“œ í…Œì´ë¸”ì„ ìƒì„±í•œë‹¤.
-     * @param model í…Œì´ë¸”/íŠ¸ë¦¬ ëª¨ë¸ëª…
+     * ¿ìÃø ¸Ş´ºÀÇ ±×¸®µå Å×ÀÌºíÀ» »ı¼ºÇÑ´Ù.
+     * @param model Å×ÀÌºí/Æ®¸® ¸ğµ¨¸í
      */
     renderGrid: function (model) {
         var me = this;
@@ -1668,11 +1677,11 @@ ViewContorller.prototype = {
                 panel.DataTable(gridOptions);
                 me.modifyDataTablesStyle(panelId);
             }
-            
+
             if(panel[0].id == "unAssignedLoadGrid") {
-            	updateLoadData = gridData;
+                updateLoadData = gridData;
             } else if(panel[0].id == "hierarchy-feederGrid") {
-            	me.unUsedHierarchyFeederList  = gridData;
+                me.unUsedHierarchyFeederList  = gridData;
             }
 
             var gridPanelDiv = $('#' + panelId + '_wrapper');
@@ -1681,10 +1690,10 @@ ViewContorller.prototype = {
                 element.click(function (event) {
                     event.stopPropagation();
                     if(itemData.hasOwnProperty('popRouteDialog') && itemData.popRouteDialog == 'Y') {
-                    	var renderer = me.getRendererByMode(me.currentMode);
-                    	renderer.onRoutePathToDialog(itemData, 'find');
+                        var renderer = me.getRendererByMode(me.currentMode);
+                        renderer.onRoutePathToDialog(itemData, 'find');
                     } else {
-                    	console.log(itemData);
+                        console.log(itemData);
                     }
                 });
             };
@@ -1693,18 +1702,18 @@ ViewContorller.prototype = {
                 element.unbind('click');
                 element.click(function (event) {
                     event.stopPropagation();
-                	var renderer = me.getRendererByMode(me.currentMode);
-                	renderer.onRoutePathToDialog(itemData, 'click');
+                    var renderer = me.getRendererByMode(me.currentMode);
+                    renderer.onRoutePathToDialog(itemData, 'click');
                 });
             };
-            
+
             var refreshGrid = function(dataTable) {
-            	
-            	dataTable.clear().draw();
-            	dataTable.rows.add(updateLoadData);
-            	dataTable.columns.adjust().draw();
+
+                dataTable.clear().draw();
+                dataTable.rows.add(updateLoadData);
+                dataTable.columns.adjust().draw();
             };
-            
+
             var canvasDropEvent = function (element, itemData) {
                 if (canvas) {
                     element.draggable({
@@ -1714,7 +1723,7 @@ ViewContorller.prototype = {
                         helper: 'clone',
                         appendTo: 'body',
                         stop: function (event) {
-                        	 canvas.getContainer().trigger('drop.viewController', [event, itemData, panel]);
+                            canvas.getContainer().trigger('drop.viewController', [event, itemData, panel]);
                         }
                     });
                 }
@@ -1731,7 +1740,7 @@ ViewContorller.prototype = {
                     nameClickEvent(element, itemData);
                     canvasDropEvent(element, itemData);
                 });
-                
+
                 var showItem = gridPanelDiv.find("[name=show]");
                 showItem.each(function (index, aTag) {
                     var element = $(aTag);
@@ -1739,7 +1748,7 @@ ViewContorller.prototype = {
                     var itemData = gridData[parseInt(dataIndex)];
                     showClickEvent(element, itemData);
                 });
-                
+
                 blockStop();
             });
 
@@ -1747,33 +1756,33 @@ ViewContorller.prototype = {
             dataTable.clear();
             dataTable.rows.add(gridData);
             dataTable.draw();
-        	$(".dataTables_paginate").find('a').css("font-size", "11px");
-        	panel.on('draw.dt', function () {
-        		$(".dataTables_paginate").find('a').css("font-size", "11px");
-        	});
+            $(".dataTables_paginate").find('a').css("font-size", "11px");
+            panel.on('draw.dt', function () {
+                $(".dataTables_paginate").find('a').css("font-size", "11px");
+            });
         };
         if (model == me.model.SwgrList.name) {
             me.dataController.getSwitchgearUnused(function (err, gridData) {
                 if (err) {
                     console.log(err);
-                    msgBox('ìŠ¤ìœ„ì¹˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
+                    msgBox('½ºÀ§Ä¡ ¸®½ºÆ®¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
                 } else {
                     /**
-                     * ì–´ì‚¬ì¸ ë˜ì§€ ì•Šì€ ìŠ¤ìœ„ì¹˜ ë¦¬ìŠ¤íŠ¸ì¤‘ SWGR_TYPE ì´ TR(íŠ¸ëœìŠ¤í¬ë¨¸) ì¸ ê²ƒì€ í”„ëœìŠ¤í¬ë¨¸ë¡œ ë„˜ì–´ê°„ë‹¤.
-                     * íŠ¸ëœìŠ¤í¬ë¨¸ê°€ ì•„ë‹Œê²ƒì€ NEW_FEEDER ë¡œ ë„˜ì–´ê°„ë‹¤.
+                     * ¾î»çÀÎ µÇÁö ¾ÊÀº ½ºÀ§Ä¡ ¸®½ºÆ®Áß SWGR_TYPE ÀÌ TR(Æ®·£½ºÆ÷¸Ó) ÀÎ °ÍÀº ÇÁ·£½ºÆ÷¸Ó·Î ³Ñ¾î°£´Ù.
+                     * Æ®·£½ºÆ÷¸Ó°¡ ¾Æ´Ñ°ÍÀº NEW_FEEDER ·Î ³Ñ¾î°£´Ù.
                      */
-                	if(gridData !== undefined) {
-	                    for (var i = 0; i < gridData.length; i++) {
-	                        if (gridData[i]['swgr_type'] == 'TR') {
-	                            gridData[i]['shapeType'] = me.Constants.TYPE.TRANSFORMER;
-	                        } else {
-	                            gridData[i]['shapeType'] = me.Constants.TYPE.NEW_FEEDER;
-	                        }
-	                        gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
-	                        gridData[i]['model'] = model;
-	                        gridData[i]['label'] = '<a href="javascript:parent.editSWGRInfo(\''+ gridData[i]['swgr_list_seq']+'\', \'' + gridData[i]['swgr_maker_seq'] + '\', ' + me.editSWGRInfoCallBack + ');void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
-	                    }
-                	}
+                    if(gridData !== undefined) {
+                        for (var i = 0; i < gridData.length; i++) {
+                            if (gridData[i]['swgr_type'] == 'TR') {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.TRANSFORMER;
+                            } else {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.NEW_FEEDER;
+                            }
+                            gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
+                            gridData[i]['model'] = model;
+                            gridData[i]['label'] = '<a href="javascript:parent.editSWGRInfo(\''+ gridData[i]['swgr_list_seq']+'\', \'' + gridData[i]['swgr_maker_seq'] + '\', ' + me.editSWGRInfoCallBack + ');void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
+                        }
+                    }
                     greedOptions = {
                         data: gridData,
                         columns: [
@@ -1794,15 +1803,15 @@ ViewContorller.prototype = {
                             }
                         ],
                         columnDefs: [
- 									{
- 										 className: 'dt-left', 
- 										 targets: [0]
- 									},
-                                      {
-                                     	 className: 'dt-center', 
-                                     	 targets: [1,2]
-                                      }
-                         ],
+                            {
+                                className: 'dt-left',
+                                targets: [0]
+                            },
+                            {
+                                className: 'dt-center',
+                                targets: [1,2]
+                            }
+                        ],
                         pageLength: 50,
                         lengthChange: false,
                         info: false,
@@ -1811,29 +1820,29 @@ ViewContorller.prototype = {
                         scrollCollapse: true
                     };
                 }
-                
+
                 me.initUnusedSwitchList = gridData;
                 renderGridAction(greedOptions, gridData);
             });
         }
-        
+
         if (model == me.model.FeederList.name) {
             me.dataController.getFeederList(function (err, gridData) {
                 if (err) {
                     console.log(err);
-                    msgBox('í”¼ë” ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
+                    msgBox('ÇÇ´õ ¸®½ºÆ®¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
                 } else {
                     /**
-                     * FeederList(ì–´ì‚¬ì¸ í”¼ë”) ëŠ” MODIFY_FEEDER(ê¸°ì¡´ í”¼ë” ìˆ˜ì •) ë¡œ ì „ë‹¬í•œë‹¤.
+                     * FeederList(¾î»çÀÎ ÇÇ´õ) ´Â MODIFY_FEEDER(±âÁ¸ ÇÇ´õ ¼öÁ¤) ·Î Àü´ŞÇÑ´Ù.
                      */
-                	if(gridData !== undefined) {
-	                    for (var i = 0; i < gridData.length; i++) {
-	                        gridData[i]['shapeType'] = me.Constants.TYPE.MODIFY_FEEDER;
-	                        gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
-	                        gridData[i]['model'] = model;
-	                        gridData[i]['label'] = '<a href="javascript:parent.showSWGRInfo(\''+ gridData[i]['swgr_list_seq']+'\');void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
-	                    }
-                	}
+                    if(gridData !== undefined) {
+                        for (var i = 0; i < gridData.length; i++) {
+                            gridData[i]['shapeType'] = me.Constants.TYPE.MODIFY_FEEDER;
+                            gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
+                            gridData[i]['model'] = model;
+                            gridData[i]['label'] = '<a href="javascript:parent.showSWGRInfo(\''+ gridData[i]['swgr_list_seq']+'\');void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
+                        }
+                    }
                     greedOptions = {
                         data: gridData,
                         columns: [
@@ -1854,14 +1863,14 @@ ViewContorller.prototype = {
                             }
                         ],
                         columnDefs: [
-									{
-										 className: 'dt-left', 
-										 targets: [0]
-									},
-                                     {
-                                    	 className: 'dt-center', 
-                                    	 targets: [1,2]
-                                     }
+                            {
+                                className: 'dt-left',
+                                targets: [0]
+                            },
+                            {
+                                className: 'dt-center',
+                                targets: [1,2]
+                            }
                         ],
                         pageLength: 50,
                         lengthChange: false,
@@ -1874,24 +1883,24 @@ ViewContorller.prototype = {
                 renderGridAction(greedOptions, gridData);
             });
         }
-        
+
         if (model == me.model.HierarchyFeederList.name) {
             me.dataController.getHierarchyFeederList(function (err, gridData) {
                 if (err) {
                     console.log(err);
-                    msgBox('í•˜ì´ì–´ë¼í‚¤ ì—ë””í„°ì˜ í”¼ë” ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
+                    msgBox('ÇÏÀÌ¾î¶óÅ° ¿¡µğÅÍÀÇ ÇÇ´õ ¸®½ºÆ®¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
                 } else {
                     /**
-                     * HierarchyFeederList(í•˜ì´ì–´ë¼í‚¤ ì—ë””í„°ì˜ í”¼ë”) ëŠ” HIERARCHY_FEEDER ë¡œ ì „ë‹¬í•œë‹¤.
+                     * HierarchyFeederList(ÇÏÀÌ¾î¶óÅ° ¿¡µğÅÍÀÇ ÇÇ´õ) ´Â HIERARCHY_FEEDER ·Î Àü´ŞÇÑ´Ù.
                      */
-                	if(gridData !== undefined) {
-	                    for (var i = 0; i < gridData.length; i++) {
-	                        gridData[i]['shapeType'] = me.Constants.TYPE.HIERARCHY_FEEDER;
-	                        gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
-	                        gridData[i]['model'] = model;
-	                        gridData[i]['label'] = '<a href="javascript:parent.showSWGRInfo(\''+ gridData[i]['swgr_seq']+'\');void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
-	                    }
-                	}
+                    if(gridData !== undefined) {
+                        for (var i = 0; i < gridData.length; i++) {
+                            gridData[i]['shapeType'] = me.Constants.TYPE.HIERARCHY_FEEDER;
+                            gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
+                            gridData[i]['model'] = model;
+                            gridData[i]['label'] = '<a href="javascript:parent.showSWGRInfo(\''+ gridData[i]['swgr_seq']+'\');void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
+                        }
+                    }
                     greedOptions = {
                         data: gridData,
                         columns: [
@@ -1912,14 +1921,14 @@ ViewContorller.prototype = {
                             }
                         ],
                         columnDefs: [
- 									{
-										 className: 'dt-left', 
-										 targets: [0]
-									},
-                                    {
-                                   	 className: 'dt-center', 
-                                   	 targets: [1,2]
-                                    }
+                            {
+                                className: 'dt-left',
+                                targets: [0]
+                            },
+                            {
+                                className: 'dt-center',
+                                targets: [1,2]
+                            }
                         ],
                         pageLength: 50,
                         lengthChange: false,
@@ -1933,51 +1942,51 @@ ViewContorller.prototype = {
                 renderGridAction(greedOptions, gridData);
             });
         }
-        
+
         if (model == me.model.UnAssignedLoadList.name) {
             me.dataController.getLoadUnused(function (err, gridData) {
                 if (err) {
                     console.log(err);
-                    msgBox('ë¡œë“œ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
+                    msgBox('·Îµå ¸®½ºÆ®¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
                 } else {
                     /**
-                     * UnAssignedLoadList ëŠ” ë¡œë“œ íƒ€ì…ë³„ë¡œ shapeType ì„ ì§€ì •í•´ ë„˜ê¸´ë‹¤.
+                     * UnAssignedLoadList ´Â ·Îµå Å¸ÀÔº°·Î shapeType À» ÁöÁ¤ÇØ ³Ñ±ä´Ù.
                      */
-                	if(gridData !== undefined) {
-	                    for (var i = 0; i < gridData.length; i++) {
-	                        if (gridData[i]['lo_type'] == 'NM') {
-	                            gridData[i]['shapeType'] = me.Constants.TYPE.NMLOAD;
-	                        }
-	                        if (gridData[i]['lo_type'] == 'SH') {
-	                            gridData[i]['shapeType'] = me.Constants.TYPE.SHLOAD;
-	                        }
-	                        if (gridData[i]['lo_type'] == 'EH') {
-	                            gridData[i]['shapeType'] = me.Constants.TYPE.EHLOAD;
-	                        }
-	                        if (gridData[i]['lo_type'] == 'EHS') {
-	                            gridData[i]['shapeType'] = me.Constants.TYPE.EHSLOAD;
-	                        }
-	                        if (gridData[i]['lo_type'] == 'MI') {
-	                            gridData[i]['shapeType'] = me.Constants.TYPE.MILOAD;
-	                        }
-	                        if (gridData[i]['lo_type'] == 'MK') {
-	                            gridData[i]['shapeType'] = me.Constants.TYPE.MKLOAD;
-	                        }
-	                        if (gridData[i]['lo_type'] == 'MO') {
-	                            gridData[i]['shapeType'] = me.Constants.TYPE.MOLOAD;
-	                        }
-	                        if (gridData[i]['lo_type'] == 'PKG') {
-	                            gridData[i]['shapeType'] = me.Constants.TYPE.PKGLOAD;
-	                        }
-	                        gridData[i]['shapeLabel'] = gridData[i]['lo_equip_tag_no'];
-	                        gridData[i]['model'] = model;
-	                        gridData[i]['label'] = '<a href="javascript:void(0);" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['lo_equip_tag_no'] + '</a>';
-	                        gridData[i]['lo_equip_desc_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['lo_equip_desc'] + '</span>';
-	                        gridData[i]['lo_unit_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['lo_unit'] + '</span>';
-	                        gridData[i]['lo_proc_sys_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['lo_proc_sys'] + '</span>';
-	                        gridData[i]['lo_equip_loc_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['lo_equip_loc'] + '</span>';
-	                    }
-                	}
+                    if(gridData !== undefined) {
+                        for (var i = 0; i < gridData.length; i++) {
+                            if (gridData[i]['lo_type'] == 'NM') {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.NMLOAD;
+                            }
+                            if (gridData[i]['lo_type'] == 'SH') {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.SHLOAD;
+                            }
+                            if (gridData[i]['lo_type'] == 'EH') {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.EHLOAD;
+                            }
+                            if (gridData[i]['lo_type'] == 'EHS') {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.EHSLOAD;
+                            }
+                            if (gridData[i]['lo_type'] == 'MI') {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.MILOAD;
+                            }
+                            if (gridData[i]['lo_type'] == 'MK') {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.MKLOAD;
+                            }
+                            if (gridData[i]['lo_type'] == 'MO') {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.MOLOAD;
+                            }
+                            if (gridData[i]['lo_type'] == 'PKG') {
+                                gridData[i]['shapeType'] = me.Constants.TYPE.PKGLOAD;
+                            }
+                            gridData[i]['shapeLabel'] = gridData[i]['lo_equip_tag_no'];
+                            gridData[i]['model'] = model;
+                            gridData[i]['label'] = '<a href="javascript:void(0);" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['lo_equip_tag_no'] + '</a>';
+                            gridData[i]['lo_equip_desc_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['lo_equip_desc'] + '</span>';
+                            gridData[i]['lo_unit_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['lo_unit'] + '</span>';
+                            gridData[i]['lo_proc_sys_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['lo_proc_sys'] + '</span>';
+                            gridData[i]['lo_equip_loc_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['lo_equip_loc'] + '</span>';
+                        }
+                    }
                     greedOptions = {
                         data: gridData,
                         columns: [
@@ -1986,7 +1995,7 @@ ViewContorller.prototype = {
                                 title: 'Equipment Tag No.',
                                 defaultContent: ''
                             },
-                            
+
                             {
                                 data: 'lo_equip_desc_style',
                                 title: 'Equipment Description',
@@ -2034,20 +2043,20 @@ ViewContorller.prototype = {
                             }
                         ],
                         columnDefs: [
-  									{
- 										 className: 'dt-left', 
- 										 targets: [0, 1, 7, 8]
- 									},
- 									
-                                    {
-                                   	 className: 'dt-right', 
-                                   	 targets: [4, 5]
-                                    },
-                                     {
-                                    	 className: 'dt-center', 
-                                    	 targets: '_all'
-                                     }
-                         ],
+                            {
+                                className: 'dt-left',
+                                targets: [0, 1, 7, 8]
+                            },
+
+                            {
+                                className: 'dt-right',
+                                targets: [4, 5]
+                            },
+                            {
+                                className: 'dt-center',
+                                targets: '_all'
+                            }
+                        ],
                         pageLength: 50,
                         lengthChange: false,
                         info: false,
@@ -2065,14 +2074,14 @@ ViewContorller.prototype = {
             me.dataController.getLocationReferenceList(function (err, gridData) {
                 if (err) {
                     console.log(err);
-                    msgBox('ë¡œì¼€ì´ì…˜ ë ˆí¼ëŸ°ìŠ¤ ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
+                    msgBox('·ÎÄÉÀÌ¼Ç ·¹ÆÛ·±½º µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
                 } else {
-                	if(gridData !== undefined) {
-	                    for (var i = 0; i < gridData.length; i++) {
-	                        gridData[i]['model'] = model;
-	                        gridData[i]['label'] = '<a href="javascript:void(0);" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['loc_ref_name'] + '</a>';
-	                    }
-                	}
+                    if(gridData !== undefined) {
+                        for (var i = 0; i < gridData.length; i++) {
+                            gridData[i]['model'] = model;
+                            gridData[i]['label'] = '<a href="javascript:void(0);" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['loc_ref_name'] + '</a>';
+                        }
+                    }
                     greedOptions = {
                         data: gridData,
                         columns: [
@@ -2098,14 +2107,14 @@ ViewContorller.prototype = {
                             }
                         ],
                         columnDefs: [
-									{
-										 className: 'dt-left', 
-										 targets: [0]
-									},
-                                     {
-                                    	 className: 'dt-center', 
-                                    	 targets: '_all'
-                                     }
+                            {
+                                className: 'dt-left',
+                                targets: [0]
+                            },
+                            {
+                                className: 'dt-center',
+                                targets: '_all'
+                            }
                         ],
                         pageLength: 50,
                         lengthChange: false,
@@ -2123,14 +2132,14 @@ ViewContorller.prototype = {
             me.dataController.getRacewayReferenceList(function (err, gridData) {
                 if (err) {
                     console.log(err);
-                    msgBox('ë ˆì´ìŠ¤ì›¨ì´ ë ˆí¼ëŸ°ìŠ¤ ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
+                    msgBox('·¹ÀÌ½º¿şÀÌ ·¹ÆÛ·±½º µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
                 } else {
-                	if(gridData !== undefined) {
-	                    for (var i = 0; i < gridData.length; i++) {
-	                        gridData[i]['model'] = model;
-	                        gridData[i]['label'] = '<a href="javascript:void(0);" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['race_ref_trayedm_no'] + '</a>';
-	                    }
-                	}
+                    if(gridData !== undefined) {
+                        for (var i = 0; i < gridData.length; i++) {
+                            gridData[i]['model'] = model;
+                            gridData[i]['label'] = '<a href="javascript:void(0);" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['race_ref_trayedm_no'] + '</a>';
+                        }
+                    }
                     greedOptions = {
                         data: gridData,
                         columns: [
@@ -2156,18 +2165,18 @@ ViewContorller.prototype = {
                             }
                         ],
                         columnDefs: [
-									{
-										 className: 'dt-left', 
-										 targets: [0]
-									},
-									{
-										 className: 'dt-right', 
-										 targets: [3]
-									},
-                                     {
-                                    	 className: 'dt-center', 
-                                    	 targets: '_all'
-                                     }
+                            {
+                                className: 'dt-left',
+                                targets: [0]
+                            },
+                            {
+                                className: 'dt-right',
+                                targets: [3]
+                            },
+                            {
+                                className: 'dt-center',
+                                targets: '_all'
+                            }
                         ],
                         pageLength: 50,
                         lengthChange: false,
@@ -2185,15 +2194,15 @@ ViewContorller.prototype = {
             me.dataController.getRouteReferenceList(function (err, gridData) {
                 if (err) {
                     console.log(err);
-                    msgBox('ë¼ìš°íŠ¸ ë ˆí¼ëŸ°ìŠ¤ ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
+                    msgBox('¶ó¿ìÆ® ·¹ÆÛ·±½º µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
                 } else {
-                	if(gridData !== undefined) {
-	                    for (var i = 0; i < gridData.length; i++) {
-	                        gridData[i]['model'] = model;
-	                        gridData[i]['fromLabel'] = '<a href="javascript:void(0);" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['rou_ref_from'] + '</a>';
-	                        gridData[i]['toLabel'] = '<a href="javascript:void(0);" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['rou_ref_to'] + '</a>';
-	                    }
-                	}
+                    if(gridData !== undefined) {
+                        for (var i = 0; i < gridData.length; i++) {
+                            gridData[i]['model'] = model;
+                            gridData[i]['fromLabel'] = '<a href="javascript:void(0);" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['rou_ref_from'] + '</a>';
+                            gridData[i]['toLabel'] = '<a href="javascript:void(0);" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['rou_ref_to'] + '</a>';
+                        }
+                    }
                     greedOptions = {
                         data: gridData,
                         columns: [
@@ -2214,14 +2223,14 @@ ViewContorller.prototype = {
                             }
                         ],
                         columnDefs: [
- 									 {
-										 className: 'dt-left', 
-										 targets: [0, 1]
-									 },
-                                     {
-                                    	 className: 'dt-right', 
-                                    	 targets: '_all'
-                                     }
+                            {
+                                className: 'dt-left',
+                                targets: [0, 1]
+                            },
+                            {
+                                className: 'dt-right',
+                                targets: '_all'
+                            }
                         ],
                         pageLength: 50,
                         lengthChange: false,
@@ -2239,21 +2248,21 @@ ViewContorller.prototype = {
             me.dataController.getBldgReferenceList(function (err, gridData) {
                 if (err) {
                     console.log(err);
-                    msgBox('ë¹Œë”© ë ˆí¼ëŸ°ìŠ¤ ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
+                    msgBox('ºôµù ·¹ÆÛ·±½º µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
                 } else {
                     /**
-                     * BldgReferenceList(ë¼ìš°íŠ¸ ì—ë””í„°) ëŠ” BLDG ë¡œ ë„˜ê¸´ë‹¤.
+                     * BldgReferenceList(¶ó¿ìÆ® ¿¡µğÅÍ) ´Â BLDG ·Î ³Ñ±ä´Ù.
                      */
-                	if(gridData !== undefined) {
-	                    for (var i = 0; i < gridData.length; i++) {
-	                        gridData[i]['shapeType'] = me.Constants.TYPE.BLDG;
-	                        gridData[i]['shapeLabel'] = gridData[i]['loc_ref_name'];
-	                        gridData[i]['model'] = model;
-	                        gridData[i]['label'] = '<a href="javascript:void(0);" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['loc_ref_name'] + '</a>';
-	                        //gridData[i]['dscr_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['dscr'] + '</span>';
-	                        gridData[i]['dscr_style'] = '<span style="margin-left: 5px;margin-right: 5px;"></span>';
-	                    }
-                	}
+                    if(gridData !== undefined) {
+                        for (var i = 0; i < gridData.length; i++) {
+                            gridData[i]['shapeType'] = me.Constants.TYPE.BLDG;
+                            gridData[i]['shapeLabel'] = gridData[i]['loc_ref_name'];
+                            gridData[i]['model'] = model;
+                            gridData[i]['label'] = '<a href="javascript:void(0);" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['loc_ref_name'] + '</a>';
+                            //gridData[i]['dscr_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['dscr'] + '</span>';
+                            gridData[i]['dscr_style'] = '<span style="margin-left: 5px;margin-right: 5px;"></span>';
+                        }
+                    }
                     greedOptions = {
                         data: gridData,
                         columns: [
@@ -2269,10 +2278,10 @@ ViewContorller.prototype = {
                             }
                         ],
                         columnDefs: [
-									{
-										 className: 'dt-left', 
-										 targets: '_all'
-									}
+                            {
+                                className: 'dt-left',
+                                targets: '_all'
+                            }
                         ],
                         bAutoWidth: true,
                         pageLength: 50,
@@ -2291,24 +2300,24 @@ ViewContorller.prototype = {
             me.dataController.getCableReferenceList(function (err, gridData) {
                 if (err) {
                     console.log(err);
-                    msgBox('ì¼€ì´ë¸” ë ˆí¼ëŸ°ìŠ¤ ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
+                    msgBox('ÄÉÀÌºí ·¹ÆÛ·±½º µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
                 } else {
                     /**
-                     * CableReferenceList(ë¼ìš°íŠ¸ ì—ë””í„°) ëŠ” BLDG ë¡œ ë„˜ê¸´ë‹¤.
+                     * CableReferenceList(¶ó¿ìÆ® ¿¡µğÅÍ) ´Â BLDG ·Î ³Ñ±ä´Ù.
                      */
-                	if(gridData !== undefined) {
-	                    for (var i = 0; i < gridData.length; i++) {
-	                        gridData[i]['shapeType'] = me.Constants.TYPE.BLDG;
-	                        gridData[i]['shapeLabel'] = gridData[i]['rou_ref_tot_path'];
-	                        gridData[i]['model'] = model;
-	                        gridData[i]['rou_ref_from_style'] = '<span style="margin-left: 5px;margin-right: 5px;">'+ gridData[i]['rou_ref_from'] +'</span>';
-	                        gridData[i]['rou_ref_to_style'] = '<span style="margin-left: 5px;margin-right: 5px;">'+ gridData[i]['rou_ref_to'] +'</span>';
-	                        gridData[i]['equip_nm_to_style'] = '<span style="margin-left: 5px;margin-right: 5px;">'+ gridData[i]['equip_nm_to'] +'</span>';
-							gridData[i]['find'] = '<a href="javascript:void(0);" name="item" data-index="' + i + '" style="margin-left:5px"><img width="16" height="16" src="resources/images/new_link.png"/></a>';
-	                        gridData[i]['popRouteDialog'] = 'Y';
-	                        gridData[i]['label'] = '<a href="javascript:void(0);" name="show" data-index="' + i + '" style="margin-left:5px">' + (gridData[i]['rou_ref_tot_path']==null?'':gridData[i]['rou_ref_tot_path']) + '</a>';
-	                    }
-                	}
+                    if(gridData !== undefined) {
+                        for (var i = 0; i < gridData.length; i++) {
+                            gridData[i]['shapeType'] = me.Constants.TYPE.BLDG;
+                            gridData[i]['shapeLabel'] = gridData[i]['rou_ref_tot_path'];
+                            gridData[i]['model'] = model;
+                            gridData[i]['rou_ref_from_style'] = '<span style="margin-left: 5px;margin-right: 5px;">'+ gridData[i]['rou_ref_from'] +'</span>';
+                            gridData[i]['rou_ref_to_style'] = '<span style="margin-left: 5px;margin-right: 5px;">'+ gridData[i]['rou_ref_to'] +'</span>';
+                            gridData[i]['equip_nm_to_style'] = '<span style="margin-left: 5px;margin-right: 5px;">'+ gridData[i]['equip_nm_to'] +'</span>';
+                            gridData[i]['find'] = '<a href="javascript:void(0);" name="item" data-index="' + i + '" style="margin-left:5px"><img width="16" height="16" src="resources/images/new_link.png"/></a>';
+                            gridData[i]['popRouteDialog'] = 'Y';
+                            gridData[i]['label'] = '<a href="javascript:void(0);" name="show" data-index="' + i + '" style="margin-left:5px">' + (gridData[i]['rou_ref_tot_path']==null?'':gridData[i]['rou_ref_tot_path']) + '</a>';
+                        }
+                    }
                     greedOptions = {
                         data: gridData,
                         columns: [
@@ -2333,10 +2342,10 @@ ViewContorller.prototype = {
                                 defaultContent: ''
                             },
                             {
-	                            data: 'label',
-	                            title: 'Path',
-	                            defaultContent: ''
-	                        },
+                                data: 'label',
+                                title: 'Path',
+                                defaultContent: ''
+                            },
                             {
                                 data: 'rou_ref_tot_len',
                                 title: 'Length',
@@ -2349,18 +2358,18 @@ ViewContorller.prototype = {
                             }
                         ],
                         columnDefs: [
-                                     {
-										 className: 'dt-left', 
-										 targets: [0, 2, 3, 4]
-									 },
-									 {
-										 className: 'dt-right', 
-										 targets: [5]
-									 },
-                                     {
-                                    	 className: 'dt-center', 
-                                    	 targets: '_all'
-                                     }
+                            {
+                                className: 'dt-left',
+                                targets: [0, 2, 3, 4]
+                            },
+                            {
+                                className: 'dt-right',
+                                targets: [5]
+                            },
+                            {
+                                className: 'dt-center',
+                                targets: '_all'
+                            }
                         ],
                         pageLength: 50,
                         lengthChange: false,
@@ -2375,118 +2384,118 @@ ViewContorller.prototype = {
             });
         }
     },
-    
+
     /**
-     * ì €ì¥ ì´í›„ ê·¸ë¦¬ë“œ ë° íŠ¸ë¦¬ë¥¼ ìƒˆë¡œ ê·¸ë¦°ë‹¤.
-     * í”¼ë”ì—ì„œ ì´ë²¤íŠ¸ ë°œìƒì‹œì—ëŠ” í”¼ë” ì—ë””í„°ì˜ ê·¸ë¦¬ë“œ ë° íŠ¸ë¦¬ë¥¼ ë¦¬í”„ë ˆì‰¬í•œë‹¤.
-     * ì¶”ê°€ì ìœ¼ë¡œ í”¼ë”ì¼ë•ŒëŠ” í•˜ì´ì–´ë¼í‚¤ì˜ í”¼ë”ë¦¬ìŠ¤íŠ¸ë„ ê°±ì‹ í•´ì•¼í•œë‹¤.
-     * 
+     * ÀúÀå ÀÌÈÄ ±×¸®µå ¹× Æ®¸®¸¦ »õ·Î ±×¸°´Ù.
+     * ÇÇ´õ¿¡¼­ ÀÌº¥Æ® ¹ß»ı½Ã¿¡´Â ÇÇ´õ ¿¡µğÅÍÀÇ ±×¸®µå ¹× Æ®¸®¸¦ ¸®ÇÁ·¹½¬ÇÑ´Ù.
+     * Ãß°¡ÀûÀ¸·Î ÇÇ´õÀÏ¶§´Â ÇÏÀÌ¾î¶óÅ°ÀÇ ÇÇ´õ¸®½ºÆ®µµ °»½ÅÇØ¾ßÇÑ´Ù.
+     *
      */
     refreshGridAndTree: function (mode, renderer) {
-    	var me = this;
-    	/**
-    	 * í”¼ë”ì—ì„œ ë„˜ì–´ì™”ë‹¤ë©´
-    	 */
-    	if(mode == me.Constants.MODE.FEEDER) {
-    		me.renderSwgrSelectBox();
+        var me = this;
+        /**
+         * ÇÇ´õ¿¡¼­ ³Ñ¾î¿Ô´Ù¸é
+         */
+        if(mode == me.Constants.MODE.FEEDER) {
+            me.renderSwgrSelectBox();
             me.renderGrid(me.model.SwgrList.name);
             me.renderGrid(me.model.UnAssignedLoadList.name);
             //update
             var tree = me.model.AssignedFeederList.panel.jstree(true).destroy();
             me.renderTree(me.model.AssignedFeederList.name);
-            
+
             me.renderGrid(me.model.FeederList.name);
             me.renderGrid(me.model.HierarchyFeederList.name);
             /**
-             * ê¸°ì¡´ì˜ ë³€ìˆ˜ë“¤ì˜ ê°’ë“¤ì„ ì´ˆê¸°í™” í•˜ê³  setEditingObjectFromLoadDataì„ íƒœì›Œì„œ
-             * ë°”ë€ ì •ë³´ë“¤ë¡œ ì±„ì›Œë„£ì–´ì•¼ í•œë‹¤.
+             * ±âÁ¸ÀÇ º¯¼öµéÀÇ °ªµéÀ» ÃÊ±âÈ­ ÇÏ°í setEditingObjectFromLoadDataÀ» ÅÂ¿ö¼­
+             * ¹Ù²ï Á¤º¸µé·Î Ã¤¿ö³Ö¾î¾ß ÇÑ´Ù.
              */
             me.setEditingObjectFromSave(renderer);
-    	} else if(mode == me.Constants.MODE.HIERARCHY) {
-    		
-    		me.renderGrid(me.model.HierarchyFeederList.name);
-    		//update
+        } else if(mode == me.Constants.MODE.HIERARCHY) {
+
+            me.renderGrid(me.model.HierarchyFeederList.name);
+            //update
             var tree = me.model.HierarchyTreeList.panel.jstree(true).destroy();
             me.renderTree(me.model.HierarchyTreeList.name);
-            
+
             me.saveSettingHierarchyMode(renderer);
-            
-    	} else if(mode == me.Constants.MODE.ROUTE) {
-    		
-    		me.renderGrid(me.model.BldgReferenceList.name);
+
+        } else if(mode == me.Constants.MODE.ROUTE) {
+
+            me.renderGrid(me.model.BldgReferenceList.name);
             //me.renderGrid(me.model.LocationReferenceList.name);
             me.renderGrid(me.model.RacewayReferenceList.name);
             me.renderGrid(me.model.RouteReferenceList.name);
             me.renderGrid(me.model.CableReferenceList.name);
-    		me.saveSettingRouteMode(renderer);
-    	}
+            me.saveSettingRouteMode(renderer);
+        }
     },
-    
+
     /**
-     * í•˜ì´ì–´ë¼í‚¤ ì—ë””í„°ì—ì„œ ì €ì¥ì´í›„ ëª¨ë“œê°’ë“¤ í›„ì²˜ë¦¬
+     * ÇÏÀÌ¾î¶óÅ° ¿¡µğÅÍ¿¡¼­ ÀúÀåÀÌÈÄ ¸ğµå°ªµé ÈÄÃ³¸®
      */
     saveSettingRouteMode: function(renderer) {
-    	var me = this;
-    	var currentCanvas = renderer.getCanvas();
-    	me.projectData.gui_route_json = currentCanvas.toJSON();
-    	me.setRouteSaveMode(true);
-    	
+        var me = this;
+        var currentCanvas = renderer.getCanvas();
+        me.projectData.gui_route_json = currentCanvas.toJSON();
+        me.setRouteSaveMode(true);
+
     },
-    
+
     /**
-     * í•˜ì´ì–´ë¼í‚¤ ì—ë””í„°ì—ì„œ ì €ì¥ì´í›„ ëª¨ë“œê°’ë“¤ í›„ì²˜ë¦¬
+     * ÇÏÀÌ¾î¶óÅ° ¿¡µğÅÍ¿¡¼­ ÀúÀåÀÌÈÄ ¸ğµå°ªµé ÈÄÃ³¸®
      */
     saveSettingHierarchyMode: function(renderer) {
-    	var me = this;
-    	var currentCanvas = renderer.getCanvas();
-    	me.projectData.gui_hier_json = currentCanvas.toJSON();
-    	me.setHierarchySaveMode(true);
-    	
-    	var shapeList = currentCanvas.getAllShapes();
-    	me.feederHierarchyMgtShapeList = [];
-    	shapeList.forEach(function(element){
-        	if(element.shape instanceof OG.HierarchyFloor) {
-        		
-        		var childShape = currentCanvas.getChilds(element);
-        		childShape.forEach(function(child){
-        			
-        			if(child.shape.data.hasOwnProperty('label')) {
-        				delete child.shape.data['label'];
-        			}
-        			
-        			var jsonData = {};
+        var me = this;
+        var currentCanvas = renderer.getCanvas();
+        me.projectData.gui_hier_json = currentCanvas.toJSON();
+        me.setHierarchySaveMode(true);
 
-        			jsonData['feeder_list_mgt_seq'] = child.shape.data.feeder_list_mgt_seq;
-        			jsonData['hier_seq'] = element.shape.data.hier_seq; 
-        			jsonData['up_hier_seq'] = element.shape.data.up_hier_seq;
-        			
-        			/**
-        			 * prevEdgesê°€ ìˆë‹¤ëŠ” ê²ƒì€ ìƒìœ„ í”¼ë”ê°€ ìˆë‹¤ëŠ” ê²ƒ.
-        			 * ì—†ë‹¤ë©´ ìì‹ ì´ ìƒìœ„ì´ê¸° ë•Œë¬¸ì— 
-        			 */
-        			var prevEdges = currentCanvas.getPrevEdges(child);
-        			var nextEdges = currentCanvas.getNextEdges(child);
-        			if(prevEdges.length > 0) {
-        				prevEdges.forEach(function(edge){
-        					var edge = currentCanvas.getRelatedElementsFromEdge(edge);
-        					var fromShapeData = edge.from.shape.data;
-        					// ìê¸° ìì‹ ì´ë©´ ìì‹ ì´ ìƒìœ„ì´ê¸° ë•Œë¬¸ì— pass
-        					if(fromShapeData.feeder_list_mgt_seq != child.shape.data.feeder_list_mgt_seq) {
-        						jsonData['up_feeder_list_mgt_seq'] = fromShapeData.feeder_list_mgt_seq;
-        					}
-        				});
-        			}
-        			
-        			jsonData['status'] = 'U';
-        			me.feederHierarchyMgtShapeList.push(jsonData);
-        			
-        		});
-        	}
+        var shapeList = currentCanvas.getAllShapes();
+        me.feederHierarchyMgtShapeList = [];
+        shapeList.forEach(function(element){
+            if(element.shape instanceof OG.HierarchyFloor) {
+
+                var childShape = currentCanvas.getChilds(element);
+                childShape.forEach(function(child){
+
+                    if(child.shape.data.hasOwnProperty('label')) {
+                        delete child.shape.data['label'];
+                    }
+
+                    var jsonData = {};
+
+                    jsonData['feeder_list_mgt_seq'] = child.shape.data.feeder_list_mgt_seq;
+                    jsonData['hier_seq'] = element.shape.data.hier_seq;
+                    jsonData['up_hier_seq'] = element.shape.data.up_hier_seq;
+
+                    /**
+                     * prevEdges°¡ ÀÖ´Ù´Â °ÍÀº »óÀ§ ÇÇ´õ°¡ ÀÖ´Ù´Â °Í.
+                     * ¾ø´Ù¸é ÀÚ½ÅÀÌ »óÀ§ÀÌ±â ¶§¹®¿¡
+                     */
+                    var prevEdges = currentCanvas.getPrevEdges(child);
+                    var nextEdges = currentCanvas.getNextEdges(child);
+                    if(prevEdges.length > 0) {
+                        prevEdges.forEach(function(edge){
+                            var edge = currentCanvas.getRelatedElementsFromEdge(edge);
+                            var fromShapeData = edge.from.shape.data;
+                            // ÀÚ±â ÀÚ½ÅÀÌ¸é ÀÚ½ÅÀÌ »óÀ§ÀÌ±â ¶§¹®¿¡ pass
+                            if(fromShapeData.feeder_list_mgt_seq != child.shape.data.feeder_list_mgt_seq) {
+                                jsonData['up_feeder_list_mgt_seq'] = fromShapeData.feeder_list_mgt_seq;
+                            }
+                        });
+                    }
+
+                    jsonData['status'] = 'U';
+                    me.feederHierarchyMgtShapeList.push(jsonData);
+
+                });
+            }
         });
-    	
-    	me.usedHierarchyFeederList = [];
-    	me.updateFeederHierarchyList = [];
-    	me.deleteFeederHierarchyList = [];
+
+        me.usedHierarchyFeederList = [];
+        me.updateFeederHierarchyList = [];
+        me.deleteFeederHierarchyList = [];
     }
 }
 ;
