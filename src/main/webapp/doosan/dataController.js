@@ -5,304 +5,312 @@ var DataController = function () {
     this.dev = true;
 };
 DataController.prototype = {
-    /**
-     * í”„ë¡œì íŠ¸ ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
-     * @param callback
-     */
-    getProjectInfo: function (callback) {
-        if (this.dev) {
-            $.ajax({
-                url: 'doosan/data/project.json',
-                dataType: 'json',
-                success: function (data) {
-                    callback(null, data[0]);
-                },
-                error: function (err) {
-                    callback(err, null);
-                }
-            });
-        } else {
-            var data;
-            try {
-                data = parent.getProjectInfo();
-                callback(null, data);
-            } catch (e) {
-                callback(e, null);
-            }
-        }
-    },
-
+	/**
+	 * ?”„ë¡œì ?Š¸ ?°?´?„°ë¥? ë¶ˆëŸ¬?˜¨?‹¤.
+	 * @param callback
+	 */
+	getProjectInfo: function (callback) {
+	    if (this.dev) {
+	        $.ajax({
+	            url: 'doosan/data/project.json',
+	            dataType: 'json',
+	            success: function (data) {
+	                callback(null, data[0]);
+	            },
+	            error: function (err) {
+	                callback(err, null);
+	            }
+	        });
+	    } else {
+	        var data;
+	        try {
+	        	data = parent.getProjectInfo();
+	            callback(null, data);
+	        } catch (e) {
+	            callback(e, null);
+	        }
+	    }
+	},
+    
     /* Feeder Editor DataController */
-
+    
     /**
-     * ìŠ¤ìœ„ì¹˜ ì…€ë ‰íŠ¸ ë°•ìŠ¤ì˜ ë‚´ìš©ì„ ë¶ˆëŸ¬ì˜¨ë‹¤.
+     * ?Š¤?œ„ì¹? ??? ‰?Š¸ ë°•ìŠ¤?˜ ?‚´?š©?„ ë¶ˆëŸ¬?˜¨?‹¤.
      * @param callback
      */
-    getSwitchgearTypeList: function (callback) {
-        if (this.dev) {
-            $.ajax({
-                url: 'doosan/data/swgr-select-box.json',
-                dataType: 'json',
-                success: function (data) {
-                    callback(null, data);
-                },
-                error: function (err) {
-                    callback(err, null);
-                }
-            });
-        } else {
-            var data;
-            try {
-                data = parent.getSwitchgearTypeList();
-                callback(null, data);
-            } catch (e) {
-                callback(e, null);
-            }
-        }
+	getSwitchgearTypeList: function (callback) {
+	    if (this.dev) {
+	        $.ajax({
+	            url: 'doosan/data/swgr-select-box.json',
+	            dataType: 'json',
+	            success: function (data) {
+	                callback(null, data);
+	            },
+	            error: function (err) {
+	                callback(err, null);
+	            }
+	        });
+	    } else {
+	        var data;
+	        try {
+	        	data = parent.getSwitchgearTypeList();
+	            callback(null, data);
+	        } catch (e) {
+	        	data = [];
+	            callback(null, data);
+	        }
+	    }
     },
-
+    
     /**
-     * ì‚¬ìš©ë˜ì§€ ì•Šì€ ìŠ¤ìœ„ì¹˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
+     * ?‚¬?š©?˜ì§? ?•Š?? ?Š¤?œ„ì¹? ë¦¬ìŠ¤?Š¸ë¥? ë¶ˆëŸ¬?˜¨?‹¤.
      * @param callback
      */
     getSwitchgearUnused: function (callback) {
-        if (this.dev) {
-            $.ajax({
-                url: 'doosan/data/swgr-list.json',
-                dataType: 'json',
-                success: function (data) {
-                    callback(null, data);
-                },
-                error: function (err) {
-                    callback(err, null);
-                }
-            });
+    	if (this.dev) {
+	        $.ajax({
+	            url: 'doosan/data/swgr-list.json',
+	            dataType: 'json',
+	            success: function (data) {
+	                callback(null, data);
+	            },
+	            error: function (err) {
+	                callback(err, null);
+	            }
+	        });
         } else {
-            var data;
-            try {
-                data = parent.getSwitchgearUnused();
-                callback(null, data);
-            } catch (e) {
-                callback(e, null);
-            }
+	        var data;
+	        try {
+	            data = parent.getSwitchgearUnused();
+	            callback(null, data);
+	        } catch (e) {
+	        	data = [];
+	            callback(null, data);
+	        }
         }
     },
-
+    
     /**
-     * ì‚¬ìš©ëœ ìŠ¤ìœ„ì¹˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
+     * ?‚¬?š©?œ ?Š¤?œ„ì¹? ë¦¬ìŠ¤?Š¸ë¥? ë¶ˆëŸ¬?˜¨?‹¤.
      * @param callback
      */
     getSwitchgearUse: function (callback) {
-
-        if(this.dev) {
-            $.ajax({
-                url: 'doosan/data/swgr-use-list.json',
-                dataType: 'json',
-                success: function (data) {
-                    callback(null, data);
-                },
-                error: function (err) {
-                    callback(err, null);
-                }
-            });
+        
+    	if(this.dev) {
+	        $.ajax({
+	            url: 'doosan/data/swgr-use-list.json',
+	            dataType: 'json',
+	            success: function (data) {
+	                callback(null, data);
+	            },
+	            error: function (err) {
+	                callback(err, null);
+	            }
+	        });
         } else {
-            var data;
-            try {
-                data = parent.getSwitchgearUse();
-                callback(null, data);
-            } catch (e) {
-                callback(e, null);
-            }
+	        var data;
+	        try {
+	            data = parent.getSwitchgearUse();
+	            callback(null, data);
+	        } catch (e) {
+	        	data = [];
+	            callback(null, data);
+	        }
         }
     },
-
+    
     /**
-     * ì‚¬ìš©ë˜ì§€ ì•Šì€ ë¡œë“œ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
+     * ?‚¬?š©?˜ì§? ?•Š?? ë¡œë“œ ë¦¬ìŠ¤?Š¸ë¥? ë¶ˆëŸ¬?˜¨?‹¤.
      * @param callback
      */
     getLoadUnused: function (callback) {
-        if(this.dev) {
-            $.ajax({
-                url: 'doosan/data/load-list.json',
-                dataType: 'json',
-                success: function (data) {
-                    callback(null, data);
-                },
-                error: function (err) {
-                    callback(err, null);
-                }
-            });
+    	if(this.dev) {
+	        $.ajax({
+	            url: 'doosan/data/load-list.json',
+	            dataType: 'json',
+	            success: function (data) {
+	                callback(null, data);
+	            },
+	            error: function (err) {
+	                callback(err, null);
+	            }
+	        });
         } else {
-            var data;
-            try {
-                data = parent.getLoadUnused();
-                callback(null, data);
-            } catch (e) {
-                callback(e, null);
-            }
+	        var data;
+	        try {
+	            data = parent.getLoadUnused();
+	            callback(null, data);
+	        } catch (e) {
+	        	data = [];
+	            callback(null, data);
+	        }
         }
     },
-
+    
     /**
-     * ì‚¬ìš©ëœ ë¡œë“œ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
+     * ?‚¬?š©?œ ë¡œë“œ ë¦¬ìŠ¤?Š¸ë¥? ë¶ˆëŸ¬?˜¨?‹¤.
      * @param callback
      */
     getLoadUse: function (callback) {
-        if(this.dev) {
-            $.ajax({
-                url: 'doosan/data/load-use-list.json',
-                dataType: 'json',
-                success: function (data) {
-                    callback(null, data);
-                },
-                error: function (err) {
-                    callback(err, null);
-                }
-            });
+    	if(this.dev) {
+	        $.ajax({
+	            url: 'doosan/data/load-use-list.json',
+	            dataType: 'json',
+	            success: function (data) {
+	                callback(null, data);
+	            },
+	            error: function (err) {
+	                callback(err, null);
+	            }
+	        });
         } else {
-            var data;
-            try {
-                data = parent.getLoadUnused();
-                callback(null, data);
-            } catch (e) {
-                callback(e, null);
-            }
+	        var data;
+	        try {
+	            data = parent.getLoadUnused();
+	            callback(null, data);
+	        } catch (e) {
+	        	data = [];
+	            callback(null, data);
+	        }
         }
     },
-
+    
     /**
-     * í”¼ë” ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.(ìŠ¤ìœ„ì¹˜ì— í•´ë‹¹í•˜ëŠ” ê²ƒë§Œ ë¦¬ìŠ¤íŠ¸ë¡œ)
+     * ?”¼?” ë¦¬ìŠ¤?Š¸ë¥? ë¶ˆëŸ¬?˜¨?‹¤.(?Š¤?œ„ì¹˜ì— ?•´?‹¹?•˜?Š” ê²ƒë§Œ ë¦¬ìŠ¤?Š¸ë¡?)
      * @param callback
      */
     getFeederList: function (callback) {
-
-        var getSwitchList = function(data){
-            var list = [];
-            for(var i = 0, leni = data.length; i < leni; i++){
-                if(data[i]['fe_swgr_load_div'] == 'S'){
-                    list.push(data[i]);
-                }
-            }
-            return list;
+        
+    	var getSwitchList = function(data){
+	        var list = [];
+	        for(var i = 0, leni = data.length; i < leni; i++){
+	            if(data[i]['fe_swgr_load_div'] == 'S'){
+	            	list.push(data[i]);
+	            }
+	        }
+	        return list;
         };
-
+        
         if(this.dev) {
-            $.ajax({
-                url: 'doosan/data/feeder-list.json',
-                dataType: 'json',
-                success: function (data) {
-                    callback(null, getSwitchList(data));
-                },
-                error: function (err) {
-                    callback(err, null);
-                }
-            });
+	        $.ajax({
+	            url: 'doosan/data/feeder-list.json',
+	            dataType: 'json',
+	            success: function (data) {
+	                callback(null, getSwitchList(data));
+	            },
+	            error: function (err) {
+	                callback(err, null);
+	            }
+	        });
         } else {
-            var data;
-            try {
-                data = parent.getFeederList();
-                callback(null, getSwitchList(data));
-            } catch (e) {
-                callback(e, null);
-            }
+	        var data;
+	        try {
+	            data = parent.getFeederList();
+	            callback(null, getSwitchList(data));
+	        } catch (e) {
+	        	data = [];
+	            callback(null, data);
+	        }
         }
     },
-
+    
     /**
-     * AssignedFeederListì˜ treedataë¥¼ ë§Œë“œëŠ” í•¨ìˆ˜
+     * AssignedFeederList?˜ treedataë¥? ë§Œë“œ?Š” ?•¨?ˆ˜
      */
-
+    
     getFeederTreeData: function(data) {
 
-        var prevItem;
-        var lastLvMap = {};
-        var treeData = [];
-
-        if(data == null) {
-            return treeData;
-        }
-
-        for (var i = 0, leni = data.length; i < leni; i++) {
-            var parent;
-            var enableDisplay = true;
-
-            //LV ê°€ 1ì´ë©´ ë£¨íŠ¸ì´ë‹¤.
-            if (data[i]['lv'] == 1) {
-                parent = '#';
-                lastLvMap[1] = data[i];
-            }
-            //prevItem ì´ ì—†ë‹¤ë©´ ì¼ë‹¨ ë£¨íŠ¸ë¡œ ë“±ë¡í•˜ê³ , LV ë§µì— ìì‹ ì„ ë“±ë¡
-            else if (!prevItem) {
-                parent = '#';
-                lastLvMap[data[i]['lv']] = data[i];
-            }
-            else {
-                //ìì‹ ì˜ ë ˆë²¨ì´ ë§ˆì§€ë§‰ ì•„ì´í…œì˜ ë ˆë²¨ë³´ë‹¤ í¬ë‹¤ë©´
-                if (prevItem['lv'] < data[i]['lv']) {
-                    parent = prevItem['feeder_list_mgt_seq'];
-                    lastLvMap[data[i]['lv']] = data[i];
-                }
-                //ìì‹ ì˜ ë ˆë²¨ì´ ë§ˆì§€ë§‰ ì•„ì´í…œì˜ ë ˆë²¨ë³´ë‹¤ ê°™ê±°ë‚˜ ì‘ë‹¤ë©´
-                else if (prevItem['lv'] >= data[i]['lv']) {
-                    var parentLv = data[i]['lv'] - 1;
-                    if (lastLvMap[parentLv]) {
-                        parent = lastLvMap[parentLv]['feeder_list_mgt_seq'];
-                        lastLvMap[data[i]['lv']] = data[i];
-                    }
-                    //ìì‹ ì˜ ì „ë‹¨ê³„ ë ˆë²¨ì´ lastLvMap ì— ì—†ë‹¤ë©´, ì˜ëª»ëœ ë°ì´í„° í˜•ì‹ì„ì„ ì•Œë¦°ë‹¤.
-                    else {
-                        callback('ì–´ì‚¬ì¸ë“œ ë¡œë“œ ' + data[i]['kks_num'] + ' ì˜ ìƒìœ„ ë ˆë²¨ ë°ì´í„°ê°€ ëˆ„ë½ë˜ì—ˆìŠµë‹ˆë‹¤.')
-                    }
-                }
-            }
-            if (enableDisplay) {
-                var item = {
-                    id: data[i]['feeder_list_mgt_seq'],
-                    text: data[i]['kks_num'],
-                    parent: parent,
-                    data: data[i],
-                    a_attr: {},
-                    type: data[i]['fe_swgr_load_div'] == 'L' ? 'load' : 'swgr'
-                };
-                treeData.push(item);
-                prevItem = data[i];
-            }
-        }
-
-        return treeData;
+		var prevItem;
+	    var lastLvMap = {};
+	    var treeData = [];
+	    
+	    if(data == null) {
+	    	return treeData;
+	    }
+	    
+	    for (var i = 0, leni = data.length; i < leni; i++) {
+	        var parent;
+	        var enableDisplay = true;
+	
+	        //LV ê°? 1?´ë©? ë£¨íŠ¸?´?‹¤.
+	        if (data[i]['lv'] == 1) {
+	            parent = '#';
+	            lastLvMap[1] = data[i];
+	        }
+	        //prevItem ?´ ?—†?‹¤ë©? ?¼?‹¨ ë£¨íŠ¸ë¡? ?“±ë¡í•˜ê³?, LV ë§µì— ??‹ ?„ ?“±ë¡?
+	        else if (!prevItem) {
+	            parent = '#';
+	            lastLvMap[data[i]['lv']] = data[i];
+	        }
+	        else {
+	            //??‹ ?˜ ? ˆë²¨ì´ ë§ˆì?ë§? ?•„?´?…œ?˜ ? ˆë²¨ë³´?‹¤ ?¬?‹¤ë©?
+	            if (prevItem['lv'] < data[i]['lv']) {
+	                parent = prevItem['feeder_list_mgt_seq'];
+	                lastLvMap[data[i]['lv']] = data[i];
+	            }
+	            //??‹ ?˜ ? ˆë²¨ì´ ë§ˆì?ë§? ?•„?´?…œ?˜ ? ˆë²¨ë³´?‹¤ ê°™ê±°?‚˜ ?‘?‹¤ë©?
+	            else if (prevItem['lv'] >= data[i]['lv']) {
+	                var parentLv = data[i]['lv'] - 1;
+	                if (lastLvMap[parentLv]) {
+	                    parent = lastLvMap[parentLv]['feeder_list_mgt_seq'];
+	                    lastLvMap[data[i]['lv']] = data[i];
+	                }
+	                //??‹ ?˜ ? „?‹¨ê³? ? ˆë²¨ì´ lastLvMap ?— ?—†?‹¤ë©?, ?˜ëª»ëœ ?°?´?„° ?˜•?‹?„?„ ?•Œë¦°ë‹¤.
+	                else {
+	                    callback('?–´?‚¬?¸?“œ ë¡œë“œ ' + data[i]['kks_num'] + ' ?˜ ?ƒ?œ„ ? ˆë²? ?°?´?„°ê°? ?ˆ„?½?˜?—ˆ?Šµ?‹ˆ?‹¤.')
+	                }
+	            }
+	        }
+	        if (enableDisplay) {
+	            var item = {
+	                id: data[i]['feeder_list_mgt_seq'],
+	                text: data[i]['kks_num'],
+	                parent: parent,
+	                data: data[i],
+	                a_attr: {},
+	                type: data[i]['fe_swgr_load_div'] == 'L' ? 'load' : 'swgr'
+	            };
+	            treeData.push(item);
+	            prevItem = data[i];
+	        }
+	    }
+	    
+	    return treeData;
     },
-
+    
     /**
-     * ì–´ì‚¬ì¸ëœ í”¼ë” ë¦¬ìŠ¤íŠ¸ ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
+     * ?–´?‚¬?¸?œ ?”¼?” ë¦¬ìŠ¤?Š¸ ë¥? ë¶ˆëŸ¬?˜¨?‹¤.
      * @param callback
      */
     getAssignedFeederList: function (callback) {
+    	var me =  this;
         if(this.dev) {
-            $.ajax({
-                url: 'doosan/data/feeder-list.json',
-                dataType: 'json',
-                success: function (data) {
-                    var treeData = getFeederTreeData(data);
-                    callback(null, treeData);
-                },
-                error: function (err) {
-                    callback(err, null);
-                }
-            });
+	    	$.ajax({
+	            url: 'doosan/data/feeder-list.json',
+	            dataType: 'json',
+	            success: function (data) {
+	            	var treeData = me.getFeederTreeData(data);
+	                callback(null, treeData);
+	            },
+	            error: function (err) {
+	                callback(err, null);
+	            }
+	        });
         } else {
             var data;
             try {
-                data = parent.getFeederList();
-                callback(null, this.getFeederTreeData(data));
+            	data = parent.getFeederList();
+                callback(null, me.getFeederTreeData(data));
             } catch (e) {
-                callback(e, null);
+            	data = [];
+	            callback(null, data);
             }
         }
-
+    	
     },
-
+    
     /**
-     * íŠ¸ë¦¬ì—ì„œ ì„ íƒí•œ ë…¸ë“œ ì‚­ì œì´í›„ í•´ë‹¹ ë¦¬ìŠ¤íŠ¸ë¥¼ ë‹¤ì‹œ ë°›ì•„ì™€ì„œ ë¦¬í”„ë ˆì‹œí•œë‹¤.
+     * ?Š¸ë¦¬ì—?„œ ?„ ?ƒ?•œ ?…¸?“œ ?‚­? œ?´?›„ ?•´?‹¹ ë¦¬ìŠ¤?Š¸ë¥? ?‹¤?‹œ ë°›ì•„???„œ ë¦¬í”„? ˆ?‹œ?•œ?‹¤.
      * @param callback
      */
     getUpdateTree: function (object, renderer, mode) {
@@ -317,182 +325,184 @@ DataController.prototype = {
                     object.refresh();
                 },
                 error: function (err) {
-                    console.log(err);
+                	console.log(err);
                 }
             });
         } else {
             var data;
             try {
-
-                if(mode == renderer.Constants.MODE.FEEDER) {
-                    var feederList = parent.getFeederList();
-                    data = this.getFeederTreeData(feederList)
-                } else if(mode == renderer.Constants.MODE.HIERARCHY) {
-                    var feederSwgrList = parent.getFeederSWGRTree();
-                    data = this.getHierarchyTreeData(feederSwgrList)
-                }
-
-                object.on("dblclick.jstree", function (event, data) {
+            	
+            	if(mode == renderer.Constants.MODE.FEEDER) {
+	                var feederList = parent.getFeederList();
+	                data = this.getFeederTreeData(feederList)
+            	} else if(mode == renderer.Constants.MODE.HIERARCHY) {
+            		var feederSwgrList = parent.getFeederSWGRTree();
+            		data = this.getHierarchyTreeData(feederSwgrList)
+            	}
+            	
+            	$(object).on("dblclick.jstree", function (event, data) {
                     //var node = $(event.target).closest("li");
                     //console.log(data);
                 })
-                    .on("select_node.jstree", function (evt, data) {
-                        //console.log(data);
-                    })
-                    .on('dnd_start.vakata', function (e, data) {
-                        //console.log(data);
-                    });
+                .on("select_node.jstree", function (evt, data) {
+                    //console.log(data);
+                })
+                .on('dnd_start.vakata', function (e, data) {
+                    //console.log(data);
+                });
                 object.settings.core.data = data;
                 object.refresh();
-
+            	
             } catch (e) {
                 console.log('when refresh Tree Node, occur error');
             }
         }
 
     },
-
+    
     /**
-     * í”¼ë” ì—ë””í„°ì˜ Assigned(All)ì˜ íŠ¸ë¦¬ì˜ ì»¨í…ìŠ¤íŠ¸ ë©”ë‰´ì˜ unAssign í´ë¦­ ì´ë²¤íŠ¸ì‹œ feeder_list_mgt_seqë¥¼ ë°›ì•„ ì§€ìš´ë‹¤.
+     * ?”¼?” ?—?””?„°?˜ Assigned(All)?˜ ?Š¸ë¦¬ì˜ ì»¨í…?Š¤?Š¸ ë©”ë‰´?˜ unAssign ?´ë¦? ?´ë²¤íŠ¸?‹œ feeder_list_mgt_seqë¥? ë°›ì•„ ì§??š´?‹¤.
      */
     deleteFeeder: function (seq) {
-        // resultDataëŠ” ì„±ê³µì´ë©´ status : 0, ì—ëŸ¬ì‹œì—ëŠ” status : 1, errorMessage : "string"
-        var resultData = parent.deleteFeeder(seq);
-        return resultData;
-
+    	// resultData?Š” ?„±ê³µì´ë©? status : 0, ?—?Ÿ¬?‹œ?—?Š” status : 1, errorMessage : "string"
+    	var resultData = parent.deleteFeeder(seq);
+    	return resultData;
+    	
     },
-
+    
     /* Hierarchy Editor DataController */
-
+    
     /**
-     * í•˜ì´ì–´ë¼í‚¤ ì—ë””í„°ì˜ í”¼ë” ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
+     * ?•˜?´?–´?¼?‚¤ ?—?””?„°?˜ ?”¼?” ë¦¬ìŠ¤?Š¸ë¥? ë¶ˆëŸ¬?˜¨?‹¤.
      * @param callback
      */
     getHierarchyFeederList: function (callback) {
-
-        var getSwitchList = function(data){
-            var list = [];
-            if(data == null) {
-                return list;
-            }
-            for(var i = 0, leni = data.length; i < leni; i++){
-                if(data[i]['fe_swgr_load_div'] == 'S'){
-                    list.push(data[i]);
-                }
-            }
-            return list;
+    	
+    	var getSwitchList = function(data){
+	        var list = [];
+	        if(data == null) {
+	        	return list;
+	        }
+	        for(var i = 0, leni = data.length; i < leni; i++){
+	            if(data[i]['fe_swgr_load_div'] == 'S'){
+	            	list.push(data[i]);
+	            }
+	        }
+	        return list;
         };
-
+        
         if(this.dev) {
-            $.ajax({
-                url: 'doosan/data/feeder-list.json',
-                dataType: 'json',
-                success: function (data) {
-                    callback(null, getSwitchList(data));
-                },
-                error: function (err) {
-                    callback(err, null);
-                }
-            });
+	        $.ajax({
+	            url: 'doosan/data/feeder-list.json',
+	            dataType: 'json',
+	            success: function (data) {
+	                callback(null, getSwitchList(data));
+	            },
+	            error: function (err) {
+	                callback(err, null);
+	            }
+	        });
         } else {
-            var data;
-            try {
-                data = parent.getFeederSWGRList();
-                callback(null, getSwitchList(data));
-            } catch (e) {
-                callback(e, null);
-            }
+	        var data;
+	        try {
+	            data = parent.getFeederSWGRList();
+	            callback(null, getSwitchList(data));
+	        } catch (e) {
+	        	data = [];
+	            callback(null, data);
+	        }
         }
     },
-
+    
     getHierarchyTreeData: function(data){
 
-        var prevItem;
-        var lastLvMap = {};
-        var treeData = [];
-
-        if(data == null) {
-            return treeData;
+    	var prevItem;
+		var lastLvMap = {};
+		var treeData = [];
+       
+		if(data == null) {
+			return treeData;
         }
+       
+		for (var i = 0, leni = data.length; i < leni; i++) {
+			var parent;
+			var enableDisplay = true;
 
-        for (var i = 0, leni = data.length; i < leni; i++) {
-            var parent;
-            var enableDisplay = true;
-
-            //LV ê°€ 1ì´ë©´ ë£¨íŠ¸ì´ë‹¤.
+           //LV ê°? 1?´ë©? ë£¨íŠ¸?´?‹¤.
             if (data[i]['lv'] == 1) {
-                parent = '#';
+            	parent = '#';
                 lastLvMap[1] = data[i];
             }
-            //prevItem ì´ ì—†ë‹¤ë©´ ì¼ë‹¨ ë£¨íŠ¸ë¡œ ë“±ë¡í•˜ê³ , LV ë§µì— ìì‹ ì„ ë“±ë¡
+            //prevItem ?´ ?—†?‹¤ë©? ?¼?‹¨ ë£¨íŠ¸ë¡? ?“±ë¡í•˜ê³?, LV ë§µì— ??‹ ?„ ?“±ë¡?
             else if (!prevItem) {
-                parent = '#';
-                lastLvMap[data[i]['lv']] = data[i];
+            	parent = '#';
+            	lastLvMap[data[i]['lv']] = data[i];
             }
             else {
-                //ìì‹ ì˜ ë ˆë²¨ì´ ë§ˆì§€ë§‰ ì•„ì´í…œì˜ ë ˆë²¨ë³´ë‹¤ í¬ë‹¤ë©´
-                if (prevItem['lv'] < data[i]['lv']) {
-                    parent = prevItem['hier_seq'];
-                    lastLvMap[data[i]['lv']] = data[i];
-                }
-                //ìì‹ ì˜ ë ˆë²¨ì´ ë§ˆì§€ë§‰ ì•„ì´í…œì˜ ë ˆë²¨ë³´ë‹¤ ê°™ê±°ë‚˜ ì‘ë‹¤ë©´
-                else if (prevItem['lv'] >= data[i]['lv']) {
-                    var parentLv = data[i]['lv'] - 1;
-                    if (lastLvMap[parentLv]) {
-                        parent = lastLvMap[parentLv]['hier_seq'];
+               //??‹ ?˜ ? ˆë²¨ì´ ë§ˆì?ë§? ?•„?´?…œ?˜ ? ˆë²¨ë³´?‹¤ ?¬?‹¤ë©?
+            	if (prevItem['lv'] < data[i]['lv']) {
+            		parent = prevItem['hier_seq'];
+            		lastLvMap[data[i]['lv']] = data[i];
+            	}
+            	//??‹ ?˜ ? ˆë²¨ì´ ë§ˆì?ë§? ?•„?´?…œ?˜ ? ˆë²¨ë³´?‹¤ ê°™ê±°?‚˜ ?‘?‹¤ë©?
+            	else if (prevItem['lv'] >= data[i]['lv']) {
+            		var parentLv = data[i]['lv'] - 1;
+            		if (lastLvMap[parentLv]) {
+            			parent = lastLvMap[parentLv]['hier_seq'];
                         lastLvMap[data[i]['lv']] = data[i];
                     }
-                    //ìì‹ ì˜ ì „ë‹¨ê³„ ë ˆë²¨ì´ lastLvMap ì— ì—†ë‹¤ë©´, ì˜ëª»ëœ ë°ì´í„° í˜•ì‹ì„ì„ ì•Œë¦°ë‹¤.
-                    else {
-                        callback('í•˜ì´ì–´ë¼í‚¤ ' + data[i]['hier_seq'] + ' ì˜ ìƒìœ„ ë ˆë²¨ ë°ì´í„°ê°€ ëˆ„ë½ë˜ì—ˆìŠµë‹ˆë‹¤.')
-                    }
-                }
+            		//??‹ ?˜ ? „?‹¨ê³? ? ˆë²¨ì´ lastLvMap ?— ?—†?‹¤ë©?, ?˜ëª»ëœ ?°?´?„° ?˜•?‹?„?„ ?•Œë¦°ë‹¤.
+            		else {
+            			callback('?•˜?´?–´?¼?‚¤ ' + data[i]['hier_seq'] + ' ?˜ ?ƒ?œ„ ? ˆë²? ?°?´?„°ê°? ?ˆ„?½?˜?—ˆ?Šµ?‹ˆ?‹¤.')
+            		}
+            	}
             }
             if (enableDisplay) {
-                var item = {
-                    id: data[i]['hier_seq'],
-                    text: data[i]['nm'],
-                    parent: parent,
-                    data: data[i],
-                    a_attr: {},
-                    type: data[i]['lv'] == 1 ? 'bldg' : 'floor'
-                };
-                treeData.push(item);
-                prevItem = data[i];
+            	var item = {
+                   id: data[i]['hier_seq'],
+                   text: data[i]['nm'],
+                   parent: parent,
+                   data: data[i],
+                   a_attr: {},
+                   type: data[i]['lv'] == 1 ? 'bldg' : 'floor'
+               };
+               treeData.push(item);
+               prevItem = data[i];
             }
-        }
-
-        return treeData;
-    },
-
+		}
+       
+		return treeData;
+	},
+    
     /** Hierarchy tree list   */
     getHierarchyTreeList: function (callback) {
-
-        if (this.dev) {
-            $.ajax({
-                url: 'doosan/data/hierarchy-list.json',
-                dataType: 'json',
-                success: function (data) {
-                    callback(null, this.getHierarchyTreeData(data));
-                },
-                error: function (err) {
-                    callback(err, null);
-                }
-            });
-        } else {
-            var data;
-            try {
-                data = parent.getFeederSWGRTree();
-                callback(null, this.getHierarchyTreeData(data));
-            } catch (e) {
-                callback(e, null);
-            }
-        }
+    	var me = this;
+    	if (this.dev) {
+    		$.ajax({
+               url: 'doosan/data/hierarchy-list.json',
+               dataType: 'json',
+               success: function (data) {
+                   callback(null, me.getHierarchyTreeData(data));
+               },
+               error: function (err) {
+                   callback(err, null);
+               }
+    		});
+    	} else {
+    		var data;
+    		try {
+    			data = parent.getFeederSWGRTree();
+    			callback(null, me.getHierarchyTreeData(data));
+    		} catch (e) {
+    			data = [];
+	            callback(null, data);
+    		}
+    	}
     },
-
+    
     /** Route Editor*/
     getLocationReferenceList: function (callback) {
-
+        
         if (this.dev) {
             $.ajax({
                 url: 'doosan/data/location-ref.json',
@@ -505,328 +515,332 @@ DataController.prototype = {
                 }
             });
         } else {
-            var data;
+     	   var data;
             try {
-                data = parent.getLocationList();
-                callback(null, data);
+         	   data = parent.getLocationList();
+         	   callback(null, data);
             } catch (e) {
-                callback(e, null);
+            	data = [];
+	            callback(null, data);
             }
         }
-
+        
     },
-
+    
     getRacewayReferenceList: function (callback) {
-
-        if (this.dev) {
-            $.ajax({
-                url: 'doosan/data/raceway-ref.json',
-                dataType: 'json',
-                success: function (data) {
-                    callback(null, data);
-                },
-                error: function (err) {
-                    callback(err, null);
-                }
-            });
-        } else {
-            var data;
-            try {
-                data = parent.getRacewayList();
-                callback(null, data);
-            } catch (e) {
-                callback(e, null);
-            }
-        }
-
+    	
+    	if (this.dev) {
+	        $.ajax({
+	            url: 'doosan/data/raceway-ref.json',
+	            dataType: 'json',
+	            success: function (data) {
+	                callback(null, data);
+	            },
+	            error: function (err) {
+	                callback(err, null);
+	            }
+	        });
+    	} else {
+      	   var data;
+           try {
+        	   data = parent.getRacewayList();
+        	   callback(null, data);
+           } catch (e) {
+        	   data = [];
+	           callback(null, data);
+           }
+    	}
+        
     },
     getRouteReferenceList: function (callback) {
-
-        if (this.dev) {
-            $.ajax({
-                url: 'doosan/data/route-ref.json',
-                dataType: 'json',
-                success: function (data) {
-                    callback(null, data);
-                },
-                error: function (err) {
-                    callback(err, null);
-                }
-            });
-        } else {
-            var data;
-            try {
-                data = parent.getRouteList();
-                callback(null, data);
-            } catch (e) {
-                callback(e, null);
-            }
-        }
+    	
+    	if (this.dev) {
+	        $.ajax({
+	            url: 'doosan/data/route-ref.json',
+	            dataType: 'json',
+	            success: function (data) {
+	                callback(null, data);
+	            },
+	            error: function (err) {
+	                callback(err, null);
+	            }
+	        });
+    	} else {
+       	   var data;
+           try {
+        	   data = parent.getRouteList();
+        	   callback(null, data);
+           } catch (e) {
+        	   data = [];
+	           callback(null, data);
+           }
+    	}
     },
-
+    
     getBldgReferenceList: function (callback) {
-        if (this.dev) {
-            $.ajax({
-                url: 'doosan/data/bldg-ref.json',
-                dataType: 'json',
-                success: function (data) {
-                    callback(null, data);
-                },
-                error: function (err) {
-                    callback(err, null);
-                }
-            });
-        } else {
-            var data;
-            try {
-                data = parent.getBLDGList();
-                callback(null, data);
-            } catch (e) {
-                callback(e, null);
-            }
-        }
+    	if (this.dev) {
+	        $.ajax({
+	            url: 'doosan/data/bldg-ref.json',
+	            dataType: 'json',
+	            success: function (data) {
+	                callback(null, data);
+	            },
+	            error: function (err) {
+	                callback(err, null);
+	            }
+	        });
+    	} else {
+    	   var data;
+           try {
+        	   data = parent.getBLDGList();
+        	   callback(null, data);
+           } catch (e) {
+        	   data = [];
+	           callback(null, data);
+           }
+    	}
     },
-
+    
     getCableReferenceList: function (callback) {
-        if (this.dev) {
-            $.ajax({
-                url: 'doosan/data/cable-ref.json',
-                dataType: 'json',
-                success: function (data) {
-                    callback(null, data);
-                },
-                error: function (err) {
-                    callback(err, null);
-                }
-            });
-        } else {
-            var data;
-            try {
-                data = parent.getCableList();
-                //data = [];
-                callback(null, data);
-            } catch (e) {
-                callback(e, null);
-            }
-        }
+    	if (this.dev) {
+	        $.ajax({
+	            url: 'doosan/data/cable-ref.json',
+	            dataType: 'json',
+	            success: function (data) {
+	                callback(null, data);
+	            },
+	            error: function (err) {
+	                callback(err, null);
+	            }
+	        });
+    	} else {
+    		var data;
+    		try {
+    			data = parent.getCableList();
+           	   	callback(null, data);
+    		} catch (e) {
+    			data = [];
+ 	            callback(null, data);
+    		}
+    	}
     },
-
+    
     /**
-     * í•˜ì´ì–´ë¼í‚¤ ì—ë””í„° ì„¸ì´ë¸Œ
+     * ?•˜?´?–´?¼?‚¤ ?—?””?„° ?„¸?´ë¸?
      */
     saveHierarchy: function(controller) {
-        var mode = controller.getCurrentMode();
+    	var mode = controller.getCurrentMode();
         var renderer = controller.getRendererByMode(mode);
         var currentCanvas = renderer.getCanvas();
         var json = currentCanvas.toJSON();
 
         var sendData = [];
 
-
+        
         var projectInfo = controller.projectData;
-        var hierJSON  = projectInfo.gui_hier_json;
-        if(hierJSON == null) {
-            controller.setHierarchySaveMode(false);
-        } else {
-            controller.setHierarchySaveMode(true);
-        }
-
+    	var hierJSON  = projectInfo.gui_hier_json;
+    	if(hierJSON == null ||  hierJSON == '') {
+    		controller.setHierarchySaveMode(false);
+    	} else {
+    		controller.setHierarchySaveMode(true);
+    	}
+        
         /**
-         * ìº”ë²„ìŠ¤ì˜ ì •ë³´ë¥¼ ë‹´ëŠ” json
+         * ìº”ë²„?Š¤?˜ ? •ë³´ë?? ?‹´?Š” json 
          */
         var GUI_DATA = {};
         GUI_DATA['status'] = 'GUI';
         GUI_DATA['content'] = json;
         sendData.push(GUI_DATA);
-
+        
         /**
-         * canvasì— ê·¸ë ¤ì§„ í”Œë¡œìš° ì •ë³´ë¥¼ ëŒë©´ì„œ childë¡œ ìŠ¤ìœ„ì¹˜ í”¼ë”ë¥¼ ì°¾ëŠ”ë‹¤.
+         * canvas?— ê·¸ë ¤ì§? ?”Œë¡œìš° ? •ë³´ë?? ?Œë©´ì„œ childë¡? ?Š¤?œ„ì¹? ?”¼?”ë¥? ì°¾ëŠ”?‹¤.
          */
         var shapeList = currentCanvas.getAllShapes();
         var hierarchyFeedersOutBoundaryFloor = [];
         if(!controller.getHierarchySaveMode()) {
-            shapeList.forEach(function(element){
-
-                /**
-                 * ë¨¼ì € ë¹Œë”©ì•ˆì— ê·¸ë ¤ì§€ì§€ ì•ŠëŠ” í•˜ì´ì–´ë¼í‚¤ í”¼ë”ê°€ ì¡´ì¬í•˜ëŠ”ì§€ ì²´í¬ë¥¼ í•œë‹¤.
-                 */
-                if(element.shape instanceof OG.HierarchyFeeder) {
-                    var parentElement = currentCanvas.getParent(element);
-                    if(parentElement) {
-                        if( !(parentElement.shape instanceof OG.HierarchyFloor) ) {
-                            hierarchyFeedersOutBoundaryFloor.push(element);
-                        }
-                    } else {
-                        hierarchyFeedersOutBoundaryFloor.push(element);
-                    }
-
-                }
-
-                if(element.shape instanceof OG.HierarchyFloor) {
-
-                    var childShape = currentCanvas.getChilds(element);
-                    childShape.forEach(function(child){
-                        var jsonData = {};
-
-                        jsonData['feeder_list_mgt_seq'] = child.shape.data.feeder_list_mgt_seq;
-                        jsonData['hier_seq'] = element.shape.data.hier_seq;
-                        jsonData['up_hier_seq'] = element.shape.data.up_hier_seq;
-
-                        /**
-                         * prevEdgesê°€ ìˆë‹¤ëŠ” ê²ƒì€ ìƒìœ„ í”¼ë”ê°€ ìˆë‹¤ëŠ” ê²ƒ.
-                         * ì—†ë‹¤ë©´ ìì‹ ì´ ìƒìœ„ì´ê¸° ë•Œë¬¸ì—
-                         */
-                        var prevEdges = currentCanvas.getPrevEdges(child);
-                        var nextEdges = currentCanvas.getNextEdges(child);
-                        if(prevEdges.length > 0) {
-                            prevEdges.forEach(function(edge){
-                                var edge = currentCanvas.getRelatedElementsFromEdge(edge);
-                                var fromShapeData = edge.from.shape.data;
-                                // ìê¸° ìì‹ ì´ë©´ ìì‹ ì´ ìƒìœ„ì´ê¸° ë•Œë¬¸ì— pass
-                                if(fromShapeData.feeder_list_mgt_seq != child.shape.data.feeder_list_mgt_seq) {
-                                    jsonData['up_feeder_list_mgt_seq'] = fromShapeData.feeder_list_mgt_seq;
-                                }
-                            });
-                        }
-
-                        jsonData['status'] = 'N';
-                        sendData.push(jsonData);
-
-                    });
-                }
-            });
-
+	        shapeList.forEach(function(element){
+	        	
+	        	/**
+	             * ë¨¼ì? ë¹Œë”©?•ˆ?— ê·¸ë ¤ì§?ì§? ?•Š?Š” ?•˜?´?–´?¼?‚¤ ?”¼?”ê°? ì¡´ì¬?•˜?Š”ì§? ì²´í¬ë¥? ?•œ?‹¤.
+	             */
+	        	if(element.shape instanceof OG.HierarchyFeeder) {
+	        		var parentElement = currentCanvas.getParent(element);
+	        		if(parentElement) {
+	        			if( !(parentElement.shape instanceof OG.HierarchyFloor) ) {
+	        				hierarchyFeedersOutBoundaryFloor.push(element);
+	        			}
+	        		} else {
+	        			hierarchyFeedersOutBoundaryFloor.push(element);
+	        		}
+	        		
+	        	}
+	        	
+	        	if(element.shape instanceof OG.HierarchyFloor) {
+	        		
+	        		var childShape = currentCanvas.getChilds(element);
+	        		childShape.forEach(function(child){
+	        			var jsonData = {};
+	
+	        			jsonData['feeder_list_mgt_seq'] = child.shape.data.feeder_list_mgt_seq;
+	        			jsonData['hier_seq'] = element.shape.data.hier_seq; 
+	        			jsonData['up_hier_seq'] = element.shape.data.up_hier_seq;
+	        			
+	        			/**
+	        			 * prevEdgesê°? ?ˆ?‹¤?Š” ê²ƒì? ?ƒ?œ„ ?”¼?”ê°? ?ˆ?‹¤?Š” ê²?.
+	        			 * ?—†?‹¤ë©? ??‹ ?´ ?ƒ?œ„?´ê¸? ?•Œë¬¸ì— 
+	        			 */
+	        			var prevEdges = currentCanvas.getPrevEdges(child);
+	        			var nextEdges = currentCanvas.getNextEdges(child);
+	        			if(prevEdges.length > 0) {
+	        				prevEdges.forEach(function(edge){
+	        					var edge = currentCanvas.getRelatedElementsFromEdge(edge);
+	        					var fromShapeData = edge.from.shape.data;
+	        					// ?ê¸? ??‹ ?´ë©? ??‹ ?´ ?ƒ?œ„?´ê¸? ?•Œë¬¸ì— pass
+	        					if(fromShapeData.feeder_list_mgt_seq != child.shape.data.feeder_list_mgt_seq) {
+	        						jsonData['up_feeder_list_mgt_seq'] = fromShapeData.feeder_list_mgt_seq;
+	        					}
+	        				});
+	        			}
+	        			
+	        			jsonData['status'] = 'N';
+	        			sendData.push(jsonData);
+	        			
+	        		});
+	        	}
+	        });
+	        
         } else {
-            var feederHierarchyMgtShapeList = controller.feederHierarchyMgtShapeList;
-            var updateFeederHierarchyList = controller.updateFeederHierarchyList;
-            var deleteFeederHierarchyList = controller.deleteFeederHierarchyList;
-            /**
-             * ê¸°ì¡´ ì •ë³´ëŠ” ê·¸ëŒ€ë¡œ ì˜¬ë¦°ë‹¤.
-             */
-            feederHierarchyMgtShapeList.forEach(function(fhList){
-                sendData.push(fhList);
-            });
+        	var feederHierarchyMgtShapeList = controller.feederHierarchyMgtShapeList;
+        	var updateFeederHierarchyList = controller.updateFeederHierarchyList;
+        	var deleteFeederHierarchyList = controller.deleteFeederHierarchyList;
+        	/**
+        	 * ê¸°ì¡´ ? •ë³´ëŠ” ê·¸ë?ë¡? ?˜¬ë¦°ë‹¤.
+        	 */
+        	feederHierarchyMgtShapeList.forEach(function(fhList){
+        		sendData.push(fhList);
+        	});
+        	
+        	
+        	shapeList.forEach(function(element){
+	        	/**
+	             * ë¨¼ì? ë¹Œë”©?•ˆ?— ê·¸ë ¤ì§?ì§? ?•Š?Š” ?•˜?´?–´?¼?‚¤ ?”¼?”ê°? ì¡´ì¬?•˜?Š”ì§? ì²´í¬ë¥? ?•œ?‹¤.
+	             */
+	        	if(element.shape instanceof OG.HierarchyFeeder) {
+	        		var parentElement = currentCanvas.getParent(element);
+	        		if(parentElement) {
+	        			if( !(parentElement.shape instanceof OG.HierarchyFloor) ) {
+	        				hierarchyFeedersOutBoundaryFloor.push(element);
+	        			}
+	        		} else {
+	        			hierarchyFeedersOutBoundaryFloor.push(element);
+	        		}
+	        		
+	        	}
+	        	
+	        	if(element.shape instanceof OG.HierarchyFloor) {
+	        		
+	        		var childShape = currentCanvas.getChilds(element);
+	        		/**
+	        		 * ? „ì²? ê·¸ë ¤ì§? ? •ë³´ì—?„œ updateë¦¬ìŠ¤?Š¸?—?„œ ì¡°íšŒë¥? ?•´?•¼?•œ?‹¤.
+	        		 * ê·¸ì¤‘?— ê¸°ì¡´?— ê·¸ë ¤ì§? ? •ë³´ê? ?•„?‹Œ ?ƒˆë¡œìš´ ???„?¼ ê²½ìš°?—ë§? sendData?— ?„£?–´?•¼ ?•œ?‹¤.
+	        		 */
+	        		childShape.forEach(function(child){
+	        			var jsonData = {};
+	
+	        			jsonData['feeder_list_mgt_seq'] = child.shape.data.feeder_list_mgt_seq;
+	        			jsonData['hier_seq'] = element.shape.data.hier_seq; 
+	        			jsonData['up_hier_seq'] = element.shape.data.up_hier_seq;
+	        			
+	        			/**
+	        			 * prevEdgesê°? ?ˆ?‹¤?Š” ê²ƒì? ?ƒ?œ„ ?”¼?”ê°? ?ˆ?‹¤?Š” ê²?.
+	        			 * ?—†?‹¤ë©? ??‹ ?´ ?ƒ?œ„?´ê¸? ?•Œë¬¸ì— 
+	        			 */
+	        			var prevEdges = currentCanvas.getPrevEdges(child);
+	        			var nextEdges = currentCanvas.getNextEdges(child);
+	        			if(prevEdges.length > 0) {
+	        				prevEdges.forEach(function(edge){
+	        					var edge = currentCanvas.getRelatedElementsFromEdge(edge);
+	        					var fromShapeData = edge.from.shape.data;
+	        					// ?ê¸? ??‹ ?´ë©? ??‹ ?´ ?ƒ?œ„?´ê¸? ?•Œë¬¸ì— pass
+	        					if(fromShapeData.feeder_list_mgt_seq != child.shape.data.feeder_list_mgt_seq) {
+	        						jsonData['up_feeder_list_mgt_seq'] = fromShapeData.feeder_list_mgt_seq;
+	        					}
+	        				});
+	        			}
 
-
-            shapeList.forEach(function(element){
-                /**
-                 * ë¨¼ì € ë¹Œë”©ì•ˆì— ê·¸ë ¤ì§€ì§€ ì•ŠëŠ” í•˜ì´ì–´ë¼í‚¤ í”¼ë”ê°€ ì¡´ì¬í•˜ëŠ”ì§€ ì²´í¬ë¥¼ í•œë‹¤.
-                 */
-                if(element.shape instanceof OG.HierarchyFeeder) {
-                    var parentElement = currentCanvas.getParent(element);
-                    if(parentElement) {
-                        if( !(parentElement.shape instanceof OG.HierarchyFloor) ) {
-                            hierarchyFeedersOutBoundaryFloor.push(element);
-                        }
-                    } else {
-                        hierarchyFeedersOutBoundaryFloor.push(element);
-                    }
-
-                }
-
-                if(element.shape instanceof OG.HierarchyFloor) {
-
-                    var childShape = currentCanvas.getChilds(element);
-                    /**
-                     * ì „ì²´ ê·¸ë ¤ì§„ ì •ë³´ì—ì„œ updateë¦¬ìŠ¤íŠ¸ì—ì„œ ì¡°íšŒë¥¼ í•´ì•¼í•œë‹¤.
-                     * ê·¸ì¤‘ì— ê¸°ì¡´ì— ê·¸ë ¤ì§„ ì •ë³´ê°€ ì•„ë‹Œ ìƒˆë¡œìš´ ë…€ì„ì¼ ê²½ìš°ì—ë§Œ sendDataì— ë„£ì–´ì•¼ í•œë‹¤.
-                     */
-                    childShape.forEach(function(child){
-                        var jsonData = {};
-
-                        jsonData['feeder_list_mgt_seq'] = child.shape.data.feeder_list_mgt_seq;
-                        jsonData['hier_seq'] = element.shape.data.hier_seq;
-                        jsonData['up_hier_seq'] = element.shape.data.up_hier_seq;
-
-                        /**
-                         * prevEdgesê°€ ìˆë‹¤ëŠ” ê²ƒì€ ìƒìœ„ í”¼ë”ê°€ ìˆë‹¤ëŠ” ê²ƒ.
-                         * ì—†ë‹¤ë©´ ìì‹ ì´ ìƒìœ„ì´ê¸° ë•Œë¬¸ì—
-                         */
-                        var prevEdges = currentCanvas.getPrevEdges(child);
-                        var nextEdges = currentCanvas.getNextEdges(child);
-                        if(prevEdges.length > 0) {
-                            prevEdges.forEach(function(edge){
-                                var edge = currentCanvas.getRelatedElementsFromEdge(edge);
-                                var fromShapeData = edge.from.shape.data;
-                                // ìê¸° ìì‹ ì´ë©´ ìì‹ ì´ ìƒìœ„ì´ê¸° ë•Œë¬¸ì— pass
-                                if(fromShapeData.feeder_list_mgt_seq != child.shape.data.feeder_list_mgt_seq) {
-                                    jsonData['up_feeder_list_mgt_seq'] = fromShapeData.feeder_list_mgt_seq;
-                                }
-                            });
-                        }
-
-                        var isNew = false;
-
-                        updateFeederHierarchyList.some(function(uhList){
-                            if(child.shape.data.feeder_list_mgt_seq == uhList.feeder_list_mgt_seq) {
-                                isNew = true;
-                            }
-                        })
-
-                        if(isNew) {
-                            jsonData['status'] = 'U';
-                            sendData.push(jsonData);
-                        }
-
-                    });
-                }
-            });
-
-            deleteFeederHierarchyList.forEach(function(dhList){
-                var deleteJsonData = {};
-                deleteJsonData['status'] = 'D';
-                deleteJsonData['feeder_list_mgt_seq'] = dhList.feeder_list_mgt_seq;
-                sendData.push(deleteJsonData);
-            });
-
+	        			var isNew = false;
+	        			
+	        			updateFeederHierarchyList.some(function(uhList){
+	        				if(child.shape.data.feeder_list_mgt_seq == uhList.feeder_list_mgt_seq) {
+	        					isNew = true;
+	        				}
+	        			})
+	        			
+	        			if(isNew) {
+	        				jsonData['status'] = 'U';
+	        				sendData.push(jsonData);
+	        			}
+	        			
+	        		});
+	        	}
+	        });
+        	
+        	deleteFeederHierarchyList.forEach(function(dhList){
+        		var deleteJsonData = {};
+        		deleteJsonData['status'] = 'D';
+        		deleteJsonData['feeder_list_mgt_seq'] = dhList.feeder_list_mgt_seq;
+        		sendData.push(deleteJsonData);
+        	});
+        	
         }
-
+        
         if(hierarchyFeedersOutBoundaryFloor.length > 0) {
-            msgBox("í”¼ë”ì˜ ìœ„ì¹˜ëŠ” í”Œë¡œì–´ì•ˆì— ë†“ì—¬ì ¸ì•¼ í•©ë‹ˆë‹¤.");
-            hierarchyFeedersOutBoundaryFloor.forEach(function(element){
-                renderer.highLightHierarchyFeeder(element);
-            })
-
-            $.unblockUI();
-            return;
+        	msgBox(renderer.MSGMessages.FEEDERINFLOOR);
+        	hierarchyFeedersOutBoundaryFloor.forEach(function(element){
+        		renderer.highLightHierarchyFeeder(element);
+        	})
+        	
+        	$.unblockUI();
+        	return;
         }
-
+        
         console.log(sendData);
         var returnData = parent.updateHierarchy(sendData);
         /**
-         * ì €ì¥ ë° ì—…ë°ì´íŠ¸ê°€ ì„±ê³µí•œë‹¤ë©´
-         * ê´€ë ¨ ê·¸ë¦¬ë“œ, íŠ¸ë¦¬ë¥¼ ìƒˆë¡œ ê·¸ë¦°ë‹¤.
+         * ???¥ ë°? ?—…?°?´?Š¸ê°? ?„±ê³µí•œ?‹¤ë©?
+         * ê´?? ¨ ê·¸ë¦¬?“œ, ?Š¸ë¦¬ë?? ?ƒˆë¡? ê·¸ë¦°?‹¤.
          */
         if(returnData == '0') {
-            controller.refreshGridAndTree(mode, renderer);
+        	controller.refreshGridAndTree(mode, renderer);
         }
-
+        
         $.unblockUI();
         msgBox(renderer.MSGMessages.SAVEMSG);
         setTimeout(msgBoxClose, 1000);
     },
-
+    
     /**
-     * validation ì •ë³´ë¥¼ ë§Œë“ ë‹¤.
+     * validation ? •ë³´ë?? ë§Œë“ ?‹¤.
      */
     makeCheckLSValidatorData: function(renderer) {
-        var currentCanvas = renderer.getCanvas();
-        var json = currentCanvas.toJSON();
-        var sendData = [];
-
-        var objectSeq;
+    	var currentCanvas = renderer.getCanvas();
+    	var json = currentCanvas.toJSON();
+    	var sendData = [];
+    	
+    	var objectSeq;
         var objectFeederSeq = '';
         var object = renderer.editingObject;
         if(object['shapeType'] == renderer.Constants.TYPE.MODIFY_FEEDER) {
-            //ê¸°ì¡´ì— ìˆë˜ í”¼ë”
-            objectSeq = object['swgr_list_seq'];
-            objectFeederSeq = object['feeder_list_mgt_seq'];
+            //ê¸°ì¡´?— ?ˆ?˜ ?”¼?”
+        	objectSeq = object['swgr_list_seq'];
+        	objectFeederSeq = object['feeder_list_mgt_seq'];
         } else {
             objectSeq = object['swgr_list_seq'];
         }
-
-        var shapeList = currentCanvas.getAllShapes();
-        for(var i=0; i<shapeList.length; i++) {
+    	
+    	var shapeList = currentCanvas.getAllShapes();
+    	for(var i=0; i<shapeList.length; i++) {
             var selectShapeType = $(shapeList[i]).attr('_shape');
             if(selectShapeType == 'GEOM') {
                 var selectShapeId = $(shapeList[i]).attr('_shape_id');
@@ -835,11 +849,11 @@ DataController.prototype = {
                 var jsonData = {};
                 var selectType;
                 if(selectItemData.hasOwnProperty('fe_swgr_load_div')) {
-                    selectType = selectItemData.fe_swgr_load_div;
+                	selectType = selectItemData.fe_swgr_load_div;
                 } else {
-                    selectType = 'L';
+                	selectType = 'L';
                 }
-
+                
                 jsonData['type'] = selectType;
                 // In Case Of selectItemData.fe_swgr_load_div is 'S', check Mother Switch or Child
                 if(selectType == 'S') {
@@ -847,7 +861,7 @@ DataController.prototype = {
                     var prevShapes = currentCanvas.getPrevShapes(selectElement);
                     var nextShapes = currentCanvas.getNextShapes(selectElement);
 
-                    // ì´ì „ shapesì˜ ì •ë³´ë¥¼ í†µí•´ í•´ë‹¹ Sê°€ parentì¸ì§€ childì¸ì§€ ì²´í¬
+                    // ?´? „ shapes?˜ ? •ë³´ë?? ?†µ?•´ ?•´?‹¹ Sê°? parent?¸ì§? child?¸ì§? ì²´í¬
                     if( (prevShapes.length == 0 && nextShapes.length == 0) || prevShapes.length == 0  ) {
                         jsonData['root'] = 'Y';
                         jsonData['up_seq'] = '';
@@ -867,37 +881,38 @@ DataController.prototype = {
             }
 
         }
-
-        return sendData;
+    	
+    	return sendData;
     },
-
+    
     /**
-     * í”¼ë” ì—ë””í„° ì„¸ì´ë¸Œ
+     * ?”¼?” ?—?””?„° ?„¸?´ë¸?
      */
     saveFeederGui: function(controller) {
-
-        var mode = controller.getCurrentMode();
+    	
+    	var mode = controller.getCurrentMode();
         var renderer = controller.getRendererByMode(mode);
         var currentCanvas = renderer.getCanvas();
         var json = currentCanvas.toJSON();
         var object = renderer.editingObject;
         if(object === undefined) {
-            $.unblockUI();
+        	$.unblockUI();
+        	msgBox(renderer.MSGMessages.NOOBJECTSAVE);
             return;
         }
         var sendData = [];
         var objectSeq;
         var objectFeederSeq = '';
         if(object['shapeType'] == renderer.Constants.TYPE.MODIFY_FEEDER) {
-            //ê¸°ì¡´ì— ìˆë˜ í”¼ë”
-            objectSeq = object['swgr_list_seq'];
-            objectFeederSeq = object['feeder_list_mgt_seq'];
+            //ê¸°ì¡´?— ?ˆ?˜ ?”¼?”
+        	objectSeq = object['swgr_list_seq'];
+        	objectFeederSeq = object['feeder_list_mgt_seq'];
             controller.setFeederSaveMode(true);
         } else {
             controller.setFeederSaveMode(false);
             objectSeq = object['swgr_list_seq'];
         }
-
+        
         /**
          * GUI json data making and sendData setting
          */
@@ -911,359 +926,360 @@ DataController.prototype = {
          * each object data Json making and sendDataSetting
          */
         /**
-         * ì‹ ê·œ ì €ì¥ì´ë¼ë©´
+         * ?‹ ê·? ???¥?´?¼ë©?
          */
         var shapeList = currentCanvas.getAllShapes();
         if(!controller.getFeederSaveMode()) {
-            // find allShpaes, and check Objejct 'GEOM' on shpae
-            for(var i=0; i<shapeList.length; i++) {
-                var selectShapeType = $(shapeList[i]).attr('_shape');
-                if(selectShapeType == 'GEOM') {
-                    var selectShapeId = $(shapeList[i]).attr('_shape_id');
-                    var selectElement = currentCanvas.getElementsByShapeId(selectShapeId);
-                    var selectItemData = currentCanvas.getCustomData(shapeList[i]);
-                    var jsonData = {};
-                    jsonData['status'] = 'N';
-                    var selectType;
-                    if(selectItemData.hasOwnProperty('fe_swgr_load_div')) {
-                        selectType = selectItemData.fe_swgr_load_div;
-                    } else {
-                        selectType = 'L';
-                    }
-
-                    jsonData['type'] = selectType;
-                    // In Case Of selectItemData.fe_swgr_load_div is 'S', check Mother Switch or Child
-                    if(selectType == 'S') {
-                        jsonData['seq'] = selectItemData.swgr_list_seq;
-                        var prevShapes = currentCanvas.getPrevShapes(selectElement);
-                        var nextShapes = currentCanvas.getNextShapes(selectElement);
-
-                        // ì´ì „ shapesì˜ ì •ë³´ë¥¼ í†µí•´ í•´ë‹¹ Sê°€ parentì¸ì§€ childì¸ì§€ ì²´í¬
-                        if( (prevShapes.length == 0 && nextShapes.length == 0) || prevShapes.length == 0  ) {
-                            jsonData['root'] = 'Y';
-                            jsonData['up_seq'] = '';
-                            jsonData['feeder_seq'] = objectFeederSeq;
-                        } else {
-                            jsonData['root'] = 'N';
-                            jsonData['up_seq'] = objectSeq;
-                            jsonData['feeder_seq'] = objectFeederSeq;
-                        }
-
-                    } else {
-                        jsonData['seq'] = selectItemData.load_list_seq;
-                        jsonData['up_seq'] = objectSeq;
-                        jsonData['feeder_seq'] = objectFeederSeq;
-                    }
-                    sendData.push(jsonData);
-                }
-
-            }
+        	// find allShpaes, and check Objejct 'GEOM' on shpae
+	        for(var i=0; i<shapeList.length; i++) {
+	            var selectShapeType = $(shapeList[i]).attr('_shape');
+	            if(selectShapeType == 'GEOM') {
+	                var selectShapeId = $(shapeList[i]).attr('_shape_id');
+	                var selectElement = currentCanvas.getElementsByShapeId(selectShapeId);
+	                var selectItemData = currentCanvas.getCustomData(shapeList[i]);
+	                var jsonData = {};
+	                jsonData['status'] = 'N';
+	                var selectType;
+	                if(selectItemData.hasOwnProperty('fe_swgr_load_div')) {
+	                	selectType = selectItemData.fe_swgr_load_div;
+	                } else {
+	                	selectType = 'L';
+	                }
+	                
+	                jsonData['type'] = selectType;
+	                // In Case Of selectItemData.fe_swgr_load_div is 'S', check Mother Switch or Child
+	                if(selectType == 'S') {
+	                    jsonData['seq'] = selectItemData.swgr_list_seq;
+	                    var prevShapes = currentCanvas.getPrevShapes(selectElement);
+	                    var nextShapes = currentCanvas.getNextShapes(selectElement);
+	
+	                    // ?´? „ shapes?˜ ? •ë³´ë?? ?†µ?•´ ?•´?‹¹ Sê°? parent?¸ì§? child?¸ì§? ì²´í¬
+	                    if( (prevShapes.length == 0 && nextShapes.length == 0) || prevShapes.length == 0  ) {
+	                        jsonData['root'] = 'Y';
+	                        jsonData['up_seq'] = '';
+	                        jsonData['feeder_seq'] = objectFeederSeq;
+	                    } else {
+	                        jsonData['root'] = 'N';
+	                        jsonData['up_seq'] = objectSeq;
+	                        jsonData['feeder_seq'] = objectFeederSeq;
+	                    }
+	
+	                } else {
+	                    jsonData['seq'] = selectItemData.load_list_seq;
+	                    jsonData['up_seq'] = objectSeq;
+	                    jsonData['feeder_seq'] = objectFeederSeq;
+	                }
+	                sendData.push(jsonData);
+	            }
+	
+	        }
         } else {
-
-            // ê¸°ì¡´ ë°ì´í„°ë¥¼ ê°€ì ¸ì˜¨ ê²½ìš°
-            /**
-             * 1. canvasì— ë„í˜•ì„ ê·¸ë¦° í›„ ê° ë„í˜•ë“¤ì˜ jsonDataë¥¼ ë°°ì—´ë¡œ ê°€ì§„ë‹¤. (ì˜¤ë¦¬ì§€ë„ ë°ì´í„°ë¡œ ì°¨í›„ ì‚­ì œ/ì—…ë°ì´íŠ¸ì‹œ ë¹„êµí•˜ê¸° ìœ„í•œ ë°ì´í„°)
-             *
-             * 2. ìƒˆë¡œìš´ ìŠ¤ìœ„ì¹˜ ë° ë¡œë“œë¥¼ ë“œëìœ¼ë¡œ ê·¸ë¦° ë„í˜•ë“¤ì€ updateí•´ì•¼í•˜ëŠ” ì •ë³´ë“¤ë¡œ
-             *  update listì— ë„£ëŠ”ë‹¤.
-             *
-             * 3. ì§€ì› ì„ ê²½ìš° ìƒˆë¡œ ê·¸ë¦° ë„í˜•ì—ì„œ ì§€ì›Œì§„ ê²ƒì¸ì§€ ë˜ëŠ” ê¸°ì¡´ì˜ ê²ƒì„ ì§€ìš´ ê²ƒì¸ì§€ íŒŒì•…í•´ì•¼ í•œë‹¤.
-             *  - ìƒˆë¡œ ê·¸ë¦° ë„í˜•ì˜ ê²½ìš° ì§€ìš°ë©´ update listì—ì„œ ì œì™¸í•´ì•¼í•œë‹¤.
-             *  - ê¸°ì¡´ì˜ ê²½ìš°ì—ëŠ” delete listë¡œ ë„£ì–´ì•¼ í•œë‹¤.
-             *
-             * 4. ì´ ì •ë³´ë¡œ ìµœì¢…ì ìœ¼ë¡œ updateëœ ë¦¬ìŠ¤íŠ¸ì™€ ì‚­ì œëœ ë¦¬ìŠ¤íŠ¸ë¡œ ë³´ë‚¸ë‹¤.
-             *
-             * 5. íŠ¸ë¦¬ì—ì„œ ë„˜ì–´ì˜¨ ê²½ìš°ì™€ ê·¸ë¦¬ë“œì—ì„œ ë„˜ì–´ì˜¨ ê²½ìš°ëŠ” ë‚˜ëˆ ì•¼ í•œë‹¤.
-             *  - objectê°ì²´ì—ì„œ onDrop í‚¤ê°€ ìˆëŠ”ì§€ í™•ì¸í•˜ê³  ìˆë‹¤ë©´ í•´ë‹¹ onDropì˜ ê°’ì´ feederGridì¸ì§€ í™•ì¸í•œë‹¤.
-             *  - ì´ ê²½ìš°ì—ëŠ” statusë¥¼ Uë¡œ ë„£ì–´ì¤˜ì•¼ í•œë‹¤.
-             */
-
-            /** ê¸°ì¡´ ì •ë³´ë„ ë„˜ê²¨ì¤€ë‹¤. ì´ ë•Œ status:U **/
-            var feederMgtShapeList = controller.feederMgtShapeList;
-
-            feederMgtShapeList.forEach(function(item, idx){
-                var jsonData = {};
-                jsonData['status'] = 'U';
+        	
+        	// ê¸°ì¡´ ?°?´?„°ë¥? ê°?? ¸?˜¨ ê²½ìš°
+        	/**
+        	 * 1. canvas?— ?„?˜•?„ ê·¸ë¦° ?›„ ê°? ?„?˜•?“¤?˜ jsonDataë¥? ë°°ì—´ë¡? ê°?ì§„ë‹¤. (?˜¤ë¦¬ì??„ ?°?´?„°ë¡? ì°¨í›„ ?‚­? œ/?—…?°?´?Š¸?‹œ ë¹„êµ?•˜ê¸? ?œ„?•œ ?°?´?„°)
+        	 * 
+        	 * 2. ?ƒˆë¡œìš´ ?Š¤?œ„ì¹? ë°? ë¡œë“œë¥? ?“œ??œ¼ë¡? ê·¸ë¦° ?„?˜•?“¤?? update?•´?•¼?•˜?Š” ? •ë³´ë“¤ë¡?
+        	 *  update list?— ?„£?Š”?‹¤.
+        	 * 
+        	 * 3. ì§??› ?„ ê²½ìš° ?ƒˆë¡? ê·¸ë¦° ?„?˜•?—?„œ ì§??›Œì§? ê²ƒì¸ì§? ?˜?Š” ê¸°ì¡´?˜ ê²ƒì„ ì§??š´ ê²ƒì¸ì§? ?ŒŒ?•…?•´?•¼ ?•œ?‹¤.
+        	 *  - ?ƒˆë¡? ê·¸ë¦° ?„?˜•?˜ ê²½ìš° ì§??š°ë©? update list?—?„œ ? œ?™¸?•´?•¼?•œ?‹¤.
+        	 *  - ê¸°ì¡´?˜ ê²½ìš°?—?Š” delete listë¡? ?„£?–´?•¼ ?•œ?‹¤.
+        	 * 
+        	 * 4. ?´ ? •ë³´ë¡œ ìµœì¢…? ?œ¼ë¡? update?œ ë¦¬ìŠ¤?Š¸?? ?‚­? œ?œ ë¦¬ìŠ¤?Š¸ë¡? ë³´ë‚¸?‹¤.
+        	 * 
+        	 * 5. ?Š¸ë¦¬ì—?„œ ?„˜?–´?˜¨ ê²½ìš°?? ê·¸ë¦¬?“œ?—?„œ ?„˜?–´?˜¨ ê²½ìš°?Š” ?‚˜?ˆ ?•¼ ?•œ?‹¤.
+        	 *  - objectê°ì²´?—?„œ onDrop ?‚¤ê°? ?ˆ?Š”ì§? ?™•?¸?•˜ê³? ?ˆ?‹¤ë©? ?•´?‹¹ onDrop?˜ ê°’ì´ feederGrid?¸ì§? ?™•?¸?•œ?‹¤.
+        	 *  - ?´ ê²½ìš°?—?Š” statusë¥? Uë¡? ?„£?–´ì¤˜ì•¼ ?•œ?‹¤.
+        	 */
+        	
+        	/** ê¸°ì¡´ ? •ë³´ë„ ?„˜ê²¨ì??‹¤. ?´ ?•Œ status:U **/
+        	var feederMgtShapeList = controller.feederMgtShapeList;
+        	
+        	feederMgtShapeList.forEach(function(item, idx){
+        		var jsonData = {};
+            	jsonData['status'] = 'U';
                 jsonData['up_seq'] = objectSeq;
-
-
+                
+                
                 var itemType;
                 if(item.hasOwnProperty('fe_swgr_load_div')) {
-                    itemType = item.fe_swgr_load_div;
+                	itemType = item.fe_swgr_load_div;
                 } else {
-                    itemType = 'L';
+                	itemType = 'L';
                 }
-
+                
                 jsonData['type'] = itemType;
-
+                
                 if(itemType == 'S') {
-                    if(idx == 0) {
-                        jsonData['root'] = 'Y';
-                    } else {
-                        jsonData['root'] = 'N';
-                    }
-                    jsonData['seq'] = item.swgr_list_seq;
-
+                	if(idx == 0) {
+                		jsonData['root'] = 'Y';
+                	} else {
+                		jsonData['root'] = 'N';
+                	}
+                	jsonData['seq'] = item.swgr_list_seq;
+                	
                 } else {
-                    jsonData['seq'] = item.load_list_seq;
-
+                	jsonData['seq'] = item.load_list_seq;
+                	
                 }
-
+                
                 if(item.hasOwnProperty('feeder_list_mgt_seq')) {
-                    jsonData['feeder_seq'] = item.feeder_list_mgt_seq;
+                	jsonData['feeder_seq'] = item.feeder_list_mgt_seq;
                 }
-
+                
                 sendData.push(jsonData);
-            });
-
-            var updateFeederList = controller.updateFeederList;
-
-            updateFeederList.forEach(function(item){
-                var jsonData = {};
-                jsonData['status'] = 'N';
-                jsonData['up_seq'] = objectSeq;
-
-                var itemType;
-                if(item.hasOwnProperty('fe_swgr_load_div')) {
-                    itemType = item.fe_swgr_load_div;
-                } else {
-                    itemType = 'L';
-                }
-
-                jsonData['type'] = itemType;
-
-                if(itemType == 'S') {
-                    jsonData['root'] = 'N';
-                    jsonData['seq'] = item.swgr_list_seq;
-
-                    feederMgtShapeList.some(function(itemData){
-                        if(item.swgr_list_seq == itemData.swgr_list_seq) {
-                            if(itemData.hasOwnProperty('feeder_list_mgt_seq')) {
-                                jsonData['feeder_seq'] = itemData.feeder_list_mgt_seq;
-                            }
-                        }
-                    });
-
-                } else {
-                    jsonData['seq'] = item.load_list_seq;
-
-                    feederMgtShapeList.some(function(itemData){
-                        if(item.load_list_seq == itemData.load_list_seq) {
-                            if(itemData.hasOwnProperty('feeder_list_mgt_seq')) {
-                                jsonData['feeder_seq'] = itemData.feeder_list_mgt_seq;
-                            }
-                        }
-                    });
-
-                }
-
-                sendData.push(jsonData);
-
-            });
-
-            var deleteFeederList = controller.deleteFeederList;
-            deleteFeederList.forEach(function(item, idx){
-                var jsonData = {};
-                jsonData['status'] = 'D';
-                jsonData['up_seq'] = objectSeq;
-
-                var itemType;
-                if(item.hasOwnProperty('fe_swgr_load_div')) {
-                    itemType = item.fe_swgr_load_div;
-                } else {
-                    itemType = 'L';
-                }
-
-                jsonData['type'] = itemType;
-
-                if(itemType == 'S') {
-                    if(idx == 0) {
-                        jsonData['root'] = 'Y';
+        	});
+        	
+        	var updateFeederList = controller.updateFeederList;
+        	
+        	updateFeederList.forEach(function(item){
+        		var jsonData = {};
+                	jsonData['status'] = 'N';
+                    jsonData['up_seq'] = objectSeq;
+                    
+                    var itemType;
+	                if(item.hasOwnProperty('fe_swgr_load_div')) {
+	                	itemType = item.fe_swgr_load_div;
+	                } else {
+	                	itemType = 'L';
+	                }
+	                
+	                jsonData['type'] = itemType;
+                    
+                    if(itemType == 'S') {
+                    	jsonData['root'] = 'N';
+                    	jsonData['seq'] = item.swgr_list_seq;
+                    	
+                    	feederMgtShapeList.some(function(itemData){
+	                    	if(item.swgr_list_seq == itemData.swgr_list_seq) {
+	                    		if(itemData.hasOwnProperty('feeder_list_mgt_seq')) {
+	                    			jsonData['feeder_seq'] = itemData.feeder_list_mgt_seq;
+	                    		}
+	                    	}
+	                    });
+                    	
                     } else {
-                        jsonData['root'] = 'N';
+                    	jsonData['seq'] = item.load_list_seq;
+                    	
+                    	feederMgtShapeList.some(function(itemData){
+	                    	if(item.load_list_seq == itemData.load_list_seq) {
+	                    		if(itemData.hasOwnProperty('feeder_list_mgt_seq')) {
+	                    			jsonData['feeder_seq'] = itemData.feeder_list_mgt_seq;
+	                    		}
+	                    	}
+	                    });
+                    	
                     }
-                    jsonData['seq'] = item.swgr_list_seq;
-
-                    feederMgtShapeList.some(function(itemData){
-                        if(item.swgr_list_seq == itemData.swgr_list_seq) {
-                            if(itemData.hasOwnProperty('feeder_list_mgt_seq')) {
-                                jsonData['feeder_seq'] = itemData.feeder_list_mgt_seq;
-                            }
-                        }
-                    });
-
-                } else {
-                    jsonData['seq'] = item.load_list_seq;
-
-                    feederMgtShapeList.some(function(itemData){
-                        if(item.load_list_seq == itemData.load_list_seq) {
-                            if(itemData.hasOwnProperty('feeder_list_mgt_seq')) {
-                                jsonData['feeder_seq'] = itemData.feeder_list_mgt_seq;
-                            }
-                        }
-                    });
-
-                }
-
-                sendData.push(jsonData);
-
-            });
-
+                    
+                    sendData.push(jsonData);
+                    
+        	});
+        	
+        	var deleteFeederList = controller.deleteFeederList;
+        	deleteFeederList.forEach(function(item, idx){
+        		var jsonData = {};
+                	jsonData['status'] = 'D';
+                    jsonData['up_seq'] = objectSeq;
+                    
+                    var itemType;
+	                if(item.hasOwnProperty('fe_swgr_load_div')) {
+	                	itemType = item.fe_swgr_load_div;
+	                } else {
+	                	itemType = 'L';
+	                }
+	                
+	                jsonData['type'] = itemType;
+                    
+                    if(itemType == 'S') {
+                    	if(idx == 0) {
+                    		jsonData['root'] = 'Y';
+                    	} else {
+                    		jsonData['root'] = 'N';
+                    	}
+                    	jsonData['seq'] = item.swgr_list_seq;
+                    	
+                    	feederMgtShapeList.some(function(itemData){
+	                    	if(item.swgr_list_seq == itemData.swgr_list_seq) {
+	                    		if(itemData.hasOwnProperty('feeder_list_mgt_seq')) {
+	                    			jsonData['feeder_seq'] = itemData.feeder_list_mgt_seq;
+	                    		}
+	                    	}
+	                    });
+                    	
+                    } else {
+                    	jsonData['seq'] = item.load_list_seq;
+                    	
+                    	feederMgtShapeList.some(function(itemData){
+	                    	if(item.load_list_seq == itemData.load_list_seq) {
+	                    		if(itemData.hasOwnProperty('feeder_list_mgt_seq')) {
+	                    			jsonData['feeder_seq'] = itemData.feeder_list_mgt_seq;
+	                    		}
+	                    	}
+	                    });
+                    	
+                    }
+                    
+                    sendData.push(jsonData);
+                    
+        	});
+        	
         }
-
+        
         console.log(sendData);
         var returnData = parent.updateFeeder(sendData);
         /**
-         * ì €ì¥ ë° ì—…ë°ì´íŠ¸ê°€ ì„±ê³µí•œë‹¤ë©´
-         * ê´€ë ¨ ê·¸ë¦¬ë“œ, íŠ¸ë¦¬ë¥¼ ìƒˆë¡œ ê·¸ë¦°ë‹¤.
+         * ???¥ ë°? ?—…?°?´?Š¸ê°? ?„±ê³µí•œ?‹¤ë©?
+         * ê´?? ¨ ê·¸ë¦¬?“œ, ?Š¸ë¦¬ë?? ?ƒˆë¡? ê·¸ë¦°?‹¤.
          */
         if(returnData == '0') {
-            controller.refreshGridAndTree(mode, renderer);
+        	controller.refreshGridAndTree(mode, renderer);
         }
-
+        
         $.unblockUI();
         msgBox(renderer.MSGMessages.SAVEMSG);
         setTimeout(msgBoxClose, 1000);
     },
-
+    
     /**
-     * Route ì €ì¥ í•¨ìˆ˜
+     * Route ???¥ ?•¨?ˆ˜
      */
-
+    
     saveRoute: function(controller) {
-        console.log(parent.getLocationList());
-        var mode = controller.getCurrentMode();
+    	console.log(parent.getLocationList());
+    	var mode = controller.getCurrentMode();
         var renderer = controller.getRendererByMode(mode);
         var currentCanvas = renderer.getCanvas();
         var json = currentCanvas.toJSON();
 
         var projectInfo = controller.projectData;
-        var hierJSON  = projectInfo.gui_route_json;
-        if(hierJSON == null) {
-            controller.setRouteSaveMode(false);
-        } else {
-            controller.setRouteSaveMode(true);
-        }
+    	var hierJSON  = projectInfo.gui_route_json;
+    	if(hierJSON == null) {
+    		controller.setRouteSaveMode(false);
+    	} else {
+    		controller.setRouteSaveMode(true);
+    	}
         var sendData = [];
-
+        
         /**
-         * ìº”ë²„ìŠ¤ì˜ ì •ë³´ë¥¼ ë‹´ëŠ” json
+         * ìº”ë²„?Š¤?˜ ? •ë³´ë?? ?‹´?Š” json 
          */
         var GUI_DATA = {};
         GUI_DATA['status'] = 'GUI';
         GUI_DATA['content'] = json;
         sendData.push(GUI_DATA);
-
+        
         /**
-         * canvasì— ê·¸ë ¤ì§„ í”Œë¡œìš° ì •ë³´ë¥¼ ëŒë©´ì„œ childë¡œ locationë¥¼ ì°¾ëŠ”ë‹¤.
+         * canvas?— ê·¸ë ¤ì§? ?”Œë¡œìš° ? •ë³´ë?? ?Œë©´ì„œ childë¡? locationë¥? ì°¾ëŠ”?‹¤.
          */
         var shapeList = currentCanvas.getAllShapes();
         var locationOutBoundaryBldg = [];
         shapeList.forEach(function(element){
-            var jsonData = {};
-            jsonData['status'] = 'N';
-            /**
-             * ë¨¼ì € ë¹Œë”©ì•ˆì— ê·¸ë ¤ì§€ì§€ ì•ŠëŠ” í•˜ì´ì–´ë¼í‚¤ í”¼ë”ê°€ ì¡´ì¬í•˜ëŠ”ì§€ ì²´í¬ë¥¼ í•œë‹¤.
-             */
-            if(element.shape instanceof OG.Location) {
-                var parentElement = currentCanvas.getParent(element);
-                if(parentElement) {
-                    if( !(parentElement.shape instanceof OG.BLDG) ) {
-                        locationOutBoundaryBldg.push(element);
-                    }
-                } else {
-                    locationOutBoundaryBldg.push(element);
-                }
-
-            }
-
-            /**
-             * point ì •ë³´
-             */
-            if(element.shape instanceof OG.Location) {
-                jsonData['type'] = 'Point';
-                var parentElement = currentCanvas.getParent(element);
-                jsonData['loc_ref_name_to'] = element.shape.data.loc_ref_name_to;
-
-                /**
-                 * pointê°€ í¬í•¨ëœ locationì˜ ì •ë³´ë¥¼ ê°™ì´ ì¤€ë‹¤.
-                 */
-                jsonData['loc_ref_seq'] = parentElement.shape.data.loc_ref_seq;
-                jsonData['loc_ref_temp'] = parentElement.shape.data.loc_ref_temp;
-                jsonData['loc_ref_rem'] = parentElement.shape.data.loc_ref_rem;
-                jsonData['loc_ref_length'] = parentElement.shape.data.loc_ref_length;
-
-                sendData.push(jsonData);
-            }
-            /**
-             * raceway ì •ë³´
-             */
-            else if(element.shape instanceof OG.RacewayShape) {
-                jsonData['type'] = 'Cable';
-                jsonData['race_ref_from'] 	= element.shape.data.race_ref_from;
-                jsonData['race_ref_to'] 	= element.shape.data.race_ref_to;
-                jsonData['race_ref_len'] 	= element.shape.data.race_ref_len;
-                jsonData['race_ref_temp'] 	= element.shape.data.race_ref_temp;
-                jsonData['race_ref_method'] = element.shape.data.race_ref_method;
-                jsonData['race_ref_rem'] 	= element.shape.data.race_ref_rem;
-                sendData.push(jsonData);
-            }
-            /**
-             * location ì •ë³´
-             */
-            else if(element.shape instanceof OG.BLDG) {
-                jsonData['type'] = 'Location';
-                jsonData['loc_ref_seq'] 	= element.shape.data.loc_ref_seq;
-                jsonData['loc_ref_name'] 	= element.shape.data.loc_ref_name;
-                jsonData['loc_ref_temp'] 	= element.shape.data.loc_ref_temp;
-                jsonData['loc_ref_rem'] 	= element.shape.data.loc_ref_rem;
-                jsonData['loc_ref_length'] 	= element.shape.data.loc_ref_length;
-                sendData.push(jsonData);
-            }
+	        /**
+	         * ë¨¼ì? ë¹Œë”©?•ˆ?— ê·¸ë ¤ì§?ì§? ?•Š?Š” ?•˜?´?–´?¼?‚¤ ?”¼?”ê°? ì¡´ì¬?•˜?Š”ì§? ì²´í¬ë¥? ?•œ?‹¤.
+	         */
+	    	if(element.shape instanceof OG.Location) {
+	    		var parentElement = currentCanvas.getParent(element);
+	    		if(parentElement) {
+	    			if( !(parentElement.shape instanceof OG.BLDG) ) {
+	    				locationOutBoundaryBldg.push(element);
+	    			}
+	    		} else {
+	    			locationOutBoundaryBldg.push(element);
+	    		}
+	    	}
         });
-
-        if(locationOutBoundaryBldg.length > 0) {
-            msgBox("í¬ì¸íŠ¸ì˜ ìœ„ì¹˜ëŠ” ë¡œì¼€ì´ì…˜ì•ˆì— ë†“ì—¬ì ¸ì•¼ í•©ë‹ˆë‹¤.");
-            //locationOutBoundaryBldg.forEach(function(element){
-            //	renderer.highLightHierarchyFeeder(element);
-            //})
-            $.unblockUI();
-            return;
+        
+    	if(locationOutBoundaryBldg.length > 0) {
+        	msgBox(renderer.MSGMessages.POINTINLOCATION);
+        	//locationOutBoundaryBldg.forEach(function(element){
+        	//	renderer.highLightHierarchyFeeder(element);
+        	//})
+        	$.unblockUI();
+        	return;
         }
-
+        
+        shapeList.forEach(function(element){
+        	var jsonData = {};
+        	jsonData['status'] = 'N';
+        	/** 
+        	 * point ? •ë³?
+        	 */
+        	if(element.shape instanceof OG.Location) {
+        		jsonData['type'] = 'Point';
+        		var parentElement = currentCanvas.getParent(element);
+        		jsonData['loc_ref_name_to'] = element.shape.data.loc_ref_name_to;
+        		
+        		/**
+        		 * pointê°? ?¬?•¨?œ location?˜ ? •ë³´ë?? ê°™ì´ ì¤??‹¤.
+        		 */
+        		jsonData['loc_ref_seq'] = parentElement.shape.data.loc_ref_seq;
+        		jsonData['loc_ref_temp'] = parentElement.shape.data.loc_ref_temp;
+        		jsonData['loc_ref_rem'] = parentElement.shape.data.loc_ref_rem;
+        		jsonData['loc_ref_length'] = parentElement.shape.data.loc_ref_length;
+        		
+        		sendData.push(jsonData);
+        	}
+        	/** 
+        	 * raceway ? •ë³?
+        	 */
+        	else if(element.shape instanceof OG.RacewayShape) {
+        		jsonData['type'] = 'Cable';
+        		jsonData['race_ref_from'] 	= element.shape.data.race_ref_from;
+        		jsonData['race_ref_to'] 	= element.shape.data.race_ref_to;
+        		jsonData['race_ref_len'] 	= element.shape.data.race_ref_len;
+        		jsonData['race_ref_temp'] 	= element.shape.data.race_ref_temp;
+        		jsonData['race_ref_method'] = element.shape.data.race_ref_method;
+        		jsonData['race_ref_rem'] 	= element.shape.data.race_ref_rem;
+        		sendData.push(jsonData);
+        	} 
+        	/** 
+        	 * location ? •ë³?
+        	 */
+        	else if(element.shape instanceof OG.BLDG) {
+        		jsonData['type'] = 'Location';
+        		jsonData['loc_ref_seq'] 	= element.shape.data.loc_ref_seq;
+        		jsonData['loc_ref_name'] 	= element.shape.data.loc_ref_name;
+        		jsonData['loc_ref_temp'] 	= element.shape.data.loc_ref_temp;
+        		jsonData['loc_ref_rem'] 	= element.shape.data.loc_ref_rem;
+        		jsonData['loc_ref_length'] 	= element.shape.data.loc_ref_length;
+        		sendData.push(jsonData);
+        	}
+        });
+        
         console.log(sendData);
-
+        
         var returnData = parent.updateRoute(sendData);
         /**
-         * ì €ì¥ ë° ì—…ë°ì´íŠ¸ê°€ ì„±ê³µí•œë‹¤ë©´
-         * ê´€ë ¨ ê·¸ë¦¬ë“œ, íŠ¸ë¦¬ë¥¼ ìƒˆë¡œ ê·¸ë¦°ë‹¤.
+         * ???¥ ë°? ?—…?°?´?Š¸ê°? ?„±ê³µí•œ?‹¤ë©?
+         * ê´?? ¨ ê·¸ë¦¬?“œ, ?Š¸ë¦¬ë?? ?ƒˆë¡? ê·¸ë¦°?‹¤.
          */
         if(returnData == '0') {
-            controller.refreshGridAndTree(mode, renderer);
+        	controller.refreshGridAndTree(mode, renderer);
         }
-
+        
         $.unblockUI();
         msgBox(renderer.MSGMessages.SAVEMSG);
         setTimeout(msgBoxClose, 1000);
     },
-
+    
     /**
-     * ì €ì¥ ë²„íŠ¼
+     * ???¥ ë²„íŠ¼
      */
     saveGui: function(controller) {
-
-        var me = this;
+    	
+    	var me = this;
         var mode = controller.getCurrentMode();
         var renderer = controller.getRendererByMode(mode);
-        // Feederì¼ë•Œ
+        // Feeder?¼?•Œ
         if(mode == renderer.Constants.MODE.FEEDER) {
-            me.saveFeederGui(controller);
+        	me.saveFeederGui(controller);
         } else if(mode == renderer.Constants.MODE.HIERARCHY) {
-            me.saveHierarchy(controller);
+        	me.saveHierarchy(controller);
         } else if(mode == renderer.Constants.MODE.ROUTE) {
-            me.saveRoute(controller);
+        	me.saveRoute(controller);
         }
-
+        
     }
 }
 ;
