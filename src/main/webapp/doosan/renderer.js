@@ -1115,11 +1115,102 @@ Renderer.prototype = {
                                 msgBox(checkedData.msg);
                             }
                         } else {
-                            // 그리드에서 넘어왔다면
-                            // 밑에 로직을 태우기 전에 floor의 boundary영역 안으로 드래그한 것인지 체크해야한다.
-                            // 아니라면 msgBox와 함께 그리지 않는다...
-                			me.drawImmediately([pageX, pageY], jsonData, panel);
-                		}
+
+
+                            if(jsonData.fe_type == 'TR') {
+                                me.drawImmediately([pageX, pageY], jsonData, panel);
+
+                                // select Parent feeder_list_mgt_seq : up_feeder_list_mgt_seq
+                                var parentFeederListMgtSeq = jsonData.up_feeder_list_mgt_seq;
+                                var parentFeeder = null;
+                                var initUnusedHierarchyFeederList = me._CONTROLLER.initUnusedHierarchyFeederList;
+                                initUnusedHierarchyFeederList.some(function(item) {
+                                    if(item.feeder_list_mgt_seq == parentFeederListMgtSeq) {
+                                        parentFeeder = item;
+                                    }
+                                });
+
+                                if(parentFeeder != null) {
+                                    var currentCanvas = me.getCanvas();
+                                    var checkShapeList = currentCanvas.getAllShapes();
+                                    /**
+                                     * 그리기 전에 전체 한번 그려졌다가 하나만 지워진 경우가 있다면 parent를 그리면 안된다.
+                                     * 체크 로직을 한번 더 돈다.
+                                     */
+                                    var isDraw = true;
+                                    checkShapeList.some(function(shapeElement){
+                                        if(shapeElement.shape instanceof OG.HierarchyFeeder) {
+                                            if(shapeElement.shape.data.feeder_list_mgt_seq == parentFeeder.feeder_list_mgt_seq) {
+                                                isDraw = false;
+                                            }
+                                        }
+                                    });
+
+                                    if(isDraw) {
+                                        me.drawImmediately([pageX+150, pageY], parentFeeder, panel);
+                                    }
+                                    // parent와 child의 element를 찾아서 연결한다.
+                                    var parentElement, childElement;
+                                    var shapeList = currentCanvas.getAllShapes();
+                                    shapeList.forEach(function(shapeElement){
+                                        if(shapeElement.shape instanceof OG.HierarchyFeeder) {
+                                            // parent element
+                                            if(shapeElement.shape.data.feeder_list_mgt_seq == parentFeederListMgtSeq) {
+                                                parentElement = shapeElement;
+                                            } else if(shapeElement.shape.data.feeder_list_mgt_seq == jsonData.feeder_list_mgt_seq) {
+                                                childElement = shapeElement;
+                                            }
+                                        }
+                                    });
+                                    me.canvas.connect(parentElement, childElement, null, null, null, null, null, null, new OG.CableShape());
+                                }
+                            } else {
+                                me.drawImmediately([pageX, pageY], jsonData, panel);
+                                var childFeeder = null;
+                                var initUnusedHierarchyFeederList = me._CONTROLLER.initUnusedHierarchyFeederList;
+                                initUnusedHierarchyFeederList.some(function(initItem) {
+                                    if(initItem.fe_type == 'TR' && initItem.up_feeder_list_mgt_seq == jsonData.feeder_list_mgt_seq) {
+                                               childFeeder = initItem;
+                                    }
+                                });
+
+                                if(childFeeder != null) {
+                                    var currentCanvas = me.getCanvas();
+                                    var checkShapeList = currentCanvas.getAllShapes();
+                                    var isDraw = true;
+                                    checkShapeList.some(function(shapeElement){
+                                        if(shapeElement.shape instanceof OG.HierarchyFeeder) {
+                                            if(shapeElement.shape.data.feeder_list_mgt_seq == childFeeder.feeder_list_mgt_seq) {
+                                                isDraw = false;
+                                            }
+                                        }
+                                    });
+
+                                    if(isDraw) {
+                                        me.drawImmediately([pageX+150, pageY], childFeeder, panel);
+                                    }
+                                    // parent와 child의 element를 찾아서 연결한다.
+                                    var currentCanvas = me.getCanvas();
+                                    var shapeList = currentCanvas.getAllShapes();
+                                    var parentElement, childElement;
+                                    shapeList.forEach(function(shapeElement){
+                                        if(shapeElement.shape instanceof OG.HierarchyFeeder) {
+                                            // parent element
+                                            if(shapeElement.shape.data.feeder_list_mgt_seq == jsonData.feeder_list_mgt_seq) {
+                                                parentElement = shapeElement;
+                                            } else if(shapeElement.shape.data.feeder_list_mgt_seq == childFeeder.feeder_list_mgt_seq) {
+                                                childElement = shapeElement;
+                                            }
+                                        }
+                                    });
+                                    me.canvas.connect(parentElement, childElement, null, null, null, null, null, null, new OG.CableShape());
+
+
+                                }
+                            }
+
+
+                        }
                 	} else if(me.getMode() == me.Constants.MODE.ROUTE) { 
                 		
                 		if(jsonData.shapeType == me.Constants.TYPE.LOCATION) {
