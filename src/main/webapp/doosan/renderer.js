@@ -1,29 +1,29 @@
 var Renderer = function (mode, container, controller) {
-	
-	this.MSGMessages = {
-			POINTMSG: 'í¬ì¸íŠ¸ë¥¼ ì§€ì •í•´ì•¼ í•©ë‹ˆë‹¤.',
-			MHPOINTMSG: 'ë§¨í™€ í¬ì¸íŠ¸ë¥¼ ì§€ì •í•´ì•¼ í•©ë‹ˆë‹¤.',
-			DUPLICATEMSG: 'ì…ë ¥í•œ ëª…ì¹­ì´ ì´ë¯¸ ì¡´ì¬í•©ë‹ˆë‹¤.',
-			LENGTHMSG: 'Legnthë¥¼ ì§€ì •í•´ì•¼ í•©ë‹ˆë‹¤.',
-			LENGTHCKMSG: 'LengthëŠ” ìˆ«ìë§Œ ì…ë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.',
-			TEMPMSG: 'Tempë¥¼ ì§€ì •í•´ì•¼ í•©ë‹ˆë‹¤.',
-			TEMPCKMSG: 'TempëŠ” ìˆ«ìë§Œ ì…ë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.',
-			TEMPINPUTCHK: 'ì†Œìˆ˜ì ì´í•˜ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤.',
-			TEMPDECIMALPOINTCHK: 'TempëŠ” ì†Œìˆ˜ì  3ìë¦¬ê¹Œì§€ë§Œ í—ˆìš©í•©ë‹ˆë‹¤.',
-			TEMPSIZECHK: 'TempëŠ” 80ì´í•˜ë¡œ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤.',
-			REMARKMSG: 'Remarkë¥¼ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤.',
-			SAVEMSG: 'ì €ì¥ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.',
-			NOPATH: 'Pathê°€ ì—†ìŠµë‹ˆë‹¤.',
-			SAMELOCATION: 'ë™ì¼ Locationì— ìˆìŠµë‹ˆë‹¤.',
-			SELECTRACEWAY: 'ëŒ€ì²´ ê²½ë¡œë¥¼ ì„ íƒí•´ì•¼ í•©ë‹ˆë‹¤.',
-			NOOBJECTSAVE: 'ì €ì¥í•  ì˜¤ë¸Œì íŠ¸ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.',
-			POINTTOPOINTCHK: 'Pointê°„ì˜ ì—°ê²°ì€ í—ˆìš©ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.',
-			SWITCHCONNECTIONCHK: 'ì—°ê²°í•˜ë ¤ëŠ” í”¼ë” ìŠ¤ìœ„ì¹˜ëŠ” ì´ë¯¸ ìƒìœ„ í”¼ë” ìŠ¤ìœ„ì¹˜ë¥¼ ê°€ì§€ê³  ìˆìŠµë‹ˆë‹¤.',
-			FEEDERINFLOOR: 'í”¼ë”ì˜ ìœ„ì¹˜ëŠ” í”Œë¡œì–´ì•ˆì— ë†“ì—¬ì ¸ì•¼ í•©ë‹ˆë‹¤.',
-			POINTINLOCATION: 'í¬ì¸íŠ¸ì˜ ìœ„ì¹˜ëŠ” ë¡œì¼€ì´ì…˜ì•ˆì— ë†“ì—¬ì ¸ì•¼ í•©ë‹ˆë‹¤.',
-			FEEDERTYPETR: 'íƒ€ì…ì´ TRì´ë©´ ìº”ë²„ìŠ¤ì— ê·¸ë¦´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.'
-	}
-	
+
+    this.MSGMessages = {
+        POINTMSG: 'Æ÷ÀÎÆ®¸¦ ÁöÁ¤ÇØ¾ß ÇÕ´Ï´Ù.',
+        MHPOINTMSG: '¸ÇÈ¦ Æ÷ÀÎÆ®¸¦ ÁöÁ¤ÇØ¾ß ÇÕ´Ï´Ù.',
+        DUPLICATEMSG: 'ÀÔ·ÂÇÑ ¸íÄªÀÌ ÀÌ¹Ì Á¸ÀçÇÕ´Ï´Ù.',
+        LENGTHMSG: 'Legnth¸¦ ÁöÁ¤ÇØ¾ß ÇÕ´Ï´Ù.',
+        LENGTHCKMSG: 'Length´Â ¼ıÀÚ¸¸ ÀÔ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.',
+        TEMPMSG: 'Temp¸¦ ÁöÁ¤ÇØ¾ß ÇÕ´Ï´Ù.',
+        TEMPCKMSG: 'Temp´Â ¼ıÀÚ¸¸ ÀÔ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.',
+        TEMPINPUTCHK: '¼Ò¼öÁ¡ÀÌÇÏ¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À.',
+        TEMPDECIMALPOINTCHK: 'Temp´Â ¼Ò¼öÁ¡ 3ÀÚ¸®±îÁö¸¸ Çã¿ëÇÕ´Ï´Ù.',
+        TEMPSIZECHK: 'Temp´Â 80ÀÌÇÏ·Î ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.',
+        REMARKMSG: 'Remark¸¦ ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.',
+        SAVEMSG: 'ÀúÀåÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.',
+        NOPATH: 'Path°¡ ¾ø½À´Ï´Ù.',
+        SAMELOCATION: 'µ¿ÀÏ Location¿¡ ÀÖ½À´Ï´Ù.',
+        SELECTRACEWAY: '´ëÃ¼ °æ·Î¸¦ ¼±ÅÃÇØ¾ß ÇÕ´Ï´Ù.',
+        NOOBJECTSAVE: 'ÀúÀåÇÒ ¿ÀºêÁ§Æ®°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.',
+        POINTTOPOINTCHK: 'Point°£ÀÇ ¿¬°áÀº Çã¿ëµÇÁö ¾Ê½À´Ï´Ù.',
+        SWITCHCONNECTIONCHK: '¿¬°áÇÏ·Á´Â ÇÇ´õ ½ºÀ§Ä¡´Â ÀÌ¹Ì »óÀ§ ÇÇ´õ ½ºÀ§Ä¡¸¦ °¡Áö°í ÀÖ½À´Ï´Ù.',
+        FEEDERINFLOOR: 'ÇÇ´õÀÇ À§Ä¡´Â ÇÃ·Î¾î¾È¿¡ ³õ¿©Á®¾ß ÇÕ´Ï´Ù.',
+        POINTINLOCATION: 'Æ÷ÀÎÆ®ÀÇ À§Ä¡´Â ·ÎÄÉÀÌ¼Ç¾È¿¡ ³õ¿©Á®¾ß ÇÕ´Ï´Ù.',
+        FEEDERTYPETR: 'Å¸ÀÔÀÌ TRÀÌ¸é Äµ¹ö½º¿¡ ±×¸± ¼ö ¾ø½À´Ï´Ù.'
+    }
+
     this.Constants = {
         MODE: {
             FEEDER: 'feeder',
@@ -32,36 +32,36 @@ var Renderer = function (mode, container, controller) {
         },
 
         FROM : {
-        	ISFROM : true
-        }, 
-        
-        SHAPE : {
-        	EDGE : 'EDGE',
-        	GEOM : 'GEOM',
-        	GROUP: 'GROUP'
+            ISFROM : true
         },
-        
+
+        SHAPE : {
+            EDGE : 'EDGE',
+            GEOM : 'GEOM',
+            GROUP: 'GROUP'
+        },
+
         /**
-         * FEEDER EDITOR MODEì‹œ ìš°ì¸¡ ë©”ë‰´ í´ë¦­ì— ëŒ€í•œ SaveMODEë¥¼ ê°€ì ¸ì•¼í•œë‹¤.
-         * SWGRì¼ ê²½ìš°ì—ëŠ” ì €ì¥ì‹œ new, loadì¼ ê²½ìš°ì—ëŠ” í•´ë‹¹ ë¡œë“œëª©ë¡ì—ì„œ ë“œëì‹œ dataTablesë¥¼ ê°±ì‹ í•´ì•¼í•œë‹¤...
-         * 1. ë“œëì‹œ ë©”ë‰´ì—ì„œ ì œì™¸, ìº”ë²„ìŠ¤ì—ì„œ ë“œëí•œ ë¡œë“œ ì‚­ì œì‹œì—ëŠ” ë‹¤ì‹œ dataTables ëª©ë¡ì— ê°±ì‹ ....
-         * FEEDER_FEEDERì—ì„œ ëŒì–´ ì˜¨ê²½ìš°ì—ëŠ” ê¸°ì¡´ì˜ ìˆëŠ” ë„˜.
-         * ë§Œì¼ ê¸°ì¡´ì˜ ìŠ¤ìœ„ì¹˜ì—ì„œ ë¡œë“œë¥¼ ì˜¬ë ¤ë†“ì„ ì‹œ í•´ë‹¹ loadë§Œ ì—…ëƒì„ í•´ì•¼í•˜ê¸° ë•Œë¬¸ì— ì–´ë–¤ ë©”ë‰´ì—ì„œ ì–´ë–»ê²Œ ê°€ì ¸ì™”ëŠ”ì§€ ì•Œì•„ì•¼ í•œë‹¤.
-         * ê°ê°ì˜ ì—ë””í„°ì— ëŒ€í•œ ì„¸ì´ë¸Œ ëª¨ë“œë¥¼ ê°€ì§„ë‹¤. 
+         * FEEDER EDITOR MODE½Ã ¿ìÃø ¸Ş´º Å¬¸¯¿¡ ´ëÇÑ SaveMODE¸¦ °¡Á®¾ßÇÑ´Ù.
+         * SWGRÀÏ °æ¿ì¿¡´Â ÀúÀå½Ã new, loadÀÏ °æ¿ì¿¡´Â ÇØ´ç ·Îµå¸ñ·Ï¿¡¼­ µå¶ø½Ã dataTables¸¦ °»½ÅÇØ¾ßÇÑ´Ù...
+         * 1. µå¶ø½Ã ¸Ş´º¿¡¼­ Á¦¿Ü, Äµ¹ö½º¿¡¼­ µå¶øÇÑ ·Îµå »èÁ¦½Ã¿¡´Â ´Ù½Ã dataTables ¸ñ·Ï¿¡ °»½Å....
+         * FEEDER_FEEDER¿¡¼­ ²ø¾î ¿Â°æ¿ì¿¡´Â ±âÁ¸ÀÇ ÀÖ´Â ³Ñ.
+         * ¸¸ÀÏ ±âÁ¸ÀÇ ½ºÀ§Ä¡¿¡¼­ ·Îµå¸¦ ¿Ã·Á³õÀ» ½Ã ÇØ´ç load¸¸ ¾÷µ«À» ÇØ¾ßÇÏ±â ¶§¹®¿¡ ¾î¶² ¸Ş´º¿¡¼­ ¾î¶»°Ô °¡Á®¿Ô´ÂÁö ¾Ë¾Æ¾ß ÇÑ´Ù.
+         * °¢°¢ÀÇ ¿¡µğÅÍ¿¡ ´ëÇÑ ¼¼ÀÌºê ¸ğµå¸¦ °¡Áø´Ù.
          *
          */
         FEEDER_SAVE_MODE: {
             ISNEW : false
         },
-        
+
         HIERARCHY_SAVE_MODE: {
             ISNEW : false
         },
-        
+
         ROUTE_SAVE_MODE: {
             ISNEW : false
         },
-        
+
         TYPE: {
             SWITCH_GEAR: 'SwitchGear',
             TRANSFORMER: 'Transformer',
@@ -108,23 +108,23 @@ var Renderer = function (mode, container, controller) {
     };
 
     /**
-     * ìº”ë²„ìŠ¤ì˜ ì—ë””íŒ… ëŒ€ìƒ ê°ì²´ - ê²½ìš°ì— ë”°ë¼ ì´ ê°ì²´ê°€ ì—†ë‹¤ë©´ ë„í˜• ê·¸ë¦¬ê¸°ë¥¼ í—ˆìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
+     * Äµ¹ö½ºÀÇ ¿¡µğÆÃ ´ë»ó °´Ã¼ - °æ¿ì¿¡ µû¶ó ÀÌ °´Ã¼°¡ ¾ø´Ù¸é µµÇü ±×¸®±â¸¦ Çã¿ëÇÏÁö ¾Ê´Â´Ù.
      */
     this.editingObject = undefined;
 
     /**
-     * ìº”ë²„ìŠ¤ì˜ ì—ë””íŒ… ëŒ€ìƒ ê°ì²´ì˜ GUI ë³€í™” ì—¬ë¶€
+     * Äµ¹ö½ºÀÇ ¿¡µğÆÃ ´ë»ı °´Ã¼ÀÇ GUI º¯È­ ¿©ºÎ
      */
     this.isUpdated = false;
 
     /**
-     * ë¼ìš°í„° ì—ë””í„°ì—ì„œ jsonìœ¼ë¡œ ìº”ë²„ìŠ¤ë¥¼ ê·¸ë¦´ ë•Œ ì¼€ì´ë¸”ì— ëŒ€í•œ ì •ë³´ë“¤ì„ ìƒˆë¡œ ê·¸ë¦°ë‹¤.
-     * ì´ ë•ŒëŠ” raceWay í”„ë¡œí¼í‹° ì°½ì„ ë„ìš°ì§€ ì•Šì•„ì•¼ í•œë‹¤.
+     * ¶ó¿ìÅÍ ¿¡µğÅÍ¿¡¼­ jsonÀ¸·Î Äµ¹ö½º¸¦ ±×¸± ¶§ ÄÉÀÌºí¿¡ ´ëÇÑ Á¤º¸µéÀ» »õ·Î ±×¸°´Ù.
+     * ÀÌ ¶§´Â raceWay ÇÁ·ÎÆÛÆ¼ Ã¢À» ¶ç¿ìÁö ¾Ê¾Æ¾ß ÇÑ´Ù.
      */
     this.isRedrawRaceWayFromJson = false;
-    
+
     /**
-     * ëª¨ë“œ, ì»¨í…Œì´ë„ˆ, ì»¨íŠ¸ë¡¤ëŸ¬ ë“±ë¡ (ëˆ„ë½ì¼ ê²½ìš° ë¦¬í„´)
+     * ¸ğµå, ÄÁÅ×ÀÌ³Ê, ÄÁÆ®·Ñ·¯ µî·Ï (´©¶ôÀÏ °æ¿ì ¸®ÅÏ)
      */
     if (!mode || !container || !controller) {
         return;
@@ -140,11 +140,11 @@ var Renderer = function (mode, container, controller) {
     this.canvas = new OG.Canvas(container, [this._CONTAINER.width(), this._CONTAINER.height()], 'white', 'url(resources/images/symbol/grid.gif)');
     this.canvas._CONFIG.DEFAULT_STYLE.EDGE["edge-type"] = "plain";
     /**
-     * íœ  ìŠ¤ì¼€ì¼
+     * ÈÙ ½ºÄÉÀÏ
      */
     this.canvas._CONFIG.WHEEL_SCALABLE = true;
     /**
-     * ë“œë˜ê·¸ í™”ë©´ ì´ë™
+     * µå·¡±× È­¸é ÀÌµ¿
      */
     this.canvas._CONFIG.DRAG_PAGE_MOVABLE = true;
 
@@ -170,42 +170,42 @@ var Renderer = function (mode, container, controller) {
     this.canvas._CONFIG.LABEL_MAX_SIZE = this._CONFIG.LABEL_MAX_SIZE;
 
     /**
-     * í•«í‚¤ : Ctrl+C ë³µì‚¬ í‚¤ ê°€ëŠ¥ì—¬ë¶€
+     * ÇÖÅ° : Ctrl+C º¹»ç Å° °¡´É¿©ºÎ
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_C = false;
     /**
-     * í•«í‚¤ : Ctrl+V ë¶™ì—¬ë„£ê¸° í‚¤ ê°€ëŠ¥ì—¬ë¶€
+     * ÇÖÅ° : Ctrl+V ºÙ¿©³Ö±â Å° °¡´É¿©ºÎ
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_V = false;
     /**
-     * í•«í‚¤ : Ctrl+D ë³µì œí•˜ê¸° í‚¤ ê°€ëŠ¥ì—¬ë¶€
+     * ÇÖÅ° : Ctrl+D º¹Á¦ÇÏ±â Å° °¡´É¿©ºÎ
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_D = false;
-    
+
     /**
-     * í•«í‚¤ : DELETE ì‚­ì œ í‚¤ ê°€ëŠ¥ì—¬ë¶€
+     * ÇÖÅ° : DELETE »èÁ¦ Å° °¡´É¿©ºÎ
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_DELETE = false;
-    
+
     /**
-     * í•«í‚¤ : Ctrl+G ê·¸ë£¹ í‚¤ ê°€ëŠ¥ì—¬ë¶€
+     * ÇÖÅ° : Ctrl+G ±×·ì Å° °¡´É¿©ºÎ
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_G = false;
     /**
-     * í•«í‚¤ : Ctrl+U ì–¸ê·¸ë£¹ í‚¤ ê°€ëŠ¥ì—¬ë¶€
+     * ÇÖÅ° : Ctrl+U ¾ğ±×·ì Å° °¡´É¿©ºÎ
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_U = false;
 
     /**
-     * í•«í‚¤ : UNDO REDO í‚¤ ê°€ëŠ¥ì—¬ë¶€
+     * ÇÖÅ° : UNDO REDO Å° °¡´É¿©ºÎ
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_Z = false;
-    
+
     this._RENDERER = this.canvas._RENDERER;
     this._HANDLER = this.canvas._HANDLER;
     this.init();
 
-    //ìº”ë²„ìŠ¤ ì‚­ì œì‹œ ê´€ë ¨ ë‹¤ì´ì•„ë¡œê·¸ë„ ì‚­ì œí•œë‹¤.
+    //Äµ¹ö½º »èÁ¦½Ã °ü·Ã ´ÙÀÌ¾Æ·Î±×µµ »èÁ¦ÇÑ´Ù.
     var me = this;
     $(this._CONTAINER).on("remove", function () {
         me.destroyAllDialog();
@@ -273,12 +273,12 @@ Renderer.prototype = {
         }
     },
     /**
-     * í•´ë‹¹ ë Œë”ëŸ¬ì— ê´€ë ¨ëœ ë‹¤ì´ì•„ë¡œê·¸ ì°½ì„ ìˆ¨ê¸°ê±°ë‚˜ ë³´ì¸ë‹¤.
+     * ÇØ´ç ·»´õ·¯¿¡ °ü·ÃµÈ ´ÙÀÌ¾Æ·Î±× Ã¢À» ¼û±â°Å³ª º¸ÀÎ´Ù.
      * @param show
      */
     showDialog: function (show) {
         var me = this;
-        //ê¸°ì¡´ ëŒ€í™”ì¥ì´ ìˆì„ ê²½ìš° ì‚­ì œí•˜ë„ë¡ í•œë‹¤.
+        //±âÁ¸ ´ëÈ­ÀåÀÌ ÀÖÀ» °æ¿ì »èÁ¦ÇÏµµ·Ï ÇÑ´Ù.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         if (show) {
             $('[name=' + dialogName + ']').closest(".ui-dialog").show();
@@ -287,7 +287,7 @@ Renderer.prototype = {
         }
     },
     /**
-     * ë„í˜•ì˜ ë‹¤ì´ì•„ë¡œê·¸ ì°½ì„ ìƒì„±í•œë‹¤.
+     * µµÇüÀÇ ´ÙÀÌ¾Æ·Î±× Ã¢À» »ı¼ºÇÑ´Ù.
      * @param element
      * @param options
      * @returns {Mixed|jQuery|HTMLElement}
@@ -295,11 +295,11 @@ Renderer.prototype = {
     createDialog: function (element, options) {
         var me = this;
 
-        //ëŒ€í™”ì°½ì˜ ë„¤ì„ìŠ¤í˜ì´ìŠ¤
+        //´ëÈ­Ã¢ÀÇ ³×ÀÓ½ºÆäÀÌ½º
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         var dialogId = me._CONTAINER_ID + element.id;
 
-        //ëŒ€í™”ì°½ì„ íŒì—…ì‹œí‚¨ë‹¤.
+        //´ëÈ­Ã¢À» ÆË¾÷½ÃÅ²´Ù.
         var dialog = $('<div></div>');
         dialog.attr('name', dialogName);
         dialog.attr('id', dialogId);
@@ -329,7 +329,7 @@ Renderer.prototype = {
         return dialog;
     },
     /**
-     * ë„í˜•ì˜ ë‹¤ì´ì•„ë¡œê·¸ì°½ì„ ì‚­ì œí•œë‹¤.
+     * µµÇüÀÇ ´ÙÀÌ¾Æ·Î±×Ã¢À» »èÁ¦ÇÑ´Ù.
      * @param element
      */
     destroyDialog: function (element) {
@@ -371,7 +371,7 @@ Renderer.prototype = {
             var w = image.naturalWidth;
             var h = image.naturalHeight;
 
-            //ê¸°ì¡´ ë°±ë„ì–´ ì‚­ì œ
+            //±âÁ¸ ¹éµµ¾î »èÁ¦
             var existBackdoor = me.getCanvas().getElementsByShapeId('OG.shape.elec.Backdoor');
             if (existBackdoor && existBackdoor.length) {
                 for (var i = 0; i < existBackdoor.length; i++) {
@@ -417,203 +417,203 @@ Renderer.prototype = {
             }
         }
     },
-    
+
     /**
-     * HierarchyCanvasì— ê¸°ì¡´ ì •ë³´ë¥¼ ê·¸ë¦°ë‹¤.
+     * HierarchyCanvas¿¡ ±âÁ¸ Á¤º¸¸¦ ±×¸°´Ù.
      */
     drawToHierarchyCanvasFromServerData: function(mode) {
-    	var me = this;
-    	
-    	if(mode == me.Constants.MODE.HIERARCHY ) {
-    		
-    		var dataInfo;
-    		try{
-    			dataInfo = parent.getFeederSWGRTree();
-    		} catch(e) {
-    			dataInfo = [];
-    		}
-    		
-    		/**
-    		 * ë¹Œë”©ê³¼ í”Œë¡œìš°ë¥¼ ì¶”ì¶œí•´ì„œ ê°ê°ì˜ ë¦¬ìŠ¤íŠ¸ì— ë„£ëŠ”ë‹¤.
-    		 */
-    		var bldgList = [];
-    		var floorList = [];
-    		dataInfo.forEach(function(item) {
-    			if(item.lv == 1) {
-    				item['shapeType'] = me.Constants.TYPE.HIERARCHY_BLDG;
-    				item['shapeLabel'] = item.nm;
-    				bldgList.push(item);
-    			} else if(item.lv == 2) {
-    				item['shapeType'] = me.Constants.TYPE.HIERARCHY_FLOOR;
-    				item['shapeLabel'] = item.nm;
-    				floorList.push(item);
-    			}
-    		});
-    		
-    		/**
-    		 * ìº”ë²„ìŠ¤ ì‚¬ì´ì¦ˆ ì¡°ì •
-    		 */
-    		var initHeight = (me._CONFIG.DEFAULT_SIZE.HIERARCHY_FLOOR[1] + 40) * floorList.length + (100 * floorList.length);
-    		if(initHeight < me.getContainer().height()) {
-    			initHeight = me.getContainer().height();
-    		}
-    		//canvasì˜ ì‚¬ì´ì¦ˆë¥¼ ì¬ì¡°ì ˆí•œë‹¤.
-    		var size = [
-    		            me.getContainer().width(),
-    		            initHeight
-    		            ];
-    		
-    		me.getCanvas().clear();
-    		me.getCanvas().setScale(1);
-    		
-        	
-        	me.getCanvas().setCanvasSize(size);
-    		
-    		/**
-    		 * ë¹Œë”©ì„ ìº”ë²„ìŠ¤ì— ê·¸ë¦¬ê¸° ìœ„í•œ ë¡œì§
-    		 * í•´ë‹¹ ë¹Œë”©ì— ì†í•œ floorì˜ ìˆ«ìë§Œí° ìº”ë²„ìŠ¤ì˜ ë†’ì´ë¥¼ ëŠ˜ë ¤ì„œ ì„¸íŒ…í•œë‹¤.
-    		 * idxë¥¼ í†µí•´ ìµœì´ˆ ë¹Œë”©ì˜ ìœ„ì¹˜ë¥¼ ì„ ì •í•˜ê³  ê·¸ ì´í›„ ê·¸ë ¤ì§€ëŠ” ë¹Œë”©ì€
-    		 * ì¼ì • ê°„ê²©ìœ¼ë¡œ ë°‘ìœ¼ë¡œ ê·¸ë¦°ë‹¤.
-    		 * ìµœì´ˆ ë¹Œë”©ì€ ìº”ë²„ìŠ¤ ì¢Œì¸¡ ìƒë‹¨ìœ¼ë¡œ ë¶€í„° ì¢Œì¸¡, ìœ„ë¡œë¶€í„° 100ì„ ë„ì›Œì„œ ê·¸ë¦°ë‹¤.
-    		 */
-    		var bldgIdx = 0;
-    		var totalBldgHeight = 0;
-    		bldgList.forEach(function(bldg, idx) {
-    			var bldgInFloorIdx = 0;
-    			floorList.forEach(function(floor){
-    				if(bldg.hier_seq == floor.up_hier_seq) {
-    					bldgInFloorIdx ++;
-    				}
-    			});
-    			
-    			/** 
-    			 * ë¹Œë”©ì˜ ë†’ì´ë¥¼ ì¬ ì¡°ì •í•œë‹¤. bldgInFloorIdxì˜ ê°¯ìˆ˜ë§Œí¼ í”Œë¡œì–´ì˜ ë†’ì´ +40ë¥¼ ë”í•´ì„œ ê³±í•œë‹¤.
-    			 * offset ì •ë³´ë„ í•¨ê»˜ ë„£ì–´ì¤€ë‹¤.
-    			 */
-    			var bldgHeight = (me._CONFIG.DEFAULT_SIZE.HIERARCHY_FLOOR[1] + 40) * bldgInFloorIdx;
-    			var adjustBldgY = 0;
-				if( bldgIdx == 0) {
-					adjustBldgY = bldgHeight/2;
-					totalBldgHeight = bldgHeight + 50;
-				} else {
-					adjustBldgY = totalBldgHeight + bldgHeight/2;
-					totalBldgHeight = totalBldgHeight + bldgHeight + 50;
-				}
-    			
-    			var bldgSize = [me._CONFIG.DEFAULT_SIZE.HIERARCHY_BLDG[0], bldgHeight, adjustBldgY];
-    			
-    			me.drawImmediately(null, bldg, null, bldgSize ,false);
-    			bldgIdx++;
-    		});
-    		
-    		var bldgElements = me.getCanvas().getAllShapes();
-    		bldgElements.forEach(function(bldg){
-    			
-    			var upperCenterY = bldg.shape.geom.boundary._upperCenter.y;
-    			var centroidX = bldg.shape.geom.boundary._centroid.x;
-    			var centroidY = bldg.shape.geom.boundary._centroid.y;
-    			/** 
-    			 * í•´ë‹¹ ë¹Œë”©ì˜ upperCenterYë¡œë¶€í„° ë°‘ìœ¼ë¡œ 20ì„ ë„ì›Œ ê·¸ë¦°ë‹¤.
-    			 * ì„¼í„° xì¢Œí‘œëŠ” ë¹Œë”©ì˜ xì¢Œí‘œë¡œ ì„¤ì •í•œë‹¤.
-        		 * floorì„ ìº”ë²„ìŠ¤ì— ê·¸ë¦¬ê¸° ìœ„í•œ ë¡œì§
-        		 * 
-        		 */
-        		var floorIdx = 0;
-        		var preveFloorCenterY = 0;
-        		floorList.forEach(function(floor, idx) {
-        			if(bldg.data.hier_seq == floor.up_hier_seq) {
-        			
-        				var newCenterY = 0;
-        				if(floorIdx == 0 ) {
-        					newCenterY = upperCenterY + me._CONFIG.DEFAULT_SIZE.HIERARCHY_FLOOR[1]/2;
-        				} else {
-        					newCenterY = preveFloorCenterY + me._CONFIG.DEFAULT_SIZE.HIERARCHY_FLOOR[1] + 40;
-        				}
-        				
-        				preveFloorCenterY = newCenterY;
-        				var floorSize = [centroidX, newCenterY];
-        			
-        				me.drawImmediately(null, floor, null, floorSize ,false); 
-        				floorIdx++;
-        			}
-        		});
-    		});
-    		
-             //       me.drawImmediately(null, feederSwgrList[i], null, ,false);
-    	}
-    	$.unblockUI();
-    	
+        var me = this;
+
+        if(mode == me.Constants.MODE.HIERARCHY ) {
+
+            var dataInfo;
+            try{
+                dataInfo = parent.getFeederSWGRTree();
+            } catch(e) {
+                dataInfo = [];
+            }
+
+            /**
+             * ºôµù°ú ÇÃ·Î¿ì¸¦ ÃßÃâÇØ¼­ °¢°¢ÀÇ ¸®½ºÆ®¿¡ ³Ö´Â´Ù.
+             */
+            var bldgList = [];
+            var floorList = [];
+            dataInfo.forEach(function(item) {
+                if(item.lv == 1) {
+                    item['shapeType'] = me.Constants.TYPE.HIERARCHY_BLDG;
+                    item['shapeLabel'] = item.nm;
+                    bldgList.push(item);
+                } else if(item.lv == 2) {
+                    item['shapeType'] = me.Constants.TYPE.HIERARCHY_FLOOR;
+                    item['shapeLabel'] = item.nm;
+                    floorList.push(item);
+                }
+            });
+
+            /**
+             * Äµ¹ö½º »çÀÌÁî Á¶Á¤
+             */
+            var initHeight = (me._CONFIG.DEFAULT_SIZE.HIERARCHY_FLOOR[1] + 40) * floorList.length + (100 * floorList.length);
+            if(initHeight < me.getContainer().height()) {
+                initHeight = me.getContainer().height();
+            }
+            //canvasÀÇ »çÀÌÁî¸¦ ÀçÁ¶ÀıÇÑ´Ù.
+            var size = [
+                me.getContainer().width(),
+                initHeight
+            ];
+
+            me.getCanvas().clear();
+            me.getCanvas().setScale(1);
+
+
+            me.getCanvas().setCanvasSize(size);
+
+            /**
+             * ºôµùÀ» Äµ¹ö½º¿¡ ±×¸®±â À§ÇÑ ·ÎÁ÷
+             * ÇØ´ç ºôµù¿¡ ¼ÓÇÑ floorÀÇ ¼ıÀÚ¸¸Å« Äµ¹ö½ºÀÇ ³ôÀÌ¸¦ ´Ã·Á¼­ ¼¼ÆÃÇÑ´Ù.
+             * idx¸¦ ÅëÇØ ÃÖÃÊ ºôµùÀÇ À§Ä¡¸¦ ¼±Á¤ÇÏ°í ±× ÀÌÈÄ ±×·ÁÁö´Â ºôµùÀº
+             * ÀÏÁ¤ °£°İÀ¸·Î ¹ØÀ¸·Î ±×¸°´Ù.
+             * ÃÖÃÊ ºôµùÀº Äµ¹ö½º ÁÂÃø »ó´ÜÀ¸·Î ºÎÅÍ ÁÂÃø, À§·ÎºÎÅÍ 100À» ¶ç¿ö¼­ ±×¸°´Ù.
+             */
+            var bldgIdx = 0;
+            var totalBldgHeight = 0;
+            bldgList.forEach(function(bldg, idx) {
+                var bldgInFloorIdx = 0;
+                floorList.forEach(function(floor){
+                    if(bldg.hier_seq == floor.up_hier_seq) {
+                        bldgInFloorIdx ++;
+                    }
+                });
+
+                /**
+                 * ºôµùÀÇ ³ôÀÌ¸¦ Àç Á¶Á¤ÇÑ´Ù. bldgInFloorIdxÀÇ °¹¼ö¸¸Å­ ÇÃ·Î¾îÀÇ ³ôÀÌ +40¸¦ ´õÇØ¼­ °öÇÑ´Ù.
+                 * offset Á¤º¸µµ ÇÔ²² ³Ö¾îÁØ´Ù.
+                 */
+                var bldgHeight = (me._CONFIG.DEFAULT_SIZE.HIERARCHY_FLOOR[1] + 40) * bldgInFloorIdx;
+                var adjustBldgY = 0;
+                if( bldgIdx == 0) {
+                    adjustBldgY = bldgHeight/2;
+                    totalBldgHeight = bldgHeight + 50;
+                } else {
+                    adjustBldgY = totalBldgHeight + bldgHeight/2;
+                    totalBldgHeight = totalBldgHeight + bldgHeight + 50;
+                }
+
+                var bldgSize = [me._CONFIG.DEFAULT_SIZE.HIERARCHY_BLDG[0], bldgHeight, adjustBldgY];
+
+                me.drawImmediately(null, bldg, null, bldgSize ,false);
+                bldgIdx++;
+            });
+
+            var bldgElements = me.getCanvas().getAllShapes();
+            bldgElements.forEach(function(bldg){
+
+                var upperCenterY = bldg.shape.geom.boundary._upperCenter.y;
+                var centroidX = bldg.shape.geom.boundary._centroid.x;
+                var centroidY = bldg.shape.geom.boundary._centroid.y;
+                /**
+                 * ÇØ´ç ºôµùÀÇ upperCenterY·ÎºÎÅÍ ¹ØÀ¸·Î 20À» ¶ç¿ö ±×¸°´Ù.
+                 * ¼¾ÅÍ xÁÂÇ¥´Â ºôµùÀÇ xÁÂÇ¥·Î ¼³Á¤ÇÑ´Ù.
+                 * floorÀ» Äµ¹ö½º¿¡ ±×¸®±â À§ÇÑ ·ÎÁ÷
+                 *
+                 */
+                var floorIdx = 0;
+                var preveFloorCenterY = 0;
+                floorList.forEach(function(floor, idx) {
+                    if(bldg.data.hier_seq == floor.up_hier_seq) {
+
+                        var newCenterY = 0;
+                        if(floorIdx == 0 ) {
+                            newCenterY = upperCenterY + me._CONFIG.DEFAULT_SIZE.HIERARCHY_FLOOR[1]/2;
+                        } else {
+                            newCenterY = preveFloorCenterY + me._CONFIG.DEFAULT_SIZE.HIERARCHY_FLOOR[1] + 40;
+                        }
+
+                        preveFloorCenterY = newCenterY;
+                        var floorSize = [centroidX, newCenterY];
+
+                        me.drawImmediately(null, floor, null, floorSize ,false);
+                        floorIdx++;
+                    }
+                });
+            });
+
+            //       me.drawImmediately(null, feederSwgrList[i], null, ,false);
+        }
+        $.unblockUI();
+
     },
-    
+
     drawToRouteCanvasFromServerData: function(mode) {
-    	var me = this;
-    	console.log('drawRouteCanvas');
-    	$.unblockUI();
+        var me = this;
+        console.log('drawRouteCanvas');
+        $.unblockUI();
     },
-    
+
     compareAndRemove: function() {
-    	var me = this;
-    	var currentCanvas = me.getCanvas();
-    	var feederList;
-    	try {
-    		feederList = parent.getFeederList();
-    	} catch(e) {
-    		feederList = [];
-    	}
-    	var allShape = currentCanvas.getAllShapes();
-    	allShape.forEach(function(shapeElement){
-    		var deleteItem = false;
-    		if(shapeElement.shape instanceof OG.HierarchyFeeder) {
-    			feederList.some(function(feeder){
-    				if(feeder.fe_swgr_load_div == 'S' && feeder.swgr_seq == shapeElement.shape.data.swgr_seq) {
-    					deleteItem = true;
-    				}
-    			});
-    		}
-    		if(deleteItem) {
-    			currentCanvas.removeShape(shapeElement);
-    		}
-    	});
+        var me = this;
+        var currentCanvas = me.getCanvas();
+        var feederList;
+        try {
+            feederList = parent.getFeederList();
+        } catch(e) {
+            feederList = [];
+        }
+        var allShape = currentCanvas.getAllShapes();
+        allShape.forEach(function(shapeElement){
+            var deleteItem = false;
+            if(shapeElement.shape instanceof OG.HierarchyFeeder) {
+                feederList.some(function(feeder){
+                    if(feeder.fe_swgr_load_div == 'S' && feeder.swgr_seq == shapeElement.shape.data.swgr_seq) {
+                        deleteItem = true;
+                    }
+                });
+            }
+            if(deleteItem) {
+                currentCanvas.removeShape(shapeElement);
+            }
+        });
     },
-    
+
     // renderer.canvas, dataModal, 'json', data
     loadWrapper: function(renderer, modal, type, data) {
-    	if(modal != null) {
-    		modal.find('.close').click();
-    	}
+        if(modal != null) {
+            modal.find('.close').click();
+        }
 
-    	var canvas = renderer.getCanvas();
-    	
-    	if(type == 'json') {
-    		canvas.loadJSON(data);
-    	} else {
-    		canvas.loadXML(data)
-    	}
+        var canvas = renderer.getCanvas();
 
-    	if(renderer.getMode() == renderer.Constants.MODE.HIERARCHY) {
-    		/**
-    		 * ì§€ì›Œì§„ ìŠ¤ìœ„ì¹˜í”¼ë”ê°€ ìˆëŠ”ì§€ ì²´í¬í•˜ê³  í•´ë‹¹ ìŠ¤ìœ„ì¹˜ í”¼ë”ëŠ” ì§€ìš´ë‹¤.
-    		 * í•˜ì§€ë§Œ í•˜ì´ì–´ë¼í‚¤ í”¼ë” ë¦¬ìŠ¤íŠ¸ëŠ” ì´ë¯¸ ì§€ì›Œì§„ í”¼ë”ê°€ ì¡´ì¬í•˜ê¸° ë•Œë¬¸ì—
-    		 * ì§€ìš¸ ë•Œ íŒŒë¼ë¯¸í„°ë¥¼ í†µí•´ ê·¸ë¦¬ë“œë¥¼ ìƒì‹ í•˜ì§€ ì•Šê²Œ ë§Œë“ ë‹¤.
-    		 */
-    		renderer.compareAndRemove();
-    		renderer._CONTROLLER.saveSettingHierarchyMode(renderer);
-    	} else if(renderer.getMode() == renderer.Constants.MODE.ROUTE) {
-    		
-    		/**
-    		 * ROUTEëŠ” ê·¸ë¦¬ê³  ë‚œ ì´í›„ ìº”ë²„ìŠ¤ì— ê·¸ë¦¬ì§„ Bldgë¥¼ ì œì™¸í•œ ê·¸ë¦¬ë“œë¥¼ ìƒˆë¡œ ê·¸ë ¤ì•¼ í•œë‹¤.
-    		 */
-    		
-    		var shapeList = canvas.getAllShapes();
-    		shapeList.forEach(function(shapeElement){
-    			if(shapeElement.shape instanceof OG.BLDG) {
-    				renderer._CONTROLLER.usedBldgReferenceList.push(shapeElement.shape.data);
-    			}
-    		});
+        if(type == 'json') {
+            canvas.loadJSON(data);
+        } else {
+            canvas.loadXML(data)
+        }
+
+        if(renderer.getMode() == renderer.Constants.MODE.HIERARCHY) {
+            /**
+             * Áö¿öÁø ½ºÀ§Ä¡ÇÇ´õ°¡ ÀÖ´ÂÁö Ã¼Å©ÇÏ°í ÇØ´ç ½ºÀ§Ä¡ ÇÇ´õ´Â Áö¿î´Ù.
+             * ÇÏÁö¸¸ ÇÏÀÌ¾î¶óÅ° ÇÇ´õ ¸®½ºÆ®´Â ÀÌ¹Ì Áö¿öÁø ÇÇ´õ°¡ Á¸ÀçÇÏ±â ¶§¹®¿¡
+             * Áö¿ï ¶§ ÆÄ¶ó¹ÌÅÍ¸¦ ÅëÇØ ±×¸®µå¸¦ »ó½ÅÇÏÁö ¾Ê°Ô ¸¸µç´Ù.
+             */
+            renderer.compareAndRemove();
+            renderer._CONTROLLER.saveSettingHierarchyMode(renderer);
+        } else if(renderer.getMode() == renderer.Constants.MODE.ROUTE) {
+
+            /**
+             * ROUTE´Â ±×¸®°í ³­ ÀÌÈÄ Äµ¹ö½º¿¡ ±×¸®Áø Bldg¸¦ Á¦¿ÜÇÑ ±×¸®µå¸¦ »õ·Î ±×·Á¾ß ÇÑ´Ù.
+             */
+
+            var shapeList = canvas.getAllShapes();
+            shapeList.forEach(function(shapeElement){
+                if(shapeElement.shape instanceof OG.BLDG) {
+                    renderer._CONTROLLER.usedBldgReferenceList.push(shapeElement.shape.data);
+                }
+            });
 
             var updateList = renderer._CONTROLLER.usedBldgReferenceList;
 
-            // ì „ì²´ ë„í˜•ì„ ê·¸ë¦° ì´í›„ì— ì‚¬ìš©í•œ load itemì€ ì œì™¸í•˜ê³  í•´ë‹¹ ê·¸ë¦¬ë“œë¥¼ ë‹¤ì‹œ ê·¸ë ¤ì•¼ í•œë‹¤.
+            // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
             var unUsedBldgReferenceList = renderer._CONTROLLER.initBldgReferenceList;
             var newList = [];
             for (var k = 0; k < unUsedBldgReferenceList.length; k++) {
@@ -631,272 +631,272 @@ Renderer.prototype = {
 
             var panel = renderer._CONTROLLER.model.BldgReferenceList.panel;
             renderer._CONTROLLER.redrawDataTables(panel, newList, renderer._CONTROLLER);
-    		
-    	}
-    	$.unblockUI();
-    },
-    
-    //TODO
-    // íˆ´ë°”ì— í…ìŠ¤íŠ¸, ê¸°íƒ€ shape ì˜¤ë¸Œì íŠ¸ ì¶”ê°€.
-    // ìƒ˜í”Œ ë°ì´í„° íŒŒì•…í•˜ì—¬ ë¦´ë ˆì´ì…˜ ê´€ê³„ ëª…í™•í•˜ê²Œ ë§Œë“¤ê¸°
-    // ì„œë²„ CRUD ë§Œë“¤ê¸°
 
-    
+        }
+        $.unblockUI();
+    },
+
+    //TODO
+    // Åø¹Ù¿¡ ÅØ½ºÆ®, ±âÅ¸ shape ¿ÀºêÁ§Æ® Ãß°¡.
+    // »ùÇÃ µ¥ÀÌÅÍ ÆÄ¾ÇÇÏ¿© ¸±·¹ÀÌ¼Ç °ü°è ¸íÈ®ÇÏ°Ô ¸¸µé±â
+    // ¼­¹ö CRUD ¸¸µé±â
+
+
     /**
-     * ê·¸ë¦¬ë“œë¡œë¶€í„° ë°›ì€ ì •ë³´ì—ì„œ canvasì— ê·¸ë¦´ jsonì •ë³´ê°€ ì—†ë‹¤ë©´ í•´ë‹¹ ê°ì²´ì˜ seqë„˜ë²„ë¥¼ í†µí•´ ì „ì²´ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
-     * ê·¸ ë¦¬ìŠ¤íŠ¸ë¡œ ìº”ë°”ìŠ¤ì— ëª¨ë¸ì„ ê·¸ë¦°ë‹¤.
-     * 
+     * ±×¸®µå·ÎºÎÅÍ ¹ŞÀº Á¤º¸¿¡¼­ canvas¿¡ ±×¸± jsonÁ¤º¸°¡ ¾ø´Ù¸é ÇØ´ç °´Ã¼ÀÇ seq³Ñ¹ö¸¦ ÅëÇØ ÀüÃ¼ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
+     * ±× ¸®½ºÆ®·Î Äµ¹Ù½º¿¡ ¸ğµ¨À» ±×¸°´Ù.
+     *
      */
     drawToFeederCanvasFromServerData: function(shapeData, panel) {
-    	//var startDate =  new Date();
-    	
-    	var me = this;
-    	var list = parent.getFeederInfo(shapeData.swgr_list_seq);
-    	var data = JSON.parse(JSON.stringify(shapeData));
-    	var totalList = [];
-    	
-        //ë Œë”ëŸ¬ì— ì—ë””íŒ… ì˜¤ë¸Œì íŠ¸ë¥¼ ì„¤ì •í•œë‹¤.
+        //var startDate =  new Date();
+
+        var me = this;
+        var list = parent.getFeederInfo(shapeData.swgr_list_seq);
+        var data = JSON.parse(JSON.stringify(shapeData));
+        var totalList = [];
+
+        //·»´õ·¯¿¡ ¿¡µğÆÃ ¿ÀºêÁ§Æ®¸¦ ¼³Á¤ÇÑ´Ù.
         me.editingObject = data;
-        
-    	var switchGear = null;
-    	for(var i=0; i<list.length; i++) {
-    		var item = list[i];
-    		if(item.fe_swgr_load_div == 'S' && item.swgr_seq == shapeData.swgr_seq) {
-    			switchGear = item;
-    			continue;
-    		}
-    		
-    		if(item.fe_swgr_load_div != 'SPARE') {
-    			totalList.push(item);
-        	}
-    	}
-    	
-    	switchGear['shapeType'] = me.Constants.TYPE.SWITCH_GEAR;
-    	var defaultSwitchGearSize = me._CONFIG.DEFAULT_SIZE.SWITCH_GEAR;
+
+        var switchGear = null;
+        for(var i=0; i<list.length; i++) {
+            var item = list[i];
+            if(item.fe_swgr_load_div == 'S' && item.swgr_seq == shapeData.swgr_seq) {
+                switchGear = item;
+                continue;
+            }
+
+            if(item.fe_swgr_load_div != 'SPARE') {
+                totalList.push(item);
+            }
+        }
+
+        switchGear['shapeType'] = me.Constants.TYPE.SWITCH_GEAR;
+        var defaultSwitchGearSize = me._CONFIG.DEFAULT_SIZE.SWITCH_GEAR;
         /**
-         * 1. listì˜ ì‚¬ì´ì¦ˆë¥¼ êµ¬í•˜ê³  ë¡œë“œì˜ ë””í´íŠ¸ ì‚¬ì´ì¦ˆì— ê°„ê²© ì¡°ì •ì„ ìœ„í•œ +20ì„ ë”í•œë‹¤.
-         * 2. ì´ ê°’ì„ ê³±í•œ ì‚¬ì´ì¦ˆê°€ ìµœì¢… ë¦¬ì‚¬ì´ì¦ˆ ê°’ì´ ëœë‹¤.   
+         * 1. listÀÇ »çÀÌÁî¸¦ ±¸ÇÏ°í ·ÎµåÀÇ µğÆúÆ® »çÀÌÁî¿¡ °£°İ Á¶Á¤À» À§ÇÑ +20À» ´õÇÑ´Ù.
+         * 2. ÀÌ °ªÀ» °öÇÑ »çÀÌÁî°¡ ÃÖÁ¾ ¸®»çÀÌÁî °ªÀÌ µÈ´Ù.
          */
-    	var shapeResize = defaultSwitchGearSize[0];
-    	if(totalList.length > 1) {
-    		shapeResize = ( (totalList.length-1)*(me._CONFIG.DEFAULT_SIZE.LOAD[0]+20) );
-    		if(shapeResize < defaultSwitchGearSize[0]) {
-    			shapeResize = defaultSwitchGearSize[0];
-    		}
-    	}
-    	
-    	/**
-    	 * ìº”ë²„ìŠ¤ì˜ ì´ˆê¸° ì‚¬ì´ì¦ˆë¥¼ ìŠ¤ìœ„ì¹˜ì˜ ì „ì²´ ê¸¸ì´ì—ì„œ 200ì„ ë”í•œ ë§Œí¼ ì„¤ì •í•œë‹¤.
-    	 */
-    	var adjustNewWidth = shapeResize + 200;
-    	if(adjustNewWidth < me.getContainer().width()) {
-    		adjustNewWidth = me.getContainer().width();
-    	}
-    	
-    	me.getCanvas().clear();
-    	me.getCanvas().setScale(1);
-    	//canvasì˜ ì‚¬ì´ì¦ˆë¥¼ ì¬ì¡°ì ˆí•œë‹¤.
+        var shapeResize = defaultSwitchGearSize[0];
+        if(totalList.length > 1) {
+            shapeResize = ( (totalList.length-1)*(me._CONFIG.DEFAULT_SIZE.LOAD[0]+20) );
+            if(shapeResize < defaultSwitchGearSize[0]) {
+                shapeResize = defaultSwitchGearSize[0];
+            }
+        }
+
+        /**
+         * Äµ¹ö½ºÀÇ ÃÊ±â »çÀÌÁî¸¦ ½ºÀ§Ä¡ÀÇ ÀüÃ¼ ±æÀÌ¿¡¼­ 200À» ´õÇÑ ¸¸Å­ ¼³Á¤ÇÑ´Ù.
+         */
+        var adjustNewWidth = shapeResize + 200;
+        if(adjustNewWidth < me.getContainer().width()) {
+            adjustNewWidth = me.getContainer().width();
+        }
+
+        me.getCanvas().clear();
+        me.getCanvas().setScale(1);
+        //canvasÀÇ »çÀÌÁî¸¦ ÀçÁ¶ÀıÇÑ´Ù.
         var size = [
-                    adjustNewWidth,
-                    me.getContainer().height()
-                ];
-    	
-    	me.getCanvas().setCanvasSize(size);
-    	
-    	// ì •ì¤‘ì•™ ì¢Œí‘œëŠ” position = [me.getContainer().width() / 2, me.getContainer().height() / 2]
-    	// í˜„ì¬ ìŠ¤ìœ„ì¹˜ì˜ ì • ì¤‘ì•™ ì¢Œí‘œì—ì„œ ì¢Œì¸¡ ëì˜ ì¢Œí‘œëŠ” (me.getContainer().width()/2) - (adjustNewWidth/2)
-    	var newCenterPosition = shapeResize/2 + 100;
-    	// ìŠ¤ìœ„ì¹˜ì˜ ê¸¸ì´ê°€ ê¸¸ì–´ì§€ëŠ” ê²ƒì„ ì˜ˆìƒí•´ì„œ ìº”ë²„ìŠ¤ ë§¨ ëì—ì„œ 100ì •ë„ì˜ ê°„ê²©ì„ ë„ì›Œì„œ ì¤‘ì•™ì„ ì¡ì•„ ê·¸ë¦°ë‹¤.
-    	var newShapeAdjustSize = [shapeResize, newCenterPosition, 100];
-    	// ë©”ì¸ ìŠ¤ìœ„ì¹˜ë¥¼ ë¨¼ì € ê·¸ë¦°ë‹¤.
-		me.drawImmediately(null, switchGear, null, newShapeAdjustSize);
-		
-		/**
-		 * web workerëŠ” ì°¨í›„ ì¢€ ë” ë‹¤ë“¬ëŠ” ê±¸ë¡œ 
-		 * í˜„ì¬ëŠ” roughí•˜ê²Œ ì½”ë“œ í…ŒìŠ¤íŒ…ë§Œ í™•ì¸
-		 *
-		 */
-        
+            adjustNewWidth,
+            me.getContainer().height()
+        ];
+
+        me.getCanvas().setCanvasSize(size);
+
+        // Á¤Áß¾Ó ÁÂÇ¥´Â position = [me.getContainer().width() / 2, me.getContainer().height() / 2]
+        // ÇöÀç ½ºÀ§Ä¡ÀÇ Á¤ Áß¾Ó ÁÂÇ¥¿¡¼­ ÁÂÃø ³¡ÀÇ ÁÂÇ¥´Â (me.getContainer().width()/2) - (adjustNewWidth/2)
+        var newCenterPosition = shapeResize/2 + 100;
+        // ½ºÀ§Ä¡ÀÇ ±æÀÌ°¡ ±æ¾îÁö´Â °ÍÀ» ¿¹»óÇØ¼­ Äµ¹ö½º ¸Ç ³¡¿¡¼­ 100Á¤µµÀÇ °£°İÀ» ¶ç¿ö¼­ Áß¾ÓÀ» Àâ¾Æ ±×¸°´Ù.
+        var newShapeAdjustSize = [shapeResize, newCenterPosition, 100];
+        // ¸ŞÀÎ ½ºÀ§Ä¡¸¦ ¸ÕÀú ±×¸°´Ù.
+        me.drawImmediately(null, switchGear, null, newShapeAdjustSize);
+
+        /**
+         * web worker´Â Â÷ÈÄ Á» ´õ ´Ùµë´Â °É·Î
+         * ÇöÀç´Â roughÇÏ°Ô ÄÚµå Å×½ºÆÃ¸¸ È®ÀÎ
+         *
+         */
+
         //worker.postMessage(totalList.length);
-    	var initLeftPosition = 0;
+        var initLeftPosition = 0;
         //worker.onmessage = function (event) {
-        	
-    	me.getCanvas().fastLoadingON();
+
+        me.getCanvas().fastLoadingON();
         totalList.forEach(function(element){
-        	if(element.fe_swgr_load_div == 'L') {
-    			element['shapeType'] = element.lo_type+"Load";
-    			element['shapeLabel'] = element.lo_equip_tag_no;
-    		} else if(element.fe_swgr_load_div == 'S') {
-    			element['shapeType'] = me.Constants.TYPE.TRANSFORMER;
-    			element['shapeLabel'] = element.swgr_name;
-    		} else if(element.fe_swgr_load_div == 'SPARE') {
-    			return;
-    		}
-    		if(initLeftPosition == 0) {
-    			// ìµœì´ˆ ìœ„ì¹˜ëŠ” ìŠ¤ìœ„ì¹˜ ë§¨ ë ì¢Œí‘œë¡œë¶€í„° ìš°ì¸¡ìœ¼ë¡œ ë¡œë“œì˜ ì¤‘ì•™ ì‚¬ì´ì¦ˆì˜ ì ˆë°˜ë§Œí¼ ì´ë™ì‹œì¼œì•¼í•œë‹¤.
-    			// ìŠ¤ìœ„ì¹˜ì˜ ë§¨ ëì€ ìº”ë°”ìŠ¤ ì¢Œì¸¡ ëì—ì„œ 100ì„ ë„ì›Œì„œ ê·¸ë ¸ê¸° ë•Œë¬¸ì— 
-    			initLeftPosition = 100 + me._CONFIG.DEFAULT_SIZE.LOAD[0]/2;
-    		} else {
-    			// ìµœì´ˆì— ê·¸ë ¤ì§„ ê²ƒì´ ì•„ë‹ˆë¼ë©´ ê¸°ì¡´ í¬ì§€ì…˜ì—ì„œ ë¡œë“œì˜ ì ˆë°˜ë§Œí¼ ì´ë™ì‹œí‚¨ë‹¤. ê·¸ë¦¬ê³  
-    			// ìŠ¤ìœ„ì¹˜ì˜ widthë¥¼ ê²°ì •í•  ë•Œ ë¡œë“œ ë˜ëŠ” íŠ¸ëœìŠ¤í¬ë¨¸ ìˆ˜ë§Œí¼ +20ì„ í–ˆê¸° ë•Œë¬¸ì— ê·¸ ìˆ«ìë„ í•¨ê»˜ ë˜ì§„ë‹¤.
-    			initLeftPosition = initLeftPosition + me._CONFIG.DEFAULT_SIZE.LOAD[0] + 20;
-    		}
-    		var initShapeAdjustSize = [0, initLeftPosition, -100];
-    		me.drawImmediately(null, element, null, initShapeAdjustSize, me.Constants.FROM.ISFROM);
-        });	
+            if(element.fe_swgr_load_div == 'L') {
+                element['shapeType'] = element.lo_type+"Load";
+                element['shapeLabel'] = element.lo_equip_tag_no;
+            } else if(element.fe_swgr_load_div == 'S') {
+                element['shapeType'] = me.Constants.TYPE.TRANSFORMER;
+                element['shapeLabel'] = element.swgr_name;
+            } else if(element.fe_swgr_load_div == 'SPARE') {
+                return;
+            }
+            if(initLeftPosition == 0) {
+                // ÃÖÃÊ À§Ä¡´Â ½ºÀ§Ä¡ ¸Ç ³¡ ÁÂÇ¥·ÎºÎÅÍ ¿ìÃøÀ¸·Î ·ÎµåÀÇ Áß¾Ó »çÀÌÁîÀÇ Àı¹İ¸¸Å­ ÀÌµ¿½ÃÄÑ¾ßÇÑ´Ù.
+                // ½ºÀ§Ä¡ÀÇ ¸Ç ³¡Àº Äµ¹Ù½º ÁÂÃø ³¡¿¡¼­ 100À» ¶ç¿ö¼­ ±×·È±â ¶§¹®¿¡
+                initLeftPosition = 100 + me._CONFIG.DEFAULT_SIZE.LOAD[0]/2;
+            } else {
+                // ÃÖÃÊ¿¡ ±×·ÁÁø °ÍÀÌ ¾Æ´Ï¶ó¸é ±âÁ¸ Æ÷Áö¼Ç¿¡¼­ ·ÎµåÀÇ Àı¹İ¸¸Å­ ÀÌµ¿½ÃÅ²´Ù. ±×¸®°í
+                // ½ºÀ§Ä¡ÀÇ width¸¦ °áÁ¤ÇÒ ¶§ ·Îµå ¶Ç´Â Æ®·£½ºÆ÷¸Ó ¼ö¸¸Å­ +20À» Çß±â ¶§¹®¿¡ ±× ¼ıÀÚµµ ÇÔ²² ´øÁø´Ù.
+                initLeftPosition = initLeftPosition + me._CONFIG.DEFAULT_SIZE.LOAD[0] + 20;
+            }
+            var initShapeAdjustSize = [0, initLeftPosition, -100];
+            me.drawImmediately(null, element, null, initShapeAdjustSize, me.Constants.FROM.ISFROM);
+        });
         me.getCanvas().fastLoadingOFF();
         $.unblockUI();
-        
+
         //var endDate = new Date();
-       //var diff = endDate - startDate;
-       //console.log('Diff: ' + diff);
+        //var diff = endDate - startDate;
+        //console.log('Diff: ' + diff);
     },
-    
+
     /**
-     * drawImmediatelyì´í›„ì— ê·¸ë¦¬ë“œ redrawì— ëŒ€í•œ ë¡œì§ì„ íƒœìš´ë‹¤.
+     * drawImmediatelyÀÌÈÄ¿¡ ±×¸®µå redraw¿¡ ´ëÇÑ ·ÎÁ÷À» ÅÂ¿î´Ù.
      */
     reloadGridAfterDrawImmediately: function(shape, shapeInfo, panel) {
-    	
-    	var me = this;
-    	
-	    // í•œë²ˆë” ì²´í¬ë¡œ ì•„ì˜ˆ ë°‘ì— ë¡œì§ íƒœìš°ëŠ” ìœ ë¬´ë¥¼ ì²´í¬í•œë‹¤.
-		if (!me.editingObject) {
-			return false;
-		}
-	    
-		var newList = [];
-	    //í•´ë‹¹ ì•„ì´í…œì´ ë¡œë“œì´ê³  UnAssignedLoadListì—ì„œ ë„˜ì–´ì˜¨ ì•„ì´í…œì´ë¼ë©´
-	    if(shape instanceof OG.Load && 
-	    	(shapeInfo.model == me._CONTROLLER.model.UnAssignedLoadList.name)
-	    	) {
-	    	
-	        //í•´ë‹¹ ì•„ì´í…œì€ ì‚¬ìš©ëœ loadlistì— ì •ë³´ë¥¼ ì €ì¥í•œë‹¤.
-	        var usedLoadList = me._CONTROLLER.usedLoadList;
-	        usedLoadList.push(shapeInfo);
-	        // ì „ì²´ ë„í˜•ì„ ê·¸ë¦° ì´í›„ì— ì‚¬ìš©í•œ load itemì€ ì œì™¸í•˜ê³  í•´ë‹¹ ê·¸ë¦¬ë“œë¥¼ ë‹¤ì‹œ ê·¸ë ¤ì•¼ í•œë‹¤.
-	        var unloadList = me._CONTROLLER.initUnusedLoadList;
-	        for(var i=0; i<unloadList.length; i++) {
-	            var isDuplicated = false;
-	            for(var j=0; j<usedLoadList.length; j++) {
-	                if(unloadList[i].load_list_seq == usedLoadList[j].load_list_seq) {
-	                    isDuplicated = true;
-	                }
-	            }
-	
-	            if(!isDuplicated) {
-	                newList.push(unloadList[i]);
-	            }
-	        }
-	        
-	        // í•´ë‹¹ ê·¸ë¦¬ë“œ ìƒˆë¡œ ê·¸ë¦°ë‹¤.
-	        var dataTable = panel.dataTable().api();
-	        var currentPage = dataTable.page();
-	        dataTable.clear();
-	        dataTable.rows.add(newList);
-	        dataTable.draw();
-	        dataTable.page(currentPage).draw(false);
-	        
-	    }
-	    // í•´ë‹¹ ì•„ì´í…œì´ íŠ¸ëœìŠ¤í¬ë¨¸ì´ê³  modelì´ SwgrListë¼ë©´
-	    else if(shape instanceof OG.SwitchTransformer &&
-	    		(shapeInfo.model == me._CONTROLLER.model.SwgrList.name)
-	    		) {
-	    	
-	        //í•´ë‹¹ ì•„ì´í…œì€ ì‚¬ìš©ëœ switchlistì— ì •ë³´ë¥¼ ì €ì¥í•œë‹¤.
-	        var usedSwitchList = me._CONTROLLER.usedSwitchList;
-	        usedSwitchList.push(shapeInfo);
-	        // ì „ì²´ ë„í˜•ì„ ê·¸ë¦° ì´í›„ì— ì‚¬ìš©í•œ load itemì€ ì œì™¸í•˜ê³  í•´ë‹¹ ê·¸ë¦¬ë“œë¥¼ ë‹¤ì‹œ ê·¸ë ¤ì•¼ í•œë‹¤.
-	        var unswitchList = me._CONTROLLER.initUnusedSwitchList;
-	        for(var i=0; i<unswitchList.length; i++) {
-	            var isDuplicated = false;
-	            for(var j=0; j<usedSwitchList.length; j++) {
-	                if(unswitchList[i].swgr_list_seq == usedSwitchList[j].swgr_list_seq) {
-	                    isDuplicated = true;
-	                }
-	            }
-	
-	            if(!isDuplicated) {
-	                newList.push(unswitchList[i]);
-	            }
-	        }
-	        
-	        // í•´ë‹¹ ê·¸ë¦¬ë“œ ìƒˆë¡œ ê·¸ë¦°ë‹¤.
-	        var dataTable = panel.dataTable().api();
-	        var currentPage = dataTable.page();
-	        dataTable.clear();
-	        dataTable.rows.add(newList);
-	        dataTable.draw();
-	        dataTable.page(currentPage).draw(false);
-	        
-	    }
-	    // í•´ë‹¹ ì•„ì´í…œì´ ìŠ¤ìœ„ì¹˜ì´ê³  modelì´ SwgrListë¼ë©´
-	    else if(shape instanceof OG.HierarchyFeeder &&
-	    		(shapeInfo.model == me._CONTROLLER.model.HierarchyFeederList.name)
-	    		) {
-	    	
-	        //í•´ë‹¹ ì•„ì´í…œì€ ì‚¬ìš©ëœ switchlistì— ì •ë³´ë¥¼ ì €ì¥í•œë‹¤.
-	        var usedHierarchyFeederList = me._CONTROLLER.usedHierarchyFeederList;
-	        usedHierarchyFeederList.push(shapeInfo);
-	        // ì „ì²´ ë„í˜•ì„ ê·¸ë¦° ì´í›„ì— ì‚¬ìš©í•œ load itemì€ ì œì™¸í•˜ê³  í•´ë‹¹ ê·¸ë¦¬ë“œë¥¼ ë‹¤ì‹œ ê·¸ë ¤ì•¼ í•œë‹¤.
-	        var unUsedHierarchyFeederList = me._CONTROLLER.initUnusedHierarchyFeederList;
-	        for(var i=0; i<unUsedHierarchyFeederList.length; i++) {
-	            var isDuplicated = false;
-	            for(var j=0; j<usedHierarchyFeederList.length; j++) {
-	                if(unUsedHierarchyFeederList[i].swgr_seq == usedHierarchyFeederList[j].swgr_seq) {
-	                    isDuplicated = true;
-	                }
-	            }
-	
-	            if(!isDuplicated) {
-	                newList.push(unUsedHierarchyFeederList[i]);
-	            }
-	        }
-	        
-	        // í•´ë‹¹ ê·¸ë¦¬ë“œ ìƒˆë¡œ ê·¸ë¦°ë‹¤.
-	        var dataTable = panel.dataTable().api();
-	        var currentPage = dataTable.page();
-	        dataTable.clear();
-	        dataTable.rows.add(newList);
-	        dataTable.draw();
-	        dataTable.page(currentPage).draw(false);
-	        
-	    }
-	    // í•´ë‹¹ ì•„ì´í…œì´ ë¹Œë”©ì´ê³  modelì´ SwgrListë¼ë©´.
-	    else if(shape instanceof OG.BLDG &&
-	    		(shapeInfo.model == me._CONTROLLER.model.BldgReferenceList.name)
-	    		) {
-	    	
-	        //í•´ë‹¹ ì•„ì´í…œì€ ì‚¬ìš©ëœ switchlistì— ì •ë³´ë¥¼ ì €ì¥í•œë‹¤.
-	        var usedBldgReferenceList = me._CONTROLLER.usedBldgReferenceList;
-	        usedBldgReferenceList.push(shapeInfo);
-	        // ì „ì²´ ë„í˜•ì„ ê·¸ë¦° ì´í›„ì— ì‚¬ìš©í•œ load itemì€ ì œì™¸í•˜ê³  í•´ë‹¹ ê·¸ë¦¬ë“œë¥¼ ë‹¤ì‹œ ê·¸ë ¤ì•¼ í•œë‹¤.
-	        var unUsedBldgReferenceList = me._CONTROLLER.initBldgReferenceList;
-	        for(var i=0; i<unUsedBldgReferenceList.length; i++) {
-	            var isDuplicated = false;
-	            for(var j=0; j<usedBldgReferenceList.length; j++) {
-	                if(unUsedBldgReferenceList[i].loc_ref_seq == usedBldgReferenceList[j].loc_ref_seq) {
-	                    isDuplicated = true;
-	                }
-	            }
-	
-	            if(!isDuplicated) {
-	                newList.push(unUsedBldgReferenceList[i]);
-	            }
-	        }
-	        
-	        // í•´ë‹¹ ê·¸ë¦¬ë“œ ìƒˆë¡œ ê·¸ë¦°ë‹¤.
-	        var dataTable = panel.dataTable().api();
-	        var currentPage = dataTable.page();
-	        dataTable.clear();
-	        dataTable.rows.add(newList);
-	        dataTable.draw();
-	        dataTable.page(currentPage).draw(false);
-	        
-	    }
+
+        var me = this;
+
+        // ÇÑ¹ø´õ Ã¼Å©·Î ¾Æ¿¹ ¹Ø¿¡ ·ÎÁ÷ ÅÂ¿ì´Â À¯¹«¸¦ Ã¼Å©ÇÑ´Ù.
+        if (!me.editingObject) {
+            return false;
+        }
+
+        var newList = [];
+        //ÇØ´ç ¾ÆÀÌÅÛÀÌ ·ÎµåÀÌ°í UnAssignedLoadList¿¡¼­ ³Ñ¾î¿Â ¾ÆÀÌÅÛÀÌ¶ó¸é
+        if(shape instanceof OG.Load &&
+            (shapeInfo.model == me._CONTROLLER.model.UnAssignedLoadList.name)
+        ) {
+
+            //ÇØ´ç ¾ÆÀÌÅÛÀº »ç¿ëµÈ loadlist¿¡ Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
+            var usedLoadList = me._CONTROLLER.usedLoadList;
+            usedLoadList.push(shapeInfo);
+            // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
+            var unloadList = me._CONTROLLER.initUnusedLoadList;
+            for(var i=0; i<unloadList.length; i++) {
+                var isDuplicated = false;
+                for(var j=0; j<usedLoadList.length; j++) {
+                    if(unloadList[i].load_list_seq == usedLoadList[j].load_list_seq) {
+                        isDuplicated = true;
+                    }
+                }
+
+                if(!isDuplicated) {
+                    newList.push(unloadList[i]);
+                }
+            }
+
+            // ÇØ´ç ±×¸®µå »õ·Î ±×¸°´Ù.
+            var dataTable = panel.dataTable().api();
+            var currentPage = dataTable.page();
+            dataTable.clear();
+            dataTable.rows.add(newList);
+            dataTable.draw();
+            dataTable.page(currentPage).draw(false);
+
+        }
+        // ÇØ´ç ¾ÆÀÌÅÛÀÌ Æ®·£½ºÆ÷¸ÓÀÌ°í modelÀÌ SwgrList¶ó¸é
+        else if(shape instanceof OG.SwitchTransformer &&
+            (shapeInfo.model == me._CONTROLLER.model.SwgrList.name)
+        ) {
+
+            //ÇØ´ç ¾ÆÀÌÅÛÀº »ç¿ëµÈ switchlist¿¡ Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
+            var usedSwitchList = me._CONTROLLER.usedSwitchList;
+            usedSwitchList.push(shapeInfo);
+            // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
+            var unswitchList = me._CONTROLLER.initUnusedSwitchList;
+            for(var i=0; i<unswitchList.length; i++) {
+                var isDuplicated = false;
+                for(var j=0; j<usedSwitchList.length; j++) {
+                    if(unswitchList[i].swgr_list_seq == usedSwitchList[j].swgr_list_seq) {
+                        isDuplicated = true;
+                    }
+                }
+
+                if(!isDuplicated) {
+                    newList.push(unswitchList[i]);
+                }
+            }
+
+            // ÇØ´ç ±×¸®µå »õ·Î ±×¸°´Ù.
+            var dataTable = panel.dataTable().api();
+            var currentPage = dataTable.page();
+            dataTable.clear();
+            dataTable.rows.add(newList);
+            dataTable.draw();
+            dataTable.page(currentPage).draw(false);
+
+        }
+        // ÇØ´ç ¾ÆÀÌÅÛÀÌ ½ºÀ§Ä¡ÀÌ°í modelÀÌ SwgrList¶ó¸é
+        else if(shape instanceof OG.HierarchyFeeder &&
+            (shapeInfo.model == me._CONTROLLER.model.HierarchyFeederList.name)
+        ) {
+
+            //ÇØ´ç ¾ÆÀÌÅÛÀº »ç¿ëµÈ switchlist¿¡ Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
+            var usedHierarchyFeederList = me._CONTROLLER.usedHierarchyFeederList;
+            usedHierarchyFeederList.push(shapeInfo);
+            // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
+            var unUsedHierarchyFeederList = me._CONTROLLER.initUnusedHierarchyFeederList;
+            for(var i=0; i<unUsedHierarchyFeederList.length; i++) {
+                var isDuplicated = false;
+                for(var j=0; j<usedHierarchyFeederList.length; j++) {
+                    if(unUsedHierarchyFeederList[i].swgr_seq == usedHierarchyFeederList[j].swgr_seq) {
+                        isDuplicated = true;
+                    }
+                }
+
+                if(!isDuplicated) {
+                    newList.push(unUsedHierarchyFeederList[i]);
+                }
+            }
+
+            // ÇØ´ç ±×¸®µå »õ·Î ±×¸°´Ù.
+            var dataTable = panel.dataTable().api();
+            var currentPage = dataTable.page();
+            dataTable.clear();
+            dataTable.rows.add(newList);
+            dataTable.draw();
+            dataTable.page(currentPage).draw(false);
+
+        }
+        // ÇØ´ç ¾ÆÀÌÅÛÀÌ ºôµùÀÌ°í modelÀÌ SwgrList¶ó¸é.
+        else if(shape instanceof OG.BLDG &&
+            (shapeInfo.model == me._CONTROLLER.model.BldgReferenceList.name)
+        ) {
+
+            //ÇØ´ç ¾ÆÀÌÅÛÀº »ç¿ëµÈ switchlist¿¡ Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
+            var usedBldgReferenceList = me._CONTROLLER.usedBldgReferenceList;
+            usedBldgReferenceList.push(shapeInfo);
+            // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
+            var unUsedBldgReferenceList = me._CONTROLLER.initBldgReferenceList;
+            for(var i=0; i<unUsedBldgReferenceList.length; i++) {
+                var isDuplicated = false;
+                for(var j=0; j<usedBldgReferenceList.length; j++) {
+                    if(unUsedBldgReferenceList[i].loc_ref_seq == usedBldgReferenceList[j].loc_ref_seq) {
+                        isDuplicated = true;
+                    }
+                }
+
+                if(!isDuplicated) {
+                    newList.push(unUsedBldgReferenceList[i]);
+                }
+            }
+
+            // ÇØ´ç ±×¸®µå »õ·Î ±×¸°´Ù.
+            var dataTable = panel.dataTable().api();
+            var currentPage = dataTable.page();
+            dataTable.clear();
+            dataTable.rows.add(newList);
+            dataTable.draw();
+            dataTable.page(currentPage).draw(false);
+
+        }
     },
-    
+
     /**
-     * ë·° ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ ë°›ì•„ì˜¨ ë°ì´í„°ë¥¼ ë°”íƒ•ìœ¼ë¡œ ìº”ë²„ìŠ¤ì— ë„í˜•ì„ ê·¸ë¦°ë‹¤.
+     * ºä ÄÁÆ®·Ñ·¯¿¡¼­ ¹Ş¾Æ¿Â µ¥ÀÌÅÍ¸¦ ¹ÙÅÁÀ¸·Î Äµ¹ö½º¿¡ µµÇüÀ» ±×¸°´Ù.
      * @param offset
      * @param shapeInfo
      */
@@ -907,14 +907,14 @@ Renderer.prototype = {
             var shapeType = shapeInfo['shapeType'];
             var shapeLabel = shapeInfo['shapeLabel'] ? shapeInfo['shapeLabel'] : '';
 
-            //ë Œë”ë§ ëŒ€ìƒë“¤
+            //·»´õ¸µ ´ë»óµé
             if (shapeType == me.Constants.TYPE.SWITCH_GEAR) {
                 shape = new OG.SwitchGear(shapeLabel);
                 size = me._CONFIG.DEFAULT_SIZE.SWITCH_GEAR;
                 if(newShapeAdjustSize != null) {
-                	if(newShapeAdjustSize[0] !=0) {
-            			size = [newShapeAdjustSize[0], 50];
-                	}
+                    if(newShapeAdjustSize[0] !=0) {
+                        size = [newShapeAdjustSize[0], 50];
+                    }
                 }
             }
             else if (shapeType == me.Constants.TYPE.TRANSFORMER) {
@@ -939,8 +939,8 @@ Renderer.prototype = {
                 shape = new OG.HierarchyBldg(shapeLabel);
                 size = me._CONFIG.DEFAULT_SIZE.HIERARCHY_BLDG;
                 if(newShapeAdjustSize != null) {
-                	//SWITCH_GEAR: [350, 50]
-                	size = newShapeAdjustSize;
+                    //SWITCH_GEAR: [350, 50]
+                    size = newShapeAdjustSize;
                 }
             } else if (shapeType == me.Constants.TYPE.HIERARCHY_FEEDER) {
                 shape = new OG.HierarchyFeeder(shapeLabel);
@@ -956,7 +956,7 @@ Renderer.prototype = {
                 size = me._CONFIG.DEFAULT_SIZE.MANHOLE;
             }
 
-            //viewController ì— ì „ë‹¬í•´ì•¼ í•˜ëŠ” ëŒ€ìƒë“¤
+            //viewController ¿¡ Àü´ŞÇØ¾ß ÇÏ´Â ´ë»óµé
             else if (shapeType == me.Constants.TYPE.NEW_FEEDER) {
                 me._CONTROLLER.onMessage(me, shapeInfo, me._CONTROLLER.message.NEW, panel);
                 return;
@@ -966,25 +966,25 @@ Renderer.prototype = {
             }
 
             if (shape) {
-                //offset ì´ ì—†ë‹¤ë©´ ì»¨í…Œì´ë„ˆì˜ ì¤‘ì•™ì„ ê¸°ì¤€ìœ¼ë¡œ ì‚¼ëŠ”ë‹¤.
+                //offset ÀÌ ¾ø´Ù¸é ÄÁÅ×ÀÌ³ÊÀÇ Áß¾ÓÀ» ±âÁØÀ¸·Î »ï´Â´Ù.
                 if (!offset) {
-                	var initWidth = me.getContainer().width() / 2;
-                	var initHeight = me.getContainer().height() / 2;
-                	// ìƒˆë¡œìš´ í¬ì§€ì…˜ì´ ì¡´ì¬í•œë‹¤ë©´
-                	if(newShapeAdjustSize != null) {
-                		if(shapeType == me.Constants.TYPE.HIERARCHY_BLDG) {
-                			initWidth = newShapeAdjustSize[0]/2  + 100;
-                			initHeight = newShapeAdjustSize[2] + 50;
-                		} else if(shapeType == me.Constants.TYPE.HIERARCHY_FLOOR) {
-                			initWidth = newShapeAdjustSize[0];
-                			initHeight = newShapeAdjustSize[1] + 20;
-                    	} else {
-                    		initWidth = newShapeAdjustSize[1];
-                    		// ë°‘ì— ë¶™ì„ ë¡œë“œ ë° íŠ¸ëœìŠ¤í¬ë¨¸ë¥¼ ìœ„í•´ ìœ„ë¡œ 100ì •ë„ ì˜¬ë¦°ë‹¤.
-                			initHeight = initHeight - newShapeAdjustSize[2];
-                    	}
-                	}
-                	
+                    var initWidth = me.getContainer().width() / 2;
+                    var initHeight = me.getContainer().height() / 2;
+                    // »õ·Î¿î Æ÷Áö¼ÇÀÌ Á¸ÀçÇÑ´Ù¸é
+                    if(newShapeAdjustSize != null) {
+                        if(shapeType == me.Constants.TYPE.HIERARCHY_BLDG) {
+                            initWidth = newShapeAdjustSize[0]/2  + 100;
+                            initHeight = newShapeAdjustSize[2] + 50;
+                        } else if(shapeType == me.Constants.TYPE.HIERARCHY_FLOOR) {
+                            initWidth = newShapeAdjustSize[0];
+                            initHeight = newShapeAdjustSize[1] + 20;
+                        } else {
+                            initWidth = newShapeAdjustSize[1];
+                            // ¹Ø¿¡ ºÙÀ» ·Îµå ¹× Æ®·£½ºÆ÷¸Ó¸¦ À§ÇØ À§·Î 100Á¤µµ ¿Ã¸°´Ù.
+                            initHeight = initHeight - newShapeAdjustSize[2];
+                        }
+                    }
+
                     position = [initWidth, initHeight];
                 } else {
                     position = [
@@ -994,80 +994,80 @@ Renderer.prototype = {
                 }
                 position[0] = position[0] / me.canvas._CONFIG.SCALE;
                 position[1] = position[1] / me.canvas._CONFIG.SCALE;
-                //ìº”ë²„ìŠ¤ì˜ editingObject (ì—ë””íŒ… ê°ì²´) ê°€ ì—†ë‹¤ë©´ ê·¸ë¦¬ì§€ ì•ŠëŠ”ë‹¤.
+                //Äµ¹ö½ºÀÇ editingObject (¿¡µğÆÃ °´Ã¼) °¡ ¾ø´Ù¸é ±×¸®Áö ¾Ê´Â´Ù.
                 if (!me.editingObject) {
                     me._CONTROLLER.onMessage(me, shapeInfo, me._CONTROLLER.message.NO_EDITOR_OBJECT, panel);
 
                 } else {
                     shape.data = shapeInfo;
-                    
-                    // ë¡œë“œ ë¦¬ìŠ¤íŠ¸ì—ì„œ ë„˜ì–´ì˜¨ ì •ë³´ë¼ë©´ 
-                    if(shape.data.model == me._CONTROLLER.model.UnAssignedLoadList.name) {
-                    	// parent.checkLSValidator(load_seq, swgr_seq)ì„ ì²´í¬í•œë‹¤. 
-                    	// falseë©´ ê·¸ë¦¬ì§€ ì•Šì„ ê²½ìš°. return
-                    	// returnData JSONList 
-                    	//{error : "false", msg : ''
-                    	var isValidate = true;
-                    	var validateData = me._DATA_CONTROLLER.makeCheckLSValidatorData(me);
-                    	parent.checkLSValidator(shape.data.load_list_seq, validateData, function(checked){
-                    		if(checked == 'true') {
-                    			 element = me.getCanvas().drawShape(position, shape, size);
-                                 me.getContainer().removeData('DRAG_SHAPE');
 
-                                 //Load ì¼ ê²½ìš° onLoadDrop í˜¸ì¶œ
-                                 //íŠ¸ëœìŠ¤í¬ë¨¸ì¼ ê²½ìš°ë„ onLoadDrop í˜¸ì¶œ
-                                 if (shape instanceof OG.Load || shape instanceof OG.SwitchTransformer) {
-                             		me.onLoadDrop(element, from);
-                                 }
-                    			
-                                 me.reloadGridAfterDrawImmediately(shape, shapeInfo, panel);
-                    		}
-                    	});
-                    	
-                    	return;
+                    // ·Îµå ¸®½ºÆ®¿¡¼­ ³Ñ¾î¿Â Á¤º¸¶ó¸é 
+                    if(shape.data.model == me._CONTROLLER.model.UnAssignedLoadList.name) {
+                        // parent.checkLSValidator(load_seq, swgr_seq)À» Ã¼Å©ÇÑ´Ù.
+                        // false¸é ±×¸®Áö ¾ÊÀ» °æ¿ì. return
+                        // returnData JSONList
+                        //{error : "false", msg : ''
+                        var isValidate = true;
+                        var validateData = me._DATA_CONTROLLER.makeCheckLSValidatorData(me);
+                        parent.checkLSValidator(shape.data.load_list_seq, validateData, function(checked){
+                            if(checked == 'true') {
+                                element = me.getCanvas().drawShape(position, shape, size);
+                                me.getContainer().removeData('DRAG_SHAPE');
+
+                                //Load ÀÏ °æ¿ì onLoadDrop È£Ãâ
+                                //Æ®·£½ºÆ÷¸ÓÀÏ °æ¿ìµµ onLoadDrop È£Ãâ
+                                if (shape instanceof OG.Load || shape instanceof OG.SwitchTransformer) {
+                                    me.onLoadDrop(element, from);
+                                }
+
+                                me.reloadGridAfterDrawImmediately(shape, shapeInfo, panel);
+                            }
+                        });
+
+                        return;
                     }
-                    
+
                     element = me.getCanvas().drawShape(position, shape, size);
-	               	$(element).bind('dblclick', function (event) {
-	               		if(me.getMode() == me.Constants.MODE.ROUTE) { 
-	               			if(element.shape.data.shapeType == me.Constants.TYPE.LOCATION) {
-	               				me.showPointDialog(null, null, panel, element, 'dblclick');
-	               				event.stopPropagation();
-	               			} else if(element.shape.data.shapeType == me.Constants.TYPE.MANHOLE) {
-	               				me.showManholeDialog(null, null, panel, element, 'dblclick');
-	               				event.stopPropagation();
-	               			} else if(element.shape.data.shapeType == me.Constants.TYPE.BLDG) {
-	               				me.showLocationDialog(null, null, panel, element, 'dblclick');
-	               				event.stopPropagation();
-	               			}
-	               		}
-	 		        });
+                    $(element).bind('dblclick', function (event) {
+                        if(me.getMode() == me.Constants.MODE.ROUTE) {
+                            if(element.shape.data.shapeType == me.Constants.TYPE.LOCATION) {
+                                me.showPointDialog(null, null, panel, element, 'dblclick');
+                                event.stopPropagation();
+                            } else if(element.shape.data.shapeType == me.Constants.TYPE.MANHOLE) {
+                                me.showManholeDialog(null, null, panel, element, 'dblclick');
+                                event.stopPropagation();
+                            } else if(element.shape.data.shapeType == me.Constants.TYPE.BLDG) {
+                                me.showLocationDialog(null, null, panel, element, 'dblclick');
+                                event.stopPropagation();
+                            }
+                        }
+                    });
                     me.getContainer().removeData('DRAG_SHAPE');
 
-                    //Load ì¼ ê²½ìš° onLoadDrop í˜¸ì¶œ
-                    //íŠ¸ëœìŠ¤í¬ë¨¸ì¼ ê²½ìš°ë„ onLoadDrop í˜¸ì¶œ
+                    //Load ÀÏ °æ¿ì onLoadDrop È£Ãâ
+                    //Æ®·£½ºÆ÷¸ÓÀÏ °æ¿ìµµ onLoadDrop È£Ãâ
                     if (shape instanceof OG.Load || shape instanceof OG.SwitchTransformer) {
-                		me.onLoadDrop(element, from);
+                        me.onLoadDrop(element, from);
                     }
-                    
-                    // í•˜ì´ë¼í‚¤ì–´ í”¼ë”ì—ì„œ ë„˜ì–´ì™”ë‹¤ë©´
+
+                    // ÇÏÀÌ¶óÅ°¾î ÇÇ´õ¿¡¼­ ³Ñ¾î¿Ô´Ù¸é
                     if(shape.data.shapeType == me.Constants.TYPE.HIERARCHY_FEEDER) {
-                    	me._CONTROLLER.updateFeederHierarchyList.push(shape.data);
+                        me._CONTROLLER.updateFeederHierarchyList.push(shape.data);
                     }
                 }
             }
         }
 
         /**
-         *  drawImmediatelyì´í›„ì— ê·¸ë¦¬ë“œ redrawì— ëŒ€í•œ ë¡œì§ì„ íƒœìš´ë‹¤.
+         *  drawImmediatelyÀÌÈÄ¿¡ ±×¸®µå redraw¿¡ ´ëÇÑ ·ÎÁ÷À» ÅÂ¿î´Ù.
          */
         me.reloadGridAfterDrawImmediately(shape, shapeInfo, panel);
-        
+
     },
 
     /**
-     * ë·° ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ ë“œë ì´ë²¤íŠ¸ê°€ ì˜¬ ê²½ìš°ì˜ ì²˜ë¦¬.
-     * ë“œë í•œ ì˜ì—­ì´ ìº”ë²„ìŠ¤ ì»¨í…Œì´ë„ˆ ì˜ì—­ ì•ˆì¼ ê²½ìš°ë§Œ ì²˜ë¦¬í•œë‹¤.
+     * ºä ÄÁÆ®·Ñ·¯¿¡¼­ µå¶ø ÀÌº¥Æ®°¡ ¿Ã °æ¿ìÀÇ Ã³¸®.
+     * µå¶ø ÇÑ ¿µ¿ªÀÌ Äµ¹ö½º ÄÁÅ×ÀÌ³Ê ¿µ¿ª ¾ÈÀÏ °æ¿ì¸¸ Ã³¸®ÇÑ´Ù.
      */
     bindDropEvent: function () {
         var me = this;
@@ -1080,100 +1080,100 @@ Renderer.prototype = {
             var right = left + me.getContainer().width();
             var bottom = top + me.getContainer().height();
             if (pageX > left && pageX < right && pageY > top && pageY < bottom) {
-            	
-            	if(jsonData.shapeType == me.Constants.TYPE.MODIFY_FEEDER){
-            		
-            		if( (jsonData.model == me._CONTROLLER.model.FeederList.name || jsonData.model == me._CONTROLLER.model.AssignedFeederList.name) 
-            				&& jsonData.swgr_type == 'TR' ) {
-            			msgBox(me.MSGMessages.FEEDERTYPETR);
-            			return;
-            		}
-            		me._CONTROLLER.onMessage(me, jsonData, me._CONTROLLER.message.MOD, panel);
-            		
+
+                if(jsonData.shapeType == me.Constants.TYPE.MODIFY_FEEDER){
+
+                    if( (jsonData.model == me._CONTROLLER.model.FeederList.name || jsonData.model == me._CONTROLLER.model.AssignedFeederList.name)
+                        && jsonData.swgr_type == 'TR' ) {
+                        msgBox(me.MSGMessages.FEEDERTYPETR);
+                        return;
+                    }
+                    me._CONTROLLER.onMessage(me, jsonData, me._CONTROLLER.message.MOD, panel);
+
                 } else {
-                	if(me.getMode() == me.Constants.MODE.HIERARCHY) {
-                		// íŠ¸ë¦¬ì—ì„œ ë„˜ì–´ì™”ë‹¤ë©´ panelì€ undefined
-                		if(!panel) { 
-	                		/**
-	                		 * canvasì— ë“œë˜ê·¸ ë“œëí•  ë¹Œë”©, floorê°€ ì´ë¯¸ ì¡´ì¬í•œë‹¤ë©´
-	                		 * ê·¸ë¦¬ì§€ ì•ŠëŠ”ë‹¤. 
-	                		 * ì²´í¬ ë¡œì§ ì¶”ê°€
-	                		 */
-	                		var checkedData = me._CONTROLLER.checkBldgsAndFloors(me, jsonData);
-	                		if(checkedData.isDraw) {
-	                			me.drawImmediately([pageX, pageY], jsonData, panel);
-	                		} else {
-	                			msgBox(checkedData.msg);
-	                		}
-                		} else {
-                			// ê·¸ë¦¬ë“œì—ì„œ ë„˜ì–´ì™”ë‹¤ë©´
-                			// ë°‘ì— ë¡œì§ì„ íƒœìš°ê¸° ì „ì— floorì˜ boundaryì˜ì—­ ì•ˆìœ¼ë¡œ ë“œë˜ê·¸í•œ ê²ƒì¸ì§€ ì²´í¬í•´ì•¼í•œë‹¤.
-                			// ì•„ë‹ˆë¼ë©´ msgBoxì™€ í•¨ê»˜ ê·¸ë¦¬ì§€ ì•ŠëŠ”ë‹¤...
-                			me.drawImmediately([pageX, pageY], jsonData, panel);
-                		}
-                	} else if(me.getMode() == me.Constants.MODE.ROUTE) { 
-                		
-                		if(jsonData.shapeType == me.Constants.TYPE.LOCATION) {
-                			me.showPointDialog([pageX, pageY], jsonData, panel, null, 'ondrop');
-                		} else if(jsonData.shapeType == me.Constants.TYPE.MANHOLE) {
-                			me.showManholeDialog([pageX, pageY], jsonData, panel, null, 'ondrop');
-                		}  else if(jsonData.shapeType == me.Constants.TYPE.BLDG) {
-                			me.showLocationDialog([pageX, pageY], jsonData, panel, null, 'ondrop');
-                		} else {
-                			me.drawImmediately([pageX, pageY], jsonData, panel);
-                		}
-                	} else {
-                		me.drawImmediately([pageX, pageY], jsonData, panel);
-                	}
+                    if(me.getMode() == me.Constants.MODE.HIERARCHY) {
+                        // Æ®¸®¿¡¼­ ³Ñ¾î¿Ô´Ù¸é panelÀº undefined
+                        if(!panel) {
+                            /**
+                             * canvas¿¡ µå·¡±× µå¶øÇÒ ºôµù, floor°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é
+                             * ±×¸®Áö ¾Ê´Â´Ù.
+                             * Ã¼Å© ·ÎÁ÷ Ãß°¡
+                             */
+                            var checkedData = me._CONTROLLER.checkBldgsAndFloors(me, jsonData);
+                            if(checkedData.isDraw) {
+                                me.drawImmediately([pageX, pageY], jsonData, panel);
+                            } else {
+                                msgBox(checkedData.msg);
+                            }
+                        } else {
+                            // ±×¸®µå¿¡¼­ ³Ñ¾î¿Ô´Ù¸é
+                            // ¹Ø¿¡ ·ÎÁ÷À» ÅÂ¿ì±â Àü¿¡ floorÀÇ boundary¿µ¿ª ¾ÈÀ¸·Î µå·¡±×ÇÑ °ÍÀÎÁö Ã¼Å©ÇØ¾ßÇÑ´Ù.
+                            // ¾Æ´Ï¶ó¸é msgBox¿Í ÇÔ²² ±×¸®Áö ¾Ê´Â´Ù...
+                            me.drawImmediately([pageX, pageY], jsonData, panel);
+                        }
+                    } else if(me.getMode() == me.Constants.MODE.ROUTE) {
+
+                        if(jsonData.shapeType == me.Constants.TYPE.LOCATION) {
+                            me.showPointDialog([pageX, pageY], jsonData, panel, null, 'ondrop');
+                        } else if(jsonData.shapeType == me.Constants.TYPE.MANHOLE) {
+                            me.showManholeDialog([pageX, pageY], jsonData, panel, null, 'ondrop');
+                        }  else if(jsonData.shapeType == me.Constants.TYPE.BLDG) {
+                            me.showLocationDialog([pageX, pageY], jsonData, panel, null, 'ondrop');
+                        } else {
+                            me.drawImmediately([pageX, pageY], jsonData, panel);
+                        }
+                    } else {
+                        me.drawImmediately([pageX, pageY], jsonData, panel);
+                    }
                 }
             }
         });
     },
 
     /**
-     * labelë³€ê²½ì‹œ ì—°ê²°ëœ racewayì˜ ë¼ë²¨ë„ ë³€ê²½ì´ ë˜ì–´ì•¼ í•œë‹¤.
+     * labelº¯°æ½Ã ¿¬°áµÈ racewayÀÇ ¶óº§µµ º¯°æÀÌ µÇ¾î¾ß ÇÑ´Ù.
      */
     changeEdgeLabel: function(shapeElement) {
-    	
-    	var me = this;
-    	var currentCanvas = me.getCanvas();
-    	
+
+        var me = this;
+        var currentCanvas = me.getCanvas();
+
         var prevEdges = currentCanvas.getPrevEdges(shapeElement);
         var nextEdges = currentCanvas.getNextEdges(shapeElement);
-        
+
         prevEdges.forEach(function(prevEdge){
-        	var relatedElementsFromEdge = currentCanvas.getRelatedElementsFromEdge(prevEdge);
-        	var edgeLabel = relatedElementsFromEdge.from.shape.label + relatedElementsFromEdge.to.shape.label;
-        	prevEdge.shape.data['race_ref_from'] = relatedElementsFromEdge.from.shape.label;
-    		prevEdge.shape.data['race_ref_to'] = relatedElementsFromEdge.to.shape.label;
-        	prevEdge.data['race_ref_from'] = relatedElementsFromEdge.from.shape.label;
-    		prevEdge.data['race_ref_to'] = relatedElementsFromEdge.to.shape.label;
-        	currentCanvas.drawLabel(prevEdge, edgeLabel);
+            var relatedElementsFromEdge = currentCanvas.getRelatedElementsFromEdge(prevEdge);
+            var edgeLabel = relatedElementsFromEdge.from.shape.label + relatedElementsFromEdge.to.shape.label;
+            prevEdge.shape.data['race_ref_from'] = relatedElementsFromEdge.from.shape.label;
+            prevEdge.shape.data['race_ref_to'] = relatedElementsFromEdge.to.shape.label;
+            prevEdge.data['race_ref_from'] = relatedElementsFromEdge.from.shape.label;
+            prevEdge.data['race_ref_to'] = relatedElementsFromEdge.to.shape.label;
+            currentCanvas.drawLabel(prevEdge, edgeLabel);
         });
-        
+
         nextEdges.forEach(function(nextEdge){
-        	var relatedElementsFromEdge = currentCanvas.getRelatedElementsFromEdge(nextEdge);
-        	var edgeLabel = relatedElementsFromEdge.from.shape.label + relatedElementsFromEdge.to.shape.label;
-        	nextEdge.shape.data['race_ref_from'] = relatedElementsFromEdge.from.shape.label;
-        	nextEdge.shape.data['race_ref_to'] = relatedElementsFromEdge.to.shape.label;
-        	nextEdge.data['race_ref_from'] = relatedElementsFromEdge.from.shape.label;
-        	nextEdge.data['race_ref_to'] = relatedElementsFromEdge.to.shape.label;
-        	currentCanvas.drawLabel(nextEdge, edgeLabel);
+            var relatedElementsFromEdge = currentCanvas.getRelatedElementsFromEdge(nextEdge);
+            var edgeLabel = relatedElementsFromEdge.from.shape.label + relatedElementsFromEdge.to.shape.label;
+            nextEdge.shape.data['race_ref_from'] = relatedElementsFromEdge.from.shape.label;
+            nextEdge.shape.data['race_ref_to'] = relatedElementsFromEdge.to.shape.label;
+            nextEdge.data['race_ref_from'] = relatedElementsFromEdge.from.shape.label;
+            nextEdge.data['race_ref_to'] = relatedElementsFromEdge.to.shape.label;
+            currentCanvas.drawLabel(nextEdge, edgeLabel);
         });
-        
+
     },
-    
+
     /**
-     * eventTypeì´ ondropì´ë©´ ë“œë˜ê·¸ ë“œëìœ¼ë¡œ ìº”ë²„ìŠ¤ì— ê·¸ë¦° ê²½ìš°ì´ë‹¤.
-     * ë§Œì¼ 'dblclick'ì´ë¼ë©´ ê·¸ë ¤ì§„ ë„í˜•ì˜ ì†ì„±ì„ ë³€ê²½í•˜ê¸° ìœ„í•œ ì´ë²¤íŠ¸ì´ë‹¤.
+     * eventTypeÀÌ ondropÀÌ¸é µå·¡±× µå¶øÀ¸·Î Äµ¹ö½º¿¡ ±×¸° °æ¿ìÀÌ´Ù.
+     * ¸¸ÀÏ 'dblclick'ÀÌ¶ó¸é ±×·ÁÁø µµÇüÀÇ ¼Ó¼ºÀ» º¯°æÇÏ±â À§ÇÑ ÀÌº¥Æ®ÀÌ´Ù.
      */
     showLocationDialog: function(offset, jsonData, panel, shapeElement, eventType) {
-    	var me = this;
-    	var element ={};
+        var me = this;
+        var element ={};
         element['id'] = 'BldgDialog';
         element['shape'] = {};
         element.shape = {label:'Location Properties'};
-    	//ê¸°ì¡´ ëŒ€í™”ì¥ì´ ìˆì„ ê²½ìš° ì‚­ì œí•˜ë„ë¡ í•œë‹¤.
+        //±âÁ¸ ´ëÈ­ÀåÀÌ ÀÖÀ» °æ¿ì »èÁ¦ÇÏµµ·Ï ÇÑ´Ù.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         me.destroyAllDialog($('#'+dialogName));
         // show Dialog
@@ -1186,95 +1186,95 @@ Renderer.prototype = {
             resizable: false,
             dialogClass: "noClose"
         });
-        
+
         $('.noClose .ui-dialog-titlebar-close').css('display', 'none');
-        
-        // ì†ì„± í…Œì´ë¸”
+
+        // ¼Ó¼º Å×ÀÌºí
         var panel = $('#locationProperty').clone();
         panel[0].id = 'cloneLocationProperty';
         dialog.append(panel);
-       // ì ìš© ë²„íŠ¼
+        // Àû¿ë ¹öÆ°
         var applyBtn = $('<button class="btn btn-primary" id="applyLocationProperty" type="button" style="margin-left:95px">Apply</button>');
         dialog.append(applyBtn);
-        // ì·¨ì†Œ ë²„íŠ¼
+        // Ãë¼Ò ¹öÆ°
         var cancelBtn = $('<button class="btn btn-white" id="cancelLocationProperty" type="button" style="left:29px">Cancel</button>');
         dialog.append(cancelBtn);
-        
+
         $("#cancelLocationProperty").click(function(event){
-        	$(this).remove();
-        	dialog.dialog( "close" );
+            $(this).remove();
+            dialog.dialog( "close" );
         });
-        
+
         if(eventType == 'dblclick') {
-        	$("#cloneLocationProperty").find(".locationPoint").val(shapeElement.shape.data['shapeLabel']);
-        	$("#cloneLocationProperty").find(".locationLength").val(shapeElement.shape.data['loc_ref_length']);
-        	$("#cloneLocationProperty").find(".locationTemp").val(shapeElement.shape.data['loc_ref_temp']);
-        	$("#cloneLocationProperty").find(".locationRemark").val(shapeElement.shape.data['loc_ref_rem']);
+            $("#cloneLocationProperty").find(".locationPoint").val(shapeElement.shape.data['shapeLabel']);
+            $("#cloneLocationProperty").find(".locationLength").val(shapeElement.shape.data['loc_ref_length']);
+            $("#cloneLocationProperty").find(".locationTemp").val(shapeElement.shape.data['loc_ref_temp']);
+            $("#cloneLocationProperty").find(".locationRemark").val(shapeElement.shape.data['loc_ref_rem']);
         }
-        
+
         $("#applyLocationProperty").click(function(event){
-        	
-        	if($("#cloneLocationProperty").find(".locationLength").val().trim().length == 0) {
-        		msgBox(me.MSGMessages.LENGTHMSG, $("#cloneLocationProperty").find(".locationLength"));
-        		return;
-        	}
-        	
-        	var regNumber = /^[0-9]*$/;
-        	if(!regNumber.test($("#cloneLocationProperty").find(".locationLength").val())) {
-        		msgBox(me.MSGMessages.LENGTHCKMSG, $("#cloneLocationProperty").find(".locationLength"));
-        	    return;
-        	}
-        	
-        	if($("#cloneLocationProperty").find(".locationTemp").val().trim().length == 0) {
-        		msgBox(me.MSGMessages.TEMPMSG, $("#cloneLocationProperty").find(".locationTemp"));
-        		return;
-        	}
-        	
-        	if(!regNumber.test($("#cloneLocationProperty").find(".locationTemp").val())) {
-        		msgBox(me.MSGMessages.TEMPCKMSG, $("#cloneLocationProperty").find(".locationTemp"));
-        	    return;
-        	}
-        	
-        	if(eventType == 'ondrop') {
-	        	jsonData.loc_ref_length = $("#cloneLocationProperty").find(".locationLength").val().trim();
-	        	jsonData.loc_ref_temp = $("#cloneLocationProperty").find(".locationTemp").val().trim()
-	        	jsonData.loc_ref_rem = $("#cloneLocationProperty").find(".locationRemark").val().trim()
-	        	$(this).remove();
-	        	dialog.dialog( "close" );
-	        	var gridPanel = me._CONTROLLER.model.BldgReferenceList.panel;
-        		me.drawImmediately(offset, jsonData, gridPanel);
-        	} else if(eventType == 'dblclick') {
-        		shapeElement.shape.data['loc_ref_length']  = $("#cloneLocationProperty").find(".locationLength").val().trim();
-        		shapeElement.shape.data['loc_ref_temp']    = $("#cloneLocationProperty").find(".locationTemp").val().trim();
-        		shapeElement.shape.data['loc_ref_rem']     = $("#cloneLocationProperty").find(".locationRemark").val().trim();
-        		
-        		shapeElement.data['loc_ref_length']  = $("#cloneLocationProperty").find(".locationLength").val().trim();
-        		shapeElement.data['loc_ref_temp'] 	 = $("#cloneLocationProperty").find(".locationTemp").val().trim();
-        		shapeElement.data['loc_ref_rem'] 	 = $("#cloneLocationProperty").find(".locationRemark").val().trim();
-        		me.canvas.drawLabel(shapeElement, $("#cloneLocationProperty").find(".locationPoint").val());
-        		/**
-        		 * ìì‹ ì„ ì¤‘ì‹¬ìœ¼ë¡œ ì—°ê²°ëœ edgeì˜ ë¼ë²¨ë„ ë³€ê²½ì‹œì¼œì•¼ í•œë‹¤. 
-        		 */
-        		me.changeEdgeLabel(shapeElement);
-        		
-				$(this).remove();
-	        	dialog.dialog( "close" );
-        	}
+
+            if($("#cloneLocationProperty").find(".locationLength").val().trim().length == 0) {
+                msgBox(me.MSGMessages.LENGTHMSG, $("#cloneLocationProperty").find(".locationLength"));
+                return;
+            }
+
+            var regNumber = /^[0-9]*$/;
+            if(!regNumber.test($("#cloneLocationProperty").find(".locationLength").val())) {
+                msgBox(me.MSGMessages.LENGTHCKMSG, $("#cloneLocationProperty").find(".locationLength"));
+                return;
+            }
+
+            if($("#cloneLocationProperty").find(".locationTemp").val().trim().length == 0) {
+                msgBox(me.MSGMessages.TEMPMSG, $("#cloneLocationProperty").find(".locationTemp"));
+                return;
+            }
+
+            if(!regNumber.test($("#cloneLocationProperty").find(".locationTemp").val())) {
+                msgBox(me.MSGMessages.TEMPCKMSG, $("#cloneLocationProperty").find(".locationTemp"));
+                return;
+            }
+
+            if(eventType == 'ondrop') {
+                jsonData.loc_ref_length = $("#cloneLocationProperty").find(".locationLength").val().trim();
+                jsonData.loc_ref_temp = $("#cloneLocationProperty").find(".locationTemp").val().trim()
+                jsonData.loc_ref_rem = $("#cloneLocationProperty").find(".locationRemark").val().trim()
+                $(this).remove();
+                dialog.dialog( "close" );
+                var gridPanel = me._CONTROLLER.model.BldgReferenceList.panel;
+                me.drawImmediately(offset, jsonData, gridPanel);
+            } else if(eventType == 'dblclick') {
+                shapeElement.shape.data['loc_ref_length']  = $("#cloneLocationProperty").find(".locationLength").val().trim();
+                shapeElement.shape.data['loc_ref_temp']    = $("#cloneLocationProperty").find(".locationTemp").val().trim();
+                shapeElement.shape.data['loc_ref_rem']     = $("#cloneLocationProperty").find(".locationRemark").val().trim();
+
+                shapeElement.data['loc_ref_length']  = $("#cloneLocationProperty").find(".locationLength").val().trim();
+                shapeElement.data['loc_ref_temp'] 	 = $("#cloneLocationProperty").find(".locationTemp").val().trim();
+                shapeElement.data['loc_ref_rem'] 	 = $("#cloneLocationProperty").find(".locationRemark").val().trim();
+                me.canvas.drawLabel(shapeElement, $("#cloneLocationProperty").find(".locationPoint").val());
+                /**
+                 * ÀÚ½ÅÀ» Áß½ÉÀ¸·Î ¿¬°áµÈ edgeÀÇ ¶óº§µµ º¯°æ½ÃÄÑ¾ß ÇÑ´Ù.
+                 */
+                me.changeEdgeLabel(shapeElement);
+
+                $(this).remove();
+                dialog.dialog( "close" );
+            }
         });
-        
+
     },
-    
+
     /**
-     * eventTypeì´ ondropì´ë©´ ë“œë˜ê·¸ ë“œëìœ¼ë¡œ ìº”ë²„ìŠ¤ì— ê·¸ë¦° ê²½ìš°ì´ë‹¤.
-     * ë§Œì¼ 'dblclick'ì´ë¼ë©´ ê·¸ë ¤ì§„ ë„í˜•ì˜ ì†ì„±ì„ ë³€ê²½í•˜ê¸° ìœ„í•œ ì´ë²¤íŠ¸ì´ë‹¤.
+     * eventTypeÀÌ ondropÀÌ¸é µå·¡±× µå¶øÀ¸·Î Äµ¹ö½º¿¡ ±×¸° °æ¿ìÀÌ´Ù.
+     * ¸¸ÀÏ 'dblclick'ÀÌ¶ó¸é ±×·ÁÁø µµÇüÀÇ ¼Ó¼ºÀ» º¯°æÇÏ±â À§ÇÑ ÀÌº¥Æ®ÀÌ´Ù.
      */
     showPointDialog: function(offset, jsonData, panel, shapeElement, eventType) {
-    	var me = this;
-    	var element ={};
+        var me = this;
+        var element ={};
         element['id'] = 'pointDialog';
         element['shape'] = {};
         element.shape = {label:'Point Properties'};
-    	//ê¸°ì¡´ ëŒ€í™”ì¥ì´ ìˆì„ ê²½ìš° ì‚­ì œí•˜ë„ë¡ í•œë‹¤.
+        //±âÁ¸ ´ëÈ­ÀåÀÌ ÀÖÀ» °æ¿ì »èÁ¦ÇÏµµ·Ï ÇÑ´Ù.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         me.destroyAllDialog($('#'+dialogName));
         // show Dialog
@@ -1287,82 +1287,82 @@ Renderer.prototype = {
             resizable: false,
             dialogClass: "noClose"
         });
-        
+
         $('.noClose .ui-dialog-titlebar-close').css('display', 'none');
-        
-        // ì†ì„± í…Œì´ë¸”
+
+        // ¼Ó¼º Å×ÀÌºí
         var panel = $('#pointProperty').clone();
         panel[0].id = 'clonePointProperty';
         dialog.append(panel);
-       // ì ìš© ë²„íŠ¼
+        // Àû¿ë ¹öÆ°
         var applyBtn = $('<button class="btn btn-primary" id="applyPointProperty" type="button" style="margin-left:72px">Apply</button>');
         dialog.append(applyBtn);
-        // ì·¨ì†Œ ë²„íŠ¼
+        // Ãë¼Ò ¹öÆ°
         var cancelBtn = $('<button class="btn btn-white" id="cancelPointProperty" type="button" style="left:10px">Cancel</button>');
         dialog.append(cancelBtn);
-        
+
         if(eventType == 'dblclick') {
-        	$("#clonePointProperty").find(".pointName").val(shapeElement.shape.data['shapeLabel']);
+            $("#clonePointProperty").find(".pointName").val(shapeElement.shape.data['shapeLabel']);
         }
-        
+
         $("#cancelPointProperty").click(function(event){
-        	$(this).remove();
-        	dialog.dialog( "close" );
+            $(this).remove();
+            dialog.dialog( "close" );
         });
-        
+
         $("#applyPointProperty").click(function(event){
-        	
-        	if($("#clonePointProperty").find(".pointName").val().trim().length == 0) {
-        		msgBox(me.MSGMessages.POINTMSG, $("#clonePointProperty").find(".pointName"));
-        		return;
-        	} else {
-        		var isDuplicate = me.checkDuplicationPointName($("#clonePointProperty").find(".pointName").val().trim());
-        		if(eventType == 'dblclick') {
-	        		if($("#clonePointProperty").find(".pointName").val().trim() == shapeElement.shape.data['loc_ref_name_to']) {
-	        			isDuplicate = false;
-	        		}
-        		}
-        		if(isDuplicate) {
-        			msgBox(me.MSGMessages.DUPLICATEMSG, $("#clonePointProperty").find(".pointName"));
-            		return;
-        		}
-        	}
-        	
-        	if(eventType == 'ondrop') {
-	        	jsonData.shapeLabel = $("#clonePointProperty").find(".pointName").val().trim();
-	        	jsonData.loc_ref_name_to = $("#clonePointProperty").find(".pointName").val().trim();
-	        	$(this).remove();
-	        	dialog.dialog( "close" );
-        		me.drawImmediately(offset, jsonData, panel);
-        	} else if(eventType == 'dblclick') {
-        		shapeElement.shape.data['shapeLabel']	   = $("#clonePointProperty").find(".pointName").val().trim();
-        		shapeElement.shape.data['loc_ref_name_to'] = $("#clonePointProperty").find(".pointName").val().trim();
-        		
-        		shapeElement.data['shapeLabel']	  	 = $("#clonePointProperty").find(".pointName").val().trim();
-        		shapeElement.data['loc_ref_name_to'] = $("#clonePointProperty").find(".pointName").val().trim();
-        		me.canvas.drawLabel(shapeElement, $("#clonePointProperty").find(".pointName").val());
-        		/**
-        		 * ìì‹ ì„ ì¤‘ì‹¬ìœ¼ë¡œ ì—°ê²°ëœ edgeì˜ ë¼ë²¨ë„ ë³€ê²½ì‹œì¼œì•¼ í•œë‹¤. 
-        		 */
-        		me.changeEdgeLabel(shapeElement);
-        		
-				$(this).remove();
-	        	dialog.dialog( "close" );
-        	}
+
+            if($("#clonePointProperty").find(".pointName").val().trim().length == 0) {
+                msgBox(me.MSGMessages.POINTMSG, $("#clonePointProperty").find(".pointName"));
+                return;
+            } else {
+                var isDuplicate = me.checkDuplicationPointName($("#clonePointProperty").find(".pointName").val().trim());
+                if(eventType == 'dblclick') {
+                    if($("#clonePointProperty").find(".pointName").val().trim() == shapeElement.shape.data['loc_ref_name_to']) {
+                        isDuplicate = false;
+                    }
+                }
+                if(isDuplicate) {
+                    msgBox(me.MSGMessages.DUPLICATEMSG, $("#clonePointProperty").find(".pointName"));
+                    return;
+                }
+            }
+
+            if(eventType == 'ondrop') {
+                jsonData.shapeLabel = $("#clonePointProperty").find(".pointName").val().trim();
+                jsonData.loc_ref_name_to = $("#clonePointProperty").find(".pointName").val().trim();
+                $(this).remove();
+                dialog.dialog( "close" );
+                me.drawImmediately(offset, jsonData, panel);
+            } else if(eventType == 'dblclick') {
+                shapeElement.shape.data['shapeLabel']	   = $("#clonePointProperty").find(".pointName").val().trim();
+                shapeElement.shape.data['loc_ref_name_to'] = $("#clonePointProperty").find(".pointName").val().trim();
+
+                shapeElement.data['shapeLabel']	  	 = $("#clonePointProperty").find(".pointName").val().trim();
+                shapeElement.data['loc_ref_name_to'] = $("#clonePointProperty").find(".pointName").val().trim();
+                me.canvas.drawLabel(shapeElement, $("#clonePointProperty").find(".pointName").val());
+                /**
+                 * ÀÚ½ÅÀ» Áß½ÉÀ¸·Î ¿¬°áµÈ edgeÀÇ ¶óº§µµ º¯°æ½ÃÄÑ¾ß ÇÑ´Ù.
+                 */
+                me.changeEdgeLabel(shapeElement);
+
+                $(this).remove();
+                dialog.dialog( "close" );
+            }
         });
-        
+
     },
-    
+
     /**
-     * ë§¨í™€ì˜ í”„ë¡œí¼í‹° ì°½
+     * ¸ÇÈ¦ÀÇ ÇÁ·ÎÆÛÆ¼ Ã¢
      */
     showManholeDialog: function(offset, jsonData, panel, shapeElement, eventType) {
-    	var me = this;
-    	var element ={};
+        var me = this;
+        var element ={};
         element['id'] = 'manholeDialog';
         element['shape'] = {};
         element.shape = {label:'Manhole Properties'};
-    	//ê¸°ì¡´ ëŒ€í™”ì¥ì´ ìˆì„ ê²½ìš° ì‚­ì œí•˜ë„ë¡ í•œë‹¤.
+        //±âÁ¸ ´ëÈ­ÀåÀÌ ÀÖÀ» °æ¿ì »èÁ¦ÇÏµµ·Ï ÇÑ´Ù.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         me.destroyAllDialog($('#'+dialogName));
         // show Dialog
@@ -1375,104 +1375,104 @@ Renderer.prototype = {
             resizable: false,
             dialogClass: "noClose"
         });
-        
+
         $('.noClose .ui-dialog-titlebar-close').css('display', 'none');
-        
-        // ì†ì„± í…Œì´ë¸”
+
+        // ¼Ó¼º Å×ÀÌºí
         var panel = $('#manholeProperty').clone();
         panel[0].id = 'cloneManholeProperty';
         dialog.append(panel);
-       // ì ìš© ë²„íŠ¼
+        // Àû¿ë ¹öÆ°
         var applyBtn = $('<button class="btn btn-primary" id="applyManholeProperty" type="button" style="margin-left:110px">Apply</button>');
         dialog.append(applyBtn);
-        
-        // ì·¨ì†Œ ë²„íŠ¼
+
+        // Ãë¼Ò ¹öÆ°
         var cancelBtn = $('<button class="btn btn-white" id="cancelManholeProperty" type="button" style="left:50px">Cancel</button>');
         dialog.append(cancelBtn);
-        
+
         if(eventType == 'dblclick') {
-        	$("#cloneManholeProperty").find(".manholeName").val(shapeElement.shape.data['shapeLabel']);
+            $("#cloneManholeProperty").find(".manholeName").val(shapeElement.shape.data['shapeLabel']);
         }
 
         $("#cancelManholeProperty").click(function(event){
-        	$(this).remove();
-        	dialog.dialog( "close" );
+            $(this).remove();
+            dialog.dialog( "close" );
         });
-        
+
         $("#applyManholeProperty").click(function(event){
-        	
-        	if($("#cloneManholeProperty").find(".manholeName").val().trim().length == 0) {
-        		msgBox(me.MSGMessages.MHPOINTMSG, $("#cloneManholeProperty").find(".manholeName"));
-        		return;
-        	} else {
-        		// í¬ì¸íŠ¸ëª… ì²´í¬ ë¡œì§
-        		var isDuplicate = me.checkDuplicationPointName($("#cloneManholeProperty").find(".manholeName").val().trim());
-        		if(eventType == 'dblclick') {
-	        		if($("#cloneManholeProperty").find(".manholeName").val().trim() == shapeElement.shape.data['loc_ref_name_to']) {
-	        			isDuplicate = false;
-	        		}
-        		}
-        		if(isDuplicate) {
-        			msgBox(me.MSGMessages.DUPLICATEMSG, $("#cloneManholeProperty").find(".manholeName"));
-            		return;
-        		}
-        	}
-        	
-        	if(eventType == 'ondrop') {
-	        	//jsonData.loc_ref_length = $("#cloneLocationProperty").find(".locationLength").val().trim();
-	        	jsonData.shapeLabel = $("#cloneManholeProperty").find(".manholeName").val().trim();
-	        	jsonData.loc_ref_name_to = $("#cloneManholeProperty").find(".manholeName").val().trim();
-	        		
-	        	$(this).remove();
-	        	dialog.dialog( "close" );
-	        	me.drawImmediately(offset, jsonData, panel);
-        	} else if(eventType == 'dblclick') {
-        		shapeElement.shape.data['shapeLabel'] = $("#cloneManholeProperty").find(".manholeName").val().trim();
-        		shapeElement.shape.data['loc_ref_name_to'] = $("#cloneManholeProperty").find(".manholeName").val().trim();
-        		shapeElement.data['shapeLabel']  = $("#cloneManholeProperty").find(".manholeName").val().trim();
-        		shapeElement.data['loc_ref_name_to']  = $("#cloneManholeProperty").find(".manholeName").val().trim();
-        		me.canvas.drawLabel(shapeElement, $("#cloneManholeProperty").find(".manholeName").val());
-        		/**
-        		 * ìì‹ ì„ ì¤‘ì‹¬ìœ¼ë¡œ ì—°ê²°ëœ edgeì˜ ë¼ë²¨ë„ ë³€ê²½ì‹œì¼œì•¼ í•œë‹¤. 
-        		 */
-        		me.changeEdgeLabel(shapeElement);
-				$(this).remove();
-	        	dialog.dialog( "close" );
-        		
-        	}
+
+            if($("#cloneManholeProperty").find(".manholeName").val().trim().length == 0) {
+                msgBox(me.MSGMessages.MHPOINTMSG, $("#cloneManholeProperty").find(".manholeName"));
+                return;
+            } else {
+                // Æ÷ÀÎÆ®¸í Ã¼Å© ·ÎÁ÷
+                var isDuplicate = me.checkDuplicationPointName($("#cloneManholeProperty").find(".manholeName").val().trim());
+                if(eventType == 'dblclick') {
+                    if($("#cloneManholeProperty").find(".manholeName").val().trim() == shapeElement.shape.data['loc_ref_name_to']) {
+                        isDuplicate = false;
+                    }
+                }
+                if(isDuplicate) {
+                    msgBox(me.MSGMessages.DUPLICATEMSG, $("#cloneManholeProperty").find(".manholeName"));
+                    return;
+                }
+            }
+
+            if(eventType == 'ondrop') {
+                //jsonData.loc_ref_length = $("#cloneLocationProperty").find(".locationLength").val().trim();
+                jsonData.shapeLabel = $("#cloneManholeProperty").find(".manholeName").val().trim();
+                jsonData.loc_ref_name_to = $("#cloneManholeProperty").find(".manholeName").val().trim();
+
+                $(this).remove();
+                dialog.dialog( "close" );
+                me.drawImmediately(offset, jsonData, panel);
+            } else if(eventType == 'dblclick') {
+                shapeElement.shape.data['shapeLabel'] = $("#cloneManholeProperty").find(".manholeName").val().trim();
+                shapeElement.shape.data['loc_ref_name_to'] = $("#cloneManholeProperty").find(".manholeName").val().trim();
+                shapeElement.data['shapeLabel']  = $("#cloneManholeProperty").find(".manholeName").val().trim();
+                shapeElement.data['loc_ref_name_to']  = $("#cloneManholeProperty").find(".manholeName").val().trim();
+                me.canvas.drawLabel(shapeElement, $("#cloneManholeProperty").find(".manholeName").val());
+                /**
+                 * ÀÚ½ÅÀ» Áß½ÉÀ¸·Î ¿¬°áµÈ edgeÀÇ ¶óº§µµ º¯°æ½ÃÄÑ¾ß ÇÑ´Ù.
+                 */
+                me.changeEdgeLabel(shapeElement);
+                $(this).remove();
+                dialog.dialog( "close" );
+
+            }
         });
-        
+
     },
-    
+
     /**
-     * ë§¨í™€ ë° ë¡œì¼€ì´ì…˜ í¬ì¸íŠ¸ ì§€ì •ì‹œ ì¤‘ë³µ ì²´í¬ë¥¼ í•´ì•¼ í•œë‹¤.
+     * ¸ÇÈ¦ ¹× ·ÎÄÉÀÌ¼Ç Æ÷ÀÎÆ® ÁöÁ¤½Ã Áßº¹ Ã¼Å©¸¦ ÇØ¾ß ÇÑ´Ù.
      */
     checkDuplicationPointName: function(pointName) {
-    	var me = this;
-    	var currentCanvas = me.getCanvas();
-    	var shapeList = currentCanvas.getAllShapes();
-    	var isDuplicate = false;
-    	shapeList.some(function(element){
-    		if(element.shape instanceof OG.Location || element.shape instanceof OG.Manhole) {
-    			if(pointName == element.shape.data.loc_ref_name_to) {
-    				isDuplicate = true;
-    			}
-    		}
-    	});
-    	
-    	return isDuplicate;
+        var me = this;
+        var currentCanvas = me.getCanvas();
+        var shapeList = currentCanvas.getAllShapes();
+        var isDuplicate = false;
+        shapeList.some(function(element){
+            if(element.shape instanceof OG.Location || element.shape instanceof OG.Manhole) {
+                if(pointName == element.shape.data.loc_ref_name_to) {
+                    isDuplicate = true;
+                }
+            }
+        });
+
+        return isDuplicate;
     },
-    
+
     /**
-     * ë ˆì´ìŠ¤ì›¨ì´ í”„ë¡œí¼í‹°ì°½
+     * ·¹ÀÌ½º¿şÀÌ ÇÁ·ÎÆÛÆ¼Ã¢
      */
     showRaceWayDialog: function(edgeElement, fromElement, toElement, eventType) {
-    	var me = this;
-    	var element ={};
+        var me = this;
+        var element ={};
         element['id'] = 'raceWayDialog';
         element['shape'] = {};
         element.shape = {label:'RaceWay Properties'};
-    	//ê¸°ì¡´ ëŒ€í™”ì¥ì´ ìˆì„ ê²½ìš° ì‚­ì œí•˜ë„ë¡ í•œë‹¤.
+        //±âÁ¸ ´ëÈ­ÀåÀÌ ÀÖÀ» °æ¿ì »èÁ¦ÇÏµµ·Ï ÇÑ´Ù.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         me.destroyAllDialog($('#'+dialogName));
         // show Dialog
@@ -1485,108 +1485,108 @@ Renderer.prototype = {
             closeOnEscape: false,
             dialogClass: "noClose"
         });
-        
+
         $('.noClose .ui-dialog-titlebar-close').css('display', 'none');
-    	
+
         var panel = $('#raceWayProperty').clone();
         panel[0].id = 'cloneRaceWayProperty';
         dialog.append(panel);
         $("#cloneRaceWayProperty").find(".raceWayFrom").html(fromElement.shape.data.shapeLabel);
         $("#cloneRaceWayProperty").find(".raceWayTo").html(toElement.shape.data.shapeLabel)
-        
-        // ì ìš© ë²„íŠ¼
+
+        // Àû¿ë ¹öÆ°
         var applyBtn = $('<button class="btn btn-primary" id="applyRaceWayProperty" type="button" style="margin-left:95px">Apply</button>');
         dialog.append(applyBtn);
-        
-        // ì·¨ì†Œ ë²„íŠ¼
+
+        // Ãë¼Ò ¹öÆ°
         var cancelBtn = $('<button class="btn btn-white" id="cancelRaceWayProperty" type="button" style="left:34px">Cancel</button>');
         dialog.append(cancelBtn);
-        
+
         if(eventType == 'dblclick') {
-        	$("#cloneRaceWayProperty").find(".raceWayLength").val(edgeElement.shape.data['race_ref_len']);
-        	$("#cloneRaceWayProperty").find(".raceWayTemp").val(edgeElement.shape.data['race_ref_temp']);
-        	$("#cloneRaceWayProperty").find(".race_ref_method").val(edgeElement.shape.data['race_ref_method']);
-        	$("#cloneRaceWayProperty").find(".raceWayRemark").val(edgeElement.shape.data['race_ref_rem']);
+            $("#cloneRaceWayProperty").find(".raceWayLength").val(edgeElement.shape.data['race_ref_len']);
+            $("#cloneRaceWayProperty").find(".raceWayTemp").val(edgeElement.shape.data['race_ref_temp']);
+            $("#cloneRaceWayProperty").find(".race_ref_method").val(edgeElement.shape.data['race_ref_method']);
+            $("#cloneRaceWayProperty").find(".raceWayRemark").val(edgeElement.shape.data['race_ref_rem']);
         }
 
         $("#cancelRaceWayProperty").click(function(event){
-        	if(eventType == 'connect') {
-        		me.getCanvas().removeShape(edgeElement);
-        	}
-        	$(this).remove();
-        	dialog.dialog( "close" );
+            if(eventType == 'connect') {
+                me.getCanvas().removeShape(edgeElement);
+            }
+            $(this).remove();
+            dialog.dialog( "close" );
         });
-        
-        $("#applyRaceWayProperty").click(function(event){
-        	
-        	if($("#cloneRaceWayProperty").find(".raceWayLength").val().trim().length == 0) {
-        		msgBox(me.MSGMessages.LENGTHMSG, $("#cloneRaceWayProperty").find(".raceWayLength"));
-        		return;
-        	}
-        	
-        	var lenghNumber = /^[0-9]*$/;
-        	if(!lenghNumber.test($("#cloneRaceWayProperty").find(".raceWayLength").val())) {
-        		msgBox(me.MSGMessages.LENGTHCKMSG, $("#cloneRaceWayProperty").find(".raceWayLength"));
-        	    return;
-        	}
-        	
-        	var tempNumber = /^\d*(\.\d{0,3})?$/;
-        	if(!tempNumber.test($("#cloneRaceWayProperty").find(".raceWayTemp").val())) {
-        		
-        		if(isNaN($("#cloneRaceWayProperty").find(".raceWayTemp").val())) {
-        			msgBox(me.MSGMessages.TEMPCKMSG, $("#cloneRaceWayProperty").find(".raceWayTemp"));
-        		} else {
-        			msgBox(me.MSGMessages.TEMPDECIMALPOINTCHK, $("#cloneRaceWayProperty").find(".raceWayTemp"));
-        		}
-        	    return;
-        	} else {
-        		
-        		var inputChk = $("#cloneRaceWayProperty").find(".raceWayTemp").val().split('.')[1];
-        		/**
-        		 * ì†Œìˆ˜ì  ì…ë ¥í•˜ê¸° ìœ„í•´ .ë§Œ ì°ì—ˆì„ë•Œ.
-        		 */
-        		if(inputChk == '') {
-        			msgBox(me.MSGMessages.TEMPINPUTCHK, $("#cloneRaceWayProperty").find(".raceWayTemp"));
-            	    return;
-        		}
 
-        		/**
-        		 * ì‚¬ì´ì¦ˆ ì²´í¬
-        		 */
-        		if(Number($("#cloneRaceWayProperty").find(".raceWayTemp").val()) > 80) {
-        			msgBox(me.MSGMessages.TEMPSIZECHK, $("#cloneRaceWayProperty").find(".raceWayTemp"));
-            	    return;
-        		}
-        		
-        	}
-        	
-    		var edgeCustomData = {};
-    		edgeCustomData['race_ref_from'] = fromElement.shape.data.shapeLabel;
-    		edgeCustomData['race_ref_to'] = toElement.shape.data.shapeLabel;
-    		edgeCustomData['race_ref_len'] = $("#cloneRaceWayProperty").find(".raceWayLength").val().trim();
-    		edgeCustomData['race_ref_temp'] = $("#cloneRaceWayProperty").find(".raceWayTemp").val().trim();
-    		edgeCustomData['race_ref_method'] = $("#cloneRaceWayProperty").find(".race_ref_method").val().trim();
-    		edgeCustomData['race_ref_method_nm'] = $("#cloneRaceWayProperty").find(".race_ref_method").find(":selected").text();
-    		edgeCustomData['race_ref_rem'] = $("#cloneRaceWayProperty").find(".raceWayRemark").val().trim();
-    		edgeCustomData['race_ref_trayedm_no'] = fromElement.shape.data.shapeLabel + toElement.shape.data.shapeLabel;
-    		edgeCustomData['pjt_sq'] = me._CONTROLLER.projectData.pjt_sq;
-    		edgeCustomData['label'] = "<a href='#' name='item' data-index='"+me._CONTROLLER.initRacewayReferenceList.length+"' style='margin-left: 5px;margin-right: 5px;'>" + edgeCustomData['race_ref_trayedm_no'] + "</a>";
-    		edgeCustomData['model'] = me._CONTROLLER.model.RacewayReferenceList.name;
-    		edgeCustomData['sort_ord'] = null;
-        	me.getCanvas().setCustomData(edgeElement, edgeCustomData);
-        	$(this).remove();
-        	dialog.dialog( "close" );
-        	if(eventType == 'connect') {
-        		var panel = me._CONTROLLER.model.RacewayReferenceList.panel;
-        		me._CONTROLLER.initRacewayReferenceList.push(edgeCustomData);
-        		me._CONTROLLER.redrawDataTables(panel, me._CONTROLLER.initRacewayReferenceList, me._CONTROLLER);
-        	}
+        $("#applyRaceWayProperty").click(function(event){
+
+            if($("#cloneRaceWayProperty").find(".raceWayLength").val().trim().length == 0) {
+                msgBox(me.MSGMessages.LENGTHMSG, $("#cloneRaceWayProperty").find(".raceWayLength"));
+                return;
+            }
+
+            var lenghNumber = /^[0-9]*$/;
+            if(!lenghNumber.test($("#cloneRaceWayProperty").find(".raceWayLength").val())) {
+                msgBox(me.MSGMessages.LENGTHCKMSG, $("#cloneRaceWayProperty").find(".raceWayLength"));
+                return;
+            }
+
+            var tempNumber = /^\d*(\.\d{0,3})?$/;
+            if(!tempNumber.test($("#cloneRaceWayProperty").find(".raceWayTemp").val())) {
+
+                if(isNaN($("#cloneRaceWayProperty").find(".raceWayTemp").val())) {
+                    msgBox(me.MSGMessages.TEMPCKMSG, $("#cloneRaceWayProperty").find(".raceWayTemp"));
+                } else {
+                    msgBox(me.MSGMessages.TEMPDECIMALPOINTCHK, $("#cloneRaceWayProperty").find(".raceWayTemp"));
+                }
+                return;
+            } else {
+
+                var inputChk = $("#cloneRaceWayProperty").find(".raceWayTemp").val().split('.')[1];
+                /**
+                 * ¼Ò¼öÁ¡ ÀÔ·ÂÇÏ±â À§ÇØ .¸¸ Âï¾úÀ»¶§.
+                 */
+                if(inputChk == '') {
+                    msgBox(me.MSGMessages.TEMPINPUTCHK, $("#cloneRaceWayProperty").find(".raceWayTemp"));
+                    return;
+                }
+
+                /**
+                 * »çÀÌÁî Ã¼Å©
+                 */
+                if(Number($("#cloneRaceWayProperty").find(".raceWayTemp").val()) > 80) {
+                    msgBox(me.MSGMessages.TEMPSIZECHK, $("#cloneRaceWayProperty").find(".raceWayTemp"));
+                    return;
+                }
+
+            }
+
+            var edgeCustomData = {};
+            edgeCustomData['race_ref_from'] = fromElement.shape.data.shapeLabel;
+            edgeCustomData['race_ref_to'] = toElement.shape.data.shapeLabel;
+            edgeCustomData['race_ref_len'] = $("#cloneRaceWayProperty").find(".raceWayLength").val().trim();
+            edgeCustomData['race_ref_temp'] = $("#cloneRaceWayProperty").find(".raceWayTemp").val().trim();
+            edgeCustomData['race_ref_method'] = $("#cloneRaceWayProperty").find(".race_ref_method").val().trim();
+            edgeCustomData['race_ref_method_nm'] = $("#cloneRaceWayProperty").find(".race_ref_method").find(":selected").text();
+            edgeCustomData['race_ref_rem'] = $("#cloneRaceWayProperty").find(".raceWayRemark").val().trim();
+            edgeCustomData['race_ref_trayedm_no'] = fromElement.shape.data.shapeLabel + toElement.shape.data.shapeLabel;
+            edgeCustomData['pjt_sq'] = me._CONTROLLER.projectData.pjt_sq;
+            edgeCustomData['label'] = "<a href='#' name='item' data-index='"+me._CONTROLLER.initRacewayReferenceList.length+"' style='margin-left: 5px;margin-right: 5px;'>" + edgeCustomData['race_ref_trayedm_no'] + "</a>";
+            edgeCustomData['model'] = me._CONTROLLER.model.RacewayReferenceList.name;
+            edgeCustomData['sort_ord'] = null;
+            me.getCanvas().setCustomData(edgeElement, edgeCustomData);
+            $(this).remove();
+            dialog.dialog( "close" );
+            if(eventType == 'connect') {
+                var panel = me._CONTROLLER.model.RacewayReferenceList.panel;
+                me._CONTROLLER.initRacewayReferenceList.push(edgeCustomData);
+                me._CONTROLLER.redrawDataTables(panel, me._CONTROLLER.initRacewayReferenceList, me._CONTROLLER);
+            }
         });
-        
+
     },
-    
+
     /**
-     * ë¡œë“œê°€ ìº”ë²„ìŠ¤ì— ë“œëë˜ì—ˆì„ ê²½ìš°ì˜ ì²˜ë¦¬
+     * ·Îµå°¡ Äµ¹ö½º¿¡ µå¶øµÇ¾úÀ» °æ¿ìÀÇ Ã³¸®
      */
     onLoadDrop: function (loadElement, from) {
         var me = this;
@@ -1596,7 +1596,7 @@ Renderer.prototype = {
         }
 
         /**
-         * ìŠ¤ìœ„ì¹˜ ê¸°ì–´ìª½ì˜ í„°ë¯¸ë„ í¬ì§€ì…˜(fromP)ì„ êµ¬í•œë‹¤.
+         * ½ºÀ§Ä¡ ±â¾îÂÊÀÇ ÅÍ¹Ì³Î Æ÷Áö¼Ç(fromP)À» ±¸ÇÑ´Ù.
          */
         var toBoundary = me.canvas.getBoundary(loadElement);
         var fromBoundary = me.canvas.getBoundary(swgrElement);
@@ -1608,64 +1608,64 @@ Renderer.prototype = {
         var fLow = fromBoundary.getLeftCenter().y;
         var fromP;
 
-        //ë¡œë“œì˜ x ê°€ ìŠ¤ìœ„ì¹˜ì˜ ë„ˆë¹„ ë‚´ì— ìˆì„ ê²½ìš°
+        //·ÎµåÀÇ x °¡ ½ºÀ§Ä¡ÀÇ ³Êºñ ³»¿¡ ÀÖÀ» °æ¿ì
         if (toX > fLeft && toX < fRight) {
             fromP = [toX, fLow];
         }
-        //ë¡œë“œì˜ x ê°€ ìŠ¤ìœ„ì¹˜ì˜ ì¢Œì¸¡ì¼ ê²½ìš°
+        //·ÎµåÀÇ x °¡ ½ºÀ§Ä¡ÀÇ ÁÂÃøÀÏ °æ¿ì
         else if (toX <= fLeft) {
             fromP = [fLeft, fCenter.y];
         }
-        //ë¡œë“œì˜ x ê°€ ìŠ¤ìœ„ì¹˜ì˜ ìš°ì¸¡ì¼ ê²½ìš°
+        //·ÎµåÀÇ x °¡ ½ºÀ§Ä¡ÀÇ ¿ìÃøÀÏ °æ¿ì
         else if (toX >= fRight) {
             fromP = [fRight, fCenter.y];
         }
-        
+
         /**
-         * ìŠ¤ìœ„ì¹˜ ê¸°ì–´ì™€ ë¡œë“œë¥¼ ì¼€ì´ë¸”ë¡œ ì—°ê²°í•œë‹¤.
+         * ½ºÀ§Ä¡ ±â¾î¿Í ·Îµå¸¦ ÄÉÀÌºí·Î ¿¬°áÇÑ´Ù.
          */
         me.canvas.connect(swgrElement, loadElement, null, null, fromP, null, null, null, new OG.CableShape());
-        
+
         /**
-         * í•´ë‹¹ ë¡œë“œ ì •ë³´ëŠ” updateListì— ì €ì¥í•œë‹¤.
-         * í•˜ì§€ë§Œ ì„œë²„ë¡œë¶€í„° ê·¸ë ¤ì§€ëŠ” ë¡œë“œëŠ” ì œì™¸í•´ì•¼í•œë‹¤.
+         * ÇØ´ç ·Îµå Á¤º¸´Â updateList¿¡ ÀúÀåÇÑ´Ù.
+         * ÇÏÁö¸¸ ¼­¹ö·ÎºÎÅÍ ±×·ÁÁö´Â ·Îµå´Â Á¦¿ÜÇØ¾ßÇÑ´Ù.
          */
         if( from == null ) {
-        	me._CONTROLLER.updateFeederList.push(loadElement.shape.data);
+            me._CONTROLLER.updateFeederList.push(loadElement.shape.data);
         }
     },
 
 
     /**
-     * ì‚¬ìš©ìë¡œ ì¸í•´ ìº”ë²„ìŠ¤ì— ì´ë²¤íŠ¸ê°€ ë°œìƒí•˜ì˜€ì„ ê²½ìš° ì²˜ë¦¬
+     * »ç¿ëÀÚ·Î ÀÎÇØ Äµ¹ö½º¿¡ ÀÌº¥Æ®°¡ ¹ß»ıÇÏ¿´À» °æ¿ì Ã³¸®
      */
     bindEvent: function () {
         var me = this;
-        //Action Event. ì´ ì´ë²¤íŠ¸ë“¤ì€ ë Œë”ëŸ¬ì˜ isUpdated ê°’ì„ true ë¡œ ë§Œë“ ë‹¤.
+        //Action Event. ÀÌ ÀÌº¥Æ®µéÀº ·»´õ·¯ÀÇ isUpdated °ªÀ» true ·Î ¸¸µç´Ù.
         me.canvas.onDrawShape(function (event, element) {
             me.isUpdated = true;
-            
+
             if(element.shape instanceof OG.Location) {
-            	$(element).bind('dblclick', function(event){
-            		event.stopPropagation();	            		
-            		me.showPointDialog(null, null, null, this, 'dblclick');
-            	});
+                $(element).bind('dblclick', function(event){
+                    event.stopPropagation();
+                    me.showPointDialog(null, null, null, this, 'dblclick');
+                });
             } else if(element.shape instanceof OG.Manhole) {
-            	$(element).bind('dblclick', function(event){
-            		event.stopPropagation();
-            		me.showManholeDialog(null, null, null, this, 'dblclick');
-            	});
+                $(element).bind('dblclick', function(event){
+                    event.stopPropagation();
+                    me.showManholeDialog(null, null, null, this, 'dblclick');
+                });
             } else if(element.shape instanceof OG.BLDG) {
-            	$(element).bind('dblclick', function(event){
-            		event.stopPropagation();
-            		me.showLocationDialog(null, null, null, this, 'dblclick');
-            	});
+                $(element).bind('dblclick', function(event){
+                    event.stopPropagation();
+                    me.showLocationDialog(null, null, null, this, 'dblclick');
+                });
             } else if(element.shape instanceof OG.RacewayShape) {
-            	$(element).bind('dblclick', function(event){
-            		event.stopPropagation();
-            		var relatedElementsFromEdge = me.getCanvas().getRelatedElementsFromEdge(element);
-            		me.showRaceWayDialog(element, relatedElementsFromEdge.from, relatedElementsFromEdge.to, 'dblclick');
-            	});
+                $(element).bind('dblclick', function(event){
+                    event.stopPropagation();
+                    var relatedElementsFromEdge = me.getCanvas().getRelatedElementsFromEdge(element);
+                    me.showRaceWayDialog(element, relatedElementsFromEdge.from, relatedElementsFromEdge.to, 'dblclick');
+                });
             }
         });
         me.canvas.onRedrawShape(function (event, element) {
@@ -1674,16 +1674,16 @@ Renderer.prototype = {
         me.canvas.onRemoveShape(function (event, shapeElement) {
             me.isUpdated = true;
             if( me.getMode() == me.Constants.MODE.FEEDER && me._CONTROLLER.tempElement != null) {
-            	me._CONTROLLER.tempElement.shape.data['removeType'] = 'Y';
-            	me.canvas.removeShape(me._CONTROLLER.tempElement);
-            	return;
+                me._CONTROLLER.tempElement.shape.data['removeType'] = 'Y';
+                me.canvas.removeShape(me._CONTROLLER.tempElement);
+                return;
             } else if( me.getMode() == me.Constants.MODE.HIERARCHY) {
-            	if(me._CONTROLLER.tempElement != null) {
-            		me._CONTROLLER.tempElement.shape.data['removeType'] = 'Y';
-            		me.canvas.removeShape(me._CONTROLLER.tempElement);
-            		me._CONTROLLER.tempElement = null;
-            		return;
-            	}
+                if(me._CONTROLLER.tempElement != null) {
+                    me._CONTROLLER.tempElement.shape.data['removeType'] = 'Y';
+                    me.canvas.removeShape(me._CONTROLLER.tempElement);
+                    me._CONTROLLER.tempElement = null;
+                    return;
+                }
             }
         });
         me.canvas.onMoveShape(function (event, element, offset) {
@@ -1695,7 +1695,7 @@ Renderer.prototype = {
         me.canvas.onConnectShape(function (event, edgeElement, fromElement, toElement) {
             me.isUpdated = true;
             /**
-             * ë ˆì´ìŠ¤ ì›¨ì´ê°€ ê·¸ë ¤ì¡Œì„ ê²½ìš° ì „ í›„ location ì—ì„œ shapeLabel ì„ ë°›ì•„ì™€ from-to ë¡œ ë¼ë²¨ë§ì„ í•œë‹¤.
+             * ·¹ÀÌ½º ¿şÀÌ°¡ ±×·ÁÁ³À» °æ¿ì Àü ÈÄ location ¿¡¼­ shapeLabel À» ¹Ş¾Æ¿Í from-to ·Î ¶óº§¸µÀ» ÇÑ´Ù.
              */
             if (edgeElement.shape instanceof OG.RacewayShape) {
                 me.canvas.drawLabel(edgeElement, fromElement.shape.label + toElement.shape.label);
@@ -1705,17 +1705,17 @@ Renderer.prototype = {
         me.canvas.onDisconnectShape(function (event, edgeElement, fromElement, toElement) {
             me.isUpdated = true;
             if(me.getMode() == me.Constants.MODE.HIERARCHY) {
-            	if(me._CONTROLLER.removeFirstShapeTypeAtHierarchy == me.Constants.SHAPE.EDGE) {
-            		me._CONTROLLER.removeFirstShapeTypeAtHierarchy = null;
-                	return false;
-                }	
-            } else if(me.getMode() == me.Constants.MODE.ROUTE) { 
-            	if(me._CONTROLLER.removeFirstShapeTypeAtRoute == me.Constants.SHAPE.EDGE) {
-            		me._CONTROLLER.removeFirstShapeTypeAtRoute = null;
-                	return false;
+                if(me._CONTROLLER.removeFirstShapeTypeAtHierarchy == me.Constants.SHAPE.EDGE) {
+                    me._CONTROLLER.removeFirstShapeTypeAtHierarchy = null;
+                    return false;
                 }
-        	} else {
-            	me._CONTROLLER.tempElement = toElement;
+            } else if(me.getMode() == me.Constants.MODE.ROUTE) {
+                if(me._CONTROLLER.removeFirstShapeTypeAtRoute == me.Constants.SHAPE.EDGE) {
+                    me._CONTROLLER.removeFirstShapeTypeAtRoute = null;
+                    return false;
+                }
+            } else {
+                me._CONTROLLER.tempElement = toElement;
             }
         });
         me.canvas.onGroup(function (event, groupElement) {
@@ -1728,363 +1728,363 @@ Renderer.prototype = {
 
         //Before Event
         me.canvas.onBeforeRemoveShape(function (event, shapeElement) {
-        	
-            if( shapeElement.shape.TYPE == me.Constants.SHAPE.GEOM || shapeElement.shape.TYPE == me.Constants.SHAPE.GROUP) {
-            	
-            	if( me.getMode() == me.Constants.MODE.FEEDER ) {
-	            	if(!shapeElement.shape.data.hasOwnProperty('removeType')) {
-	            		if(shapeElement.shape.data.fe_swgr_load_div == 'S' &&
-	            			(shapeElement.shape.data.fe_swgr_load_div == me._CONTROLLER.parentSwitchElement.fe_swgr_load_div) &&
-	            			 shapeElement.shape.data.swgr_list_seq == me._CONTROLLER.parentSwitchElement.swgr_list_seq
-	            			) {
-	            			me._CONTROLLER.deleteFeederList.push(shapeElement.shape.data);
-	            		}
-	            			
-	        			return;
-	        		} 
-	            	
-	            	/**
-	                 * viewControllerì˜ feederMgtShapeListì—ì„œ í•´ë‹¹ shapeì˜ ì •ë³´ê°€ ìˆë‹¤ë©´
-	                 * ê¸°ì¡´ì˜ ì •ë³´ë¥¼ ì‚­ì œí•˜ê¸° ìœ„í•´ì„œ deleteFeederListì— ì •ë³´ë¥¼ ë„£ì–´ì•¼ í•œë‹¤.
-	                 * @type {Array|*|updateList}
-	                 */
-	                var feederMgtShapeList = me._CONTROLLER.feederMgtShapeList;
-	                var updateFeederList = me._CONTROLLER.updateFeederList;
-	                /** ê¸°ì¡´ ë°ì´í„°ì—ì„œ ì •ë³´ë¥¼ ê²€ìƒ‰í•œë‹¤ */
-	                var swgrKey = 'swgr_list_seq';
-	                var loadKey = 'load_list_seq';
-	                if(shapeElement.shape.data.fe_swgr_load_div == 'S') {
-	                 	 /**
-		                 * ì´ ì •ë³´ê°€ ì—†ë‹¤ëŠ” ê²ƒì€ ì„œë²„ë¡œë¶€í„° ì €ì¥ëœ jsonìœ¼ë¡œë¶€í„° ê·¸ë ¤ì§„ ìº”ë²„ìŠ¤ ê°ì²´ì˜ ì •ë³´ì¤‘
-		                 * í•˜ë‚˜ê°€ ì§€ì›Œì¡Œë‹¤ê³  íŒë‹¨í•  ìˆ˜ ìˆë‹¤.
-		                 * í•´ë‹¹ ì§€ì›Œì§€ëŠ” shapeê°€ ìŠ¤ìœ„ì¹˜íŠ¸ëœìŠ¤í¼ë¨¸ì¸ì§€ ë¡œë“œì¸ì§€ ì²´í¬ë¶€í„° í•˜ê³ 
-		                 * ë‹¤ìŒ ë¡œì§ì„ ìˆ˜í–‰í•´ì•¼í•œë‹¤.
-		                 */
-	                	if(!shapeElement.shape.data.hasOwnProperty('model')){
-	                		shapeElement.shape.data['model'] = me._CONTROLLER.model.SwgrList.name;
-	                		shapeElement.shape.data['label'] = '<a href="javascript:popUpSWGRInfo(\''+ shapeElement.shape.data['swgr_list_seq']+'\');void(0)" name="item" data-index="' + (me._CONTROLLER.initUnusedSwitchList.length) + '" style="margin-left: 5px;margin-right: 5px;">' + shapeElement.shape.data['swgr_name'] + '</a>';
-	                		me._CONTROLLER.initUnusedSwitchList.push(shapeElement.shape.data);
-	                	}
-	                    feederMgtShapeList.some(function(item, idx){
-	                        if( item.hasOwnProperty(swgrKey) && item[swgrKey] == shapeElement.shape.data[swgrKey]) {
-	                            me._CONTROLLER.deleteFeederList.push(item);
-	                        }
-	                    });
-	
-	                    /** updateListì—ì„œë„ ì¡°íšŒë¥¼ í•´ì•¼í•œë‹¤ **/
-	                    updateFeederList.some(function(item, idx){
-	                        if( item.hasOwnProperty(swgrKey) && item[swgrKey] == shapeElement.shape.data[swgrKey]) {
-	                            updateFeederList.splice(idx, 1);
-	                        }
-	                    });
-	
-	                } else {
-	                	if(!shapeElement.shape.data.hasOwnProperty('model')){
-	                		
-	                		
-	                		var loadObj = parent.getLoad(shapeElement.shape.data.load_list_seq);
-	                		
-	                		/**
-	                		 * ê¸°ì¡´ì— ì—†ëŠ” í”„ë¡œí¼í‹°ë“¤ì„ ì„¤ì •í•´ì•¼ í•œë‹¤.
-	                		 */
-	                		loadObj['model'] = me._CONTROLLER.model.UnAssignedLoadList.name;
-	                		loadObj['shapeType']= shapeElement.shape.data['shapeType'];
-	                		loadObj['shapeLabel'] = shapeElement.shape.data['lo_equip_tag_no'];
-	                		loadObj['label'] = '<a href="#" name="item" data-index="' + (me._CONTROLLER.initUnusedLoadList.length) + '" style="margin-left: 5px;margin-right: 5px;">' + shapeElement.shape.data['lo_equip_tag_no'] + '</a>';
-	                		loadObj['lo_equip_desc_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + loadObj['lo_equip_desc'] + '</span>';
-	                		loadObj['lo_unit_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + loadObj['lo_unit'] + '</span>';
-	                		loadObj['lo_proc_sys_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + loadObj['lo_proc_sys'] + '</span>';
-	                		loadObj['lo_equip_loc_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + loadObj['lo_equip_loc'] + '</span>';
-	                		shapeElement.shape.data = loadObj;
-	                		me._CONTROLLER.initUnusedLoadList.push(loadObj);
-	                	}
-	                    feederMgtShapeList.some(function(item, idx){
-	                        if( item.hasOwnProperty(loadKey) && item[loadKey] == shapeElement.shape.data[loadKey]) {
-	                            me._CONTROLLER.deleteFeederList.push(item);
-	                        }
-	                    });
-	
-	                    /** updateListì—ì„œë„ ì¡°íšŒë¥¼ í•´ì•¼í•œë‹¤ **/
-	                    updateFeederList.some(function(item, idx){
-	                        if( item.hasOwnProperty(loadKey) && item[loadKey] == shapeElement.shape.data[loadKey]) {
-	                            updateFeederList.splice(idx, 1);
-	                        }
-	                    });
-	                }
-	            	
-	                if(shapeElement.shape.data.model == me._CONTROLLER.model.UnAssignedLoadList.name) {
-	
-	                    //í•´ë‹¹ ì•„ì´í…œì€ ì‚¬ìš©ëœ loadlistì—ì„œ ì‚­ì œí•œë‹¤.
-	                    var usedLoadList = me._CONTROLLER.usedLoadList;
-	                    var updateList = [];
-	                    for (var i = 0; i < usedLoadList.length; i++) {
-	                        if (usedLoadList[i].load_list_seq != shapeElement.shape.data.load_list_seq) {
-	                            updateList.push(usedLoadList[i]);
-	                        }
-	                    }
-	
-	                    me._CONTROLLER.usedLoadList = updateList;
-	
-	                    // ì „ì²´ ë„í˜•ì„ ê·¸ë¦° ì´í›„ì— ì‚¬ìš©í•œ load itemì€ ì œì™¸í•˜ê³  í•´ë‹¹ ê·¸ë¦¬ë“œë¥¼ ë‹¤ì‹œ ê·¸ë ¤ì•¼ í•œë‹¤.
-	                    var unloadList = me._CONTROLLER.initUnusedLoadList;
-	                    var newList = [];
-	                    for (var k = 0; k < unloadList.length; k++) {
-	                        var isDuplicated = false;
-	                        for (var j = 0; j < updateList.length; j++) {
-	                            if (unloadList[k].load_list_seq == updateList[j].load_list_seq) {
-	                                isDuplicated = true;
-	                            }
-	                        }
-	
-	                        if (!isDuplicated) {
-	                            newList.push(unloadList[k]);
-	                        }
-	                    }
-	
-	                    var panel = me._CONTROLLER.model.UnAssignedLoadList.panel;
-                    	me._CONTROLLER.redrawDataTables(panel, newList, me._CONTROLLER);	
-	                    
-	                }
-	                //ì§€ì›Œì§„ ë¡œë“œê°€ ë§Œì¼ switchtransfomerë¼ë©´
-	                else if(shapeElement.shape.data.model == me._CONTROLLER.model.SwgrList.name) {
-	                	
-	                	//this.initUnusedSwitchList = [];
-	                    //this.usedSwitchList = [];
-	                    //í•´ë‹¹ ì•„ì´í…œì€ ì‚¬ìš©ëœ loadlistì—ì„œ ì‚­ì œí•œë‹¤.
-	                    var usedSwitchList = me._CONTROLLER.usedSwitchList;
-	                    var updateList = [];
-	                    for (var i = 0; i < usedSwitchList.length; i++) {
-	                        if (usedSwitchList[i].swgr_list_seq != shapeElement.shape.data.swgr_list_seq) {
-	                            updateList.push(usedSwitchList[i]);
-	                        }
-	                    }
-	
-	                    me._CONTROLLER.usedSwitchList = updateList;
-	
-	                    // ì „ì²´ ë„í˜•ì„ ê·¸ë¦° ì´í›„ì— ì‚¬ìš©í•œ load itemì€ ì œì™¸í•˜ê³  í•´ë‹¹ ê·¸ë¦¬ë“œë¥¼ ë‹¤ì‹œ ê·¸ë ¤ì•¼ í•œë‹¤.
-	                    var unswitchList = me._CONTROLLER.initUnusedSwitchList;
-	                    var newList = [];
-	                    for (var k = 0; k < unswitchList.length; k++) {
-	                        var isDuplicated = false;
-	                        for (var j = 0; j < updateList.length; j++) {
-	                            if (unswitchList[k].swgr_list_seq == updateList[j].swgr_list_seq) {
-	                                isDuplicated = true;
-	                            }
-	                        }
-	
-	                        if (!isDuplicated) {
-	                            newList.push(unswitchList[k]);
-	                        }
-	                    }
-	
-	                    var panel = me._CONTROLLER.model.SwgrList.panel;
-	                    me._CONTROLLER.redrawDataTables(panel, newList, me._CONTROLLER);
-	                    
-	                }
 
-            	} else if(me.getMode() == me.Constants.MODE.HIERARCHY) {
-            		
-            		// ë„í˜•ì„ ë¨¼ì € ì§€ì›Œì„œ íƒ€ê³  ì˜¤ëŠ”ì§€ ë˜ëŠ” edgeë¥¼ ì§€ìš°ë©´ì„œ íƒ€ê³  ì˜¤ëŠ”ì§€ ì²´í¬í•œë‹¤.
-                	if(me._CONTROLLER.removeFirstShapeTypeAtHierarchy == null) {
-                		me._CONTROLLER.removeFirstShapeTypeAtHierarchy = me.Constants.SHAPE.GEOM;
-                	}
-            		/**
-            		 * feederëª¨ë“œì—ì„œëŠ” ë¬´ì¡°ê±´ edgeê°€ ì¡´ì¬í•œë‹¤. ì´ìœ ëŠ” loadë‚˜ ì—¬íƒ€ typeì´ ìŠ¤ìœ„ì¹˜ì— ë¶™ì„ ë•ŒëŠ” ìŠ¤ìœ„ì¹˜ì™€ ì—°ê²°ë˜ê¸° ë•Œë¬¸ì´ë‹¤.
-            		 * í•˜ì§€ë§Œ hierarchyëª¨ë“œì—ì„œëŠ” í•˜ë‚˜ë§Œ ì¡´ì¬í•  ìˆ˜ ìˆë‹¤.
-            		 * ë”°ë¼ì„œ í•˜ë‚˜ë§Œ ì§€ìš°ê²Œ í•´ì•¼í•œë‹¤.
-            		 * me._CONTROLLER.tempElementì— ë“¤ì–´ì˜¨ ì •ë³´ë¥¼ ì„¸íŒ…í•˜ê³  ë¦¬í„´í•˜ë©´ ëœë‹¤.
-            		 * í•˜ì§€ë§Œ ì§€ì›Œì§„ shapeì´ ë¹Œë”©ì¸ì§€ ìŠ¤ìœ„ì¹˜í”¼ë”ì¸ì§€ ì²´í¬ 
-            		 */
-            		if(shapeElement.shape.data.model == me._CONTROLLER.model.HierarchyFeederList.name) {
-            		
-            			var feederHierarchyMgtShapeList = me._CONTROLLER.feederHierarchyMgtShapeList;
-            			var updateFeederHierarchyList = me._CONTROLLER.updateFeederHierarchyList;
-            			var deleteFeederHierarchyList = me._CONTROLLER.deleteFeederHierarchyList;
-            			if(!shapeElement.shape.data.hasOwnProperty('label')) {
-            				shapeElement.shape.data.label = '<a href="javascript:popUpSWGRInfo(\''+ shapeElement.shape.data['swgr_seq']+'\');void(0)" name="item" data-index="' + (me._CONTROLLER.initUnusedHierarchyFeederList.length) + '" style="margin-left: 5px;margin-right: 5px;">' + shapeElement.shape.data['swgr_name'] + '</a>';
-            			}
-            			var isDup = false;
-            			me._CONTROLLER.initUnusedHierarchyFeederList.some(function(item){
-            				if(item.feeder_list_mgt_seq == shapeElement.shape.data.feeder_list_mgt_seq) {
-            					isDup = true;
-            				}
-            			});
-            			
-            			if(!isDup) {
-            				me._CONTROLLER.initUnusedHierarchyFeederList.push(shapeElement.shape.data);
-            			}
-            			/**
-            			 * 
-            			 */
-            			feederHierarchyMgtShapeList.some(function(item, idx){
-	                        if(item.feeder_list_mgt_seq == shapeElement.shape.data.feeder_list_mgt_seq) {
-	                            me._CONTROLLER.deleteFeederHierarchyList.push(item);
-	                        }
-	                    });
-	
-	                    /** updateListì—ì„œë„ ì¡°íšŒë¥¼ í•´ì•¼í•œë‹¤ **/
-            			updateFeederHierarchyList.some(function(item, idx){
-	                        if(item.feeder_list_mgt_seq == shapeElement.shape.data.feeder_list_mgt_seq) {
-	                        	updateFeederHierarchyList.splice(idx, 1);
-	                        }
-	                    });
-            			
-            			// ì‚¬ìš©ëœ ë¦¬ìŠ¤íŠ¸ë¥¼ í™•ì¸í•œë‹¤.
-            			//    this.initUnusedHierarchyFeederList = [];
-            		    // this.usedHierarchyFeederList = [];
-            			var usedHierarchyFeederList = me._CONTROLLER.usedHierarchyFeederList;
-	                    var updateList = [];
-	                    for (var i = 0; i < usedHierarchyFeederList.length; i++) {
-	                        if (usedHierarchyFeederList[i].swgr_seq != shapeElement.shape.data.swgr_seq) {
-	                            updateList.push(usedHierarchyFeederList[i]);
-	                        }
-	                    }
-	
-	                    me._CONTROLLER.usedHierarchyFeederList = updateList;
-	
-	                    // ì „ì²´ ë„í˜•ì„ ê·¸ë¦° ì´í›„ì— ì‚¬ìš©í•œ load itemì€ ì œì™¸í•˜ê³  í•´ë‹¹ ê·¸ë¦¬ë“œë¥¼ ë‹¤ì‹œ ê·¸ë ¤ì•¼ í•œë‹¤.
-	                    var unUsedHierarchyFeederList = me._CONTROLLER.initUnusedHierarchyFeederList;
-	                    var newList = [];
-	                    for (var k = 0; k < unUsedHierarchyFeederList.length; k++) {
-	                        var isDuplicated = false;
-	                        for (var j = 0; j < updateList.length; j++) {
-	                            if (unUsedHierarchyFeederList[k].swgr_seq == updateList[j].swgr_seq) {
-	                                isDuplicated = true;
-	                            }
-	                        }
-	
-	                        if (!isDuplicated) {
-	                            newList.push(unUsedHierarchyFeederList[k]);
-	                        }
-	                    }
-	
-	                    var panel = me._CONTROLLER.model.HierarchyFeederList.panel;
-	                    me._CONTROLLER.redrawDataTables(panel, newList, me._CONTROLLER);	
-	                    
-            		}
-            	} else if(me.getMode() == me.Constants.MODE.ROUTE) {
-            		
-            		// ë„í˜•ì„ ë¨¼ì € ì§€ì›Œì„œ íƒ€ê³  ì˜¤ëŠ”ì§€ ë˜ëŠ” edgeë¥¼ ì§€ìš°ë©´ì„œ íƒ€ê³  ì˜¤ëŠ”ì§€ ì²´í¬í•œë‹¤.
-                	if(me._CONTROLLER.removeFirstShapeTypeAtRoute == null) {
-                		me._CONTROLLER.removeFirstShapeTypeAtRoute = me.Constants.SHAPE.GEOM;
-                	}
-            		
-                	/**
-                	 * ë¹Œë”© ê·¸ë¦¬ë“œì—ì„œ ë„˜ì–´ì˜¨ ì •ë³´ë¼ë©´
-                	 */
-                	if(shapeElement.shape.data.model == me._CONTROLLER.model.BldgReferenceList.name) {
-                		
-            			var usedBldgReferenceList = me._CONTROLLER.usedBldgReferenceList;
-	                    var updateList = [];
-	                    for (var i = 0; i < usedBldgReferenceList.length; i++) {
-	                        if (usedBldgReferenceList[i].loc_ref_seq != shapeElement.shape.data.loc_ref_seq) {
-	                            updateList.push(usedBldgReferenceList[i]);
-	                        }
-	                    }
-	
-	                    me._CONTROLLER.usedBldgReferenceList = updateList;
-	
-	                    // ì „ì²´ ë„í˜•ì„ ê·¸ë¦° ì´í›„ì— ì‚¬ìš©í•œ load itemì€ ì œì™¸í•˜ê³  í•´ë‹¹ ê·¸ë¦¬ë“œë¥¼ ë‹¤ì‹œ ê·¸ë ¤ì•¼ í•œë‹¤.
-	                    var unUsedBldgReferenceList = me._CONTROLLER.initBldgReferenceList;
-	                    var newList = [];
-	                    for (var k = 0; k < unUsedBldgReferenceList.length; k++) {
-	                        var isDuplicated = false;
-	                        for (var j = 0; j < updateList.length; j++) {
-	                            if (unUsedBldgReferenceList[k].loc_ref_seq == updateList[j].loc_ref_seq) {
-	                                isDuplicated = true;
-	                            }
-	                        }
-	
-	                        if (!isDuplicated) {
-	                            newList.push(unUsedBldgReferenceList[k]);
-	                        }
-	                    }
-	
-	                    var panel = me._CONTROLLER.model.BldgReferenceList.panel;
-	                    me._CONTROLLER.redrawDataTables(panel, newList, me._CONTROLLER);	
-	                    
-            		}
-            		
-            	}
+            if( shapeElement.shape.TYPE == me.Constants.SHAPE.GEOM || shapeElement.shape.TYPE == me.Constants.SHAPE.GROUP) {
+
+                if( me.getMode() == me.Constants.MODE.FEEDER ) {
+                    if(!shapeElement.shape.data.hasOwnProperty('removeType')) {
+                        if(shapeElement.shape.data.fe_swgr_load_div == 'S' &&
+                            (shapeElement.shape.data.fe_swgr_load_div == me._CONTROLLER.parentSwitchElement.fe_swgr_load_div) &&
+                            shapeElement.shape.data.swgr_list_seq == me._CONTROLLER.parentSwitchElement.swgr_list_seq
+                        ) {
+                            me._CONTROLLER.deleteFeederList.push(shapeElement.shape.data);
+                        }
+
+                        return;
+                    }
+
+                    /**
+                     * viewControllerÀÇ feederMgtShapeList¿¡¼­ ÇØ´ç shapeÀÇ Á¤º¸°¡ ÀÖ´Ù¸é
+                     * ±âÁ¸ÀÇ Á¤º¸¸¦ »èÁ¦ÇÏ±â À§ÇØ¼­ deleteFeederList¿¡ Á¤º¸¸¦ ³Ö¾î¾ß ÇÑ´Ù.
+                     * @type {Array|*|updateList}
+                     */
+                    var feederMgtShapeList = me._CONTROLLER.feederMgtShapeList;
+                    var updateFeederList = me._CONTROLLER.updateFeederList;
+                    /** ±âÁ¸ µ¥ÀÌÅÍ¿¡¼­ Á¤º¸¸¦ °Ë»öÇÑ´Ù */
+                    var swgrKey = 'swgr_list_seq';
+                    var loadKey = 'load_list_seq';
+                    if(shapeElement.shape.data.fe_swgr_load_div == 'S') {
+                        /**
+                         * ÀÌ Á¤º¸°¡ ¾ø´Ù´Â °ÍÀº ¼­¹ö·ÎºÎÅÍ ÀúÀåµÈ jsonÀ¸·ÎºÎÅÍ ±×·ÁÁø Äµ¹ö½º °´Ã¼ÀÇ Á¤º¸Áß
+                         * ÇÏ³ª°¡ Áö¿öÁ³´Ù°í ÆÇ´ÜÇÒ ¼ö ÀÖ´Ù.
+                         * ÇØ´ç Áö¿öÁö´Â shape°¡ ½ºÀ§Ä¡Æ®·£½ºÆÛ¸ÓÀÎÁö ·ÎµåÀÎÁö Ã¼Å©ºÎÅÍ ÇÏ°í
+                         * ´ÙÀ½ ·ÎÁ÷À» ¼öÇàÇØ¾ßÇÑ´Ù.
+                         */
+                        if(!shapeElement.shape.data.hasOwnProperty('model')){
+                            shapeElement.shape.data['model'] = me._CONTROLLER.model.SwgrList.name;
+                            shapeElement.shape.data['label'] = '<a href="javascript:popUpSWGRInfo(\''+ shapeElement.shape.data['swgr_list_seq']+'\');void(0)" name="item" data-index="' + (me._CONTROLLER.initUnusedSwitchList.length) + '" style="margin-left: 5px;margin-right: 5px;">' + shapeElement.shape.data['swgr_name'] + '</a>';
+                            me._CONTROLLER.initUnusedSwitchList.push(shapeElement.shape.data);
+                        }
+                        feederMgtShapeList.some(function(item, idx){
+                            if( item.hasOwnProperty(swgrKey) && item[swgrKey] == shapeElement.shape.data[swgrKey]) {
+                                me._CONTROLLER.deleteFeederList.push(item);
+                            }
+                        });
+
+                        /** updateList¿¡¼­µµ Á¶È¸¸¦ ÇØ¾ßÇÑ´Ù **/
+                        updateFeederList.some(function(item, idx){
+                            if( item.hasOwnProperty(swgrKey) && item[swgrKey] == shapeElement.shape.data[swgrKey]) {
+                                updateFeederList.splice(idx, 1);
+                            }
+                        });
+
+                    } else {
+                        if(!shapeElement.shape.data.hasOwnProperty('model')){
+
+
+                            var loadObj = parent.getLoad(shapeElement.shape.data.load_list_seq);
+
+                            /**
+                             * ±âÁ¸¿¡ ¾ø´Â ÇÁ·ÎÆÛÆ¼µéÀ» ¼³Á¤ÇØ¾ß ÇÑ´Ù.
+                             */
+                            loadObj['model'] = me._CONTROLLER.model.UnAssignedLoadList.name;
+                            loadObj['shapeType']= shapeElement.shape.data['shapeType'];
+                            loadObj['shapeLabel'] = shapeElement.shape.data['lo_equip_tag_no'];
+                            loadObj['label'] = '<a href="#" name="item" data-index="' + (me._CONTROLLER.initUnusedLoadList.length) + '" style="margin-left: 5px;margin-right: 5px;">' + shapeElement.shape.data['lo_equip_tag_no'] + '</a>';
+                            loadObj['lo_equip_desc_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + loadObj['lo_equip_desc'] + '</span>';
+                            loadObj['lo_unit_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + loadObj['lo_unit'] + '</span>';
+                            loadObj['lo_proc_sys_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + loadObj['lo_proc_sys'] + '</span>';
+                            loadObj['lo_equip_loc_style'] = '<span style="margin-left: 5px;margin-right: 5px;">' + loadObj['lo_equip_loc'] + '</span>';
+                            shapeElement.shape.data = loadObj;
+                            me._CONTROLLER.initUnusedLoadList.push(loadObj);
+                        }
+                        feederMgtShapeList.some(function(item, idx){
+                            if( item.hasOwnProperty(loadKey) && item[loadKey] == shapeElement.shape.data[loadKey]) {
+                                me._CONTROLLER.deleteFeederList.push(item);
+                            }
+                        });
+
+                        /** updateList¿¡¼­µµ Á¶È¸¸¦ ÇØ¾ßÇÑ´Ù **/
+                        updateFeederList.some(function(item, idx){
+                            if( item.hasOwnProperty(loadKey) && item[loadKey] == shapeElement.shape.data[loadKey]) {
+                                updateFeederList.splice(idx, 1);
+                            }
+                        });
+                    }
+
+                    if(shapeElement.shape.data.model == me._CONTROLLER.model.UnAssignedLoadList.name) {
+
+                        //ÇØ´ç ¾ÆÀÌÅÛÀº »ç¿ëµÈ loadlist¿¡¼­ »èÁ¦ÇÑ´Ù.
+                        var usedLoadList = me._CONTROLLER.usedLoadList;
+                        var updateList = [];
+                        for (var i = 0; i < usedLoadList.length; i++) {
+                            if (usedLoadList[i].load_list_seq != shapeElement.shape.data.load_list_seq) {
+                                updateList.push(usedLoadList[i]);
+                            }
+                        }
+
+                        me._CONTROLLER.usedLoadList = updateList;
+
+                        // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
+                        var unloadList = me._CONTROLLER.initUnusedLoadList;
+                        var newList = [];
+                        for (var k = 0; k < unloadList.length; k++) {
+                            var isDuplicated = false;
+                            for (var j = 0; j < updateList.length; j++) {
+                                if (unloadList[k].load_list_seq == updateList[j].load_list_seq) {
+                                    isDuplicated = true;
+                                }
+                            }
+
+                            if (!isDuplicated) {
+                                newList.push(unloadList[k]);
+                            }
+                        }
+
+                        var panel = me._CONTROLLER.model.UnAssignedLoadList.panel;
+                        me._CONTROLLER.redrawDataTables(panel, newList, me._CONTROLLER);
+
+                    }
+                    //Áö¿öÁø ·Îµå°¡ ¸¸ÀÏ switchtransfomer¶ó¸é
+                    else if(shapeElement.shape.data.model == me._CONTROLLER.model.SwgrList.name) {
+
+                        //this.initUnusedSwitchList = [];
+                        //this.usedSwitchList = [];
+                        //ÇØ´ç ¾ÆÀÌÅÛÀº »ç¿ëµÈ loadlist¿¡¼­ »èÁ¦ÇÑ´Ù.
+                        var usedSwitchList = me._CONTROLLER.usedSwitchList;
+                        var updateList = [];
+                        for (var i = 0; i < usedSwitchList.length; i++) {
+                            if (usedSwitchList[i].swgr_list_seq != shapeElement.shape.data.swgr_list_seq) {
+                                updateList.push(usedSwitchList[i]);
+                            }
+                        }
+
+                        me._CONTROLLER.usedSwitchList = updateList;
+
+                        // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
+                        var unswitchList = me._CONTROLLER.initUnusedSwitchList;
+                        var newList = [];
+                        for (var k = 0; k < unswitchList.length; k++) {
+                            var isDuplicated = false;
+                            for (var j = 0; j < updateList.length; j++) {
+                                if (unswitchList[k].swgr_list_seq == updateList[j].swgr_list_seq) {
+                                    isDuplicated = true;
+                                }
+                            }
+
+                            if (!isDuplicated) {
+                                newList.push(unswitchList[k]);
+                            }
+                        }
+
+                        var panel = me._CONTROLLER.model.SwgrList.panel;
+                        me._CONTROLLER.redrawDataTables(panel, newList, me._CONTROLLER);
+
+                    }
+
+                } else if(me.getMode() == me.Constants.MODE.HIERARCHY) {
+
+                    // µµÇüÀ» ¸ÕÀú Áö¿ö¼­ Å¸°í ¿À´ÂÁö ¶Ç´Â edge¸¦ Áö¿ì¸é¼­ Å¸°í ¿À´ÂÁö Ã¼Å©ÇÑ´Ù.
+                    if(me._CONTROLLER.removeFirstShapeTypeAtHierarchy == null) {
+                        me._CONTROLLER.removeFirstShapeTypeAtHierarchy = me.Constants.SHAPE.GEOM;
+                    }
+                    /**
+                     * feeder¸ğµå¿¡¼­´Â ¹«Á¶°Ç edge°¡ Á¸ÀçÇÑ´Ù. ÀÌÀ¯´Â load³ª ¿©Å¸ typeÀÌ ½ºÀ§Ä¡¿¡ ºÙÀ» ¶§´Â ½ºÀ§Ä¡¿Í ¿¬°áµÇ±â ¶§¹®ÀÌ´Ù.
+                     * ÇÏÁö¸¸ hierarchy¸ğµå¿¡¼­´Â ÇÏ³ª¸¸ Á¸ÀçÇÒ ¼ö ÀÖ´Ù.
+                     * µû¶ó¼­ ÇÏ³ª¸¸ Áö¿ì°Ô ÇØ¾ßÇÑ´Ù.
+                     * me._CONTROLLER.tempElement¿¡ µé¾î¿Â Á¤º¸¸¦ ¼¼ÆÃÇÏ°í ¸®ÅÏÇÏ¸é µÈ´Ù.
+                     * ÇÏÁö¸¸ Áö¿öÁø shapeÀÌ ºôµùÀÎÁö ½ºÀ§Ä¡ÇÇ´õÀÎÁö Ã¼Å©
+                     */
+                    if(shapeElement.shape.data.model == me._CONTROLLER.model.HierarchyFeederList.name) {
+
+                        var feederHierarchyMgtShapeList = me._CONTROLLER.feederHierarchyMgtShapeList;
+                        var updateFeederHierarchyList = me._CONTROLLER.updateFeederHierarchyList;
+                        var deleteFeederHierarchyList = me._CONTROLLER.deleteFeederHierarchyList;
+                        if(!shapeElement.shape.data.hasOwnProperty('label')) {
+                            shapeElement.shape.data.label = '<a href="javascript:popUpSWGRInfo(\''+ shapeElement.shape.data['swgr_seq']+'\');void(0)" name="item" data-index="' + (me._CONTROLLER.initUnusedHierarchyFeederList.length) + '" style="margin-left: 5px;margin-right: 5px;">' + shapeElement.shape.data['swgr_name'] + '</a>';
+                        }
+                        var isDup = false;
+                        me._CONTROLLER.initUnusedHierarchyFeederList.some(function(item){
+                            if(item.feeder_list_mgt_seq == shapeElement.shape.data.feeder_list_mgt_seq) {
+                                isDup = true;
+                            }
+                        });
+
+                        if(!isDup) {
+                            me._CONTROLLER.initUnusedHierarchyFeederList.push(shapeElement.shape.data);
+                        }
+                        /**
+                         *
+                         */
+                        feederHierarchyMgtShapeList.some(function(item, idx){
+                            if(item.feeder_list_mgt_seq == shapeElement.shape.data.feeder_list_mgt_seq) {
+                                me._CONTROLLER.deleteFeederHierarchyList.push(item);
+                            }
+                        });
+
+                        /** updateList¿¡¼­µµ Á¶È¸¸¦ ÇØ¾ßÇÑ´Ù **/
+                        updateFeederHierarchyList.some(function(item, idx){
+                            if(item.feeder_list_mgt_seq == shapeElement.shape.data.feeder_list_mgt_seq) {
+                                updateFeederHierarchyList.splice(idx, 1);
+                            }
+                        });
+
+                        // »ç¿ëµÈ ¸®½ºÆ®¸¦ È®ÀÎÇÑ´Ù.
+                        //    this.initUnusedHierarchyFeederList = [];
+                        // this.usedHierarchyFeederList = [];
+                        var usedHierarchyFeederList = me._CONTROLLER.usedHierarchyFeederList;
+                        var updateList = [];
+                        for (var i = 0; i < usedHierarchyFeederList.length; i++) {
+                            if (usedHierarchyFeederList[i].swgr_seq != shapeElement.shape.data.swgr_seq) {
+                                updateList.push(usedHierarchyFeederList[i]);
+                            }
+                        }
+
+                        me._CONTROLLER.usedHierarchyFeederList = updateList;
+
+                        // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
+                        var unUsedHierarchyFeederList = me._CONTROLLER.initUnusedHierarchyFeederList;
+                        var newList = [];
+                        for (var k = 0; k < unUsedHierarchyFeederList.length; k++) {
+                            var isDuplicated = false;
+                            for (var j = 0; j < updateList.length; j++) {
+                                if (unUsedHierarchyFeederList[k].swgr_seq == updateList[j].swgr_seq) {
+                                    isDuplicated = true;
+                                }
+                            }
+
+                            if (!isDuplicated) {
+                                newList.push(unUsedHierarchyFeederList[k]);
+                            }
+                        }
+
+                        var panel = me._CONTROLLER.model.HierarchyFeederList.panel;
+                        me._CONTROLLER.redrawDataTables(panel, newList, me._CONTROLLER);
+
+                    }
+                } else if(me.getMode() == me.Constants.MODE.ROUTE) {
+
+                    // µµÇüÀ» ¸ÕÀú Áö¿ö¼­ Å¸°í ¿À´ÂÁö ¶Ç´Â edge¸¦ Áö¿ì¸é¼­ Å¸°í ¿À´ÂÁö Ã¼Å©ÇÑ´Ù.
+                    if(me._CONTROLLER.removeFirstShapeTypeAtRoute == null) {
+                        me._CONTROLLER.removeFirstShapeTypeAtRoute = me.Constants.SHAPE.GEOM;
+                    }
+
+                    /**
+                     * ºôµù ±×¸®µå¿¡¼­ ³Ñ¾î¿Â Á¤º¸¶ó¸é
+                     */
+                    if(shapeElement.shape.data.model == me._CONTROLLER.model.BldgReferenceList.name) {
+
+                        var usedBldgReferenceList = me._CONTROLLER.usedBldgReferenceList;
+                        var updateList = [];
+                        for (var i = 0; i < usedBldgReferenceList.length; i++) {
+                            if (usedBldgReferenceList[i].loc_ref_seq != shapeElement.shape.data.loc_ref_seq) {
+                                updateList.push(usedBldgReferenceList[i]);
+                            }
+                        }
+
+                        me._CONTROLLER.usedBldgReferenceList = updateList;
+
+                        // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
+                        var unUsedBldgReferenceList = me._CONTROLLER.initBldgReferenceList;
+                        var newList = [];
+                        for (var k = 0; k < unUsedBldgReferenceList.length; k++) {
+                            var isDuplicated = false;
+                            for (var j = 0; j < updateList.length; j++) {
+                                if (unUsedBldgReferenceList[k].loc_ref_seq == updateList[j].loc_ref_seq) {
+                                    isDuplicated = true;
+                                }
+                            }
+
+                            if (!isDuplicated) {
+                                newList.push(unUsedBldgReferenceList[k]);
+                            }
+                        }
+
+                        var panel = me._CONTROLLER.model.BldgReferenceList.panel;
+                        me._CONTROLLER.redrawDataTables(panel, newList, me._CONTROLLER);
+
+                    }
+
+                }
             } else if( shapeElement.shape.TYPE == me.Constants.SHAPE.EDGE) {
-            	// ë„í˜•ì„ ë¨¼ì € ì§€ì›Œì„œ íƒ€ê³  ì˜¤ëŠ”ì§€ ë˜ëŠ” edgeë¥¼ ì§€ìš°ë©´ì„œ íƒ€ê³  ì˜¤ëŠ”ì§€ ì²´í¬í•œë‹¤.
-            	if(me.getMode() == me.Constants.MODE.HIERARCHY) {
-	            	if(me._CONTROLLER.removeFirstShapeTypeAtHierarchy == null) {
-	            		me._CONTROLLER.removeFirstShapeTypeAtHierarchy = me.Constants.SHAPE.EDGE;
-	            	}
-            	} else if(me.getMode() == me.Constants.MODE.ROUTE) {
-	            	if(me._CONTROLLER.removeFirstShapeTypeAtRoute == null) {
-	            		me._CONTROLLER.removeFirstShapeTypeAtRoute = me.Constants.SHAPE.EDGE;
-	            	}
-            	}
-            	
-            	var relatedElementsFromEdge = me.canvas.getRelatedElementsFromEdge(shapeElement);
-            	var targetElement = relatedElementsFromEdge
-            	
+                // µµÇüÀ» ¸ÕÀú Áö¿ö¼­ Å¸°í ¿À´ÂÁö ¶Ç´Â edge¸¦ Áö¿ì¸é¼­ Å¸°í ¿À´ÂÁö Ã¼Å©ÇÑ´Ù.
+                if(me.getMode() == me.Constants.MODE.HIERARCHY) {
+                    if(me._CONTROLLER.removeFirstShapeTypeAtHierarchy == null) {
+                        me._CONTROLLER.removeFirstShapeTypeAtHierarchy = me.Constants.SHAPE.EDGE;
+                    }
+                } else if(me.getMode() == me.Constants.MODE.ROUTE) {
+                    if(me._CONTROLLER.removeFirstShapeTypeAtRoute == null) {
+                        me._CONTROLLER.removeFirstShapeTypeAtRoute = me.Constants.SHAPE.EDGE;
+                    }
+                }
+
+                var relatedElementsFromEdge = me.canvas.getRelatedElementsFromEdge(shapeElement);
+                var targetElement = relatedElementsFromEdge
+
             }
             me._CONTROLLER.tempElement = null;
         });
         me.canvas.onBeforeConnectShape(function (event, edgeElement, fromElement, toElement) {
-        	
-        	var flag = true;
-        	var msg = '';
-        	/**
-        	 * ê³ ë ¤í•´ì•¼í•  ì‚¬í•­.
-        	 * shapeë¥¼ ì´ë™ì‹œ ì–´ë–»ê²Œ ê´€ê³„ë¥¼ ì„¤ì •í•´ì„œ ì´ ë¡œì§ì„ ì•ˆíƒœìš¸ ê²ƒì¸ê°€ë¥¼ ê³ ë¯¼í•´ì•¼í•¨
-        	 */
-        	if( me.getMode() == me.Constants.MODE.HIERARCHY) {
-        		var prevEdges = me.canvas.getPrevEdges(toElement);
-        		if(prevEdges.length > 0) {
-        			prevEdges.forEach(function(edge){
-    					var edge = me.canvas.getRelatedElementsFromEdge(edge);
-    					var fromShapeData = edge.from.shape.data;
-    					// from ë°ì´í„°ê°€ ìì‹ ê³¼ ê°™ë‹¤ë©´ ìì‹ ì€ ì´ë¯¸ ìƒìœ„ í”¼ë” ë¦¬ìŠ¤íŠ¸ì´ë‹¤. 
-    					if(fromShapeData.feeder_list_mgt_seq != null && fromShapeData.feeder_list_mgt_seq != fromElement.shape.data.feeder_list_mgt_seq) {
-    						flag = false;
-    						msg = me.MSGMessages.SWITCHCONNECTIONCHK;
-    					}
-    				});
-    			}
-        	} else if( me.getMode() == me.Constants.MODE.ROUTE) {
-        		if(fromElement.shape instanceof OG.Location && toElement.shape instanceof OG.Location ) {
-        			flag = false;
-        			msg = me.MSGMessages.POINTTOPOINTCHK;
-        		}
-        	}
-        	
-        	if(!flag) {
-        		msgBox(msg);
-        		return false;
-        	}
-        	
+
+            var flag = true;
+            var msg = '';
+            /**
+             * °í·ÁÇØ¾ßÇÒ »çÇ×.
+             * shape¸¦ ÀÌµ¿½Ã ¾î¶»°Ô °ü°è¸¦ ¼³Á¤ÇØ¼­ ÀÌ ·ÎÁ÷À» ¾ÈÅÂ¿ï °ÍÀÎ°¡¸¦ °í¹ÎÇØ¾ßÇÔ
+             */
+            if( me.getMode() == me.Constants.MODE.HIERARCHY) {
+                var prevEdges = me.canvas.getPrevEdges(toElement);
+                if(prevEdges.length > 0) {
+                    prevEdges.forEach(function(edge){
+                        var edge = me.canvas.getRelatedElementsFromEdge(edge);
+                        var fromShapeData = edge.from.shape.data;
+                        // from µ¥ÀÌÅÍ°¡ ÀÚ½Å°ú °°´Ù¸é ÀÚ½ÅÀº ÀÌ¹Ì »óÀ§ ÇÇ´õ ¸®½ºÆ®ÀÌ´Ù.
+                        if(fromShapeData.feeder_list_mgt_seq != null && fromShapeData.feeder_list_mgt_seq != fromElement.shape.data.feeder_list_mgt_seq) {
+                            flag = false;
+                            msg = me.MSGMessages.SWITCHCONNECTIONCHK;
+                        }
+                    });
+                }
+            } else if( me.getMode() == me.Constants.MODE.ROUTE) {
+                if(fromElement.shape instanceof OG.Location && toElement.shape instanceof OG.Location ) {
+                    flag = false;
+                    msg = me.MSGMessages.POINTTOPOINTCHK;
+                }
+            }
+
+            if(!flag) {
+                msgBox(msg);
+                return false;
+            }
+
         });
 
         /**
-         * ì¼€ì´ë¸” ë³€ê²½ì´ ì¼ì–´ë‚¬ì„ ê²½ìš° ì´ë²¤íŠ¸
+         * ÄÉÀÌºí º¯°æÀÌ ÀÏ¾î³µÀ» °æ¿ì ÀÌº¥Æ®
          */
         $(me.canvas.getRootElement()).bind('cableChange', function (event, shapeElement, beforeShapeId, afterShapeId) {
             console.log(shapeElement, beforeShapeId, afterShapeId);
         });
 
         /**
-         * ë¼ìš°íŠ¸ ë³´ê¸° ì´ë²¤íŠ¸
+         * ¶ó¿ìÆ® º¸±â ÀÌº¥Æ®
          */
         $(me.canvas.getRootElement()).bind('showCableList', function (event, shapeElement) {
             me.onShowCableList(shapeElement, null);
         });
 
         /**
-         * ì •ë³´ ë³´ê¸° ì´ë²¤íŠ¸
+         * Á¤º¸ º¸±â ÀÌº¥Æ®
          */
         $(me.canvas.getRootElement()).bind('showProperty', function (event, shapeElement) {
             me.onShowProperty(shapeElement);
         });
-      
+
         /**
-         * ìº”ë²„ìŠ¤ ë¡œë”© ì´ë²¤íŠ¸
+         * Äµ¹ö½º ·Îµù ÀÌº¥Æ®
          */
         me.canvas.onLoading(function (event, progress) {
-        	console.log(progress);
+            console.log(progress);
             if (progress == 'start') {
                 $.unblockUI();
                 $.blockUI({
@@ -2100,79 +2100,79 @@ Renderer.prototype = {
             }
         });
     },
-    
+
     /**
-     * Routeì—ì„œ 
+     * Route¿¡¼­
      */
     checkPointToPoint: function (edge, canvas) {
-    	
-    	var returnChk = true;
-    	var relatedElementsFromEdge = canvas.getRelatedElementsFromEdge(edge);
-    	
-    	if( (relatedElementsFromEdge.from !=null && relatedElementsFromEdge.to !=null) && 
-    	(relatedElementsFromEdge.from.shape instanceof OG.Location&& relatedElementsFromEdge.to.shape instanceof OG.Location) ) {
-    		returnChk = false;
-    	}
-    	
-    	return returnChk;
+
+        var returnChk = true;
+        var relatedElementsFromEdge = canvas.getRelatedElementsFromEdge(edge);
+
+        if( (relatedElementsFromEdge.from !=null && relatedElementsFromEdge.to !=null) &&
+            (relatedElementsFromEdge.from.shape instanceof OG.Location&& relatedElementsFromEdge.to.shape instanceof OG.Location) ) {
+            returnChk = false;
+        }
+
+        return returnChk;
     },
-    
+
     /**
-     * ì •ë³´ ë³´ê¸° ì´ë²¤íŠ¸ë¥¼ ì²˜ë¦¬í•œë‹¤.
+     * Á¤º¸ º¸±â ÀÌº¥Æ®¸¦ Ã³¸®ÇÑ´Ù.
      * @param element
      */
     onShowProperty: function (element) {
         var me = this;
         console.log(element.shape.data);
-        
+
         if(element.shape.data.hasOwnProperty('showProperty')) {
-    		if(element.shape.data.showProperty) {
-    			if(element.shape.data.hasOwnProperty('swgr_list_seq')) {
-    				parent.showSWGRInfo(element.shape.data.swgr_list_seq);
-    			} else {
-    				parent.showSWGRInfo(element.shape.data.swgr_seq);
-    			}
-    		}
+            if(element.shape.data.showProperty) {
+                if(element.shape.data.hasOwnProperty('swgr_list_seq')) {
+                    parent.showSWGRInfo(element.shape.data.swgr_list_seq);
+                } else {
+                    parent.showSWGRInfo(element.shape.data.swgr_seq);
+                }
+            }
         }
-        //ì„œë²„ì— ë°”ë¡œ ë³´ë‚´ê¸°
-        //me._DATA_CONTROLLER.ë¸”ë¼ë¸”ë¼();
+        //¼­¹ö¿¡ ¹Ù·Î º¸³»±â
+        //me._DATA_CONTROLLER.ºí¶óºí¶ó();
     },
-    
+
     highLightHierarchyFeeder: function(element) {
-    	var me = this;
-        //ì„ íƒëœ HierarchyFeeder ì• ë‹ˆë©”ì´ì…˜
+        var me = this;
+        //¼±ÅÃµÈ HierarchyFeeder ¾Ö´Ï¸ŞÀÌ¼Ç
         if (!element.shape.data) {
             element.shape.data = {};
         }
         element.shape.data.highlight = true;
         me.canvas.getRenderer().redrawShape(element);
-        
+
         setTimeout(me.unHighLightHierarchyFeederWrapper, 5000, me, element);
     },
-    
+
     unHighLightHierarchyFeederWrapper: function(renderer, element) {
-    	renderer.unHighLightHierarchyFeeder(element);
+        renderer.unHighLightHierarchyFeeder(element);
     },
-    
+
     unHighLightHierarchyFeeder: function(element) {
-    	 var me = this;
-         //ì„ íƒëœ HierarchyFeeder ì• ë‹ˆë©”ì´ì…˜
-         if (!element.shape.data) {
-             element.shape.data = {};
-         }
-         element.shape.data.highlight = false;
-         me.canvas.getRenderer().redrawShape(element);
+        var me = this;
+        //¼±ÅÃµÈ HierarchyFeeder ¾Ö´Ï¸ŞÀÌ¼Ç
+        if (!element.shape.data) {
+            element.shape.data = {};
+        }
+        element.shape.data.highlight = false;
+        me.canvas.getRenderer().redrawShape(element);
     },
-    
+
     /**
-     * í•´ë‹¹ ë ˆì´ìŠ¤ì›¨ì´ë¥¼ í•˜ì´ë¼ì´íŠ¸ ì²˜ë¦¬í•œë‹¤.
+     * ÇØ´ç ·¹ÀÌ½º¿şÀÌ¸¦ ÇÏÀÌ¶óÀÌÆ® Ã³¸®ÇÑ´Ù.
      * @param element
-     * @param {Boolean} selected ì„ íƒ ì²˜ë¦¬ ì—¬ë¶€
+     * @param {Boolean} selected ¼±ÅÃ Ã³¸® ¿©ºÎ
      */
     highLightRaceway: function (element, selected) {
         var me = this;
 
-        //ì„ íƒëœ ë ˆì´ìŠ¤ì›¨ì´ ì• ë‹ˆë©”ì´ì…˜
+        //¼±ÅÃµÈ ·¹ÀÌ½º¿şÀÌ ¾Ö´Ï¸ŞÀÌ¼Ç
         if (!element.shape.data) {
             element.shape.data = {};
         }
@@ -2183,14 +2183,14 @@ Renderer.prototype = {
         }
         me.canvas.getRenderer().redrawShape(element);
     },
-    
+
     /**
-     * í•´ë‹¹ ë ˆì´ìŠ¤ì›¨ì´ì˜ í•˜ì´ë¼ì´íŠ¸ë¥¼ ì¢…ë£Œí•œë‹¤.
+     * ÇØ´ç ·¹ÀÌ½º¿şÀÌÀÇ ÇÏÀÌ¶óÀÌÆ®¸¦ Á¾·áÇÑ´Ù.
      * @param element
      */
     unHighLightRaceway: function (element) {
         var me = this;
-        //ì„ íƒëœ ë ˆì´ìŠ¤ì›¨ì´ ì• ë‹ˆë©”ì´ì…˜
+        //¼±ÅÃµÈ ·¹ÀÌ½º¿şÀÌ ¾Ö´Ï¸ŞÀÌ¼Ç
         if (!element.shape.data) {
             element.shape.data = {};
         }
@@ -2199,7 +2199,7 @@ Renderer.prototype = {
         me.canvas.getRenderer().redrawShape(element);
     },
     /**
-     * ì£¼ì–´ì§„ path (ë„í˜• ì•„ì´ë””) ëª©ë¡ìœ¼ë¡œë¶€í„° ë ˆì´ìŠ¤ì›¨ì´ ë¦¬ìŠ¤íŠ¸ë¥¼ ë°˜í™˜í•œë‹¤.
+     * ÁÖ¾îÁø path (µµÇü ¾ÆÀÌµğ) ¸ñ·ÏÀ¸·ÎºÎÅÍ ·¹ÀÌ½º¿şÀÌ ¸®½ºÆ®¸¦ ¹İÈ¯ÇÑ´Ù.
      * @param {Array} path
      * @returns {Array}
      */
@@ -2223,7 +2223,7 @@ Renderer.prototype = {
         return list;
     },
     /**
-     * ì¼€ì´ë¸” ëŒ€í™”ì°½ì„ ì‚­ì œí•œë‹¤.
+     * ÄÉÀÌºí ´ëÈ­Ã¢À» »èÁ¦ÇÑ´Ù.
      * @param dialog
      * @param currentPath
      * @param selectedRaceway
@@ -2239,67 +2239,67 @@ Renderer.prototype = {
             }
         }
     },
-    
+
     onRoutePathToDialog: function(jsonData, clickEventFrom) {
-    	var me = this;
-    	var currentCanvas = me.getCanvas();
-    	console.log(jsonData);
-    	if(jsonData.rou_ref_tot_path == null) {
-    		msgBox(me.MSGMessages.NOPATH);
-    		return;
-    	}
-    	
-    	if(jsonData.same_loc == 'Y') {
-    		msgBox(me.MSGMessages.SAMELOCATION);
-    		return;
-    	}
-    	
-    	var rouRefTotPath = jsonData.rou_ref_tot_path;
-    	var allRaceWay = rouRefTotPath.split('>');
-    	var lastRaceWay = allRaceWay[allRaceWay.length-1];
-    	var allEdges = currentCanvas.getAllEdges();
-    	
-    	/**
-    	 * í•˜ì´ë¼ì´íŠ¸ ëœ ëª¨ë“  ë ˆì´ìŠ¤ì›¨ì´ í•´ì œ
-    	 */
-    	allEdges.forEach(function(edge){
-    		me.unHighLightRaceway(edge);
-    	});
-    	
-    	allEdges.forEach(function(edge){
-    		for(var i=0; i<allRaceWay.length; i++) {
-    			if(i != 1 && edge.shape.data.race_ref_trayedm_no == allRaceWay[i]) {
-    				me.highLightRaceway(edge);
-    			}
-    		}
-    		var label = edge.shape.data.race_ref_trayedm_no;
-    		if(clickEventFrom == 'find') {
-	    		if(label == allRaceWay[1]) {
-	    			edge.shape.data['cable_list_seq'] = jsonData.cable_list_seq;
-	    			edge.shape.data['lastRaceWay'] = lastRaceWay;
-	    			me.onShowCableList(edge, 'fromGrid');
-	    		}
-    		} else {
-    			if(label == allRaceWay[1]) {
-    				me.highLightRaceway(edge, true);
-    			}
-    		}
-    	});
-    	
+        var me = this;
+        var currentCanvas = me.getCanvas();
+        console.log(jsonData);
+        if(jsonData.rou_ref_tot_path == null) {
+            msgBox(me.MSGMessages.NOPATH);
+            return;
+        }
+
+        if(jsonData.same_loc == 'Y') {
+            msgBox(me.MSGMessages.SAMELOCATION);
+            return;
+        }
+
+        var rouRefTotPath = jsonData.rou_ref_tot_path;
+        var allRaceWay = rouRefTotPath.split('>');
+        var lastRaceWay = allRaceWay[allRaceWay.length-1];
+        var allEdges = currentCanvas.getAllEdges();
+
+        /**
+         * ÇÏÀÌ¶óÀÌÆ® µÈ ¸ğµç ·¹ÀÌ½º¿şÀÌ ÇØÁ¦
+         */
+        allEdges.forEach(function(edge){
+            me.unHighLightRaceway(edge);
+        });
+
+        allEdges.forEach(function(edge){
+            for(var i=0; i<allRaceWay.length; i++) {
+                if(i != 1 && edge.shape.data.race_ref_trayedm_no == allRaceWay[i]) {
+                    me.highLightRaceway(edge);
+                }
+            }
+            var label = edge.shape.data.race_ref_trayedm_no;
+            if(clickEventFrom == 'find') {
+                if(label == allRaceWay[1]) {
+                    edge.shape.data['cable_list_seq'] = jsonData.cable_list_seq;
+                    edge.shape.data['lastRaceWay'] = lastRaceWay;
+                    me.onShowCableList(edge, 'fromGrid');
+                }
+            } else {
+                if(label == allRaceWay[1]) {
+                    me.highLightRaceway(edge, true);
+                }
+            }
+        });
+
     },
-    
+
     /**
-     * í•´ë‹¹ ë ˆì´ìŠ¤ì›¨ì´ë¥¼ ì§€ë‚˜ëŠ” ì¼€ì´ë¸” ë¦¬ìŠ¤íŠ¸ë¥¼ íŒì—…í•˜ê³ , ì¼€ì´ë¸” ì„ íƒì‹œ ë‹¤ë¥¸ ë¼ìš°íŠ¸ ê²½ë¡œë¥¼ ì„ íƒê°€ëŠ¥í•˜ê²Œ í•œë‹¤.
+     * ÇØ´ç ·¹ÀÌ½º¿şÀÌ¸¦ Áö³ª´Â ÄÉÀÌºí ¸®½ºÆ®¸¦ ÆË¾÷ÇÏ°í, ÄÉÀÌºí ¼±ÅÃ½Ã ´Ù¸¥ ¶ó¿ìÆ® °æ·Î¸¦ ¼±ÅÃ°¡´ÉÇÏ°Ô ÇÑ´Ù.
      * @param element
      */
     onShowCableList: function (element, from) {
         var me = this;
 
-        //ê¸°ì¡´ ëŒ€í™”ì¥ì´ ìˆì„ ê²½ìš° ì‚­ì œí•˜ë„ë¡ í•œë‹¤.
+        //±âÁ¸ ´ëÈ­ÀåÀÌ ÀÖÀ» °æ¿ì »èÁ¦ÇÏµµ·Ï ÇÑ´Ù.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         me.destroyCableDialog($('[name=' + dialogName + ']'));
 
-        //ë‹¤ì´ì–´ë¡œê·¸ ì°½ì„ ë„ìš´ë‹¤.
+        //´ÙÀÌ¾î·Î±× Ã¢À» ¶ç¿î´Ù.
         var dialog = me.createDialog(element, {
             title: 'Cables',
             height: 350,
@@ -2311,41 +2311,41 @@ Renderer.prototype = {
                 me.destroyCableDialog(dialog);
             }
         });
-        
+
         $('.noClose .ui-dialog-titlebar-close').css('display', 'none');
-        
-        //í•˜ì´ë¼ì´íŒ… ëœ íŒ¨ìŠ¤ ë¦¬ìŠ¤íŠ¸
+
+        //ÇÏÀÌ¶óÀÌÆÃ µÈ ÆĞ½º ¸®½ºÆ®
         var currentPath;
         me.highLightRaceway(element, true);
 
-        //ì¼€ì´ë¸” ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
+        //ÄÉÀÌºí µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Â´Ù.
         var cables = me.getCablesWithRaceway(element);
 
-        //íŒ¨ë„ì˜ ë„¤ì„ìŠ¤í˜ì´ìŠ¤
+        //ÆĞ³ÎÀÇ ³×ÀÓ½ºÆäÀÌ½º
         var panelName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG_TABLE;
         var panelId = me._CONTAINER_ID + element.id + me.Constants.PREFIX.DIALOG_TABLE;
 
 
-        //ì¼€ì´ë¸” ê·¸ë¦¬ë“œì˜ ë‚´ìš©ì„ êµ¬ì„±í•œë‹¤.
+        //ÄÉÀÌºí ±×¸®µåÀÇ ³»¿ëÀ» ±¸¼ºÇÑ´Ù.
         var adjustCables = [];
         var idx = 0;
         for (var i = 0; i < cables.length; i++) {
-        	var totalRaceWay = cables[i]['name'].split('>');
-        	var lastWay = totalRaceWay[totalRaceWay.length-1];
-        	if(from == 'fromGrid') {
-        		if(lastWay == element.shape.data.lastRaceWay) {
-        			cables[i]['name'] = 'Cable ' + idx + ' :' + cables[i]['realPath'];
-        			cables[i]['label'] = '<a href="#" name="item" data-index="' + idx + '">' + cables[i]['name'] + '</a>';
-        			adjustCables.push(cables[i]);
-        			idx++;
-        		}
-        	} else {
-        		cables[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + cables[i]['name'] + '</a>';
-        		adjustCables.push(cables[i]);
-        	}
+            var totalRaceWay = cables[i]['name'].split('>');
+            var lastWay = totalRaceWay[totalRaceWay.length-1];
+            if(from == 'fromGrid') {
+                if(lastWay == element.shape.data.lastRaceWay) {
+                    cables[i]['name'] = 'Cable ' + idx + ' :' + cables[i]['realPath'];
+                    cables[i]['label'] = '<a href="#" name="item" data-index="' + idx + '">' + cables[i]['name'] + '</a>';
+                    adjustCables.push(cables[i]);
+                    idx++;
+                }
+            } else {
+                cables[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + cables[i]['name'] + '</a>';
+                adjustCables.push(cables[i]);
+            }
         }
-        
-        
+
+
         var gridOptions = {
             data: adjustCables,
             columns: [
@@ -2363,28 +2363,28 @@ Renderer.prototype = {
             scrollCollapse: true,
         };
 
-        
-        //ëŒ€í™”ì°½ì— ê·¸ë¦¬ë“œë¥¼ ì‚½ì…í•œë‹¤.
+
+        //´ëÈ­Ã¢¿¡ ±×¸®µå¸¦ »ğÀÔÇÑ´Ù.
         var panel = $('<table></table>');
         panel.attr('name', panelName);
         panel.attr('id', panelId);
         panel.css('font-size', me._CONFIG.DEFAULT_SIZE.GRID_FONT);
         panel.css('width', '100%');
         panel.addClass('display').addClass('gridTable').addClass('cell-border').addClass('table').addClass('table-bordered').addClass('table-hover');
-        
+
         dialog.append(panel);
         if(from == 'fromGrid') {
-	        //ëŒ€í™”ì°½ì— ë²„íŠ¼ì„ ì‚½ì…í•œë‹¤.
-	        var alternativeBtn = $('<button class="btn btn-primary noClick" type="button" id="altRaceWayApply" style="margin-left:195px">Apply</button>');
-	        dialog.append(alternativeBtn);
-	
-	        var cancelBtn = $('<button class="btn btn-white" type="button" id="cablesDClose" style="left:120px">Cancel</button>');
-	        dialog.append(cancelBtn);
+            //´ëÈ­Ã¢¿¡ ¹öÆ°À» »ğÀÔÇÑ´Ù.
+            var alternativeBtn = $('<button class="btn btn-primary noClick" type="button" id="altRaceWayApply" style="margin-left:195px">Apply</button>');
+            dialog.append(alternativeBtn);
+
+            var cancelBtn = $('<button class="btn btn-white" type="button" id="cablesDClose" style="left:120px">Cancel</button>');
+            dialog.append(cancelBtn);
         } else {
-        	var cancelBtn = $('<button class="btn btn-white" type="button" id="cablesDClose" style="margin-left:225px">Close</button>');
-	        dialog.append(cancelBtn);
+            var cancelBtn = $('<button class="btn btn-white" type="button" id="cablesDClose" style="margin-left:225px">Close</button>');
+            dialog.append(cancelBtn);
         }
-        
+
         if (!panel.data('table')) {
             panel.data('table', true);
             panel.DataTable(gridOptions);
@@ -2392,23 +2392,23 @@ Renderer.prototype = {
         }
 
         $("#altRaceWayApply").click(function(event){
-        	if($(this).hasClass('noClick')){
-        		msgBox(me.MSGMessages.SELECTRACEWAY);
-        		return;
-        	}
+            if($(this).hasClass('noClick')){
+                msgBox(me.MSGMessages.SELECTRACEWAY);
+                return;
+            }
         });
-        
+
         $("#cablesDClose").click(function(event){
-        	$(this).remove();
-        	dialog.dialog( "close" );
+            $(this).remove();
+            dialog.dialog( "close" );
         });
-        
+
         var gridPanelDiv = $('#' + panelId + '_wrapper');
 
         /**
-         * ì¼€ì´ë¸” í´ë¦­ì‹œ í•´ë‹¹ ì¼€ì´ë¸”ì˜ íŒ¨ìŠ¤ë¥¼ ë°”íƒ•ìœ¼ë¡œ ë ˆì´ìŠ¤ì›¨ì´ë¥¼ í•˜ì´ë¼ì´íŠ¸ ì²˜ë¦¬í•˜ê³ , ë³€ê²½ ë²„íŠ¼ì„ í™œì„±í™”í•œë‹¤.
-         * ë³€ê²½ ë²„íŠ¼ì„ í´ë¦­ì‹œ ê·¸ë¦¬ë“œì˜ ë‚´ìš©ì´ ì¼€ì´ë¸”ì´ ì§€ë‚˜ê°ˆ ìˆ˜ ìˆëŠ” ë³€ê²½ê°€ëŠ¥í•œ ë¼ìš°íŠ¸ ë¦¬ìŠ¤íŠ¸ë¡œ ì „í™˜íšë‹¤.
-         * ë³€ê²½ê°€ëŠ¥í•œ ë¼ìš°íŠ¸ ë¦¬ìŠ¤íŠ¸ë¥¼ ì„ íƒí•˜ë©´ ì¼€ì´ë¸”ì— ì ìš©.
+         * ÄÉÀÌºí Å¬¸¯½Ã ÇØ´ç ÄÉÀÌºíÀÇ ÆĞ½º¸¦ ¹ÙÅÁÀ¸·Î ·¹ÀÌ½º¿şÀÌ¸¦ ÇÏÀÌ¶óÀÌÆ® Ã³¸®ÇÏ°í, º¯°æ ¹öÆ°À» È°¼ºÈ­ÇÑ´Ù.
+         * º¯°æ ¹öÆ°À» Å¬¸¯½Ã ±×¸®µåÀÇ ³»¿ëÀÌ ÄÉÀÌºíÀÌ Áö³ª°¥ ¼ö ÀÖ´Â º¯°æ°¡´ÉÇÑ ¶ó¿ìÆ® ¸®½ºÆ®·Î ÀüÈ¯Èº´Ù.
+         * º¯°æ°¡´ÉÇÑ ¶ó¿ìÆ® ¸®½ºÆ®¸¦ ¼±ÅÃÇÏ¸é ÄÉÀÌºí¿¡ Àû¿ë.
          * @param item
          * @param itemData
          */
@@ -2417,48 +2417,48 @@ Renderer.prototype = {
             item.click(function (event) {
                 event.stopPropagation();
                 var racewaysFromPath;
-                
-            	var allEdges = me.getCanvas().getAllEdges();
-            	
-            	/**
-            	 * í•˜ì´ë¼ì´íŠ¸ ëœ ëª¨ë“  ë ˆì´ìŠ¤ì›¨ì´ í•´ì œ
-            	 */
-            	allEdges.forEach(function(edge){
-            		me.unHighLightRaceway(edge);
-            	});
+
+                var allEdges = me.getCanvas().getAllEdges();
+
+                /**
+                 * ÇÏÀÌ¶óÀÌÆ® µÈ ¸ğµç ·¹ÀÌ½º¿şÀÌ ÇØÁ¦
+                 */
+                allEdges.forEach(function(edge){
+                    me.unHighLightRaceway(edge);
+                });
 
                 currentPath = itemData['path'];
                 racewaysFromPath = me.getRacewaysFromPath(currentPath);
                 var racewaysLength = 0;
                 for (var i = 0; i < racewaysFromPath.length; i++) {
-                	racewaysLength = racewaysLength + Number(racewaysFromPath[i].shape.data.race_ref_len);
+                    racewaysLength = racewaysLength + Number(racewaysFromPath[i].shape.data.race_ref_len);
                     if (racewaysFromPath[i].id == element.id) {
                         me.highLightRaceway(racewaysFromPath[i], true);
                     } else {
                         me.highLightRaceway(racewaysFromPath[i]);
                     }
                 }
-                
+
                 itemData['totalLength'] = racewaysLength + Number(itemData.fromPointLen) + Number(itemData.toPointLen);
-                //ì–´í”Œë¼ì´ ë²„íŠ¼ í´ë¦­ ì´ë²¤íŠ¸ë¥¼ ì²˜ë¦¬í•œë‹¤.
+                //¾îÇÃ¶óÀÌ ¹öÆ° Å¬¸¯ ÀÌº¥Æ®¸¦ Ã³¸®ÇÑ´Ù.
                 if(from != null) {
-	                alternativeBtn.removeClass('noClick');
-	                alternativeBtn.unbind('click');
-	                alternativeBtn.bind('click', function () {
-	                	console.log(itemData);
-	                	var updateCableData = {};
-	                	updateCableData['cable_list_seq'] = element.shape.data.cable_list_seq;
-	                	updateCableData['rou_ref_tot_path'] = itemData.realPath;
-	                	updateCableData['rou_ref_tot_len'] = itemData.totalLength;
-	                	var returnData = parent.updateCablePath(updateCableData);
-	                	if(returnData == '0') {
-	                		me._CONTROLLER.renderGrid(me._CONTROLLER.model.CableReferenceList.name);
-	                		$(this).remove();
-	                    	dialog.dialog( "close" );
-	                    	msgBox(me.MSGMessages.SAVEMSG);
-	                        setTimeout(msgBoxClose, 1000);
-	                	}
-	                });
+                    alternativeBtn.removeClass('noClick');
+                    alternativeBtn.unbind('click');
+                    alternativeBtn.bind('click', function () {
+                        console.log(itemData);
+                        var updateCableData = {};
+                        updateCableData['cable_list_seq'] = element.shape.data.cable_list_seq;
+                        updateCableData['rou_ref_tot_path'] = itemData.realPath;
+                        updateCableData['rou_ref_tot_len'] = itemData.totalLength;
+                        var returnData = parent.updateCablePath(updateCableData);
+                        if(returnData == '0') {
+                            me._CONTROLLER.renderGrid(me._CONTROLLER.model.CableReferenceList.name);
+                            $(this).remove();
+                            dialog.dialog( "close" );
+                            msgBox(me.MSGMessages.SAVEMSG);
+                            setTimeout(msgBoxClose, 1000);
+                        }
+                    });
                 }
             });
         };
@@ -2480,13 +2480,13 @@ Renderer.prototype = {
         dataTable.clear();
         dataTable.rows.add(adjustCables);
         dataTable.draw();
-    	$(".dataTables_paginate").find('a').css("font-size", "11px");
-    	panel.on('draw.dt', function () {
-    		$(".dataTables_paginate").find('a').css("font-size", "11px");
-    	});
+        $(".dataTables_paginate").find('a').css("font-size", "11px");
+        panel.on('draw.dt', function () {
+            $(".dataTables_paginate").find('a').css("font-size", "11px");
+        });
     },
     /**
-     * í•´ë‹¹ ë ˆì´ìŠ¤ì›¨ì´ë¥¼ ì§€ë‚˜ëŠ” ì¼€ì´ë¸” ë¦¬ìŠ¤íŠ¸ë¥¼ êµ¬í•œë‹¤.
+     * ÇØ´ç ·¹ÀÌ½º¿şÀÌ¸¦ Áö³ª´Â ÄÉÀÌºí ¸®½ºÆ®¸¦ ±¸ÇÑ´Ù.
      * @param element
      * @returns {Array}
      */
@@ -2516,7 +2516,7 @@ Renderer.prototype = {
             return isExclude;
         };
         var findEndLocation = function (element, excludeElement, paths, fromTo) {
-            //ì£¼ì–´ì§„ ë„í˜•ì´ Location ì¼ ê²½ìš° fromPaths ë˜ëŠ” toPaths ì— ì¶”ê°€í•œ í›„ ì¢…ë£Œí•œë‹¤.
+            //ÁÖ¾îÁø µµÇüÀÌ Location ÀÏ °æ¿ì fromPaths ¶Ç´Â toPaths ¿¡ Ãß°¡ÇÑ ÈÄ Á¾·áÇÑ´Ù.
             if (element.shape instanceof OG.Location) {
                 if (fromTo == 'from') {
                     fromPaths.push(paths);
@@ -2526,11 +2526,11 @@ Renderer.prototype = {
                 return;
             }
 
-            //ì£¼ì–´ì§„ ë„í˜•ì— ì—°ê²°ëœ ë„í˜•ë“¤ì„ ì°¾ëŠ”ë‹¤.
+            //ÁÖ¾îÁø µµÇü¿¡ ¿¬°áµÈ µµÇüµéÀ» Ã£´Â´Ù.
             var prevShapes = me.canvas.getPrevShapes(element);
             var nextShapes = me.canvas.getNextShapes(element);
 
-            //ì—°ê²°ëœ ë„í˜•ì¤‘ excludeElement(íŒŒìƒë˜ì–´ ì˜¨ ë„í˜•) ì„ ì œì™¸í•˜ê³ , paths ì¤‘ ì¤‘ë³µë˜ëŠ” ê²ƒ ë˜í•œ íŒŒê¸°í•œë‹¤.
+            //¿¬°áµÈ µµÇüÁß excludeElement(ÆÄ»ıµÇ¾î ¿Â µµÇü) À» Á¦¿ÜÇÏ°í, paths Áß Áßº¹µÇ´Â °Í ¶ÇÇÑ ÆÄ±âÇÑ´Ù.
             var relatedShapes = [];
             for (var i = 0; i < prevShapes.length; i++) {
                 if (!isExcludeLocation(prevShapes[i], excludeElement, paths)) {
@@ -2543,11 +2543,11 @@ Renderer.prototype = {
                 }
             }
             for (var i = 0; i < relatedShapes.length; i++) {
-                //paths ì— ì¶”ê°€í•œë‹¤.
+                //paths ¿¡ Ãß°¡ÇÑ´Ù.
                 var newPath = JSON.parse(JSON.stringify(paths));
                 newPath.push(relatedShapes[i].id);
 
-                //ì—°ê²°ëœ ë„í˜•ì´ Location ì¼ ê²½ìš° fromPaths ë˜ëŠ” toPaths ì— ì¶”ê°€í•œ í›„ ì¢…ë£Œí•œë‹¤.
+                //¿¬°áµÈ µµÇüÀÌ Location ÀÏ °æ¿ì fromPaths ¶Ç´Â toPaths ¿¡ Ãß°¡ÇÑ ÈÄ Á¾·áÇÑ´Ù.
                 if (relatedShapes[i].shape instanceof OG.Location) {
                     if (fromTo == 'from') {
                         fromPaths.push(newPath);
@@ -2563,7 +2563,7 @@ Renderer.prototype = {
         findEndLocation(to, from, [to.id], 'to');
 
         var fromPath, toPath, concatPath, fromLocation, toLocation;
-        //fromPaths,toPaths ë¥¼ í•˜ë‚˜ì˜ íŒ¨ìŠ¤ë¡œ ì—°ê²°í•œë‹¤. ì´ë•Œ location ì´ ê°™ì€ ê²ƒì€ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì œì™¸í•œë‹¤.
+        //fromPaths,toPaths ¸¦ ÇÏ³ªÀÇ ÆĞ½º·Î ¿¬°áÇÑ´Ù. ÀÌ¶§ location ÀÌ °°Àº °ÍÀº ¸®½ºÆ®¿¡¼­ Á¦¿ÜÇÑ´Ù.
         for (var i = 0, leni = fromPaths.length; i < leni; i++) {
             fromPath = fromPaths[i];
             fromPath.reverse();
@@ -2579,7 +2579,7 @@ Renderer.prototype = {
         }
 
         /**
-         * ë¼ìš°íŠ¸ ë°ì´í„° ë§Œë“¤ê¸°
+         * ¶ó¿ìÆ® µ¥ÀÌÅÍ ¸¸µé±â
          */
         var data = [];
         for (var i = 0, leni = routes.length; i < leni; i++) {
@@ -2589,7 +2589,7 @@ Renderer.prototype = {
             var fromPointLength = 0;
             var toPointLength = 0;
             for (var c = 0, lenc = routes[i].length; c < lenc; c++) {
-                //ì²˜ìŒ ë˜ëŠ” ë(ë¡œì¼€ì´ì…˜) ì´ë¼ë©´
+                //Ã³À½ ¶Ç´Â ³¡(·ÎÄÉÀÌ¼Ç) ÀÌ¶ó¸é
                 if (c == 0 || c == lenc - 1) {
                     var locationId = routes[i][c];
                     var location = me.canvas.getElementById(locationId);
@@ -2607,41 +2607,41 @@ Renderer.prototype = {
                     }
                 }
             }
-            //ì‹œì‘, ë ë¡œì¼€ì´ì…˜ì´ ëª¨ë‘ ë¹Œë”© ì•ˆì— ì†í•´ìˆë‹¤ë©´
+            //½ÃÀÛ, ³¡ ·ÎÄÉÀÌ¼ÇÀÌ ¸ğµÎ ºôµù ¾È¿¡ ¼ÓÇØÀÖ´Ù¸é
             if (fromBLDG && toBLDG) {
                 routeData['path'] = routes[i];
-                
+
                 var realRoutePaths = [];
-                
+
                 var routeList = routes[i];
-                
+
                 for(var t=0; t<routeList.length; t++) {
-                	if(t==0) {
-                		realRoutePaths.push(me.canvas.getElementById(routeList[t]).shape.data.loc_ref_name_to);
-                	} else if( t > 0) {
-                		var setRoutePath = me.canvas.getElementById(routeList[t-1]).shape.data.loc_ref_name_to + me.canvas.getElementById(routeList[t]).shape.data.loc_ref_name_to;
-                		realRoutePaths.push(setRoutePath);
-                		if(t == routeList.length -1) {
-                			setRoutePath = me.canvas.getElementById(routeList[t]).shape.data.loc_ref_name_to;
-                			realRoutePaths.push(setRoutePath);
-                		}
-                	}
-                	
+                    if(t==0) {
+                        realRoutePaths.push(me.canvas.getElementById(routeList[t]).shape.data.loc_ref_name_to);
+                    } else if( t > 0) {
+                        var setRoutePath = me.canvas.getElementById(routeList[t-1]).shape.data.loc_ref_name_to + me.canvas.getElementById(routeList[t]).shape.data.loc_ref_name_to;
+                        realRoutePaths.push(setRoutePath);
+                        if(t == routeList.length -1) {
+                            setRoutePath = me.canvas.getElementById(routeList[t]).shape.data.loc_ref_name_to;
+                            realRoutePaths.push(setRoutePath);
+                        }
+                    }
+
                 }
 
                 var realRoutePath = '';
                 realRoutePaths.forEach(function(path, index){
-                	if(index == 0) {
-                		realRoutePath = fromBLDG + path;
-                	} else if(index > 0) {
-                		if(index == realRoutePaths.length-1) {
-                			realRoutePath = realRoutePath + '>' + path + toBLDG;
-                		} else {
-                			realRoutePath = realRoutePath + '>' + path;
-                		}
-                	}
+                    if(index == 0) {
+                        realRoutePath = fromBLDG + path;
+                    } else if(index > 0) {
+                        if(index == realRoutePaths.length-1) {
+                            realRoutePath = realRoutePath + '>' + path + toBLDG;
+                        } else {
+                            realRoutePath = realRoutePath + '>' + path;
+                        }
+                    }
                 });
-                
+
                 routeData['realPath'] = realRoutePath;
                 routeData['from'] = fromBLDG;
                 routeData['fromPointLen'] = fromPointLength;
