@@ -24,27 +24,27 @@
     <meta name="Distribution" content="Global"/>
 
     <!-- Summer Note -->
-    <link href="/resources/css/plugins/summernote/summernote.css" rel="stylesheet">
-    <link href="/resources/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <link href="./resources/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="./resources/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 
-    <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="./resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./resources/font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <link href="/resources/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="./resources/css/plugins/iCheck/custom.css" rel="stylesheet">
 
-    <link href="/resources/css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet">
+    <link href="./resources/css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet">
 
     <!-- Toastr style -->
-    <link href="/resources/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="./resources/css/plugins/toastr/toastr.min.css" rel="stylesheet">
 
     <!-- Gritter -->
-    <link href="/resources/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+    <link href="./resources/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
 
-    <link href="/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="./resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 
     <!-- Jquery -->
     <script type="text/javascript" src="lib/jquery-1.11.1/jquery-1.11.1.min.js"></script>
-    <!--<script src="/resources/js/jquery-2.1.1.js"></script>-->
+    <!--<script src="./resources/js/jquery-2.1.1.js"></script>-->
 
     <!-- jquery-ui, jquery.contextmenu -->
     <link rel="stylesheet" type="text/css"
@@ -57,11 +57,13 @@
 
     <!-- data table -->
     <link rel="stylesheet" href="resources/js/plugins/datatable/datatables.css">
+    <!--     <link rel="stylesheet" href="resources/js/plugins/datatable/fixedColumns.dataTables.min.css"> -->
     <script type="text/javascript" src="resources/js/plugins/datatable/datatables.js"></script>
-
+    <script type="text/javascript" src="resources/js/plugins/datatable/dataTables.fixedColumns.min.js"></script>
+    <script type="text/javascript" src="resources/js/plugins/datatable/dataTables.fixedHeader.min.js"></script>
     <!-- ajax 호출 UI 블락커 && 커스터마이징 -->
-    <script type="text/javascript" src="/resources/js/plugins/blockUI/blockUI.js"></script>
-    <script type="text/javascript" src="/resources/js/plugins/blockUI/blockUIcustom.js"></script>
+    <script type="text/javascript" src="./resources/js/plugins/blockUI/blockUI.js"></script>
+    <script type="text/javascript" src="./resources/js/plugins/blockUI/blockUIcustom.js"></script>
 
     <!-- libs -->
     <script type="text/javascript" src="lib/jqueryXML2JSON/jquery.xml2json.js"></script>
@@ -71,11 +73,11 @@
     <script type="text/javascript" src="lib/jstree/jstree.js"></script>
 
     <!-- IE scrollbar -->
-    <link href="/resources/css/ie-scrollbar.css" rel="stylesheet">
+    <link href="./resources/css/ie-scrollbar.css" rel="stylesheet">
 
-    <link href="/resources/css/animate.css" rel="stylesheet">
-    <link href="/resources/css/style.css" rel="stylesheet">
-    <link href="/resources/css/custom.css" rel="stylesheet">
+    <link href="./resources/css/animate.css" rel="stylesheet">
+    <link href="./resources/css/style.css" rel="stylesheet">
+    <link href="./resources/css/custom.css" rel="stylesheet">
 
 </head>
 
@@ -165,13 +167,22 @@
             }
         };
 
-        if (window.Worker) {
-            var worker = new Worker("doosan/drawSwitchAndLoad.js");
+        function cssDialogDefineOpenModal() {
+            $('.ui-dialog').addClass('ui-dialog-remove');
+            $('.ui-dialog-remove').removeClass('ui-dialog');
         }
+
+        function cssDialogDefineCloseModal() {
+            $('.ui-dialog-remove').addClass('ui-dialog');
+            $('.ui-dialog').removeClass('ui-dialog-remove');
+        }
+
         var msgBox = function (message, obj) {
+            cssDialogDefineOpenModal();
             var box = $('#messageBox');
             box.find('[name=content]').html(message);
             box.find('[name=close]').click(function () {
+                cssDialogDefineCloseModal();
                 box.find('.close').click();
                 if (obj) {
                     obj.focus();
@@ -182,15 +193,18 @@
             });
         };
         var confirmBox = function (message, callback) {
+            cssDialogDefineOpenModal();
             var box = $('#confirmBox');
             box.find('[name=content]').html(message);
             box.find('[name=close]').unbind('click');
             box.find('[name=continue]').unbind('click');
             box.find('[name=close]').click(function () {
+                cssDialogDefineCloseModal();
                 box.find('.close').click();
                 callback(false);
             });
             box.find('[name=continue]').click(function () {
+                cssDialogDefineCloseModal();
                 box.find('.close').click();
                 callback(true);
             });
@@ -199,14 +213,17 @@
             });
         };
         $(function () {
+
             $('#logoutbtn').click(function () {
                 $('#logoutform').submit();
             });
             $('#messageBox').find('[name=close]').click(function () {
+                cssDialogDefineCloseModal();
                 $('#messageBox').find('.close').click();
             });
         });
         var msgBoxClose = function () {
+            cssDialogDefineCloseModal();
             $('#messageBox').find('.close').click();
         }
 
@@ -287,26 +304,26 @@
 
                             <input style="display: none" type="file" id="backdoor-upload">
 
-                            <div class="pull-right" style="margin-left: 5px">
-                                <button class="dropdown-toggle btn btn-default btn-sm" data-toggle="dropdown" href="#"
-                                        id="editor-util"><i
-                                        class="fa fa-search-minus"></i> Utils
-                                </button>
-                                <ul class="dropdown-menu dropdown-user" id="editor-util-menu">
-                                    <li id="menu-printJson">
-                                        <a name="menu-printJson">Print Json</a>
-                                    </li>
-                                    <li id="menu-printXml">
-                                        <a name="menu-printXml">Print Xml</a>
-                                    </li>
-                                    <li id="menu-loadJson">
-                                        <a name="menu-loadJson">Load Json</a>
-                                    </li>
-                                    <li id="menu-loadXml">
-                                        <a name="menu-loadXml">Load Xml</a>
-                                    </li>
-                                </ul>
-                            </div>
+                            <!--                             <div class="pull-right" style="margin-left: 5px"> -->
+                            <!--                                 <button class="dropdown-toggle btn btn-default btn-sm" data-toggle="dropdown" href="#" -->
+                            <!--                                         id="editor-util"><i -->
+                            <!--                                         class="fa fa-search-minus"></i> Utils -->
+                            <!--                                 </button> -->
+                            <!--                                 <ul class="dropdown-menu dropdown-user" id="editor-util-menu"> -->
+                            <!--                                     <li id="menu-printJson"> -->
+                            <!--                                         <a name="menu-printJson">Print Json</a> -->
+                            <!--                                     </li> -->
+                            <!--                                     <li id="menu-printXml"> -->
+                            <!--                                         <a name="menu-printXml">Print Xml</a> -->
+                            <!--                                     </li> -->
+                            <!--                                     <li id="menu-loadJson"> -->
+                            <!--                                         <a name="menu-loadJson">Load Json</a> -->
+                            <!--                                     </li> -->
+                            <!--                                     <li id="menu-loadXml"> -->
+                            <!--                                         <a name="menu-loadXml">Load Xml</a> -->
+                            <!--                                     </li> -->
+                            <!--                                 </ul> -->
+                            <!--                             </div> -->
                         </div>
 
                         <br>
@@ -353,15 +370,20 @@
                             <div class="tab-content">
                                 <!--스위치 리스트 패널-->
                                 <div class="tab-pane fade in" id="swgr">
+                                    <div class="form-group col-md-8">
+                                        <button class="btn btn-xs rounded btn-default" id="newSwgr" type="button" style="margin-top: 12px;">
+                                            <i class="fa fa-plus"></i> New SWGR
+                                        </button>
+                                    </div>
                                     <div class="col-md-12">
-                                        <table id="swgrGrid" class="table table-bordered table-hover display gridTable cell-border" width="100%"></table>
+                                        <table id="swgrGrid" class="table table-bordered order-column table-hover display gridTable cell-border" width="100%"></table>
                                     </div>
                                 </div>
 
                                 <!--로드 리스트 패널-->
                                 <div class="tab-pane fade in" id="load">
                                     <div class="col-md-12">
-                                        <table id="unAssignedLoadGrid" class="table table-bordered table-hover display gridTable cell-border"
+                                        <table id="unAssignedLoadGrid" class="table table-bordered row-border order-column table-hover display gridTable cell-border"
                                                width="100%"></table>
                                     </div>
                                 </div>
@@ -371,7 +393,7 @@
                                     <div class="tabs-container margin-top-5">
                                         <ul class="nav nav-tabs">
                                             <li class="active" style="width: 50%;"><a href="#AssignedFeederSwgr"
-                                                                                      data-toggle="tab">Assigned(Swgr)</a>
+                                                                                      data-toggle="tab">Assigned(SWGR)</a>
                                             </li>
                                             <li style="width: 50%;"><a href="#AssignedFeeder" data-toggle="tab">Assigned(All)</a>
                                             </li>
@@ -381,14 +403,14 @@
                                             <!--피더 스위치 리스트 패널-->
                                             <div class="tab-pane fade in active" id="AssignedFeederSwgr">
                                                 <div class="col-md-12">
-                                                    <table id="feederGrid" class="table table-bordered table-hover display gridTable cell-border"
+                                                    <table id="feederGrid" class="table table-bordered order-column table-hover display gridTable cell-border"
                                                            width="100%"></table>
                                                 </div>
                                             </div>
 
                                             <!--피더 리스트 트리 패널-->
                                             <div class="tab-pane fade in" id="AssignedFeeder">
-                                                <div class="col-md-12">
+                                                <div class="col-md-12" style="padding: 20px 20px; overflow: auto; height:783px;">
                                                     <div id="AssignedFeederTree">
                                                     </div>
                                                 </div>
@@ -419,13 +441,13 @@
                                 <!--피더 리스트 패널-->
                                 <div class="tab-pane fade in" id="hierarchy-feeder">
                                     <div class="col-md-12">
-                                        <table id="hierarchy-feederGrid" class="table table-bordered table-hover display gridTable cell-border" width="100%"></table>
+                                        <table id="hierarchy-feederGrid" class="table table-bordered order-column table-hover display gridTable cell-border" width="100%"></table>
                                     </div>
                                 </div>
 
                                 <!--하이어라키 리스트 패널-->
                                 <div class="tab-pane fade in active" id="hierarchy">
-                                    <div class="col-md-12">
+                                    <div class="col-md-12" style="padding: 20px 20px; overflow: auto; height:783px;">
                                         <div id="hierarchyTree">
                                         </div>
                                     </div>
@@ -442,8 +464,8 @@
                     <div class="ibox-content padding-no">
                         <div class="tabs-container">
                             <ul class="nav nav-tabs">
-                                <li class="active"><a data-toggle="tab" href="#location"
-                                                      aria-expanded="true">Location</a>
+                                <li class="active"  id="locationParentTab"><a data-toggle="tab" href="#location"
+                                                                              aria-expanded="true">Location</a>
                                 </li>
                                 <li class="" id="routeParentTab"><a data-toggle="tab" href="#route"
                                                                     aria-expanded="true">Route</a>
@@ -470,13 +492,13 @@
                                                         <i class="fa fa-plus"></i> Drag New Point
                                                     </div>
                                                 </div>
-                                                <div class="form-group col-md-7">
+                                                <div class="form-group col-md-7" style="margin-left:-60px">
                                                     <div class="btn btn-xs rounded btn-default" id="newManhole" type="button">
                                                         <i class="fa fa-plus"></i> Drag New Manhole
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <table id="bldgRefGrid" class="table table-bordered table-hover display gridTable cell-border"
+                                                    <table id="bldgRefGrid" class="table order-column table-bordered table-hover display gridTable cell-border"
                                                            width="100%"></table>
                                                 </div>
                                             </div>
@@ -484,7 +506,7 @@
                                             <!--레이스웨이 레퍼런스 리스트-->
                                             <div class="tab-pane fade in" id="racewayRef">
                                                 <div class="col-md-12">
-                                                    <table id="racewayRefGrid" class="table table-bordered table-hover display gridTable cell-border"
+                                                    <table id="racewayRefGrid" class="table order-column table-bordered table-hover display gridTable cell-border"
                                                            width="100%"></table>
                                                 </div>
                                             </div>
@@ -507,7 +529,7 @@
                                             <!--라우트 레퍼런스(레이스 웨이를 지나가는 패스) 리스트-->
                                             <div class="tab-pane fade in active" id="routeRef">
                                                 <div class="col-md-12">
-                                                    <table id="routeRefGrid" class="table table-bordered table-hover display gridTable cell-border"
+                                                    <table id="routeRefGrid" class="table order-column table-bordered table-hover display gridTable cell-border"
                                                            width="100%"></table>
                                                 </div>
                                             </div>
@@ -515,7 +537,7 @@
                                             <!--케이블 레퍼런스(라우트 레퍼런스에 실제 깔리는 케이블) 리스트-->
                                             <div class="tab-pane fade in" id="cableRef">
                                                 <div class="col-md-12">
-                                                    <table id="cableRefGrid" class="table table-bordered table-hover display gridTable cell-border"
+                                                    <table id="cableRefGrid" class="table order-column table-bordered table-hover display gridTable cell-border"
                                                            width="100%"></table>
                                                 </div>
                                             </div>
@@ -537,11 +559,11 @@
         <tbody>
         <tr>
             <th>Length</th>
-            <td><input type="text" name="locationLength" class="locationLength inputHighlight"/></td>
+            <td><input type="text" name="locationLength" class="locationLength inputHighlight" style="text-align: right;"/></td>
         </tr>
         <tr>
             <th>Temp</th>
-            <td><input type="text" name="locationTemp" class="locationTemp inputHighlight"/></td>
+            <td><input type="text" name="locationTemp" class="locationTemp inputHighlight" style="text-align: right;"/></td>
         </tr>
         <tr>
             <th>Remark</th>
@@ -577,11 +599,11 @@
         </tr>
         <tr>
             <th>Length</th>
-            <td><input type="text" name="raceWayLength" class="raceWayLength inputHighlight"/></td>
+            <td><input type="text" name="raceWayLength" class="raceWayLength inputHighlight" style="text-align: right;"/></td>
         </tr>
         <tr>
             <th>Temp</th>
-            <td><input type="text" name="raceWayTemp" class="raceWayTemp inputHighlight"/></td>
+            <td><input type="text" name="raceWayTemp" class="raceWayTemp inputHighlight" style="text-align: right;"/></td>
         </tr>
         <tr>
             <th>Method of Installation</th>
@@ -600,26 +622,27 @@
 </div>
 
 <!-- Mainly scripts -->
-<script src="/resources/js/bootstrap.min.js"></script>
-<script src="/resources/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="/resources/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="./resources/js/bootstrap.min.js"></script>
+<script src="./resources/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="./resources/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
 <!-- Flot -->
-<script src="/resources/js/plugins/flot/jquery.flot.js"></script>
-<script src="/resources/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-<script src="/resources/js/plugins/flot/jquery.flot.spline.js"></script>
-<script src="/resources/js/plugins/flot/jquery.flot.resize.js"></script>
-<script src="/resources/js/plugins/flot/jquery.flot.pie.js"></script>
-<script src="/resources/js/plugins/flot/jquery.flot.symbol.js"></script>
-<script src="/resources/js/plugins/flot/jquery.flot.time.js"></script>
+<script src="./resources/js/plugins/flot/jquery.flot.js"></script>
+<script src="./resources/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<script src="./resources/js/plugins/flot/jquery.flot.spline.js"></script>
+<script src="./resources/js/plugins/flot/jquery.flot.resize.js"></script>
+<script src="./resources/js/plugins/flot/jquery.flot.pie.js"></script>
+<script src="./resources/js/plugins/flot/jquery.flot.symbol.js"></script>
+<script src="./resources/js/plugins/flot/jquery.flot.time.js"></script>
 
 
 <!-- Custom and plugin javascript -->
-<script src="/resources/js/inspinia.js"></script>
-<script src="/resources/js/plugins/pace/pace.min.js"></script>
+<script src="./resources/js/inspinia.js"></script>
+<link href="./resources/js/plugins/pace/pace.css" rel="stylesheet">
+<script src="./resources/js/plugins/pace/pace.min.js"></script>
 
 <!-- Toastr -->
-<script src="/resources/js/plugins/toastr/toastr.min.js"></script>
+<script src="./resources/js/plugins/toastr/toastr.min.js"></script>
 
 <!--OpenGraph-->
 <script type="text/javascript" src="lib/opengraph/OpenGraph-0.1.2-SNAPSHOT.js"></script>
