@@ -1780,7 +1780,7 @@ ViewContorller.prototype = {
                             }
                             gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
                             gridData[i]['model'] = model;
-                            gridData[i]['label'] = '<a href="javascript:parent.editSWGRInfo(\''+ gridData[i]['swgr_list_seq']+'\', \'' + gridData[i]['swgr_maker_seq'] + '\', ' + me.editSWGRInfoCallBack + ');void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
+                            gridData[i]['label'] = '<a href="javascript:void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
                         }
                     }
                     greedOptions = {
@@ -1840,7 +1840,7 @@ ViewContorller.prototype = {
                             gridData[i]['shapeType'] = me.Constants.TYPE.MODIFY_FEEDER;
                             gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
                             gridData[i]['model'] = model;
-                            gridData[i]['label'] = '<a href="javascript:parent.showSWGRInfo(\''+ gridData[i]['swgr_list_seq']+'\');void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
+                            gridData[i]['label'] = '<a href="javascript:void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
                         }
                     }
                     greedOptions = {
@@ -1898,7 +1898,7 @@ ViewContorller.prototype = {
                             gridData[i]['shapeType'] = me.Constants.TYPE.HIERARCHY_FEEDER;
                             gridData[i]['shapeLabel'] = gridData[i]['swgr_name'];
                             gridData[i]['model'] = model;
-                            gridData[i]['label'] = '<a href="javascript:parent.showSWGRInfo(\''+ gridData[i]['swgr_seq']+'\');void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
+                            gridData[i]['label'] = '<a href="javascript:void(0)" name="item" data-index="' + i + '" style="margin-left: 5px;margin-right: 5px;">' + gridData[i]['swgr_name'] + '</a>';
                         }
                     }
                     greedOptions = {
