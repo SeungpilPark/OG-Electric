@@ -1146,7 +1146,6 @@ DataController.prototype = {
      * Route 저장 함수
      */
     saveRoute: function(controller) {
-    	console.log(parent.getLocationList());
     	var mode = controller.getCurrentMode();
         var renderer = controller.getRendererByMode(mode);
         var currentCanvas = renderer.getCanvas();
