@@ -430,7 +430,17 @@ Renderer.prototype = {
     		try{
     			dataInfo = parent.getFeederSWGRTree();
     		} catch(e) {
-    			dataInfo = [];
+                $.ajax({
+                    url: 'doosan/data/hierarchy-list.json',
+                    dataType: 'json',
+                    async:false,
+                    success: function (data) {
+                       dataInfo = data;
+                    },
+                    error: function (err) {
+                        dataInfo = [];
+                    }
+                });
     		}
     		
     		/**
