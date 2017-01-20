@@ -736,7 +736,7 @@ ViewContorller.prototype = {
         me.renderSwgrSelectBox();
         me.renderGrid(me.model.FeederList.name);
         me.renderGrid(me.model.UnAssignedLoadList.name);
-
+        $('#editor-backdoor').hide();
         Pace.on("done", function(){
             setTimeout(me.settingOtherMenuLoad, 1500, me);
         });
@@ -754,7 +754,6 @@ ViewContorller.prototype = {
     	viewController.settingRouteEditorMenu(viewController);
     	viewController.bindLocationDragDrop();
     	viewController.bindMenuEvent();
-        $('#editor-backdoor').hide();
     },
     
     saveWrapper: function(me) {
