@@ -738,7 +738,7 @@ ViewContorller.prototype = {
         me.renderGrid(me.model.UnAssignedLoadList.name);
 
         Pace.on("done", function(){
-            setTimeout(me.settingOtherMenuLoad, 500, me);
+            setTimeout(me.settingOtherMenuLoad, 1500, me);
         });
     },
     
