@@ -393,7 +393,7 @@ DataController.prototype = {
 
 		if(this.dev) {
 			$.ajax({
-				url: 'doosan/data/feeder-list.json',
+				url: 'doosan/data/hierarchy-feeder-list.json',
 				dataType: 'json',
 				success: function (data) {
 					callback(null, getSwitchList(data));
