@@ -1,34 +1,250 @@
 [
   {
-    "pjt_sq": "sim0004",
-    "bldg_seq": "b000001",
-    "nm": "ccb",
-    "dscr": "ccb building",
-    "lv": 1,
-    "gui_xml": ""
+    "loc_ref_name": "1. TBN BLDG",
+    "loc_ref_seq": "00000576"
   },
   {
-    "pjt_sq": "sim0004",
-    "bldg_seq": "b000002",
-    "nm": "tbn bldg1",
-    "dscr": "tbn bldg1",
-    "lv": 1,
-    "gui_xml": ""
+    "loc_ref_name": "1. TBN BLDG_BASE (EL.-300, C-3) ",
+    "loc_ref_seq": "00000578"
   },
   {
-    "pjt_sq": "sim0004",
-    "bldg_seq": "b000003",
-    "nm": "tbn bldg2",
-    "dscr": "tbn bldg2",
-    "lv": 1,
-    "gui_xml": ""
+    "loc_ref_name": "1. TBN BLDG_GND (EL +3,800, B-8)",
+    "loc_ref_seq": "00000585"
   },
   {
-    "pjt_sq": "sim0004",
-    "bldg_seq": "b000004",
-    "nm": "tbn bldg3",
-    "dscr": "tbn bldg3",
-    "lv": 1,
-    "gui_xml": ""
+    "loc_ref_name": "1. TBN BLDG_GND (EL +3,800, D-8)",
+    "loc_ref_seq": "00000586"
+  },
+  {
+    "loc_ref_name": "1. TBN BLDG_GND (EL.+3,800, A-13)",
+    "loc_ref_seq": "00000593"
+  },
+  {
+    "loc_ref_name": "1. TBN BLDG_GND (EL.+3,800, A-2)",
+    "loc_ref_seq": "00000595"
+  },
+  {
+    "loc_ref_name": "1. TBN BLDG_GND (EL.+3,800, E-4)",
+    "loc_ref_seq": "00000603"
+  },
+  {
+    "loc_ref_name": "1. TBN BLDG_GND,(EL.+3,800,  F-18)",
+    "loc_ref_seq": "00000607"
+  },
+  {
+    "loc_ref_name": "1. TBN BLDG_GND,(EL.+3,800,  F-8)",
+    "loc_ref_seq": "00000608"
+  },
+  {
+    "loc_ref_name": "1. TBN BLDG_MEZ",
+    "loc_ref_seq": "00000609"
+  },
+  {
+    "loc_ref_name": "1. TBN BLDG_MEZ (EL.+11,600, D-4)",
+    "loc_ref_seq": "00000614"
+  },
+  {
+    "loc_ref_name": "1. TBN BLDG_MEZZ (EL.+11.600, B-15)",
+    "loc_ref_seq": "00000620"
+  },
+  {
+    "loc_ref_name": "1. TBN BLDG_MEZZ (EL.+11.600, B-16)",
+    "loc_ref_seq": "00000621"
+  },
+  {
+    "loc_ref_name": "1. TBN BLDG_MEZZ (EL.+11.600, B-4)",
+    "loc_ref_seq": "00000622"
+  },
+  {
+    "loc_ref_name": "1. TBN BLDG_MEZZ (EL.+11.600, B-5)",
+    "loc_ref_seq": "00000623"
+  },
+  {
+    "loc_ref_name": "1. TBN BLDG_OPER (EL.+20.100, E-1)",
+    "loc_ref_seq": "00000625"
+  },
+  {
+    "loc_ref_name": "1. TBN BLDG_OPER (EL.+20.100, E-12)",
+    "loc_ref_seq": "00000626"
+  },
+  {
+    "loc_ref_name": "1. TBN BLDG_OPER (EL.+20.100, E-13)",
+    "loc_ref_seq": "00000627"
+  },
+  {
+    "loc_ref_name": "1. TBN BLDG_OPER (EL.+20.100, E-2)",
+    "loc_ref_seq": "00000628"
+  },
+  {
+    "loc_ref_name": "1. TBN BLDG_YARD (A: 870.000, B : 860.000)",
+    "loc_ref_seq": "00000664"
+  },
+  {
+    "loc_ref_name": "1. TBN BLDG_YARD (A: 870.000, B : 862.000)",
+    "loc_ref_seq": "00000665"
+  },
+  {
+    "loc_ref_name": "103. FLY ASH TRANSFER BLOWER HOUSE",
+    "loc_ref_seq": "00000666"
+  },
+  {
+    "loc_ref_name": "104. FLY ASH STORAGE SILO",
+    "loc_ref_seq": "00000667"
+  },
+  {
+    "loc_ref_name": "111. MAIN GATE HOUSE",
+    "loc_ref_seq": "00000670"
+  },
+  {
+    "loc_ref_name": "2. CCB_ANX",
+    "loc_ref_seq": "00000703"
+  },
+  {
+    "loc_ref_name": "20. BOILER BLOWDOWN SUMP PIT",
+    "loc_ref_seq": "00000738"
+  },
+  {
+    "loc_ref_name": "21. CW PUMP STATION",
+    "loc_ref_seq": "00000739"
+  },
+  {
+    "loc_ref_name": "21. CW PUMP STATION_GND (EL. +3,800, E-4)",
+    "loc_ref_seq": "00000742"
+  },
+  {
+    "loc_ref_name": "3. BLR",
+    "loc_ref_seq": "00000757"
+  },
+  {
+    "loc_ref_name": "3. BLR ABOVE LEVEL",
+    "loc_ref_seq": "00000758"
+  },
+  {
+    "loc_ref_name": "31. LDO STORAGE TANK",
+    "loc_ref_seq": "00000760"
+  },
+  {
+    "loc_ref_name": "33. LDO PUMP HOUSE_YARD",
+    "loc_ref_seq": "00000765"
+  },
+  {
+    "loc_ref_name": "33. LDO Pump House",
+    "loc_ref_seq": "00000766"
+  },
+  {
+    "loc_ref_name": "36. N2&CO2 BOTTLE SHELTER",
+    "loc_ref_seq": "00000767"
+  },
+  {
+    "loc_ref_name": "4. ESP",
+    "loc_ref_seq": "00000769"
+  },
+  {
+    "loc_ref_name": "40. CLEAN AND DIRTY LUBE OIL TANK AREA",
+    "loc_ref_seq": "00000771"
+  },
+  {
+    "loc_ref_name": "43. F/F PUMP HOUSE",
+    "loc_ref_seq": "00000772"
+  },
+  {
+    "loc_ref_name": "45. CONDENSATE TRANSFER P/P SHELTER ",
+    "loc_ref_seq": "00000776"
+  },
+  {
+    "loc_ref_name": "46. SERVICE/POTABLE/DEMI. WATER SUPPLY P/P SHELTER",
+    "loc_ref_seq": "00000777"
+  },
+  {
+    "loc_ref_name": "46. SERVICE/POTABLE/DEMI. WATER SUPPLY P/P SHELTER (EL +3800, A-2)",
+    "loc_ref_seq": "00000778"
+  },
+  {
+    "loc_ref_name": "46. SERVICE/POTABLE/DEMI. WATER SUPPLY P/P SHELTER (EL +3800, A-3)",
+    "loc_ref_seq": "00000779"
+  },
+  {
+    "loc_ref_name": "46. SERVICE/POTABLE/DEMI. WATER SUPPLY P/P SHELTER (EL +3800, A-4)",
+    "loc_ref_seq": "00000780"
+  },
+  {
+    "loc_ref_name": "49. RAW WATER POND",
+    "loc_ref_seq": "00000781"
+  },
+  {
+    "loc_ref_name": "49. RAW WATER POND (EL +5500)",
+    "loc_ref_seq": "00000782"
+  },
+  {
+    "loc_ref_name": "5. CHIMNEY",
+    "loc_ref_seq": "00000783"
+  },
+  {
+    "loc_ref_name": "52. DEMI WATER STORAGE TANK",
+    "loc_ref_seq": "00000785"
+  },
+  {
+    "loc_ref_name": "54. POTABLE WATER STORAGE TANK",
+    "loc_ref_seq": "00000786"
+  },
+  {
+    "loc_ref_name": "60. WTP_GND",
+    "loc_ref_seq": "00000793"
+  },
+  {
+    "loc_ref_name": "62. CPP_GND (EL.+3,800, A-1)",
+    "loc_ref_seq": "00000825"
+  },
+  {
+    "loc_ref_name": "62. CPP_GND (EL.+3,800, D-2) ",
+    "loc_ref_seq": "00000826"
+  },
+  {
+    "loc_ref_name": "66. CHS ELEC. & CONTROL BLDG",
+    "loc_ref_seq": "00000837"
+  },
+  {
+    "loc_ref_name": "77. JT - 03",
+    "loc_ref_seq": "00000842"
+  },
+  {
+    "loc_ref_name": "83. JT - 09",
+    "loc_ref_seq": "00000843"
+  },
+  {
+    "loc_ref_name": "84. JT - 10",
+    "loc_ref_seq": "00000844"
+  },
+  {
+    "loc_ref_name": "87. RUN-OFF POND",
+    "loc_ref_seq": "00000846"
+  },
+  {
+    "loc_ref_name": "YARD (A : 5189.021 / B : 1103.684)",
+    "loc_ref_seq": "00000870"
+  },
+  {
+    "loc_ref_name": "YARD (A : 5391.021 / B : 1024.684)",
+    "loc_ref_seq": "00000871"
+  },
+  {
+    "loc_ref_name": "YARD (A : 5566.021 / B : 777.684)",
+    "loc_ref_seq": "00000872"
+  },
+  {
+    "loc_ref_name": "YARD (A : 5570.021 / B : 974.682)",
+    "loc_ref_seq": "00000873"
+  },
+  {
+    "loc_ref_name": "YARD (A : 5576.021 / B : 1024.684)",
+    "loc_ref_seq": "00000874"
+  },
+  {
+    "loc_ref_name": "YARD (A : 5684.021 / B : 904.684)",
+    "loc_ref_seq": "00000875"
+  },
+  {
+    "loc_ref_name": "33. LDO PUMP HOUSE (EL.+3,800, LATER)",
+    "loc_ref_seq": "00002960"
   }
 ]
