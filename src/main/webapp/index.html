@@ -384,7 +384,47 @@
                                 <div class="tab-pane fade in" id="load">
                                     <div class="col-md-12">
                                         <table id="unAssignedLoadGrid" class="table table-bordered row-border order-column table-hover display gridTable cell-border"
-                                               width="100%"></table>
+                                               width="100%">
+                                            <thead>
+                                            <tr>
+                                                <th rowspan="2"></th>
+                                                <th>Equipment Description</th>
+                                                <th>Type</th>
+                                                <th>Power Source</th>
+                                                <th>Equipment Voltage</th>
+                                                <th>Rated Power</th>
+                                                <th>Unit</th>
+                                                <th>Process/System</th>
+                                                <th>Equipment Location</th>
+                                                <th>Duty</th>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <!-- 	                                        <tfoot> -->
+                                            <!-- 									        	<tr> -->
+                                            <!-- 									            	<th></th> -->
+                                            <!-- 									                <th></th> -->
+                                            <!-- 									                <th></th> -->
+                                            <!-- 									                <th></th> -->
+                                            <!-- 									                <th></th> -->
+                                            <!-- 									                <th></th> -->
+                                            <!-- 									                <th></th> -->
+                                            <!-- 									                <th></th> -->
+                                            <!-- 									                <th></th> -->
+                                            <!-- 									                <th></th> -->
+                                            <!-- 									         	</tr> -->
+                                            <!-- 									         </tfoot>  -->
+                                        </table>
                                     </div>
                                 </div>
 
@@ -608,8 +648,8 @@
         <tr>
             <th>Method of Installation</th>
             <td><select class="race_ref_method">
-                <option selected value="A">Air</option>
-                <option value="U">Underground</option>
+                <option selected value="U">Underground</option>
+                <option value="A">Air</option>
             </select>
             </td>
         </tr>
@@ -641,7 +681,6 @@
 <!-- <link href="resources/js/plugins/pace/pace-theme-center-simple.css" rel="stylesheet"> -->
 <link href="resources/js/plugins/pace/pace-theme-loading-bar.css" rel="stylesheet">
 <script src="./resources/js/plugins/pace/pace.min.js"></script>
-
 <!-- Toastr -->
 <script src="./resources/js/plugins/toastr/toastr.min.js"></script>
 

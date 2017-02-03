@@ -14,6 +14,7 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/project.json',
 				dataType: 'json',
+				async: false,
 				success: function (data) {
 					callback(null, data[0]);
 				},
@@ -43,6 +44,7 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/swgr-select-box.json',
 				dataType: 'json',
+				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -71,6 +73,7 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/swgr-list.json',
 				dataType: 'json',
+				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -100,6 +103,7 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/swgr-use-list.json',
 				dataType: 'json',
+				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -128,6 +132,7 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/load-list.json',
 				dataType: 'json',
+				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -156,6 +161,7 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/load-use-list.json',
 				dataType: 'json',
+				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -195,6 +201,7 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/feeder-list.json',
 				dataType: 'json',
+				async: false,
 				success: function (data) {
 					callback(null, getSwitchList(data));
 				},
@@ -288,6 +295,7 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/feeder-list.json',
 				dataType: 'json',
+				async: false,
 				success: function (data) {
 					var treeData = me.getFeederTreeData(data);
 					callback(null, treeData);
@@ -319,6 +327,7 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/feeder-update-list.json',
 				dataType: 'json',
+				async: false,
 				success: function (data) {
 					var treeData = this.getFeederTreeData(data);
 					object.settings.core.data = treeData;
@@ -393,8 +402,9 @@ DataController.prototype = {
 
 		if(this.dev) {
 			$.ajax({
-				url: 'doosan/data/hierarchy-feeder-list.json',
+				url: 'doosan/data/feeder-list.json',
 				dataType: 'json',
+				async: false,
 				success: function (data) {
 					callback(null, getSwitchList(data));
 				},
@@ -481,6 +491,7 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/hierarchy-list.json',
 				dataType: 'json',
+				async: false,
 				success: function (data) {
 					callback(null, me.getHierarchyTreeData(data));
 				},
@@ -507,6 +518,7 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/location-ref.json',
 				dataType: 'json',
+				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -533,6 +545,7 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/raceway-ref.json',
 				dataType: 'json',
+				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -558,6 +571,7 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/route-ref.json',
 				dataType: 'json',
+				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -582,6 +596,7 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/bldg-ref.json',
 				dataType: 'json',
+				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -606,6 +621,7 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/cable-ref.json',
 				dataType: 'json',
+				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -628,30 +644,30 @@ DataController.prototype = {
 	/**
 	 * 하이어라키 에디터 세이브
 	 */
-    saveHierarchy: function(controller) {
-    	var mode = controller.getCurrentMode();
-        var renderer = controller.getRendererByMode(mode);
-        var currentCanvas = renderer.getCanvas();
-        var json = currentCanvas.toJSON();
+	saveHierarchy: function(controller) {
+		var mode = controller.getCurrentMode();
+		var renderer = controller.getRendererByMode(mode);
+		var currentCanvas = renderer.getCanvas();
+		var json = currentCanvas.toJSON();
 
-        var sendData = [];
+		var sendData = [];
 
-        
-        var projectInfo = controller.projectData;
-    	var hierJSON  = projectInfo.gui_hier_json;
-    	if(hierJSON == null ||  hierJSON == '') {
-    		controller.setHierarchySaveMode(false);
-    	} else {
-    		controller.setHierarchySaveMode(true);
-    	}
-        
-        /**
-         * 캔버스의 정보를 담는 json
+
+		var projectInfo = controller.projectData;
+		var hierJSON  = projectInfo.gui_hier_json;
+		if(hierJSON == null ||  hierJSON == '') {
+			controller.setHierarchySaveMode(false);
+		} else {
+			controller.setHierarchySaveMode(true);
+		}
+
+		/**
+		 * 캔버스의 정보를 담는 json
 		 */
-        var GUI_DATA = {};
-        GUI_DATA['status'] = 'GUI';
-        GUI_DATA['content'] = json;
-        sendData.push(GUI_DATA);
+		var GUI_DATA = {};
+		GUI_DATA['status'] = 'GUI';
+		GUI_DATA['content'] = json;
+		sendData.push(GUI_DATA);
 
 		/**
 		 * canvas에 그려진 플로우 정보를 돌면서 child로 스위치 피더를 찾는다.
@@ -664,56 +680,56 @@ DataController.prototype = {
 				/**
 				 * 먼저 빌딩안에 그려지지 않는 하이어라키 피더가 존재하는지 체크를 한다.
 				 */
-	        	if(element.shape instanceof OG.HierarchyFeeder) {
-	        		var parentElement = currentCanvas.getParent(element);
-	        		if(parentElement) {
-	        			if( !(parentElement.shape instanceof OG.HierarchyFloor) ) {
-	        				hierarchyFeedersOutBoundaryFloor.push(element);
-	        			}
-	        		} else {
-	        			hierarchyFeedersOutBoundaryFloor.push(element);
-	        		}
-	        		
-	        	}
-	        	
-	        	if(element.shape instanceof OG.HierarchyFloor) {
-	        		
-	        		var childShape = currentCanvas.getChilds(element);
-	        		childShape.forEach(function(child){
-	        			var jsonData = {};
-	
-	        			jsonData['feeder_list_mgt_seq'] = child.shape.data.feeder_list_mgt_seq;
-	        			jsonData['hier_seq'] = element.shape.data.hier_seq; 
-	        			jsonData['up_hier_seq'] = element.shape.data.up_hier_seq;
+				if(element.shape instanceof OG.HierarchyFeeder) {
+					var parentElement = currentCanvas.getParent(element);
+					if(parentElement) {
+						if( !(parentElement.shape instanceof OG.HierarchyFloor) ) {
+							hierarchyFeedersOutBoundaryFloor.push(element);
+						}
+					} else {
+						hierarchyFeedersOutBoundaryFloor.push(element);
+					}
+
+				}
+
+				if(element.shape instanceof OG.HierarchyFloor) {
+
+					var childShape = currentCanvas.getChilds(element);
+					childShape.forEach(function(child){
+						var jsonData = {};
+
+						jsonData['feeder_list_mgt_seq'] = child.shape.data.feeder_list_mgt_seq;
+						jsonData['hier_seq'] = element.shape.data.hier_seq;
+						jsonData['up_hier_seq'] = element.shape.data.up_hier_seq;
 
 						/**
 						 * prevEdges가 있다는 것은 상위 피더가 있다는 것.
 						 * 없다면 자신이 상위이기 때문에
 						 */
-	        			var prevEdges = currentCanvas.getPrevEdges(child);
-	        			var nextEdges = currentCanvas.getNextEdges(child);
-	        			if(prevEdges.length > 0) {
-	        				prevEdges.forEach(function(edge){
-	        					var edge = currentCanvas.getRelatedElementsFromEdge(edge);
-	        					var fromShapeData = edge.from.shape.data;
+						var prevEdges = currentCanvas.getPrevEdges(child);
+						var nextEdges = currentCanvas.getNextEdges(child);
+						if(prevEdges.length > 0) {
+							prevEdges.forEach(function(edge){
+								var edge = currentCanvas.getRelatedElementsFromEdge(edge);
+								var fromShapeData = edge.from.shape.data;
 								// 자기 자신이면 자신이 상위이기 때문에 pass
-	        					if(fromShapeData.feeder_list_mgt_seq != child.shape.data.feeder_list_mgt_seq) {
-	        						jsonData['up_feeder_list_mgt_seq'] = fromShapeData.feeder_list_mgt_seq;
-	        					}
-	        				});
-	        			}
-	        			
-	        			jsonData['status'] = 'N';
-	        			sendData.push(jsonData);
-	        			
-	        		});
-	        	}
-	        });
-	        
-        } else {
-        	var feederHierarchyMgtShapeList = controller.feederHierarchyMgtShapeList;
-        	var updateFeederHierarchyList = controller.updateFeederHierarchyList;
-        	var deleteFeederHierarchyList = controller.deleteFeederHierarchyList;
+								if(fromShapeData.feeder_list_mgt_seq != child.shape.data.feeder_list_mgt_seq) {
+									jsonData['up_feeder_list_mgt_seq'] = fromShapeData.feeder_list_mgt_seq;
+								}
+							});
+						}
+
+						jsonData['status'] = 'N';
+						sendData.push(jsonData);
+
+					});
+				}
+			});
+
+		} else {
+			var feederHierarchyMgtShapeList = controller.feederHierarchyMgtShapeList;
+			var updateFeederHierarchyList = controller.updateFeederHierarchyList;
+			var deleteFeederHierarchyList = controller.deleteFeederHierarchyList;
 			/**
 			 * 기존 정보는 그대로 올린다.
 			 */
@@ -726,21 +742,21 @@ DataController.prototype = {
 				/**
 				 * 먼저 빌딩안에 그려지지 않는 하이어라키 피더가 존재하는지 체크를 한다.
 				 */
-	        	if(element.shape instanceof OG.HierarchyFeeder) {
-	        		var parentElement = currentCanvas.getParent(element);
-	        		if(parentElement) {
-	        			if( !(parentElement.shape instanceof OG.HierarchyFloor) ) {
-	        				hierarchyFeedersOutBoundaryFloor.push(element);
-	        			}
-	        		} else {
-	        			hierarchyFeedersOutBoundaryFloor.push(element);
-	        		}
-	        		
-	        	}
-	        	
-	        	if(element.shape instanceof OG.HierarchyFloor) {
-	        		
-	        		var childShape = currentCanvas.getChilds(element);
+				if(element.shape instanceof OG.HierarchyFeeder) {
+					var parentElement = currentCanvas.getParent(element);
+					if(parentElement) {
+						if( !(parentElement.shape instanceof OG.HierarchyFloor) ) {
+							hierarchyFeedersOutBoundaryFloor.push(element);
+						}
+					} else {
+						hierarchyFeedersOutBoundaryFloor.push(element);
+					}
+
+				}
+
+				if(element.shape instanceof OG.HierarchyFloor) {
+
+					var childShape = currentCanvas.getChilds(element);
 					/**
 					 * 전체 그려진 정보에서 update리스트에서 조회를 해야한다.
 					 * 그중에 기존에 그려진 정보가 아닌 새로운 녀석일 경우에만 sendData에 넣어야 한다.
@@ -756,70 +772,75 @@ DataController.prototype = {
 						 * prevEdges가 있다는 것은 상위 피더가 있다는 것.
 						 * 없다면 자신이 상위이기 때문에
 						 */
-	        			var prevEdges = currentCanvas.getPrevEdges(child);
-	        			var nextEdges = currentCanvas.getNextEdges(child);
-	        			if(prevEdges.length > 0) {
-	        				prevEdges.forEach(function(edge){
-	        					var edge = currentCanvas.getRelatedElementsFromEdge(edge);
-	        					var fromShapeData = edge.from.shape.data;
-	        					// 자기 자신이면 자신이 상위이기 때문에 pass
-	        					if(fromShapeData.feeder_list_mgt_seq != child.shape.data.feeder_list_mgt_seq) {
-	        						jsonData['up_feeder_list_mgt_seq'] = fromShapeData.feeder_list_mgt_seq;
-	        					}
-	        				});
-	        			}
+						var prevEdges = currentCanvas.getPrevEdges(child);
+						var nextEdges = currentCanvas.getNextEdges(child);
+						if(prevEdges.length > 0) {
+							prevEdges.forEach(function(edge){
+								var edge = currentCanvas.getRelatedElementsFromEdge(edge);
+								var fromShapeData = edge.from.shape.data;
+								// 자기 자신이면 자신이 상위이기 때문에 pass
+								if(fromShapeData.feeder_list_mgt_seq != child.shape.data.feeder_list_mgt_seq) {
+									jsonData['up_feeder_list_mgt_seq'] = fromShapeData.feeder_list_mgt_seq;
+								}
+							});
+						}
 
-	        			var isNew = false;
-	        			
-	        			updateFeederHierarchyList.some(function(uhList){
-	        				if(child.shape.data.feeder_list_mgt_seq == uhList.feeder_list_mgt_seq) {
-	        					isNew = true;
-	        				}
-	        			})
-	        			
-	        			if(isNew) {
-	        				jsonData['status'] = 'U';
-	        				sendData.push(jsonData);
-	        			}
-	        			
-	        		});
-	        	}
-	        });
-        	
-        	deleteFeederHierarchyList.forEach(function(dhList){
-        		var deleteJsonData = {};
-        		deleteJsonData['status'] = 'D';
-        		deleteJsonData['feeder_list_mgt_seq'] = dhList.feeder_list_mgt_seq;
-        		sendData.push(deleteJsonData);
-        	});
-        	
-        }
-        
-        if(hierarchyFeedersOutBoundaryFloor.length > 0) {
-        	msgBox(renderer.MSGMessages.FEEDERINFLOOR);
-        	hierarchyFeedersOutBoundaryFloor.forEach(function(element){
-        		renderer.highLightHierarchyFeeder(element);
-        	})
-        	
-        	$.unblockUI();
-        	return;
-        }
-        
-        console.log(sendData);
-        //var returnData = parent.updateHierarchy(sendData);
-		var returnData = '0';
-		/**
-		 * 저장 및 업데이트가 성공한다면
-		 * 관련 그리드, 트리를 새로 그린다.
-		 */
-        if(returnData == '0') {
-        	controller.refreshGridAndTree(mode, renderer);
-        }
-        
-        $.unblockUI();
-        msgBox(renderer.MSGMessages.SAVEMSG);
-        setTimeout(msgBoxClose, 1000);
-    },
+						var isNew = false;
+
+						updateFeederHierarchyList.some(function(uhList){
+							if(child.shape.data.feeder_list_mgt_seq == uhList.feeder_list_mgt_seq) {
+								isNew = true;
+							}
+						})
+
+						if(isNew) {
+							jsonData['status'] = 'U';
+							sendData.push(jsonData);
+						}
+
+					});
+				}
+			});
+
+			deleteFeederHierarchyList.forEach(function(dhList){
+				var deleteJsonData = {};
+				deleteJsonData['status'] = 'D';
+				deleteJsonData['feeder_list_mgt_seq'] = dhList.feeder_list_mgt_seq;
+				sendData.push(deleteJsonData);
+			});
+
+		}
+
+		if(hierarchyFeedersOutBoundaryFloor.length > 0) {
+			msgBox(renderer.MSGMessages.FEEDERINFLOOR);
+			hierarchyFeedersOutBoundaryFloor.forEach(function(element){
+				renderer.highLightHierarchyFeeder(element);
+			})
+
+			$.unblockUI();
+			return;
+		}
+
+		console.log(sendData);
+		try {
+			var returnData = parent.updateHierarchy(sendData);
+			/**
+			 * 저장 및 업데이트가 성공한다면
+			 * 관련 그리드, 트리를 새로 그린다.
+			 */
+			if(returnData == '0') {
+				controller.refreshGridAndTree(mode, renderer);
+				msgBox(renderer.MSGMessages.SAVEMSG);
+			} else {
+				msgBox(renderer.MSGMessages.SAVEERRORMSG);
+			}
+		} catch (e) {
+			msgBox(renderer.MSGMessages.SAVEERRORMSG);
+		}
+
+		$.unblockUI();
+		setTimeout(msgBoxClose, 1000);
+	},
 
 	/**
 	 * validation 정보를 만든다.
@@ -885,96 +906,97 @@ DataController.prototype = {
 
 		return sendData;
 	},
-    
-    /**
-     * 피더 에디터 세이브
-     */
-    saveFeederGui: function(controller) {
-    	
-    	var mode = controller.getCurrentMode();
-        var renderer = controller.getRendererByMode(mode);
-        var currentCanvas = renderer.getCanvas();
-        var json = currentCanvas.toJSON();
-        var object = renderer.editingObject;
-        if(object === undefined) {
-        	$.unblockUI();
-        	msgBox(renderer.MSGMessages.NOOBJECTSAVE);
-            return;
-        }
-        var sendData = [];
-        var objectSeq;
-        var objectFeederSeq = '';
-        if(object['shapeType'] == renderer.Constants.TYPE.MODIFY_FEEDER) {
+
+	/**
+	 * 피더 에디터 세이브
+	 */
+	saveFeederGui: function(controller) {
+
+		var mode = controller.getCurrentMode();
+		var renderer = controller.getRendererByMode(mode);
+		var currentCanvas = renderer.getCanvas();
+		var json = currentCanvas.toJSON();
+		var object = renderer.editingObject;
+		if(object === undefined) {
+			$.unblockUI();
+			msgBox(renderer.MSGMessages.NOOBJECTSAVE);
+			return;
+		}
+		var sendData = [];
+		var objectSeq;
+		var objectFeederSeq = '';
+		if(object['shapeType'] == renderer.Constants.TYPE.MODIFY_FEEDER) {
 			//기존에 있던 피더
-        	objectSeq = object['swgr_list_seq'];
-        	objectFeederSeq = object['feeder_list_mgt_seq'];
-            controller.setFeederSaveMode(true);
-        } else {
-            controller.setFeederSaveMode(false);
-            objectSeq = object['swgr_list_seq'];
-        }
-        
-        /**
-         * GUI json data making and sendData setting
-         */
-        var GUI_DATA = {};
-        GUI_DATA['status'] = 'GUI';
-        GUI_DATA['seq'] = objectSeq;
-        GUI_DATA['feeder_seq'] = objectFeederSeq;
-        GUI_DATA['content'] = json;
-        sendData.push(GUI_DATA);
-        /**
-         * each object data Json making and sendDataSetting
-         */
-        /**
-         * 신규 저장이라면
-         */
-        var shapeList = currentCanvas.getAllShapes();
-        if(!controller.getFeederSaveMode()) {
-        	// find allShpaes, and check Objejct 'GEOM' on shpae
-	        for(var i=0; i<shapeList.length; i++) {
-	            var selectShapeType = $(shapeList[i]).attr('_shape');
-	            if(selectShapeType == 'GEOM') {
-	                var selectShapeId = $(shapeList[i]).attr('_shape_id');
-	                var selectElement = currentCanvas.getElementsByShapeId(selectShapeId);
-	                var selectItemData = currentCanvas.getCustomData(shapeList[i]);
-	                var jsonData = {};
-	                jsonData['status'] = 'N';
-	                var selectType;
-	                if(selectItemData.hasOwnProperty('fe_swgr_load_div')) {
-	                	selectType = selectItemData.fe_swgr_load_div;
-	                } else {
-	                	selectType = 'L';
-	                }
-	                
-	                jsonData['type'] = selectType;
-	                // In Case Of selectItemData.fe_swgr_load_div is 'S', check Mother Switch or Child
-	                if(selectType == 'S') {
-	                    jsonData['seq'] = selectItemData.swgr_list_seq;
-	                    var prevShapes = currentCanvas.getPrevShapes(selectElement);
-	                    var nextShapes = currentCanvas.getNextShapes(selectElement);
-	
-	                    // 이전 shapes의 정보를 통해 해당 S가 parent인지 child인지 체크
-	                    if( (prevShapes.length == 0 && nextShapes.length == 0) || prevShapes.length == 0  ) {
-	                        jsonData['root'] = 'Y';
-	                        jsonData['up_seq'] = '';
-	                        jsonData['feeder_seq'] = objectFeederSeq;
-	                    } else {
-	                        jsonData['root'] = 'N';
-	                        jsonData['up_seq'] = objectSeq;
-	                        jsonData['feeder_seq'] = objectFeederSeq;
-	                    }
-	
-	                } else {
-	                    jsonData['seq'] = selectItemData.load_list_seq;
-	                    jsonData['up_seq'] = objectSeq;
-	                    jsonData['feeder_seq'] = objectFeederSeq;
-	                }
-	                sendData.push(jsonData);
-	            }
-	
-	        }
-        } else {
+			objectSeq = object['swgr_list_seq'];
+			objectFeederSeq = object['feeder_list_mgt_seq'];
+			controller.setFeederSaveMode(true);
+		} else {
+			controller.setFeederSaveMode(false);
+			objectSeq = object['swgr_list_seq'];
+		}
+
+		/**
+		 * GUI json data making and sendData setting
+		 */
+		var GUI_DATA = {};
+		GUI_DATA['status'] = 'GUI';
+		GUI_DATA['seq'] = objectSeq;
+		GUI_DATA['feeder_seq'] = objectFeederSeq;
+		GUI_DATA['content'] = json;
+		sendData.push(GUI_DATA);
+		/**
+		 * each object data Json making and sendDataSetting
+		 */
+		/**
+		 * 신규 저장이라면
+		 */
+		var shapeList = currentCanvas.getAllShapes();
+		if(!controller.getFeederSaveMode()) {
+			// find allShpaes, and check Objejct 'GEOM' on shpae
+			for(var i=0; i<shapeList.length; i++) {
+				var selectShapeType = $(shapeList[i]).attr('_shape');
+				if(selectShapeType == 'GEOM') {
+					var selectShapeId = $(shapeList[i]).attr('_shape_id');
+					var selectElement = currentCanvas.getElementsByShapeId(selectShapeId);
+					var selectItemData = currentCanvas.getCustomData(shapeList[i]);
+					var jsonData = {};
+					jsonData['status'] = 'N';
+					var selectType;
+					if(selectItemData.hasOwnProperty('fe_swgr_load_div')) {
+						selectType = selectItemData.fe_swgr_load_div;
+					} else {
+						selectType = 'L';
+					}
+
+					jsonData['type'] = selectType;
+					// In Case Of selectItemData.fe_swgr_load_div is 'S', check Mother Switch or Child
+					if(selectType == 'S') {
+						jsonData['seq'] = selectItemData.swgr_list_seq;
+						var prevShapes = currentCanvas.getPrevShapes(selectElement);
+						var nextShapes = currentCanvas.getNextShapes(selectElement);
+
+						// 이전 shapes의 정보를 통해 해당 S가 parent인지 child인지 체크
+						if( (prevShapes.length == 0 && nextShapes.length == 0) || prevShapes.length == 0  ) {
+							jsonData['root'] = 'Y';
+							jsonData['up_seq'] = '';
+							jsonData['feeder_seq'] = objectFeederSeq;
+						} else {
+							jsonData['root'] = 'N';
+							jsonData['up_seq'] = objectSeq;
+							jsonData['feeder_seq'] = objectFeederSeq;
+						}
+
+					} else {
+						jsonData['seq'] = selectItemData.load_list_seq;
+						jsonData['up_seq'] = objectSeq;
+						jsonData['feeder_seq'] = objectFeederSeq;
+					}
+					sendData.push(jsonData);
+				}
+
+			}
+		} else {
+
 			// 기존 데이터를 가져온 경우
 			/**
 			 * 1. canvas에 도형을 그린 후 각 도형들의 jsonData를 배열로 가진다. (오리지널 데이터로 차후 삭제/업데이트시 비교하기 위한 데이터)
@@ -994,171 +1016,177 @@ DataController.prototype = {
 			 */
 
 			/** 기존 정보도 넘겨준다. 이 때 status:U **/
-        	var feederMgtShapeList = controller.feederMgtShapeList;
-        	
-        	feederMgtShapeList.forEach(function(item, idx){
-        		var jsonData = {};
-            	jsonData['status'] = 'U';
-                jsonData['up_seq'] = objectSeq;
-                
-                
-                var itemType;
-                if(item.hasOwnProperty('fe_swgr_load_div')) {
-                	itemType = item.fe_swgr_load_div;
-                } else {
-                	itemType = 'L';
-                }
-                
-                jsonData['type'] = itemType;
-                
-                if(itemType == 'S') {
-                	if(idx == 0) {
-                		jsonData['root'] = 'Y';
-                	} else {
-                		jsonData['root'] = 'N';
-                	}
-                	jsonData['seq'] = item.swgr_list_seq;
-                	
-                } else {
-                	jsonData['seq'] = item.load_list_seq;
-                	
-                }
-                
-                if(item.hasOwnProperty('feeder_list_mgt_seq')) {
-                	jsonData['feeder_seq'] = item.feeder_list_mgt_seq;
-                }
-                
-                sendData.push(jsonData);
-        	});
-        	
-        	var updateFeederList = controller.updateFeederList;
-        	
-        	updateFeederList.forEach(function(item){
-        		var jsonData = {};
-                	jsonData['status'] = 'N';
-                    jsonData['up_seq'] = objectSeq;
-                    
-                    var itemType;
-	                if(item.hasOwnProperty('fe_swgr_load_div')) {
-	                	itemType = item.fe_swgr_load_div;
-	                } else {
-	                	itemType = 'L';
-	                }
-	                
-	                jsonData['type'] = itemType;
-                    
-                    if(itemType == 'S') {
-                    	jsonData['root'] = 'N';
-                    	jsonData['seq'] = item.swgr_list_seq;
-                    	
-                    	feederMgtShapeList.some(function(itemData){
-	                    	if(item.swgr_list_seq == itemData.swgr_list_seq) {
-	                    		if(itemData.hasOwnProperty('feeder_list_mgt_seq')) {
-	                    			jsonData['feeder_seq'] = itemData.feeder_list_mgt_seq;
-	                    		}
-	                    	}
-	                    });
-                    	
-                    } else {
-                    	jsonData['seq'] = item.load_list_seq;
-                    	
-                    	feederMgtShapeList.some(function(itemData){
-	                    	if(item.load_list_seq == itemData.load_list_seq) {
-	                    		if(itemData.hasOwnProperty('feeder_list_mgt_seq')) {
-	                    			jsonData['feeder_seq'] = itemData.feeder_list_mgt_seq;
-	                    		}
-	                    	}
-	                    });
-                    	
-                    }
-                    
-                    sendData.push(jsonData);
-                    
-        	});
-        	
-        	var deleteFeederList = controller.deleteFeederList;
-        	deleteFeederList.forEach(function(item, idx){
-        		var jsonData = {};
-                	jsonData['status'] = 'D';
-                    jsonData['up_seq'] = objectSeq;
-                    
-                    var itemType;
-	                if(item.hasOwnProperty('fe_swgr_load_div')) {
-	                	itemType = item.fe_swgr_load_div;
-	                } else {
-	                	itemType = 'L';
-	                }
-	                
-	                jsonData['type'] = itemType;
-                    
-                    if(itemType == 'S') {
-                    	if(idx == 0) {
-                    		jsonData['root'] = 'Y';
-                    	} else {
-                    		jsonData['root'] = 'N';
-                    	}
-                    	jsonData['seq'] = item.swgr_list_seq;
-                    	
-                    	feederMgtShapeList.some(function(itemData){
-	                    	if(item.swgr_list_seq == itemData.swgr_list_seq) {
-	                    		if(itemData.hasOwnProperty('feeder_list_mgt_seq')) {
-	                    			jsonData['feeder_seq'] = itemData.feeder_list_mgt_seq;
-	                    		}
-	                    	}
-	                    });
-                    	
-                    } else {
-                    	jsonData['seq'] = item.load_list_seq;
-                    	
-                    	feederMgtShapeList.some(function(itemData){
-	                    	if(item.load_list_seq == itemData.load_list_seq) {
-	                    		if(itemData.hasOwnProperty('feeder_list_mgt_seq')) {
-	                    			jsonData['feeder_seq'] = itemData.feeder_list_mgt_seq;
-	                    		}
-	                    	}
-	                    });
-                    	
-                    }
-                    
-                    sendData.push(jsonData);
-                    
-        	});
-        	
-        }
-        
-        console.log(sendData);
-        //var returnData = parent.updateFeeder(sendData);
-		var returnData = '0';
-		/**
-		 * 저장 및 업데이트가 성공한다면
-		 * 관련 그리드, 트리를 새로 그린다.
-		 */
-        if(returnData == '0') {
-        	controller.refreshGridAndTree(mode, renderer);
-        }
-        
-        $.unblockUI();
-        msgBox(renderer.MSGMessages.SAVEMSG);
-        setTimeout(msgBoxClose, 1000);
-    },
-    
-    /**
-     * Route 저장 함수
-     */
-    saveRoute: function(controller) {
-    	var mode = controller.getCurrentMode();
-        var renderer = controller.getRendererByMode(mode);
-        var currentCanvas = renderer.getCanvas();
-        var json = currentCanvas.toJSON();
+			var feederMgtShapeList = controller.feederMgtShapeList;
 
-        var projectInfo = controller.projectData;
-    	var hierJSON  = projectInfo.gui_route_json;
-    	if(hierJSON == null) {
-    		controller.setRouteSaveMode(false);
-    	} else {
-    		controller.setRouteSaveMode(true);
-    	}
-        var sendData = [];
+			feederMgtShapeList.forEach(function(item, idx){
+				var jsonData = {};
+				jsonData['status'] = 'U';
+				jsonData['up_seq'] = objectSeq;
+
+
+				var itemType;
+				if(item.hasOwnProperty('fe_swgr_load_div')) {
+					itemType = item.fe_swgr_load_div;
+				} else {
+					itemType = 'L';
+				}
+
+				jsonData['type'] = itemType;
+
+				if(itemType == 'S') {
+					if(idx == 0) {
+						jsonData['root'] = 'Y';
+					} else {
+						jsonData['root'] = 'N';
+					}
+					jsonData['seq'] = item.swgr_list_seq;
+
+				} else {
+					jsonData['seq'] = item.load_list_seq;
+
+				}
+
+				if(item.hasOwnProperty('feeder_list_mgt_seq')) {
+					jsonData['feeder_seq'] = item.feeder_list_mgt_seq;
+				}
+
+				sendData.push(jsonData);
+			});
+
+			var updateFeederList = controller.updateFeederList;
+
+			updateFeederList.forEach(function(item){
+				var jsonData = {};
+				jsonData['status'] = 'N';
+				jsonData['up_seq'] = objectSeq;
+
+				var itemType;
+				if(item.hasOwnProperty('fe_swgr_load_div')) {
+					itemType = item.fe_swgr_load_div;
+				} else {
+					itemType = 'L';
+				}
+
+				jsonData['type'] = itemType;
+
+				if(itemType == 'S') {
+					jsonData['root'] = 'N';
+					jsonData['seq'] = item.swgr_list_seq;
+
+					feederMgtShapeList.some(function(itemData){
+						if(item.swgr_list_seq == itemData.swgr_list_seq) {
+							if(itemData.hasOwnProperty('feeder_list_mgt_seq')) {
+								jsonData['feeder_seq'] = itemData.feeder_list_mgt_seq;
+							}
+						}
+					});
+
+				} else {
+					jsonData['seq'] = item.load_list_seq;
+
+					feederMgtShapeList.some(function(itemData){
+						if(item.load_list_seq == itemData.load_list_seq) {
+							if(itemData.hasOwnProperty('feeder_list_mgt_seq')) {
+								jsonData['feeder_seq'] = itemData.feeder_list_mgt_seq;
+							}
+						}
+					});
+
+				}
+
+				sendData.push(jsonData);
+
+			});
+
+			var deleteFeederList = controller.deleteFeederList;
+			deleteFeederList.forEach(function(item, idx){
+				var jsonData = {};
+				jsonData['status'] = 'D';
+				jsonData['up_seq'] = objectSeq;
+
+				var itemType;
+				if(item.hasOwnProperty('fe_swgr_load_div')) {
+					itemType = item.fe_swgr_load_div;
+				} else {
+					itemType = 'L';
+				}
+
+				jsonData['type'] = itemType;
+
+				if(itemType == 'S') {
+					if(idx == 0) {
+						jsonData['root'] = 'Y';
+					} else {
+						jsonData['root'] = 'N';
+					}
+					jsonData['seq'] = item.swgr_list_seq;
+
+					feederMgtShapeList.some(function(itemData){
+						if(item.swgr_list_seq == itemData.swgr_list_seq) {
+							if(itemData.hasOwnProperty('feeder_list_mgt_seq')) {
+								jsonData['feeder_seq'] = itemData.feeder_list_mgt_seq;
+							}
+						}
+					});
+
+				} else {
+					jsonData['seq'] = item.load_list_seq;
+
+					feederMgtShapeList.some(function(itemData){
+						if(item.load_list_seq == itemData.load_list_seq) {
+							if(itemData.hasOwnProperty('feeder_list_mgt_seq')) {
+								jsonData['feeder_seq'] = itemData.feeder_list_mgt_seq;
+							}
+						}
+					});
+
+				}
+
+				sendData.push(jsonData);
+
+			});
+
+		}
+
+		console.log(sendData);
+		try {
+			var returnData = parent.updateFeeder(sendData);
+			/**
+			 * 저장 및 업데이트가 성공한다면
+			 * 관련 그리드, 트리를 새로 그린다.
+			 */
+			if(returnData == '0') {
+				controller.refreshGridAndTree(mode, renderer);
+				msgBox(renderer.MSGMessages.SAVEMSG);
+			} else {
+				msgBox(renderer.MSGMessages.SAVEERRORMSG);
+			}
+		} catch (e) {
+			msgBox(renderer.MSGMessages.SAVEERRORMSG);
+		}
+
+		$.unblockUI();
+		setTimeout(msgBoxClose, 1000);
+	},
+
+	/**
+	 * Route 저장 함수
+	 */
+	saveRoute: function(controller) {
+		console.log(parent.getLocationList());
+		var mode = controller.getCurrentMode();
+		var renderer = controller.getRendererByMode(mode);
+		var currentCanvas = renderer.getCanvas();
+		var json = currentCanvas.toJSON();
+
+		var projectInfo = controller.projectData;
+		var hierJSON  = projectInfo.gui_route_json;
+		if(hierJSON == null) {
+			controller.setRouteSaveMode(false);
+		} else {
+			controller.setRouteSaveMode(true);
+		}
+		var sendData = [];
 
 		/**
 		 * 캔버스의 정보를 담는 json
@@ -1177,30 +1205,30 @@ DataController.prototype = {
 			/**
 			 * 먼저 빌딩안에 그려지지 않는 하이어라키 피더가 존재하는지 체크를 한다.
 			 */
-	    	if(element.shape instanceof OG.Location) {
-	    		var parentElement = currentCanvas.getParent(element);
-	    		if(parentElement) {
-	    			if( !(parentElement.shape instanceof OG.BLDG) ) {
-	    				locationOutBoundaryBldg.push(element);
-	    			}
-	    		} else {
-	    			locationOutBoundaryBldg.push(element);
-	    		}
-	    	}
-        });
-        
-    	if(locationOutBoundaryBldg.length > 0) {
-        	msgBox(renderer.MSGMessages.POINTINLOCATION);
-        	//locationOutBoundaryBldg.forEach(function(element){
-        	//	renderer.highLightHierarchyFeeder(element);
-        	//})
-        	$.unblockUI();
-        	return;
-        }
-        
-        shapeList.forEach(function(element){
-        	var jsonData = {};
-        	jsonData['status'] = 'N';
+			if(element.shape instanceof OG.Location) {
+				var parentElement = currentCanvas.getParent(element);
+				if(parentElement) {
+					if( !(parentElement.shape instanceof OG.BLDG) ) {
+						locationOutBoundaryBldg.push(element);
+					}
+				} else {
+					locationOutBoundaryBldg.push(element);
+				}
+			}
+		});
+
+		if(locationOutBoundaryBldg.length > 0) {
+			msgBox(renderer.MSGMessages.POINTINLOCATION);
+			//locationOutBoundaryBldg.forEach(function(element){
+			//	renderer.highLightHierarchyFeeder(element);
+			//})
+			$.unblockUI();
+			return;
+		}
+
+		shapeList.forEach(function(element){
+			var jsonData = {};
+			jsonData['status'] = 'N';
 			/**
 			 * point 정보
 			 */
@@ -1222,46 +1250,50 @@ DataController.prototype = {
 			/**
 			 * raceway 정보
 			 */
-        	else if(element.shape instanceof OG.RacewayShape) {
-        		jsonData['type'] = 'Cable';
-        		jsonData['race_ref_from'] 	= element.shape.data.race_ref_from;
-        		jsonData['race_ref_to'] 	= element.shape.data.race_ref_to;
-        		jsonData['race_ref_len'] 	= element.shape.data.race_ref_len;
-        		jsonData['race_ref_temp'] 	= element.shape.data.race_ref_temp;
-        		jsonData['race_ref_method'] = element.shape.data.race_ref_method;
-        		jsonData['race_ref_rem'] 	= element.shape.data.race_ref_rem;
-        		sendData.push(jsonData);
-        	} 
-        	/** 
-        	 * location 정보
-        	 */
-        	else if(element.shape instanceof OG.BLDG) {
-        		jsonData['type'] = 'Location';
-        		jsonData['loc_ref_seq'] 	= element.shape.data.loc_ref_seq;
-        		jsonData['loc_ref_name'] 	= element.shape.data.loc_ref_name;
-        		jsonData['loc_ref_temp'] 	= element.shape.data.loc_ref_temp;
-        		jsonData['loc_ref_rem'] 	= element.shape.data.loc_ref_rem;
-        		jsonData['loc_ref_length'] 	= element.shape.data.loc_ref_length;
-        		sendData.push(jsonData);
-        	}
-        });
-        
-        console.log(sendData);
-        
-        //var returnData = parent.updateRoute(sendData);
-		var returnData = '0';
-		/**
-		 * 저장 및 업데이트가 성공한다면
-		 * 관련 그리드, 트리를 새로 그린다.
-		 */
-        if(returnData == '0') {
-        	controller.refreshGridAndTree(mode, renderer);
-        }
-        
-        $.unblockUI();
-        msgBox(renderer.MSGMessages.SAVEMSG);
-        setTimeout(msgBoxClose, 1000);
-    },
+			else if(element.shape instanceof OG.RacewayShape) {
+				jsonData['type'] = 'Cable';
+				jsonData['race_ref_from'] 	= element.shape.data.race_ref_from;
+				jsonData['race_ref_to'] 	= element.shape.data.race_ref_to;
+				jsonData['race_ref_len'] 	= element.shape.data.race_ref_len;
+				jsonData['race_ref_temp'] 	= element.shape.data.race_ref_temp;
+				jsonData['race_ref_method'] = element.shape.data.race_ref_method;
+				jsonData['race_ref_rem'] 	= element.shape.data.race_ref_rem;
+				sendData.push(jsonData);
+			}
+			/**
+			 * location 정보
+			 */
+			else if(element.shape instanceof OG.BLDG) {
+				jsonData['type'] = 'Location';
+				jsonData['loc_ref_seq'] 	= element.shape.data.loc_ref_seq;
+				jsonData['loc_ref_name'] 	= element.shape.data.loc_ref_name;
+				jsonData['loc_ref_temp'] 	= element.shape.data.loc_ref_temp;
+				jsonData['loc_ref_rem'] 	= element.shape.data.loc_ref_rem;
+				jsonData['loc_ref_length'] 	= element.shape.data.loc_ref_length;
+				sendData.push(jsonData);
+			}
+		});
+
+		console.log(sendData);
+		try {
+			var returnData = parent.updateRoute(sendData);
+			/**
+			 * 저장 및 업데이트가 성공한다면
+			 * 관련 그리드, 트리를 새로 그린다.
+			 */
+			if(returnData == '0') {
+				controller.refreshGridAndTree(mode, renderer);
+				msgBox(renderer.MSGMessages.SAVEMSG);
+			} else {
+				msgBox(renderer.MSGMessages.SAVEERRORMSG);
+			}
+		} catch (e) {
+			msgBox(renderer.MSGMessages.SAVEERRORMSG);
+		}
+
+		$.unblockUI();
+		setTimeout(msgBoxClose, 1000);
+	},
 
 	/**
 	 * 저장 버튼
@@ -1272,15 +1304,15 @@ DataController.prototype = {
 		var mode = controller.getCurrentMode();
 		var renderer = controller.getRendererByMode(mode);
 		// Feeder일때
-        if(mode == renderer.Constants.MODE.FEEDER) {
-        	me.saveFeederGui(controller);
-        } else if(mode == renderer.Constants.MODE.HIERARCHY) {
-        	me.saveHierarchy(controller);
-        } else if(mode == renderer.Constants.MODE.ROUTE) {
-        	me.saveRoute(controller);
-        }
-        
-    }
+		if(mode == renderer.Constants.MODE.FEEDER) {
+			me.saveFeederGui(controller);
+		} else if(mode == renderer.Constants.MODE.HIERARCHY) {
+			me.saveHierarchy(controller);
+		} else if(mode == renderer.Constants.MODE.ROUTE) {
+			me.saveRoute(controller);
+		}
+
+	}
 }
 ;
 DataController.prototype.constructor = DataController;

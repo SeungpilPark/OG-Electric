@@ -4486,6 +4486,11 @@ window.Raphael.svg && function (R) {
                                 lines.push(text);
                                 done = true;
                             } else {
+                                if(maxWidth == 1) {
+                                    lines.push(text);
+                                    done = true;
+                                    break;
+                                }
                                 // Inserts new line at first whitespace of the line
                                 for (i = maxWidth - 1; i >= 0; i--) {
                                     if (testWhite(text.charAt(i))) {
@@ -4500,7 +4505,7 @@ window.Raphael.svg && function (R) {
                                 // Inserts new line at maxWidth position, the word is too long to wrap
                                 if (!found) {
                                     res = res + text.slice(0, maxWidth);
-                                    text = text.slice(maxWidth - 1);
+                                    text = text.slice(maxWidth);
                                     lines.push(res);
                                 }
                             }
@@ -21214,7 +21219,7 @@ OG.renderer.RaphaelRenderer.prototype.drawGuide = function (element) {
         if (!_isDeletable) {
             return;
         }
-        _trash = me._PAPER.image("resources/images/symbol/trash.svg", 0, 0, _ctrlSize, _ctrlSize);
+        _trash = me._PAPER.image("resources/images/symbol/trash.png", 0, 0, _ctrlSize, _ctrlSize);
         _trash.attr(me._CONFIG.DEFAULT_STYLE.GUIDE_LINE_AREA);
         group.appendChild(_trash);
         me._add(_trash, rElement.id + OG.Constants.GUIDE_SUFFIX.TRASH);
