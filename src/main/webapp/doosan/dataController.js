@@ -143,6 +143,7 @@ DataController.prototype = {
 			} catch (e) {
 				data = [];
 				callback(null, data);
+
 			}
 		}
 	},
