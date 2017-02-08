@@ -2,7 +2,7 @@
  * Created by Seungpil, Park on 2016. 9. 6..
  */
 var DataController = function () {
-	this.dev = true;
+	this.dev = false;
 };
 DataController.prototype = {
 	/**
@@ -14,7 +14,6 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/project.json',
 				dataType: 'json',
-				async: false,
 				success: function (data) {
 					callback(null, data[0]);
 				},
@@ -44,7 +43,6 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/swgr-select-box.json',
 				dataType: 'json',
-				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -73,7 +71,6 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/swgr-list.json',
 				dataType: 'json',
-				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -103,7 +100,6 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/swgr-use-list.json',
 				dataType: 'json',
-				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -132,7 +128,6 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/load-list.json',
 				dataType: 'json',
-				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -161,7 +156,6 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/load-use-list.json',
 				dataType: 'json',
-				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -201,7 +195,6 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/feeder-list.json',
 				dataType: 'json',
-				async: false,
 				success: function (data) {
 					callback(null, getSwitchList(data));
 				},
@@ -295,7 +288,6 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/feeder-list.json',
 				dataType: 'json',
-				async: false,
 				success: function (data) {
 					var treeData = me.getFeederTreeData(data);
 					callback(null, treeData);
@@ -327,7 +319,6 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/feeder-update-list.json',
 				dataType: 'json',
-				async: false,
 				success: function (data) {
 					var treeData = this.getFeederTreeData(data);
 					object.settings.core.data = treeData;
@@ -404,7 +395,6 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/feeder-list.json',
 				dataType: 'json',
-				async: false,
 				success: function (data) {
 					callback(null, getSwitchList(data));
 				},
@@ -491,7 +481,6 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/hierarchy-list.json',
 				dataType: 'json',
-				async: false,
 				success: function (data) {
 					callback(null, me.getHierarchyTreeData(data));
 				},
@@ -518,7 +507,6 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/location-ref.json',
 				dataType: 'json',
-				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -545,7 +533,6 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/raceway-ref.json',
 				dataType: 'json',
-				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -571,7 +558,6 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/route-ref.json',
 				dataType: 'json',
-				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -596,7 +582,6 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/bldg-ref.json',
 				dataType: 'json',
-				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -621,7 +606,6 @@ DataController.prototype = {
 			$.ajax({
 				url: 'doosan/data/cable-ref.json',
 				dataType: 'json',
-				async: false,
 				success: function (data) {
 					callback(null, data);
 				},
@@ -821,7 +805,7 @@ DataController.prototype = {
 			return;
 		}
 
-		console.log(sendData);
+		//console.log(sendData);
 		try {
 			var returnData = parent.updateHierarchy(sendData);
 			/**
@@ -1148,7 +1132,7 @@ DataController.prototype = {
 
 		}
 
-		console.log(sendData);
+		//console.log(sendData);
 		try {
 			var returnData = parent.updateFeeder(sendData);
 			/**
@@ -1173,7 +1157,7 @@ DataController.prototype = {
 	 * Route 저장 함수
 	 */
 	saveRoute: function(controller) {
-		console.log(parent.getLocationList());
+		//console.log(parent.getLocationList());
 		var mode = controller.getCurrentMode();
 		var renderer = controller.getRendererByMode(mode);
 		var currentCanvas = renderer.getCanvas();
@@ -1274,7 +1258,7 @@ DataController.prototype = {
 			}
 		});
 
-		console.log(sendData);
+		//console.log(sendData);
 		try {
 			var returnData = parent.updateRoute(sendData);
 			/**

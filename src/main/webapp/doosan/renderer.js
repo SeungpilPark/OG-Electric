@@ -1,28 +1,28 @@
 var Renderer = function (mode, container, controller) {
 
     this.MSGMessages = {
-        POINTMSG: 'ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Õ´Ï´ï¿½.',
-        MHPOINTMSG: 'ï¿½ï¿½È¦ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Õ´Ï´ï¿½.',
-        DUPLICATEMSG: 'ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½Äªï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.',
-        LENGTHMSG: 'Legnthï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Õ´Ï´ï¿½.',
-        LENGTHCKMSG: 'Lengthï¿½ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.',
-        TEMPMSG: 'Tempï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Õ´Ï´ï¿½.',
-        TEMPCKMSG: 'Tempï¿½ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.',
-        TEMPINPUTCHK: 'ï¿½Ò¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½Ô·ï¿½ï¿½Ï½Ê½Ã¿ï¿½.',
-        TEMPDECIMALPOINTCHK: 'Tempï¿½ï¿½ ï¿½Ò¼ï¿½ï¿½ï¿½ 3ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.',
-        TEMPSIZECHK: 'Tempï¿½ï¿½ 80ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½Ô·ï¿½ï¿½Ø¾ï¿½ ï¿½Õ´Ï´ï¿½.',
-        REMARKMSG: 'Remarkï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ø¾ï¿½ ï¿½Õ´Ï´ï¿½.',
-        SAVEMSG: 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.',
-        SAVEERRORMSG: 'ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï½Ê½Ã¿ï¿½.',
-        NOPATH: 'Pathï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.',
-        SAMELOCATION: 'ï¿½ï¿½ï¿½ï¿½ Locationï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.',
-        SELECTRACEWAY: 'ï¿½ï¿½Ã¼ ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Õ´Ï´ï¿½.',
-        NOOBJECTSAVE: 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.',
-        POINTTOPOINTCHK: 'Pointï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.',
-        SWITCHCONNECTIONCHK: 'ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.',
-        FEEDERINFLOOR: 'ï¿½Ç´ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ã·Î¾ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½.',
-        POINTINLOCATION: 'ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼Ç¾È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½.',
-        FEEDERTYPETR: 'Å¸ï¿½ï¿½ï¿½ï¿½ TRï¿½Ì¸ï¿½ Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.'
+        POINTMSG: 'Æ÷ÀÎÆ®¸¦ ÁöÁ¤ÇØ¾ß ÇÕ´Ï´Ù.',
+        MHPOINTMSG: '¸ÇÈ¦ Æ÷ÀÎÆ®¸¦ ÁöÁ¤ÇØ¾ß ÇÕ´Ï´Ù.',
+        DUPLICATEMSG: 'ÀÔ·ÂÇÑ ¸íÄªÀÌ ÀÌ¹Ì Á¸ÀçÇÕ´Ï´Ù.',
+        LENGTHMSG: 'Legnth¸¦ ÁöÁ¤ÇØ¾ß ÇÕ´Ï´Ù.',
+        LENGTHCKMSG: 'Length´Â ¼ýÀÚ¸¸ ÀÔ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.',
+        TEMPMSG: 'Temp¸¦ ÁöÁ¤ÇØ¾ß ÇÕ´Ï´Ù.',
+        TEMPCKMSG: 'Temp´Â ¼ýÀÚ¸¸ ÀÔ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.',
+        TEMPINPUTCHK: '¼Ò¼öÁ¡ÀÌÇÏ¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À.',
+        TEMPDECIMALPOINTCHK: 'Temp´Â ¼Ò¼öÁ¡ 3ÀÚ¸®±îÁö¸¸ Çã¿ëÇÕ´Ï´Ù.',
+        TEMPSIZECHK: 'Temp´Â 80ÀÌÇÏ·Î ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.',
+        REMARKMSG: 'Remark¸¦ ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.',
+        SAVEMSG: 'ÀúÀåÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.',
+        SAVEERRORMSG: 'ÀúÀå½Ã ¿À·ù°¡ ¹ß»ýÇÏ¿´½À´Ï´Ù. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ½Ê½Ã¿À.',
+        NOPATH: 'Path°¡ ¾ø½À´Ï´Ù.',
+        SAMELOCATION: 'µ¿ÀÏ Location¿¡ ÀÖ½À´Ï´Ù.',
+        SELECTRACEWAY: '´ëÃ¼ °æ·Î¸¦ ¼±ÅÃÇØ¾ß ÇÕ´Ï´Ù.',
+        NOOBJECTSAVE: 'ÀúÀåÇÒ ¿ÀºêÁ§Æ®°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.',
+        POINTTOPOINTCHK: 'Point°£ÀÇ ¿¬°áÀº Çã¿ëµÇÁö ¾Ê½À´Ï´Ù.',
+        SWITCHCONNECTIONCHK: '¿¬°áÇÏ·Á´Â ÇÇ´õ ½ºÀ§Ä¡´Â ÀÌ¹Ì »óÀ§ ÇÇ´õ ½ºÀ§Ä¡¸¦ °¡Áö°í ÀÖ½À´Ï´Ù.',
+        FEEDERINFLOOR: 'ÇÇ´õÀÇ À§Ä¡´Â ÇÃ·Î¾î¾È¿¡ ³õ¿©Á®¾ß ÇÕ´Ï´Ù.',
+        POINTINLOCATION: 'Æ÷ÀÎÆ®ÀÇ À§Ä¡´Â ·ÎÄÉÀÌ¼Ç¾È¿¡ ³õ¿©Á®¾ß ÇÕ´Ï´Ù.',
+        FEEDERTYPETR: 'Å¸ÀÔÀÌ TRÀÌ¸é Äµ¹ö½º¿¡ ±×¸± ¼ö ¾ø½À´Ï´Ù.'
     }
 
     this.Constants = {
@@ -43,12 +43,12 @@ var Renderer = function (mode, container, controller) {
         },
 
         /**
-         * FEEDER EDITOR MODEï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ SaveMODEï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
-         * SWGRï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ new, loadï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½Îµï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ dataTablesï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½...
-         * 1. ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ dataTables ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½....
-         * FEEDER_FEEDERï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Â°ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½.
-         * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Îµå¸¦ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ø´ï¿½ loadï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½î¶² ï¿½Þ´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½î¶»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ ï¿½Ë¾Æ¾ï¿½ ï¿½Ñ´ï¿½.
-         * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+         * FEEDER EDITOR MODE½Ã ¿ìÃø ¸Þ´º Å¬¸¯¿¡ ´ëÇÑ SaveMODE¸¦ °¡Á®¾ßÇÑ´Ù.
+         * SWGRÀÏ °æ¿ì¿¡´Â ÀúÀå½Ã new, loadÀÏ °æ¿ì¿¡´Â ÇØ´ç ·Îµå¸ñ·Ï¿¡¼­ µå¶ø½Ã dataTables¸¦ °»½ÅÇØ¾ßÇÑ´Ù...
+         * 1. µå¶ø½Ã ¸Þ´º¿¡¼­ Á¦¿Ü, Äµ¹ö½º¿¡¼­ µå¶øÇÑ ·Îµå »èÁ¦½Ã¿¡´Â ´Ù½Ã dataTables ¸ñ·Ï¿¡ °»½Å....
+         * FEEDER_FEEDER¿¡¼­ ²ø¾î ¿Â°æ¿ì¿¡´Â ±âÁ¸ÀÇ ÀÖ´Â ³Ñ.
+         * ¸¸ÀÏ ±âÁ¸ÀÇ ½ºÀ§Ä¡¿¡¼­ ·Îµå¸¦ ¿Ã·Á³õÀ» ½Ã ÇØ´ç load¸¸ ¾÷µ«À» ÇØ¾ßÇÏ±â ¶§¹®¿¡ ¾î¶² ¸Þ´º¿¡¼­ ¾î¶»°Ô °¡Á®¿Ô´ÂÁö ¾Ë¾Æ¾ß ÇÑ´Ù.
+         * °¢°¢ÀÇ ¿¡µðÅÍ¿¡ ´ëÇÑ ¼¼ÀÌºê ¸ðµå¸¦ °¡Áø´Ù.
          *
          */
         FEEDER_SAVE_MODE: {
@@ -109,23 +109,23 @@ var Renderer = function (mode, container, controller) {
     };
 
     /**
-     * Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ - ï¿½ï¿½ì¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
+     * Äµ¹ö½ºÀÇ ¿¡µðÆÃ ´ë»ó °´Ã¼ - °æ¿ì¿¡ µû¶ó ÀÌ °´Ã¼°¡ ¾ø´Ù¸é µµÇü ±×¸®±â¸¦ Çã¿ëÇÏÁö ¾Ê´Â´Ù.
      */
     this.editingObject = undefined;
 
     /**
-     * Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ GUI ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
+     * Äµ¹ö½ºÀÇ ¿¡µðÆÃ ´ë»ý °´Ã¼ÀÇ GUI º¯È­ ¿©ºÎ
      */
     this.isUpdated = false;
 
     /**
-     * ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ jsonï¿½ï¿½ï¿½ï¿½ Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
-     * ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ raceWay ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Æ¾ï¿½ ï¿½Ñ´ï¿½.
+     * ¶ó¿ìÅÍ ¿¡µðÅÍ¿¡¼­ jsonÀ¸·Î Äµ¹ö½º¸¦ ±×¸± ¶§ ÄÉÀÌºí¿¡ ´ëÇÑ Á¤º¸µéÀ» »õ·Î ±×¸°´Ù.
+     * ÀÌ ¶§´Â raceWay ÇÁ·ÎÆÛÆ¼ Ã¢À» ¶ç¿ìÁö ¾Ê¾Æ¾ß ÇÑ´Ù.
      */
     this.isRedrawRaceWayFromJson = false;
 
     /**
-     * ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½, ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+     * ¸ðµå, ÄÁÅ×ÀÌ³Ê, ÄÁÆ®·Ñ·¯ µî·Ï (´©¶ôÀÏ °æ¿ì ¸®ÅÏ)
      */
     if (!mode || !container || !controller) {
         return;
@@ -138,14 +138,15 @@ var Renderer = function (mode, container, controller) {
     this._SLIDER = null;
 
     // Canvas
+    //this.canvas = new OG.Canvas(container, [this._CONTAINER.width(), this._CONTAINER.height()], 'white', 'url(resources/images/symbol/grid.gif)');
     this.canvas = new OG.Canvas(container, [this._CONTAINER.width(), this._CONTAINER.height()], 'transparent', 'url(resources/images/symbol/grid.gif)');
     this.canvas._CONFIG.DEFAULT_STYLE.EDGE["edge-type"] = "plain";
     /**
-     * ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ÈÙ ½ºÄÉÀÏ
      */
     this.canvas._CONFIG.WHEEL_SCALABLE = true;
     /**
-     * ï¿½å·¡ï¿½ï¿½ È­ï¿½ï¿½ ï¿½Ìµï¿½
+     * µå·¡±× È­¸é ÀÌµ¿
      */
     this.canvas._CONFIG.DRAG_PAGE_MOVABLE = true;
 
@@ -172,34 +173,34 @@ var Renderer = function (mode, container, controller) {
     this.canvas._CONFIG.LABEL_MAX_SIZE = this._CONFIG.LABEL_MAX_SIZE;
 
     /**
-     * ï¿½ï¿½Å° : Ctrl+C ï¿½ï¿½ï¿½ï¿½ Å° ï¿½ï¿½ï¿½É¿ï¿½ï¿½ï¿½
+     * ÇÖÅ° : Ctrl+C º¹»ç Å° °¡´É¿©ºÎ
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_C = false;
     /**
-     * ï¿½ï¿½Å° : Ctrl+V ï¿½Ù¿ï¿½ï¿½Ö±ï¿½ Å° ï¿½ï¿½ï¿½É¿ï¿½ï¿½ï¿½
+     * ÇÖÅ° : Ctrl+V ºÙ¿©³Ö±â Å° °¡´É¿©ºÎ
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_V = false;
     /**
-     * ï¿½ï¿½Å° : Ctrl+D ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ Å° ï¿½ï¿½ï¿½É¿ï¿½ï¿½ï¿½
+     * ÇÖÅ° : Ctrl+D º¹Á¦ÇÏ±â Å° °¡´É¿©ºÎ
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_D = false;
 
     /**
-     * ï¿½ï¿½Å° : DELETE ï¿½ï¿½ï¿½ï¿½ Å° ï¿½ï¿½ï¿½É¿ï¿½ï¿½ï¿½
+     * ÇÖÅ° : DELETE »èÁ¦ Å° °¡´É¿©ºÎ
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_DELETE = false;
 
     /**
-     * ï¿½ï¿½Å° : Ctrl+G ï¿½×·ï¿½ Å° ï¿½ï¿½ï¿½É¿ï¿½ï¿½ï¿½
+     * ÇÖÅ° : Ctrl+G ±×·ì Å° °¡´É¿©ºÎ
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_G = false;
     /**
-     * ï¿½ï¿½Å° : Ctrl+U ï¿½ï¿½×·ï¿½ Å° ï¿½ï¿½ï¿½É¿ï¿½ï¿½ï¿½
+     * ÇÖÅ° : Ctrl+U ¾ð±×·ì Å° °¡´É¿©ºÎ
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_U = false;
 
     /**
-     * ï¿½ï¿½Å° : UNDO REDO Å° ï¿½ï¿½ï¿½É¿ï¿½ï¿½ï¿½
+     * ÇÖÅ° : UNDO REDO Å° °¡´É¿©ºÎ
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_Z = false;
 
@@ -207,7 +208,7 @@ var Renderer = function (mode, container, controller) {
     this._HANDLER = this.canvas._HANDLER;
     this.init();
 
-    //Äµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾Æ·Î±×µï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+    //Äµ¹ö½º »èÁ¦½Ã °ü·Ã ´ÙÀÌ¾Æ·Î±×µµ »èÁ¦ÇÑ´Ù.
     var me = this;
     $(this._CONTAINER).on("remove", function () {
         me.destroyAllDialog();
@@ -275,12 +276,12 @@ Renderer.prototype = {
         }
     },
     /**
-     * ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½Ì¾Æ·Î±ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å³ï¿½ ï¿½ï¿½ï¿½Î´ï¿½.
+     * ÇØ´ç ·»´õ·¯¿¡ °ü·ÃµÈ ´ÙÀÌ¾Æ·Î±× Ã¢À» ¼û±â°Å³ª º¸ÀÎ´Ù.
      * @param show
      */
     showDialog: function (show) {
         var me = this;
-        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+        //±âÁ¸ ´ëÈ­ÀåÀÌ ÀÖÀ» °æ¿ì »èÁ¦ÇÏµµ·Ï ÇÑ´Ù.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         if (show) {
             $('[name=' + dialogName + ']').closest(".ui-dialog").show();
@@ -289,7 +290,7 @@ Renderer.prototype = {
         }
     },
     /**
-     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾Æ·Î±ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+     * µµÇüÀÇ ´ÙÀÌ¾Æ·Î±× Ã¢À» »ý¼ºÇÑ´Ù.
      * @param element
      * @param options
      * @returns {Mixed|jQuery|HTMLElement}
@@ -297,11 +298,11 @@ Renderer.prototype = {
     createDialog: function (element, options) {
         var me = this;
 
-        //ï¿½ï¿½È­Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½Ó½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½
+        //´ëÈ­Ã¢ÀÇ ³×ÀÓ½ºÆäÀÌ½º
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         var dialogId = me._CONTAINER_ID + element.id;
 
-        //ï¿½ï¿½È­Ã¢ï¿½ï¿½ ï¿½Ë¾ï¿½ï¿½ï¿½Å²ï¿½ï¿½.
+        //´ëÈ­Ã¢À» ÆË¾÷½ÃÅ²´Ù.
         var dialog = $('<div></div>');
         dialog.attr('name', dialogName);
         dialog.attr('id', dialogId);
@@ -331,7 +332,7 @@ Renderer.prototype = {
         return dialog;
     },
     /**
-     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾Æ·Î±ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+     * µµÇüÀÇ ´ÙÀÌ¾Æ·Î±×Ã¢À» »èÁ¦ÇÑ´Ù.
      * @param element
      */
     destroyDialog: function (element) {
@@ -354,7 +355,7 @@ Renderer.prototype = {
     },
 
     /**
-     * HierarchyCanvasï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
+     * HierarchyCanvas¿¡ ±âÁ¸ Á¤º¸¸¦ ±×¸°´Ù.
      */
     drawToHierarchyCanvasFromServerData: function(mode) {
         var me = this;
@@ -365,21 +366,11 @@ Renderer.prototype = {
             try{
                 dataInfo = parent.getFeederSWGRTree();
             } catch(e) {
-                $.ajax({
-                    url: 'doosan/data/hierarchy-list.json',
-                    dataType: 'json',
-                    async:false,
-                    success: function (data) {
-                        dataInfo = data;
-                    },
-                    error: function (err) {
-                        dataInfo = [];
-                    }
-                });
+                dataInfo = [];
             }
 
             /**
-             * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·Î¿ì¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
+             * ºôµù°ú ÇÃ·Î¿ì¸¦ ÃßÃâÇØ¼­ °¢°¢ÀÇ ¸®½ºÆ®¿¡ ³Ö´Â´Ù.
              */
             var bldgList = [];
             var floorList = [];
@@ -396,13 +387,13 @@ Renderer.prototype = {
             });
 
             /**
-             * Äµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+             * Äµ¹ö½º »çÀÌÁî Á¶Á¤
              */
             var initHeight = (me._CONFIG.DEFAULT_SIZE.HIERARCHY_FLOOR[1] + 40) * floorList.length + (100 * floorList.length);
             if(initHeight < me.getContainer().height()) {
                 initHeight = me.getContainer().height();
             }
-            //canvasï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+            //canvasÀÇ »çÀÌÁî¸¦ ÀçÁ¶ÀýÇÑ´Ù.
             var size = [
                 me.getContainer().width(),
                 initHeight
@@ -415,11 +406,11 @@ Renderer.prototype = {
             me.getCanvas().setCanvasSize(size);
 
             /**
-             * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-             * ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ floorï¿½ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½Å« Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
-             * idxï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-             * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
-             * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Äµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ 100ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
+             * ºôµùÀ» Äµ¹ö½º¿¡ ±×¸®±â À§ÇÑ ·ÎÁ÷
+             * ÇØ´ç ºôµù¿¡ ¼ÓÇÑ floorÀÇ ¼ýÀÚ¸¸Å« Äµ¹ö½ºÀÇ ³ôÀÌ¸¦ ´Ã·Á¼­ ¼¼ÆÃÇÑ´Ù.
+             * idx¸¦ ÅëÇØ ÃÖÃÊ ºôµùÀÇ À§Ä¡¸¦ ¼±Á¤ÇÏ°í ±× ÀÌÈÄ ±×·ÁÁö´Â ºôµùÀº
+             * ÀÏÁ¤ °£°ÝÀ¸·Î ¹ØÀ¸·Î ±×¸°´Ù.
+             * ÃÖÃÊ ºôµùÀº Äµ¹ö½º ÁÂÃø »ó´ÜÀ¸·Î ºÎÅÍ ÁÂÃø, À§·ÎºÎÅÍ 100À» ¶ç¿ö¼­ ±×¸°´Ù.
              */
             var bldgIdx = 0;
             var totalBldgHeight = 0;
@@ -432,8 +423,8 @@ Renderer.prototype = {
                 });
 
                 /**
-                 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. bldgInFloorIdxï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ã·Î¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ +40ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
-                 * offset ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô²ï¿½ ï¿½Ö¾ï¿½ï¿½Ø´ï¿½.
+                 * ºôµùÀÇ ³ôÀÌ¸¦ Àç Á¶Á¤ÇÑ´Ù. bldgInFloorIdxÀÇ °¹¼ö¸¸Å­ ÇÃ·Î¾îÀÇ ³ôÀÌ +40¸¦ ´õÇØ¼­ °öÇÑ´Ù.
+                 * offset Á¤º¸µµ ÇÔ²² ³Ö¾îÁØ´Ù.
                  */
                 var bldgHeight = (me._CONFIG.DEFAULT_SIZE.HIERARCHY_FLOOR[1] + 40) * bldgInFloorIdx;
                 var adjustBldgY = 0;
@@ -458,9 +449,9 @@ Renderer.prototype = {
                 var centroidX = bldg.shape.geom.boundary._centroid.x;
                 var centroidY = bldg.shape.geom.boundary._centroid.y;
                 /**
-                 * ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ upperCenterYï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 20ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
-                 * ï¿½ï¿½ï¿½ï¿½ xï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
-                 * floorï¿½ï¿½ Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                 * ÇØ´ç ºôµùÀÇ upperCenterY·ÎºÎÅÍ ¹ØÀ¸·Î 20À» ¶ç¿ö ±×¸°´Ù.
+                 * ¼¾ÅÍ xÁÂÇ¥´Â ºôµùÀÇ xÁÂÇ¥·Î ¼³Á¤ÇÑ´Ù.
+                 * floorÀ» Äµ¹ö½º¿¡ ±×¸®±â À§ÇÑ ·ÎÁ÷
                  *
                  */
                 var floorIdx = 0;
@@ -516,12 +507,12 @@ Renderer.prototype = {
                 if(shapeElement.shape instanceof OG.HierarchyFeeder) {
                     var deleteItem = true;
                     feederList.some(function(feeder){
-                        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ itemï¿½Ì±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ deleteItemï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
+                        // Á¶°ÇÀÌ ¼º¸³µÈ´Ù´Â °ÍÀº Á¸ÀçÇÏ´Â itemÀÌ±â ¶§¹®¿¡ deleteItemÀÌ ¾Æ´Ï´Ù.
                         if(feeder.fe_swgr_load_div == 'S' && feeder.swgr_seq == shapeElement.shape.data.swgr_seq) {
                             deleteItem = false;
                         }
                     });
-                    // trueï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½á±¹ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ itemï¿½Ì±â¶§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+                    // true¶ó´Â °ÍÀº °á±¹ »èÁ¦µÈ itemÀÌ±â¶§¹®¿¡ Áö¿ö¾ß ÇÑ´Ù.
                     if(deleteItem) {
                         me._CONTROLLER.deleteFeederHierarchyList.push(shapeElement.shape.data);
                         currentCanvas.removeShape(shapeElement);
@@ -547,9 +538,9 @@ Renderer.prototype = {
 
         if(renderer.getMode() == renderer.Constants.MODE.HIERARCHY) {
             /**
-             * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½Ç´ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ï°ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½Ç´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
-             * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½Å° ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-             * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
+             * Áö¿öÁø ½ºÀ§Ä¡ÇÇ´õ°¡ ÀÖ´ÂÁö Ã¼Å©ÇÏ°í ÇØ´ç ½ºÀ§Ä¡ ÇÇ´õ´Â Áö¿î´Ù.
+             * ÇÏÁö¸¸ ÇÏÀÌ¾î¶óÅ° ÇÇ´õ ¸®½ºÆ®´Â ÀÌ¹Ì Áö¿öÁø ÇÇ´õ°¡ Á¸ÀçÇÏ±â ¶§¹®¿¡
+             * Áö¿ï ¶§ ÆÄ¶ó¹ÌÅÍ¸¦ ÅëÇØ ±×¸®µå¸¦ »ó½ÅÇÏÁö ¾Ê°Ô ¸¸µç´Ù.
              */
             renderer.compareAndRemove(true);
             renderer._CONTROLLER.saveSettingHierarchyMode(renderer);
@@ -559,7 +550,7 @@ Renderer.prototype = {
             var panel = renderer._CONTROLLER.model.BldgReferenceList.panel;
             setTimeout(renderer._CONTROLLER.redrawDataTables, 160, panel, renderer._CONTROLLER.initBldgReferenceList, renderer._CONTROLLER);
             /**
-             * ROUTEï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ Bldgï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+             * ROUTE´Â ±×¸®°í ³­ ÀÌÈÄ Äµ¹ö½º¿¡ ±×¸®Áø Bldg¸¦ Á¦¿ÜÇÑ ±×¸®µå¸¦ »õ·Î ±×·Á¾ß ÇÑ´Ù.
              */
 
             var shapeList = canvas.getAllShapes();
@@ -571,7 +562,7 @@ Renderer.prototype = {
 
             var updateList = renderer._CONTROLLER.usedBldgReferenceList;
 
-            // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ load itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ø´ï¿½ ï¿½×¸ï¿½ï¿½å¸¦ ï¿½Ù½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+            // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
             var unUsedBldgReferenceList = renderer._CONTROLLER.initBldgReferenceList;
             var newList = [];
             for (var k = 0; k < unUsedBldgReferenceList.length; k++) {
@@ -595,14 +586,14 @@ Renderer.prototype = {
     },
 
     //TODO
-    // ï¿½ï¿½ï¿½Ù¿ï¿½ ï¿½Ø½ï¿½Æ®, ï¿½ï¿½Å¸ shape ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ß°ï¿½.
-    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¾ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È®ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
-    // ï¿½ï¿½ï¿½ï¿½ CRUD ï¿½ï¿½ï¿½ï¿½ï¿½
+    // Åø¹Ù¿¡ ÅØ½ºÆ®, ±âÅ¸ shape ¿ÀºêÁ§Æ® Ãß°¡.
+    // »ùÇÃ µ¥ÀÌÅÍ ÆÄ¾ÇÇÏ¿© ¸±·¹ÀÌ¼Ç °ü°è ¸íÈ®ÇÏ°Ô ¸¸µé±â
+    // ¼­¹ö CRUD ¸¸µé±â
 
 
     /**
-     * ï¿½×¸ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ canvasï¿½ï¿½ ï¿½×¸ï¿½ jsonï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ seqï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
-     * ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Äµï¿½Ù½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
+     * ±×¸®µå·ÎºÎÅÍ ¹ÞÀº Á¤º¸¿¡¼­ canvas¿¡ ±×¸± jsonÁ¤º¸°¡ ¾ø´Ù¸é ÇØ´ç °´Ã¼ÀÇ seq³Ñ¹ö¸¦ ÅëÇØ ÀüÃ¼ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
+     * ±× ¸®½ºÆ®·Î Äµ¹Ù½º¿¡ ¸ðµ¨À» ±×¸°´Ù.
      *
      */
     drawToFeederCanvasFromServerData: function(shapeData, panel) {
@@ -613,7 +604,7 @@ Renderer.prototype = {
         var data = JSON.parse(JSON.stringify(shapeData));
         var totalList = [];
 
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+        //·»´õ·¯¿¡ ¿¡µðÆÃ ¿ÀºêÁ§Æ®¸¦ ¼³Á¤ÇÑ´Ù.
         me.editingObject = data;
 
         var switchGear = null;
@@ -632,8 +623,8 @@ Renderer.prototype = {
         switchGear['shapeType'] = me.Constants.TYPE.SWITCH_GEAR;
         var defaultSwitchGearSize = me._CONFIG.DEFAULT_SIZE.SWITCH_GEAR;
         /**
-         * 1. listï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î¸¦ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½î¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ +20ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
-         * 2. ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È´ï¿½.
+         * 1. listÀÇ »çÀÌÁî¸¦ ±¸ÇÏ°í ·ÎµåÀÇ µðÆúÆ® »çÀÌÁî¿¡ °£°Ý Á¶Á¤À» À§ÇÑ +20À» ´õÇÑ´Ù.
+         * 2. ÀÌ °ªÀ» °öÇÑ »çÀÌÁî°¡ ÃÖÁ¾ ¸®»çÀÌÁî °ªÀÌ µÈ´Ù.
          */
         var shapeResize = defaultSwitchGearSize[0];
         if(totalList.length > 1) {
@@ -644,7 +635,7 @@ Renderer.prototype = {
         }
 
         /**
-         * Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î¸¦ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½Ì¿ï¿½ï¿½ï¿½ 200ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+         * Äµ¹ö½ºÀÇ ÃÊ±â »çÀÌÁî¸¦ ½ºÀ§Ä¡ÀÇ ÀüÃ¼ ±æÀÌ¿¡¼­ 200À» ´õÇÑ ¸¸Å­ ¼³Á¤ÇÑ´Ù.
          */
         var adjustNewWidth = shapeResize + 200;
         if(adjustNewWidth < me.getContainer().width()) {
@@ -653,7 +644,7 @@ Renderer.prototype = {
 
         me.getCanvas().clear();
         me.getCanvas().setScale(1);
-        //canvasï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+        //canvasÀÇ »çÀÌÁî¸¦ ÀçÁ¶ÀýÇÑ´Ù.
         var size = [
             adjustNewWidth,
             me.getContainer().height()
@@ -661,17 +652,17 @@ Renderer.prototype = {
 
         me.getCanvas().setCanvasSize(size);
 
-        // ï¿½ï¿½ï¿½ß¾ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ position = [me.getContainer().width() / 2, me.getContainer().height() / 2]
-        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ ï¿½ß¾ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ (me.getContainer().width()/2) - (adjustNewWidth/2)
+        // Á¤Áß¾Ó ÁÂÇ¥´Â position = [me.getContainer().width() / 2, me.getContainer().height() / 2]
+        // ÇöÀç ½ºÀ§Ä¡ÀÇ Á¤ Áß¾Ó ÁÂÇ¥¿¡¼­ ÁÂÃø ³¡ÀÇ ÁÂÇ¥´Â (me.getContainer().width()/2) - (adjustNewWidth/2)
         var newCenterPosition = shapeResize/2 + 100;
-        // ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ Äµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 100ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
+        // ½ºÀ§Ä¡ÀÇ ±æÀÌ°¡ ±æ¾îÁö´Â °ÍÀ» ¿¹»óÇØ¼­ Äµ¹ö½º ¸Ç ³¡¿¡¼­ 100Á¤µµÀÇ °£°ÝÀ» ¶ç¿ö¼­ Áß¾ÓÀ» Àâ¾Æ ±×¸°´Ù.
         var newShapeAdjustSize = [shapeResize, newCenterPosition, 100];
-        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
+        // ¸ÞÀÎ ½ºÀ§Ä¡¸¦ ¸ÕÀú ±×¸°´Ù.
         me.drawImmediately(null, switchGear, null, newShapeAdjustSize);
 
         /**
-         * web workerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ùµï¿½ï¿½ ï¿½É·ï¿½
-         * ï¿½ï¿½ï¿½ï¿½ï¿½ roughï¿½Ï°ï¿½ ï¿½Úµï¿½ ï¿½×½ï¿½ï¿½Ã¸ï¿½ È®ï¿½ï¿½
+         * web worker´Â Â÷ÈÄ Á» ´õ ´Ùµë´Â °É·Î
+         * ÇöÀç´Â roughÇÏ°Ô ÄÚµå Å×½ºÆÃ¸¸ È®ÀÎ
          *
          */
 
@@ -691,12 +682,12 @@ Renderer.prototype = {
                 return;
             }
             if(initLeftPosition == 0) {
-                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ß¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý¸ï¿½Å­ ï¿½Ìµï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½Ñ´ï¿½.
-                // ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Äµï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 100ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×·È±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                // ÃÖÃÊ À§Ä¡´Â ½ºÀ§Ä¡ ¸Ç ³¡ ÁÂÇ¥·ÎºÎÅÍ ¿ìÃøÀ¸·Î ·ÎµåÀÇ Áß¾Ó »çÀÌÁîÀÇ Àý¹Ý¸¸Å­ ÀÌµ¿½ÃÄÑ¾ßÇÑ´Ù.
+                // ½ºÀ§Ä¡ÀÇ ¸Ç ³¡Àº Äµ¹Ù½º ÁÂÃø ³¡¿¡¼­ 100À» ¶ç¿ö¼­ ±×·È±â ¶§¹®¿¡
                 initLeftPosition = 100 + me._CONFIG.DEFAULT_SIZE.LOAD[0]/2;
             } else {
-                // ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý¸ï¿½Å­ ï¿½Ìµï¿½ï¿½ï¿½Å²ï¿½ï¿½. ï¿½×¸ï¿½ï¿½ï¿½
-                // ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ widthï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Îµï¿½ ï¿½Ç´ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ +20ï¿½ï¿½ ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ ï¿½Ô²ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+                // ÃÖÃÊ¿¡ ±×·ÁÁø °ÍÀÌ ¾Æ´Ï¶ó¸é ±âÁ¸ Æ÷Áö¼Ç¿¡¼­ ·ÎµåÀÇ Àý¹Ý¸¸Å­ ÀÌµ¿½ÃÅ²´Ù. ±×¸®°í
+                // ½ºÀ§Ä¡ÀÇ width¸¦ °áÁ¤ÇÒ ¶§ ·Îµå ¶Ç´Â Æ®·£½ºÆ÷¸Ó ¼ö¸¸Å­ +20À» Çß±â ¶§¹®¿¡ ±× ¼ýÀÚµµ ÇÔ²² ´øÁø´Ù.
                 initLeftPosition = initLeftPosition + me._CONFIG.DEFAULT_SIZE.LOAD[0] + 20;
             }
             var initShapeAdjustSize = [0, initLeftPosition, -100];
@@ -705,33 +696,30 @@ Renderer.prototype = {
         me.getCanvas().fastLoadingOFF();
         $.unblockUI();
 
-        //var endDate = new Date();
-        //var diff = endDate - startDate;
-        //console.log('Diff: ' + diff);
     },
 
     /**
-     * drawImmediatelyï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ redrawï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â¿ï¿½ï¿½.
+     * drawImmediatelyÀÌÈÄ¿¡ ±×¸®µå redraw¿¡ ´ëÇÑ ·ÎÁ÷À» ÅÂ¿î´Ù.
      */
     reloadGridAfterDrawImmediately: function(shape, shapeInfo, panel) {
 
         var me = this;
 
-        // ï¿½Ñ¹ï¿½ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½Æ¿ï¿½ ï¿½Ø¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Â¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
+        // ÇÑ¹ø´õ Ã¼Å©·Î ¾Æ¿¹ ¹Ø¿¡ ·ÎÁ÷ ÅÂ¿ì´Â À¯¹«¸¦ Ã¼Å©ÇÑ´Ù.
         if (!me.editingObject) {
             return false;
         }
 
         var newList = [];
-        //ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½Ì°ï¿½ UnAssignedLoadListï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½
+        //ÇØ´ç ¾ÆÀÌÅÛÀÌ ·ÎµåÀÌ°í UnAssignedLoadList¿¡¼­ ³Ñ¾î¿Â ¾ÆÀÌÅÛÀÌ¶ó¸é
         if(shape instanceof OG.Load &&
             (shapeInfo.model == me._CONTROLLER.model.UnAssignedLoadList.name)
         ) {
 
-            //ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ loadlistï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+            //ÇØ´ç ¾ÆÀÌÅÛÀº »ç¿ëµÈ loadlist¿¡ Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
             var usedLoadList = me._CONTROLLER.usedLoadList;
             usedLoadList.push(shapeInfo);
-            // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ load itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ø´ï¿½ ï¿½×¸ï¿½ï¿½å¸¦ ï¿½Ù½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+            // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
             var unloadList = me._CONTROLLER.initUnusedLoadList;
             for(var i=0; i<unloadList.length; i++) {
                 var isDuplicated = false;
@@ -746,7 +734,7 @@ Renderer.prototype = {
                 }
             }
 
-            // ï¿½Ø´ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
+            // ÇØ´ç ±×¸®µå »õ·Î ±×¸°´Ù.
             var dataTable = panel.dataTable().api();
             var currentPage = dataTable.page();
             dataTable.clear();
@@ -755,15 +743,15 @@ Renderer.prototype = {
             dataTable.page(currentPage).draw(false);
 
         }
-        // ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ modelï¿½ï¿½ SwgrListï¿½ï¿½ï¿½
+        // ÇØ´ç ¾ÆÀÌÅÛÀÌ Æ®·£½ºÆ÷¸ÓÀÌ°í modelÀÌ SwgrList¶ó¸é
         else if(shape instanceof OG.SwitchTransformer &&
             (shapeInfo.model == me._CONTROLLER.model.SwgrList.name)
         ) {
 
-            //ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ switchlistï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+            //ÇØ´ç ¾ÆÀÌÅÛÀº »ç¿ëµÈ switchlist¿¡ Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
             var usedSwitchList = me._CONTROLLER.usedSwitchList;
             usedSwitchList.push(shapeInfo);
-            // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ load itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ø´ï¿½ ï¿½×¸ï¿½ï¿½å¸¦ ï¿½Ù½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+            // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
             var unswitchList = me._CONTROLLER.initUnusedSwitchList;
             for(var i=0; i<unswitchList.length; i++) {
                 var isDuplicated = false;
@@ -778,7 +766,7 @@ Renderer.prototype = {
                 }
             }
 
-            // ï¿½Ø´ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
+            // ÇØ´ç ±×¸®µå »õ·Î ±×¸°´Ù.
             var dataTable = panel.dataTable().api();
             var currentPage = dataTable.page();
             dataTable.clear();
@@ -787,15 +775,15 @@ Renderer.prototype = {
             dataTable.page(currentPage).draw(false);
 
         }
-        // ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½Ì°ï¿½ modelï¿½ï¿½ SwgrListï¿½ï¿½ï¿½
+        // ÇØ´ç ¾ÆÀÌÅÛÀÌ ½ºÀ§Ä¡ÀÌ°í modelÀÌ SwgrList¶ó¸é
         else if(shape instanceof OG.HierarchyFeeder &&
             (shapeInfo.model == me._CONTROLLER.model.HierarchyFeederList.name)
         ) {
 
-            //ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ switchlistï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+            //ÇØ´ç ¾ÆÀÌÅÛÀº »ç¿ëµÈ switchlist¿¡ Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
             var usedHierarchyFeederList = me._CONTROLLER.usedHierarchyFeederList;
             usedHierarchyFeederList.push(shapeInfo);
-            // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ load itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ø´ï¿½ ï¿½×¸ï¿½ï¿½å¸¦ ï¿½Ù½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+            // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
             var unUsedHierarchyFeederList = me._CONTROLLER.initUnusedHierarchyFeederList;
             for(var i=0; i<unUsedHierarchyFeederList.length; i++) {
                 var isDuplicated = false;
@@ -810,7 +798,7 @@ Renderer.prototype = {
                 }
             }
 
-            // ï¿½Ø´ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
+            // ÇØ´ç ±×¸®µå »õ·Î ±×¸°´Ù.
             var dataTable = panel.dataTable().api();
             var currentPage = dataTable.page();
             dataTable.clear();
@@ -819,15 +807,15 @@ Renderer.prototype = {
             dataTable.page(currentPage).draw(false);
 
         }
-        // ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ modelï¿½ï¿½ SwgrListï¿½ï¿½ï¿½.
+        // ÇØ´ç ¾ÆÀÌÅÛÀÌ ºôµùÀÌ°í modelÀÌ SwgrList¶ó¸é.
         else if(shape instanceof OG.BLDG &&
             (shapeInfo.model == me._CONTROLLER.model.BldgReferenceList.name)
         ) {
 
-            //ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ switchlistï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+            //ÇØ´ç ¾ÆÀÌÅÛÀº »ç¿ëµÈ switchlist¿¡ Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
             var usedBldgReferenceList = me._CONTROLLER.usedBldgReferenceList;
             usedBldgReferenceList.push(shapeInfo);
-            // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ load itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ø´ï¿½ ï¿½×¸ï¿½ï¿½å¸¦ ï¿½Ù½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+            // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
             var unUsedBldgReferenceList = me._CONTROLLER.initBldgReferenceList;
             for(var i=0; i<unUsedBldgReferenceList.length; i++) {
                 var isDuplicated = false;
@@ -842,7 +830,7 @@ Renderer.prototype = {
                 }
             }
 
-            // ï¿½Ø´ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
+            // ÇØ´ç ±×¸®µå »õ·Î ±×¸°´Ù.
             var dataTable = panel.dataTable().api();
             var currentPage = dataTable.page();
             dataTable.clear();
@@ -854,7 +842,7 @@ Renderer.prototype = {
     },
 
     /**
-     * ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
+     * ºä ÄÁÆ®·Ñ·¯¿¡¼­ ¹Þ¾Æ¿Â µ¥ÀÌÅÍ¸¦ ¹ÙÅÁÀ¸·Î Äµ¹ö½º¿¡ µµÇüÀ» ±×¸°´Ù.
      * @param offset
      * @param shapeInfo
      */
@@ -865,7 +853,7 @@ Renderer.prototype = {
             var shapeType = shapeInfo['shapeType'];
             var shapeLabel = shapeInfo['shapeLabel'] ? shapeInfo['shapeLabel'] : '';
 
-            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            //·»´õ¸µ ´ë»óµé
             if (shapeType == me.Constants.TYPE.SWITCH_GEAR) {
                 shape = new OG.SwitchGear(shapeLabel);
                 size = me._CONFIG.DEFAULT_SIZE.SWITCH_GEAR;
@@ -914,7 +902,7 @@ Renderer.prototype = {
                 size = me._CONFIG.DEFAULT_SIZE.MANHOLE;
             }
 
-            //viewController ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
+            //viewController ¿¡ Àü´ÞÇØ¾ß ÇÏ´Â ´ë»óµé
             else if (shapeType == me.Constants.TYPE.NEW_FEEDER) {
                 me._CONTROLLER.onMessage(me, shapeInfo, me._CONTROLLER.message.NEW, panel);
                 return;
@@ -924,11 +912,11 @@ Renderer.prototype = {
             }
 
             if (shape) {
-                //offset ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ï¿½ï¿½ ï¿½ß¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â´ï¿½.
+                //offset ÀÌ ¾ø´Ù¸é ÄÁÅ×ÀÌ³ÊÀÇ Áß¾ÓÀ» ±âÁØÀ¸·Î »ï´Â´Ù.
                 if (!offset) {
                     var initWidth = me.getContainer().width() / 2;
                     var initHeight = me.getContainer().height() / 2;
-                    // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´Ù¸ï¿½
+                    // »õ·Î¿î Æ÷Áö¼ÇÀÌ Á¸ÀçÇÑ´Ù¸é
                     if(newShapeAdjustSize != null) {
                         if(shapeType == me.Constants.TYPE.HIERARCHY_BLDG) {
                             initWidth = newShapeAdjustSize[0]/2  + 100;
@@ -938,7 +926,7 @@ Renderer.prototype = {
                             initHeight = newShapeAdjustSize[1] + 20;
                         } else {
                             initWidth = newShapeAdjustSize[1];
-                            // ï¿½Ø¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 100ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½.
+                            // ¹Ø¿¡ ºÙÀ» ·Îµå ¹× Æ®·£½ºÆ÷¸Ó¸¦ À§ÇØ À§·Î 100Á¤µµ ¿Ã¸°´Ù.
                             initHeight = initHeight - newShapeAdjustSize[2];
                         }
                     }
@@ -952,35 +940,35 @@ Renderer.prototype = {
                 }
                 position[0] = position[0] / me.canvas._CONFIG.SCALE;
                 position[1] = position[1] / me.canvas._CONFIG.SCALE;
-                //Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ editingObject (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼) ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
+                //Äµ¹ö½ºÀÇ editingObject (¿¡µðÆÃ °´Ã¼) °¡ ¾ø´Ù¸é ±×¸®Áö ¾Ê´Â´Ù.
                 if (!me.editingObject) {
                     me._CONTROLLER.onMessage(me, shapeInfo, me._CONTROLLER.message.NO_EDITOR_OBJECT, panel);
 
                 } else {
                     shape.data = shapeInfo;
 
-                    // ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+                    // ·Îµå ¸®½ºÆ®¿¡¼­ ³Ñ¾î¿Â Á¤º¸¶ó¸é 
                     if(shape.data.model == me._CONTROLLER.model.UnAssignedLoadList.name) {
-                        // parent.checkLSValidator(load_seq, swgr_seq)ï¿½ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
-                        // falseï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½. return
+                        // parent.checkLSValidator(load_seq, swgr_seq)À» Ã¼Å©ÇÑ´Ù.
+                        // false¸é ±×¸®Áö ¾ÊÀ» °æ¿ì. return
                         // returnData JSONList
                         //{error : "false", msg : ''
                         var isValidate = true;
                         var validateData = me._DATA_CONTROLLER.makeCheckLSValidatorData(me);
-                        //parent.checkLSValidator(shape.data.load_list_seq, validateData, function(checked){
-                            //    if(checked == 'true') {
-                            element = me.getCanvas().drawShape(position, shape, size);
-                            me.getContainer().removeData('DRAG_SHAPE');
+                        parent.checkLSValidator(shape.data.load_list_seq, validateData, function(checked){
+                            if(checked == 'true') {
+                                element = me.getCanvas().drawShape(position, shape, size);
+                                me.getContainer().removeData('DRAG_SHAPE');
 
-                            //Load ï¿½ï¿½ ï¿½ï¿½ï¿½ onLoadDrop È£ï¿½ï¿½
-                            //Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ìµµ onLoadDrop È£ï¿½ï¿½
-                            if (shape instanceof OG.Load || shape instanceof OG.SwitchTransformer) {
-                                me.onLoadDrop(element, from);
+                                //Load ÀÏ °æ¿ì onLoadDrop È£Ãâ
+                                //Æ®·£½ºÆ÷¸ÓÀÏ °æ¿ìµµ onLoadDrop È£Ãâ
+                                if (shape instanceof OG.Load || shape instanceof OG.SwitchTransformer) {
+                                    me.onLoadDrop(element, from);
+                                }
+
+                                me.reloadGridAfterDrawImmediately(shape, shapeInfo, panel);
                             }
-
-                            me.reloadGridAfterDrawImmediately(shape, shapeInfo, panel);
-                            //	}
-                            //});
+                        });
 
                         return;
                     }
@@ -1002,13 +990,13 @@ Renderer.prototype = {
                     });
                     me.getContainer().removeData('DRAG_SHAPE');
 
-                    //Load ï¿½ï¿½ ï¿½ï¿½ï¿½ onLoadDrop È£ï¿½ï¿½
-                    //Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ìµµ onLoadDrop È£ï¿½ï¿½
+                    //Load ÀÏ °æ¿ì onLoadDrop È£Ãâ
+                    //Æ®·£½ºÆ÷¸ÓÀÏ °æ¿ìµµ onLoadDrop È£Ãâ
                     if (shape instanceof OG.Load || shape instanceof OG.SwitchTransformer) {
                         me.onLoadDrop(element, from);
                     }
 
-                    // ï¿½ï¿½ï¿½Ì¶ï¿½Å°ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½Ô´Ù¸ï¿½
+                    // ÇÏÀÌ¶óÅ°¾î ÇÇ´õ¿¡¼­ ³Ñ¾î¿Ô´Ù¸é
                     if(shape.data.shapeType == me.Constants.TYPE.HIERARCHY_FEEDER) {
                         me._CONTROLLER.updateFeederHierarchyList.push(shape.data);
                     }
@@ -1017,15 +1005,15 @@ Renderer.prototype = {
         }
 
         /**
-         *  drawImmediatelyï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ redrawï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â¿ï¿½ï¿½.
+         *  drawImmediatelyÀÌÈÄ¿¡ ±×¸®µå redraw¿¡ ´ëÇÑ ·ÎÁ÷À» ÅÂ¿î´Ù.
          */
         me.reloadGridAfterDrawImmediately(shape, shapeInfo, panel);
 
     },
 
     /**
-     * ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½.
-     * ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Äµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¸¸ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
+     * ºä ÄÁÆ®·Ñ·¯¿¡¼­ µå¶ø ÀÌº¥Æ®°¡ ¿Ã °æ¿ìÀÇ Ã³¸®.
+     * µå¶ø ÇÑ ¿µ¿ªÀÌ Äµ¹ö½º ÄÁÅ×ÀÌ³Ê ¿µ¿ª ¾ÈÀÏ °æ¿ì¸¸ Ã³¸®ÇÑ´Ù.
      */
     bindDropEvent: function () {
         var me = this;
@@ -1050,12 +1038,12 @@ Renderer.prototype = {
 
                 } else {
                     if(me.getMode() == me.Constants.MODE.HIERARCHY) {
-                        // Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½Ô´Ù¸ï¿½ panelï¿½ï¿½ undefined
+                        // Æ®¸®¿¡¼­ ³Ñ¾î¿Ô´Ù¸é panelÀº undefined
                         if(!panel) {
                             /**
-                             * canvasï¿½ï¿½ ï¿½å·¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, floorï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´Ù¸ï¿½
-                             * ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
-                             * Ã¼Å© ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+                             * canvas¿¡ µå·¡±× µå¶øÇÒ ºôµù, floor°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é
+                             * ±×¸®Áö ¾Ê´Â´Ù.
+                             * Ã¼Å© ·ÎÁ÷ Ãß°¡
                              */
                             var checkedData = me._CONTROLLER.checkBldgsAndFloors(me, jsonData);
                             if(checkedData.isDraw) {
@@ -1064,7 +1052,6 @@ Renderer.prototype = {
                                 msgBox(checkedData.msg);
                             }
                         } else {
-
 
                             if(jsonData.fe_type == 'TR') {
                                 me.drawImmediately([pageX, pageY], jsonData, panel);
@@ -1083,8 +1070,8 @@ Renderer.prototype = {
                                     var currentCanvas = me.getCanvas();
                                     var checkShapeList = currentCanvas.getAllShapes();
                                     /**
-                                     * ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½Ñ¹ï¿½ ï¿½×·ï¿½ï¿½ï¿½ï¿½Ù°ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½Ö´Ù¸ï¿½ parentï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ÈµÈ´ï¿½.
-                                     * Ã¼Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+                                     * ±×¸®±â Àü¿¡ ÀüÃ¼ ÇÑ¹ø ±×·ÁÁ³´Ù°¡ ÇÏ³ª¸¸ Áö¿öÁø °æ¿ì°¡ ÀÖ´Ù¸é parent¸¦ ±×¸®¸é ¾ÈµÈ´Ù.
+                                     * Ã¼Å© ·ÎÁ÷À» ÇÑ¹ø ´õ µ·´Ù.
                                      */
                                     var isDraw = true;
                                     checkShapeList.some(function(shapeElement){
@@ -1098,7 +1085,7 @@ Renderer.prototype = {
                                     if(isDraw) {
                                         me.drawImmediately([pageX+150, pageY], parentFeeder, panel);
                                     }
-                                    // parentï¿½ï¿½ childï¿½ï¿½ elementï¿½ï¿½ Ã£ï¿½Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+                                    // parent¿Í childÀÇ element¸¦ Ã£¾Æ¼­ ¿¬°áÇÑ´Ù.
                                     var parentElement, childElement;
                                     var shapeList = currentCanvas.getAllShapes();
                                     shapeList.forEach(function(shapeElement){
@@ -1115,11 +1102,18 @@ Renderer.prototype = {
                                 }
                             } else {
                                 me.drawImmediately([pageX, pageY], jsonData, panel);
+                                var feederInfo = parent.getFeederInfo(jsonData.swgr_seq);
                                 var childFeeder = null;
-                                var initUnusedHierarchyFeederList = me._CONTROLLER.initUnusedHierarchyFeederList;
-                                initUnusedHierarchyFeederList.some(function(initItem) {
-                                    if(initItem.fe_type == 'TR' && initItem.up_feeder_list_mgt_seq == jsonData.feeder_list_mgt_seq) {
-                                        childFeeder = initItem;
+                                feederInfo.some(function(item){
+                                    if(item.fe_swgr_load_div == 'S' &&
+                                        item.swgr_type == 'TR' &&
+                                        item.up_feeder_list_mgt_seq == jsonData.feeder_list_mgt_seq) {
+                                        var initUnusedHierarchyFeederList = me._CONTROLLER.initUnusedHierarchyFeederList;
+                                        initUnusedHierarchyFeederList.some(function(initItem) {
+                                            if(initItem.feeder_list_mgt_seq == item.feeder_list_mgt_seq) {
+                                                childFeeder = initItem;
+                                            }
+                                        });
                                     }
                                 });
 
@@ -1138,7 +1132,7 @@ Renderer.prototype = {
                                     if(isDraw) {
                                         me.drawImmediately([pageX+150, pageY], childFeeder, panel);
                                     }
-                                    // parentï¿½ï¿½ childï¿½ï¿½ elementï¿½ï¿½ Ã£ï¿½Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+                                    // parent¿Í childÀÇ element¸¦ Ã£¾Æ¼­ ¿¬°áÇÑ´Ù.
                                     var currentCanvas = me.getCanvas();
                                     var shapeList = currentCanvas.getAllShapes();
                                     var parentElement, childElement;
@@ -1157,7 +1151,6 @@ Renderer.prototype = {
 
                                 }
                             }
-
 
                         }
                     } else if(me.getMode() == me.Constants.MODE.ROUTE) {
@@ -1180,7 +1173,7 @@ Renderer.prototype = {
     },
 
     /**
-     * labelï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ racewayï¿½ï¿½ ï¿½óº§µï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ ï¿½Ñ´ï¿½.
+     * labelº¯°æ½Ã ¿¬°áµÈ racewayÀÇ ¶óº§µµ º¯°æÀÌ µÇ¾î¾ß ÇÑ´Ù.
      */
     changeEdgeLabel: function(shapeElement) {
 
@@ -1213,8 +1206,8 @@ Renderer.prototype = {
     },
 
     /**
-     * eventTypeï¿½ï¿½ ondropï¿½Ì¸ï¿½ ï¿½å·¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
-     * ï¿½ï¿½ï¿½ï¿½ 'dblclick'ï¿½Ì¶ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½Ì´ï¿½.
+     * eventTypeÀÌ ondropÀÌ¸é µå·¡±× µå¶øÀ¸·Î Äµ¹ö½º¿¡ ±×¸° °æ¿ìÀÌ´Ù.
+     * ¸¸ÀÏ 'dblclick'ÀÌ¶ó¸é ±×·ÁÁø µµÇüÀÇ ¼Ó¼ºÀ» º¯°æÇÏ±â À§ÇÑ ÀÌº¥Æ®ÀÌ´Ù.
      */
     showLocationDialog: function(offset, jsonData, panel, shapeElement, eventType) {
         var me = this;
@@ -1222,7 +1215,7 @@ Renderer.prototype = {
         element['id'] = 'BldgDialog';
         element['shape'] = {};
         element.shape = {label:'Location Properties'};
-        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+        //±âÁ¸ ´ëÈ­ÀåÀÌ ÀÖÀ» °æ¿ì »èÁ¦ÇÏµµ·Ï ÇÑ´Ù.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         me.destroyAllDialog($('#'+dialogName));
         // show Dialog
@@ -1238,14 +1231,14 @@ Renderer.prototype = {
 
         $('.noClose .ui-dialog-titlebar-close').css('display', 'none');
 
-        // ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
+        // ¼Ó¼º Å×ÀÌºí
         var panel = $('#locationProperty').clone();
         panel[0].id = 'cloneLocationProperty';
         dialog.append(panel);
-        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+        // Àû¿ë ¹öÆ°
         var applyBtn = $('<button class="btn btn-primary" id="applyLocationProperty" type="button" style="margin-left:95px">Apply</button>');
         dialog.append(applyBtn);
-        // ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+        // Ãë¼Ò ¹öÆ°
         var cancelBtn = $('<button class="btn btn-white" id="cancelLocationProperty" type="button" style="left:29px">Cancel</button>');
         dialog.append(cancelBtn);
 
@@ -1302,7 +1295,7 @@ Renderer.prototype = {
                 shapeElement.data['loc_ref_rem'] 	 = $("#cloneLocationProperty").find(".locationRemark").val().trim();
                 me.canvas.drawLabel(shapeElement, $("#cloneLocationProperty").find(".locationPoint").val());
                 /**
-                 * ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ß½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ edgeï¿½ï¿½ ï¿½óº§µï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ ï¿½Ñ´ï¿½.
+                 * ÀÚ½ÅÀ» Áß½ÉÀ¸·Î ¿¬°áµÈ edgeÀÇ ¶óº§µµ º¯°æ½ÃÄÑ¾ß ÇÑ´Ù.
                  */
                 me.changeEdgeLabel(shapeElement);
 
@@ -1314,8 +1307,8 @@ Renderer.prototype = {
     },
 
     /**
-     * eventTypeï¿½ï¿½ ondropï¿½Ì¸ï¿½ ï¿½å·¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
-     * ï¿½ï¿½ï¿½ï¿½ 'dblclick'ï¿½Ì¶ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½Ì´ï¿½.
+     * eventTypeÀÌ ondropÀÌ¸é µå·¡±× µå¶øÀ¸·Î Äµ¹ö½º¿¡ ±×¸° °æ¿ìÀÌ´Ù.
+     * ¸¸ÀÏ 'dblclick'ÀÌ¶ó¸é ±×·ÁÁø µµÇüÀÇ ¼Ó¼ºÀ» º¯°æÇÏ±â À§ÇÑ ÀÌº¥Æ®ÀÌ´Ù.
      */
     showPointDialog: function(offset, jsonData, panel, shapeElement, eventType) {
         var me = this;
@@ -1323,7 +1316,7 @@ Renderer.prototype = {
         element['id'] = 'pointDialog';
         element['shape'] = {};
         element.shape = {label:'Point Properties'};
-        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+        //±âÁ¸ ´ëÈ­ÀåÀÌ ÀÖÀ» °æ¿ì »èÁ¦ÇÏµµ·Ï ÇÑ´Ù.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         me.destroyAllDialog($('#'+dialogName));
         // show Dialog
@@ -1339,14 +1332,14 @@ Renderer.prototype = {
 
         $('.noClose .ui-dialog-titlebar-close').css('display', 'none');
 
-        // ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
+        // ¼Ó¼º Å×ÀÌºí
         var panel = $('#pointProperty').clone();
         panel[0].id = 'clonePointProperty';
         dialog.append(panel);
-        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+        // Àû¿ë ¹öÆ°
         var applyBtn = $('<button class="btn btn-primary" id="applyPointProperty" type="button" style="margin-left:72px">Apply</button>');
         dialog.append(applyBtn);
-        // ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+        // Ãë¼Ò ¹öÆ°
         var cancelBtn = $('<button class="btn btn-white" id="cancelPointProperty" type="button" style="left:10px">Cancel</button>');
         dialog.append(cancelBtn);
 
@@ -1391,7 +1384,7 @@ Renderer.prototype = {
                 shapeElement.data['loc_ref_name_to'] = $("#clonePointProperty").find(".pointName").val().trim();
                 me.canvas.drawLabel(shapeElement, $("#clonePointProperty").find(".pointName").val());
                 /**
-                 * ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ß½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ edgeï¿½ï¿½ ï¿½óº§µï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ ï¿½Ñ´ï¿½.
+                 * ÀÚ½ÅÀ» Áß½ÉÀ¸·Î ¿¬°áµÈ edgeÀÇ ¶óº§µµ º¯°æ½ÃÄÑ¾ß ÇÑ´Ù.
                  */
                 me.changeEdgeLabel(shapeElement);
 
@@ -1403,7 +1396,7 @@ Renderer.prototype = {
     },
 
     /**
-     * ï¿½ï¿½È¦ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ Ã¢
+     * ¸ÇÈ¦ÀÇ ÇÁ·ÎÆÛÆ¼ Ã¢
      */
     showManholeDialog: function(offset, jsonData, panel, shapeElement, eventType) {
         var me = this;
@@ -1411,7 +1404,7 @@ Renderer.prototype = {
         element['id'] = 'manholeDialog';
         element['shape'] = {};
         element.shape = {label:'Manhole Properties'};
-        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+        //±âÁ¸ ´ëÈ­ÀåÀÌ ÀÖÀ» °æ¿ì »èÁ¦ÇÏµµ·Ï ÇÑ´Ù.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         me.destroyAllDialog($('#'+dialogName));
         // show Dialog
@@ -1427,15 +1420,15 @@ Renderer.prototype = {
 
         $('.noClose .ui-dialog-titlebar-close').css('display', 'none');
 
-        // ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
+        // ¼Ó¼º Å×ÀÌºí
         var panel = $('#manholeProperty').clone();
         panel[0].id = 'cloneManholeProperty';
         dialog.append(panel);
-        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+        // Àû¿ë ¹öÆ°
         var applyBtn = $('<button class="btn btn-primary" id="applyManholeProperty" type="button" style="margin-left:110px">Apply</button>');
         dialog.append(applyBtn);
 
-        // ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+        // Ãë¼Ò ¹öÆ°
         var cancelBtn = $('<button class="btn btn-white" id="cancelManholeProperty" type="button" style="left:50px">Cancel</button>');
         dialog.append(cancelBtn);
 
@@ -1454,7 +1447,7 @@ Renderer.prototype = {
                 msgBox(me.MSGMessages.MHPOINTMSG, $("#cloneManholeProperty").find(".manholeName"));
                 return;
             } else {
-                // ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã¼Å© ï¿½ï¿½ï¿½ï¿½
+                // Æ÷ÀÎÆ®¸í Ã¼Å© ·ÎÁ÷
                 var isDuplicate = me.checkDuplicationPointName($("#cloneManholeProperty").find(".manholeName").val().trim());
                 if(eventType == 'dblclick') {
                     if($("#cloneManholeProperty").find(".manholeName").val().trim() == shapeElement.shape.data['loc_ref_name_to']) {
@@ -1482,7 +1475,7 @@ Renderer.prototype = {
                 shapeElement.data['loc_ref_name_to']  = $("#cloneManholeProperty").find(".manholeName").val().trim();
                 me.canvas.drawLabel(shapeElement, $("#cloneManholeProperty").find(".manholeName").val());
                 /**
-                 * ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ß½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ edgeï¿½ï¿½ ï¿½óº§µï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ ï¿½Ñ´ï¿½.
+                 * ÀÚ½ÅÀ» Áß½ÉÀ¸·Î ¿¬°áµÈ edgeÀÇ ¶óº§µµ º¯°æ½ÃÄÑ¾ß ÇÑ´Ù.
                  */
                 me.changeEdgeLabel(shapeElement);
                 $(this).remove();
@@ -1494,7 +1487,7 @@ Renderer.prototype = {
     },
 
     /**
-     * ï¿½ï¿½È¦ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ßºï¿½ Ã¼Å©ï¿½ï¿½ ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
+     * ¸ÇÈ¦ ¹× ·ÎÄÉÀÌ¼Ç Æ÷ÀÎÆ® ÁöÁ¤½Ã Áßº¹ Ã¼Å©¸¦ ÇØ¾ß ÇÑ´Ù.
      */
     checkDuplicationPointName: function(pointName) {
         var me = this;
@@ -1513,7 +1506,7 @@ Renderer.prototype = {
     },
 
     /**
-     * ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼Ã¢
+     * ·¹ÀÌ½º¿þÀÌ ÇÁ·ÎÆÛÆ¼Ã¢
      */
     showRaceWayDialog: function(edgeElement, fromElement, toElement, eventType) {
         var me = this;
@@ -1521,7 +1514,7 @@ Renderer.prototype = {
         element['id'] = 'raceWayDialog';
         element['shape'] = {};
         element.shape = {label:'RaceWay Properties'};
-        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+        //±âÁ¸ ´ëÈ­ÀåÀÌ ÀÖÀ» °æ¿ì »èÁ¦ÇÏµµ·Ï ÇÑ´Ù.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         me.destroyAllDialog($('#'+dialogName));
         // show Dialog
@@ -1543,11 +1536,11 @@ Renderer.prototype = {
         $("#cloneRaceWayProperty").find(".raceWayFrom").html(fromElement.shape.data.shapeLabel);
         $("#cloneRaceWayProperty").find(".raceWayTo").html(toElement.shape.data.shapeLabel)
 
-        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+        // Àû¿ë ¹öÆ°
         var applyBtn = $('<button class="btn btn-primary" id="applyRaceWayProperty" type="button" style="margin-left:95px">Apply</button>');
         dialog.append(applyBtn);
 
-        // ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+        // Ãë¼Ò ¹öÆ°
         var cancelBtn = $('<button class="btn btn-white" id="cancelRaceWayProperty" type="button" style="left:34px">Cancel</button>');
         dialog.append(cancelBtn);
 
@@ -1592,7 +1585,7 @@ Renderer.prototype = {
 
                 var inputChk = $("#cloneRaceWayProperty").find(".raceWayTemp").val().split('.')[1];
                 /**
-                 * ï¿½Ò¼ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ .ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+                 * ¼Ò¼öÁ¡ ÀÔ·ÂÇÏ±â À§ÇØ .¸¸ Âï¾úÀ»¶§.
                  */
                 if(inputChk == '') {
                     msgBox(me.MSGMessages.TEMPINPUTCHK, $("#cloneRaceWayProperty").find(".raceWayTemp"));
@@ -1600,7 +1593,7 @@ Renderer.prototype = {
                 }
 
                 /**
-                 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
+                 * »çÀÌÁî Ã¼Å©
                  */
                 if(Number($("#cloneRaceWayProperty").find(".raceWayTemp").val()) > 80) {
                     msgBox(me.MSGMessages.TEMPSIZECHK, $("#cloneRaceWayProperty").find(".raceWayTemp"));
@@ -1635,7 +1628,7 @@ Renderer.prototype = {
     },
 
     /**
-     * ï¿½Îµå°¡ Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+     * ·Îµå°¡ Äµ¹ö½º¿¡ µå¶øµÇ¾úÀ» °æ¿ìÀÇ Ã³¸®
      */
     onLoadDrop: function (loadElement, from) {
         var me = this;
@@ -1645,7 +1638,7 @@ Renderer.prototype = {
         }
 
         /**
-         * ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Í¹Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(fromP)ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
+         * ½ºÀ§Ä¡ ±â¾îÂÊÀÇ ÅÍ¹Ì³Î Æ÷Áö¼Ç(fromP)À» ±¸ÇÑ´Ù.
          */
         var toBoundary = me.canvas.getBoundary(loadElement);
         var fromBoundary = me.canvas.getBoundary(swgrElement);
@@ -1657,27 +1650,27 @@ Renderer.prototype = {
         var fLow = fromBoundary.getLeftCenter().y;
         var fromP;
 
-        //ï¿½Îµï¿½ï¿½ï¿½ x ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Êºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        //·ÎµåÀÇ x °¡ ½ºÀ§Ä¡ÀÇ ³Êºñ ³»¿¡ ÀÖÀ» °æ¿ì
         if (toX > fLeft && toX < fRight) {
             fromP = [toX, fLow];
         }
-        //ï¿½Îµï¿½ï¿½ï¿½ x ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        //·ÎµåÀÇ x °¡ ½ºÀ§Ä¡ÀÇ ÁÂÃøÀÏ °æ¿ì
         else if (toX <= fLeft) {
             fromP = [fLeft, fCenter.y];
         }
-        //ï¿½Îµï¿½ï¿½ï¿½ x ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        //·ÎµåÀÇ x °¡ ½ºÀ§Ä¡ÀÇ ¿ìÃøÀÏ °æ¿ì
         else if (toX >= fRight) {
             fromP = [fRight, fCenter.y];
         }
 
         /**
-         * ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµå¸¦ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+         * ½ºÀ§Ä¡ ±â¾î¿Í ·Îµå¸¦ ÄÉÀÌºí·Î ¿¬°áÇÑ´Ù.
          */
         me.canvas.connect(swgrElement, loadElement, null, null, fromP, null, null, null, new OG.CableShape());
 
         /**
-         * ï¿½Ø´ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ updateListï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
-         * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
+         * ÇØ´ç ·Îµå Á¤º¸´Â updateList¿¡ ÀúÀåÇÑ´Ù.
+         * ÇÏÁö¸¸ ¼­¹ö·ÎºÎÅÍ ±×·ÁÁö´Â ·Îµå´Â Á¦¿ÜÇØ¾ßÇÑ´Ù.
          */
         if( from == null ) {
             me._CONTROLLER.updateFeederList.push(loadElement.shape.data);
@@ -1686,11 +1679,11 @@ Renderer.prototype = {
 
 
     /**
-     * ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ß»ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+     * »ç¿ëÀÚ·Î ÀÎÇØ Äµ¹ö½º¿¡ ÀÌº¥Æ®°¡ ¹ß»ýÇÏ¿´À» °æ¿ì Ã³¸®
      */
     bindEvent: function () {
         var me = this;
-        //Action Event. ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ isUpdated ï¿½ï¿½ï¿½ï¿½ true ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
+        //Action Event. ÀÌ ÀÌº¥Æ®µéÀº ·»´õ·¯ÀÇ isUpdated °ªÀ» true ·Î ¸¸µç´Ù.
         me.canvas.onDrawShape(function (event, element) {
             me.isUpdated = true;
 
@@ -1749,7 +1742,7 @@ Renderer.prototype = {
                         var isContainsAll = bldgBoundary.isContainsAll(locationPointBoundary.getVertices());
                         if(isContainsAll) {
                             /**
-                             * È¤ï¿½ï¿½ ï¿½ï¿½ ï¿½Ç¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ü¸ï¿½ ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
+                             * È¤½Ã ¸ð¸¦ ½Ç¼ö °¡·É ÀÌ¹Ì Æ÷ÀÎÆ®°¡ ºôµù¿¡ Æ÷ÇÔµÇ¾î ÀÖ´Ù¸é ÀÌ ³ÑÀº Á¦¿Ü¸¦ ÇØ¾ßÇÑ´Ù.
                              */
                             if(me.canvas.getParent(childElement) != null && me.canvas.getParent(childElement).shape instanceof OG.BLDG) return;
 
@@ -1782,7 +1775,7 @@ Renderer.prototype = {
         me.canvas.onConnectShape(function (event, edgeElement, fromElement, toElement) {
             me.isUpdated = true;
             /**
-             * ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ location ï¿½ï¿½ï¿½ï¿½ shapeLabel ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ from-to ï¿½ï¿½ ï¿½óº§¸ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+             * ·¹ÀÌ½º ¿þÀÌ°¡ ±×·ÁÁ³À» °æ¿ì Àü ÈÄ location ¿¡¼­ shapeLabel À» ¹Þ¾Æ¿Í from-to ·Î ¶óº§¸µÀ» ÇÑ´Ù.
              */
             if (edgeElement.shape instanceof OG.RacewayShape) {
                 me.canvas.drawLabel(edgeElement, fromElement.shape.label + toElement.shape.label);
@@ -1831,21 +1824,21 @@ Renderer.prototype = {
                     }
 
                     /**
-                     * viewControllerï¿½ï¿½ feederMgtShapeListï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ shapeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½
-                     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ deleteFeederListï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½Ñ´ï¿½.
+                     * viewControllerÀÇ feederMgtShapeList¿¡¼­ ÇØ´ç shapeÀÇ Á¤º¸°¡ ÀÖ´Ù¸é
+                     * ±âÁ¸ÀÇ Á¤º¸¸¦ »èÁ¦ÇÏ±â À§ÇØ¼­ deleteFeederList¿¡ Á¤º¸¸¦ ³Ö¾î¾ß ÇÑ´Ù.
                      * @type {Array|*|updateList}
                      */
                     var feederMgtShapeList = me._CONTROLLER.feederMgtShapeList;
                     var updateFeederList = me._CONTROLLER.updateFeederList;
-                    /** ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ñ´ï¿½ */
+                    /** ±âÁ¸ µ¥ÀÌÅÍ¿¡¼­ Á¤º¸¸¦ °Ë»öÇÑ´Ù */
                     var swgrKey = 'swgr_list_seq';
                     var loadKey = 'load_list_seq';
                     if(shapeElement.shape.data.fe_swgr_load_div == 'S') {
                         /**
-                         * ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ jsonï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ Äµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-                         * ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù°ï¿½ ï¿½Ç´ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
-                         * ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ shapeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡Æ®ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ï¿½ï¿½ ï¿½Ï°ï¿½
-                         * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
+                         * ÀÌ Á¤º¸°¡ ¾ø´Ù´Â °ÍÀº ¼­¹ö·ÎºÎÅÍ ÀúÀåµÈ jsonÀ¸·ÎºÎÅÍ ±×·ÁÁø Äµ¹ö½º °´Ã¼ÀÇ Á¤º¸Áß
+                         * ÇÏ³ª°¡ Áö¿öÁ³´Ù°í ÆÇ´ÜÇÒ ¼ö ÀÖ´Ù.
+                         * ÇØ´ç Áö¿öÁö´Â shape°¡ ½ºÀ§Ä¡Æ®·£½ºÆÛ¸ÓÀÎÁö ·ÎµåÀÎÁö Ã¼Å©ºÎÅÍ ÇÏ°í
+                         * ´ÙÀ½ ·ÎÁ÷À» ¼öÇàÇØ¾ßÇÑ´Ù.
                          */
                         if(!shapeElement.shape.data.hasOwnProperty('model')){
                             shapeElement.shape.data['model'] = me._CONTROLLER.model.SwgrList.name;
@@ -1858,7 +1851,7 @@ Renderer.prototype = {
                             }
                         });
 
-                        /** updateListï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½ **/
+                        /** updateList¿¡¼­µµ Á¶È¸¸¦ ÇØ¾ßÇÑ´Ù **/
                         updateFeederList.some(function(item, idx){
                             if( item.hasOwnProperty(swgrKey) && item[swgrKey] == shapeElement.shape.data[swgrKey]) {
                                 updateFeederList.splice(idx, 1);
@@ -1872,7 +1865,7 @@ Renderer.prototype = {
                             var loadObj = parent.getLoad(shapeElement.shape.data.load_list_seq);
 
                             /**
-                             * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
+                             * ±âÁ¸¿¡ ¾ø´Â ÇÁ·ÎÆÛÆ¼µéÀ» ¼³Á¤ÇØ¾ß ÇÑ´Ù.
                              */
                             loadObj['model'] = me._CONTROLLER.model.UnAssignedLoadList.name;
                             loadObj['shapeType']= shapeElement.shape.data['shapeType'];
@@ -1891,7 +1884,7 @@ Renderer.prototype = {
                             }
                         });
 
-                        /** updateListï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½ **/
+                        /** updateList¿¡¼­µµ Á¶È¸¸¦ ÇØ¾ßÇÑ´Ù **/
                         updateFeederList.some(function(item, idx){
                             if( item.hasOwnProperty(loadKey) && item[loadKey] == shapeElement.shape.data[loadKey]) {
                                 updateFeederList.splice(idx, 1);
@@ -1901,7 +1894,7 @@ Renderer.prototype = {
 
                     if(shapeElement.shape.data.model == me._CONTROLLER.model.UnAssignedLoadList.name) {
 
-                        //ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ loadlistï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+                        //ÇØ´ç ¾ÆÀÌÅÛÀº »ç¿ëµÈ loadlist¿¡¼­ »èÁ¦ÇÑ´Ù.
                         var usedLoadList = me._CONTROLLER.usedLoadList;
                         var updateList = [];
                         for (var i = 0; i < usedLoadList.length; i++) {
@@ -1912,7 +1905,7 @@ Renderer.prototype = {
 
                         me._CONTROLLER.usedLoadList = updateList;
 
-                        // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ load itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ø´ï¿½ ï¿½×¸ï¿½ï¿½å¸¦ ï¿½Ù½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+                        // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
                         var unloadList = me._CONTROLLER.initUnusedLoadList;
                         var newList = [];
                         for (var k = 0; k < unloadList.length; k++) {
@@ -1933,12 +1926,12 @@ Renderer.prototype = {
                         me._CONTROLLER.redrawUnssignedLoadTables(me._CONTROLLER.model.UnAssignedLoadList.panel);
 
                     }
-                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµå°¡ ï¿½ï¿½ï¿½ï¿½ switchtransfomerï¿½ï¿½ï¿½
+                    //Áö¿öÁø ·Îµå°¡ ¸¸ÀÏ switchtransfomer¶ó¸é
                     else if(shapeElement.shape.data.model == me._CONTROLLER.model.SwgrList.name) {
 
                         //this.initUnusedSwitchList = [];
                         //this.usedSwitchList = [];
-                        //ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ loadlistï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+                        //ÇØ´ç ¾ÆÀÌÅÛÀº »ç¿ëµÈ loadlist¿¡¼­ »èÁ¦ÇÑ´Ù.
                         var usedSwitchList = me._CONTROLLER.usedSwitchList;
                         var updateList = [];
                         for (var i = 0; i < usedSwitchList.length; i++) {
@@ -1949,7 +1942,7 @@ Renderer.prototype = {
 
                         me._CONTROLLER.usedSwitchList = updateList;
 
-                        // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ load itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ø´ï¿½ ï¿½×¸ï¿½ï¿½å¸¦ ï¿½Ù½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+                        // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
                         var unswitchList = me._CONTROLLER.initUnusedSwitchList;
                         var newList = [];
                         for (var k = 0; k < unswitchList.length; k++) {
@@ -1972,16 +1965,16 @@ Renderer.prototype = {
 
                 } else if(me.getMode() == me.Constants.MODE.HIERARCHY) {
 
-                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ edgeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½é¼­ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
+                    // µµÇüÀ» ¸ÕÀú Áö¿ö¼­ Å¸°í ¿À´ÂÁö ¶Ç´Â edge¸¦ Áö¿ì¸é¼­ Å¸°í ¿À´ÂÁö Ã¼Å©ÇÑ´Ù.
                     if(me._CONTROLLER.removeFirstShapeTypeAtHierarchy == null) {
                         me._CONTROLLER.removeFirstShapeTypeAtHierarchy = me.Constants.SHAPE.GEOM;
                     }
                     /**
-                     * feederï¿½ï¿½å¿¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ edgeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ loadï¿½ï¿½ ï¿½ï¿½Å¸ typeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
-                     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ hierarchyï¿½ï¿½å¿¡ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
-                     * ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
-                     * me._CONTROLLER.tempElementï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½È´ï¿½.
-                     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ shapeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½Ç´ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
+                     * feeder¸ðµå¿¡¼­´Â ¹«Á¶°Ç edge°¡ Á¸ÀçÇÑ´Ù. ÀÌÀ¯´Â load³ª ¿©Å¸ typeÀÌ ½ºÀ§Ä¡¿¡ ºÙÀ» ¶§´Â ½ºÀ§Ä¡¿Í ¿¬°áµÇ±â ¶§¹®ÀÌ´Ù.
+                     * ÇÏÁö¸¸ hierarchy¸ðµå¿¡¼­´Â ÇÏ³ª¸¸ Á¸ÀçÇÒ ¼ö ÀÖ´Ù.
+                     * µû¶ó¼­ ÇÏ³ª¸¸ Áö¿ì°Ô ÇØ¾ßÇÑ´Ù.
+                     * me._CONTROLLER.tempElement¿¡ µé¾î¿Â Á¤º¸¸¦ ¼¼ÆÃÇÏ°í ¸®ÅÏÇÏ¸é µÈ´Ù.
+                     * ÇÏÁö¸¸ Áö¿öÁø shapeÀÌ ºôµùÀÎÁö ½ºÀ§Ä¡ÇÇ´õÀÎÁö Ã¼Å©
                      */
                     if(shapeElement.shape.data.model == me._CONTROLLER.model.HierarchyFeederList.name) {
 
@@ -2010,14 +2003,14 @@ Renderer.prototype = {
                             }
                         });
 
-                        /** updateListï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½ **/
+                        /** updateList¿¡¼­µµ Á¶È¸¸¦ ÇØ¾ßÇÑ´Ù **/
                         updateFeederHierarchyList.some(function(item, idx){
                             if(item.feeder_list_mgt_seq == shapeElement.shape.data.feeder_list_mgt_seq) {
                                 updateFeederHierarchyList.splice(idx, 1);
                             }
                         });
 
-                        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
+                        // »ç¿ëµÈ ¸®½ºÆ®¸¦ È®ÀÎÇÑ´Ù.
                         //    this.initUnusedHierarchyFeederList = [];
                         // this.usedHierarchyFeederList = [];
                         var usedHierarchyFeederList = me._CONTROLLER.usedHierarchyFeederList;
@@ -2030,7 +2023,7 @@ Renderer.prototype = {
 
                         me._CONTROLLER.usedHierarchyFeederList = updateList;
 
-                        // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ load itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ø´ï¿½ ï¿½×¸ï¿½ï¿½å¸¦ ï¿½Ù½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+                        // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
                         var unUsedHierarchyFeederList = me._CONTROLLER.initUnusedHierarchyFeederList;
                         var newList = [];
                         for (var k = 0; k < unUsedHierarchyFeederList.length; k++) {
@@ -2052,13 +2045,13 @@ Renderer.prototype = {
                     }
                 } else if(me.getMode() == me.Constants.MODE.ROUTE) {
 
-                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ edgeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½é¼­ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
+                    // µµÇüÀ» ¸ÕÀú Áö¿ö¼­ Å¸°í ¿À´ÂÁö ¶Ç´Â edge¸¦ Áö¿ì¸é¼­ Å¸°í ¿À´ÂÁö Ã¼Å©ÇÑ´Ù.
                     if(me._CONTROLLER.removeFirstShapeTypeAtRoute == null) {
                         me._CONTROLLER.removeFirstShapeTypeAtRoute = me.Constants.SHAPE.GEOM;
                     }
 
                     /**
-                     * ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½å¿¡ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                     * ºôµù ±×¸®µå¿¡¼­ ³Ñ¾î¿Â Á¤º¸¶ó¸é
                      */
                     if(shapeElement.shape.data.model == me._CONTROLLER.model.BldgReferenceList.name) {
 
@@ -2072,7 +2065,7 @@ Renderer.prototype = {
 
                         me._CONTROLLER.usedBldgReferenceList = updateList;
 
-                        // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ load itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ø´ï¿½ ï¿½×¸ï¿½ï¿½å¸¦ ï¿½Ù½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+                        // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
                         var unUsedBldgReferenceList = me._CONTROLLER.initBldgReferenceList;
                         var newList = [];
                         for (var k = 0; k < unUsedBldgReferenceList.length; k++) {
@@ -2095,7 +2088,7 @@ Renderer.prototype = {
 
                 }
             } else if( shapeElement.shape.TYPE == me.Constants.SHAPE.EDGE) {
-                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ edgeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½é¼­ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
+                // µµÇüÀ» ¸ÕÀú Áö¿ö¼­ Å¸°í ¿À´ÂÁö ¶Ç´Â edge¸¦ Áö¿ì¸é¼­ Å¸°í ¿À´ÂÁö Ã¼Å©ÇÑ´Ù.
                 if(me.getMode() == me.Constants.MODE.HIERARCHY) {
                     if(me._CONTROLLER.removeFirstShapeTypeAtHierarchy == null) {
                         me._CONTROLLER.removeFirstShapeTypeAtHierarchy = me.Constants.SHAPE.EDGE;
@@ -2117,8 +2110,8 @@ Renderer.prototype = {
             var flag = true;
             var msg = '';
             /**
-             * ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
-             * shapeï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½î¶»ï¿½ï¿½ ï¿½ï¿½ï¿½è¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
+             * °í·ÁÇØ¾ßÇÒ »çÇ×.
+             * shape¸¦ ÀÌµ¿½Ã ¾î¶»°Ô °ü°è¸¦ ¼³Á¤ÇØ¼­ ÀÌ ·ÎÁ÷À» ¾ÈÅÂ¿ï °ÍÀÎ°¡¸¦ °í¹ÎÇØ¾ßÇÔ
              */
             if( me.getMode() == me.Constants.MODE.HIERARCHY) {
                 var prevEdges = me.canvas.getPrevEdges(toElement);
@@ -2126,7 +2119,7 @@ Renderer.prototype = {
                     prevEdges.forEach(function(edge){
                         var edge = me.canvas.getRelatedElementsFromEdge(edge);
                         var fromShapeData = edge.from.shape.data;
-                        // from ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Ú½Å°ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ì´ï¿½.
+                        // from µ¥ÀÌÅÍ°¡ ÀÚ½Å°ú °°´Ù¸é ÀÚ½ÅÀº ÀÌ¹Ì »óÀ§ ÇÇ´õ ¸®½ºÆ®ÀÌ´Ù.
                         if(fromShapeData.feeder_list_mgt_seq != null && fromShapeData.feeder_list_mgt_seq != fromElement.shape.data.feeder_list_mgt_seq) {
                             flag = false;
                             msg = me.MSGMessages.SWITCHCONNECTIONCHK;
@@ -2148,28 +2141,28 @@ Renderer.prototype = {
         });
 
         /**
-         * ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¾î³µï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®
+         * ÄÉÀÌºí º¯°æÀÌ ÀÏ¾î³µÀ» °æ¿ì ÀÌº¥Æ®
          */
         $(me.canvas.getRootElement()).bind('cableChange', function (event, shapeElement, beforeShapeId, afterShapeId) {
-            console.log(shapeElement, beforeShapeId, afterShapeId);
+            //console.log(shapeElement, beforeShapeId, afterShapeId);
         });
 
         /**
-         * ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®
+         * ¶ó¿ìÆ® º¸±â ÀÌº¥Æ®
          */
         $(me.canvas.getRootElement()).bind('showCableList', function (event, shapeElement) {
-            me.onShowCableList(shapeElement, null);
+            //me.onShowCableList(shapeElement, null);
         });
 
         /**
-         * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®
+         * Á¤º¸ º¸±â ÀÌº¥Æ®
          */
         $(me.canvas.getRootElement()).bind('showProperty', function (event, shapeElement) {
             me.onShowProperty(shapeElement);
         });
 
         /**
-         * Äµï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½Ìºï¿½Æ®
+         * Äµ¹ö½º ·Îµù ÀÌº¥Æ®
          */
         me.canvas.onLoading(function (event, progress) {
             if (progress == 'start') {
@@ -2189,7 +2182,7 @@ Renderer.prototype = {
     },
 
     /**
-     * Routeï¿½ï¿½ï¿½ï¿½
+     * Route¿¡¼­
      */
     checkPointToPoint: function (edge, canvas) {
 
@@ -2205,12 +2198,11 @@ Renderer.prototype = {
     },
 
     /**
-     * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
+     * Á¤º¸ º¸±â ÀÌº¥Æ®¸¦ Ã³¸®ÇÑ´Ù.
      * @param element
      */
     onShowProperty: function (element) {
         var me = this;
-        console.log(element.shape.data);
 
         if(element.shape.data.hasOwnProperty('showProperty')) {
             if(element.shape.data.showProperty) {
@@ -2225,7 +2217,7 @@ Renderer.prototype = {
 
     highLightHierarchyFeeder: function(element) {
         var me = this;
-        //ï¿½ï¿½ï¿½Ãµï¿½ HierarchyFeeder ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½
+        //¼±ÅÃµÈ HierarchyFeeder ¾Ö´Ï¸ÞÀÌ¼Ç
         if (!element.shape.data) {
             element.shape.data = {};
         }
@@ -2241,7 +2233,7 @@ Renderer.prototype = {
 
     unHighLightHierarchyFeeder: function(element) {
         var me = this;
-        //ï¿½ï¿½ï¿½Ãµï¿½ HierarchyFeeder ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½
+        //¼±ÅÃµÈ HierarchyFeeder ¾Ö´Ï¸ÞÀÌ¼Ç
         if (!element.shape.data) {
             element.shape.data = {};
         }
@@ -2250,14 +2242,14 @@ Renderer.prototype = {
     },
 
     /**
-     * ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
+     * ÇØ´ç ·¹ÀÌ½º¿þÀÌ¸¦ ÇÏÀÌ¶óÀÌÆ® Ã³¸®ÇÑ´Ù.
      * @param element
-     * @param {Boolean} selected ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+     * @param {Boolean} selected ¼±ÅÃ Ã³¸® ¿©ºÎ
      */
     highLightRaceway: function (element, selected) {
         var me = this;
 
-        //ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½
+        //¼±ÅÃµÈ ·¹ÀÌ½º¿þÀÌ ¾Ö´Ï¸ÞÀÌ¼Ç
         if (!element.shape.data) {
             element.shape.data = {};
         }
@@ -2270,12 +2262,12 @@ Renderer.prototype = {
     },
 
     /**
-     * ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+     * ÇØ´ç ·¹ÀÌ½º¿þÀÌÀÇ ÇÏÀÌ¶óÀÌÆ®¸¦ Á¾·áÇÑ´Ù.
      * @param element
      */
     unHighLightRaceway: function (element) {
         var me = this;
-        //ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½
+        //¼±ÅÃµÈ ·¹ÀÌ½º¿þÀÌ ¾Ö´Ï¸ÞÀÌ¼Ç
         if (!element.shape.data) {
             element.shape.data = {};
         }
@@ -2284,7 +2276,7 @@ Renderer.prototype = {
         me.canvas.getRenderer().redrawShape(element);
     },
     /**
-     * ï¿½Ö¾ï¿½ï¿½ï¿½ path (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
+     * ÁÖ¾îÁø path (µµÇü ¾ÆÀÌµð) ¸ñ·ÏÀ¸·ÎºÎÅÍ ·¹ÀÌ½º¿þÀÌ ¸®½ºÆ®¸¦ ¹ÝÈ¯ÇÑ´Ù.
      * @param {Array} path
      * @returns {Array}
      */
@@ -2308,7 +2300,7 @@ Renderer.prototype = {
         return list;
     },
     /**
-     * ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½È­Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+     * ÄÉÀÌºí ´ëÈ­Ã¢À» »èÁ¦ÇÑ´Ù.
      * @param dialog
      * @param currentPath
      * @param selectedRaceway
@@ -2328,7 +2320,6 @@ Renderer.prototype = {
     onRoutePathToDialog: function(jsonData, clickEventFrom) {
         var me = this;
         var currentCanvas = me.getCanvas();
-        console.log(jsonData);
         if(jsonData.rou_ref_tot_path == null) {
             msgBox(me.MSGMessages.NOPATH);
             return;
@@ -2341,11 +2332,14 @@ Renderer.prototype = {
 
         var rouRefTotPath = jsonData.rou_ref_tot_path;
         var allRaceWay = rouRefTotPath.split('>');
-        var lastRaceWay = allRaceWay[allRaceWay.length-1];
+        var firstRaceWay = allRaceWay[1];
+        var lastRaceWay = allRaceWay[allRaceWay.length-2];
         var allEdges = currentCanvas.getAllEdges();
+        var firstEdge;
+        var lastEdge;
 
         /**
-         * ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+         * ÇÏÀÌ¶óÀÌÆ® µÈ ¸ðµç ·¹ÀÌ½º¿þÀÌ ÇØÁ¦
          */
         allEdges.forEach(function(edge){
             me.unHighLightRaceway(edge);
@@ -2359,35 +2353,41 @@ Renderer.prototype = {
             }
             var label = edge.shape.data.race_ref_trayedm_no;
             if(clickEventFrom == 'find') {
-                if(label == allRaceWay[1]) {
-                    edge.shape.data['cable_list_seq'] = jsonData.cable_list_seq;
-                    edge.shape.data['lastRaceWay'] = lastRaceWay;
-                    me.onShowCableList(edge, 'fromGrid');
+                if(label == firstRaceWay) {
+                    firstEdge = edge;
+                }else if(label == lastRaceWay){
+                    lastEdge = edge;
                 }
             } else {
-                if(label == allRaceWay[1]) {
+                if(label == firstRaceWay) {
                     me.highLightRaceway(edge, true);
                 }
             }
         });
+        if(clickEventFrom == 'find' && firstEdge && lastEdge){
+            firstEdge.shape.data['cable_list_seq'] = jsonData.cable_list_seq;
+            firstEdge.shape.data['firstRaceWay'] = firstRaceWay;
+            firstEdge.shape.data['lastRaceWay'] = lastRaceWay;
+            me.onShowCableList(firstEdge,lastEdge,'fromGrid');
+        }
 
     },
 
     /**
-     * ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ë¾ï¿½ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½Ã½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ñ´ï¿½.
-     * @param element
+     * ÇØ´ç ·¹ÀÌ½º¿þÀÌ¸¦ Áö³ª´Â ÄÉÀÌºí ¸®½ºÆ®¸¦ ÆË¾÷ÇÏ°í, ÄÉÀÌºí ¼±ÅÃ½Ã ´Ù¸¥ ¶ó¿ìÆ® °æ·Î¸¦ ¼±ÅÃ°¡´ÉÇÏ°Ô ÇÑ´Ù.
      */
-    onShowCableList: function (element, from) {
+    onShowCableList: function (firstEdge, lastEdge, from) {
         var me = this;
+        var element = firstEdge;
 
-        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+        //±âÁ¸ ´ëÈ­ÀåÀÌ ÀÖÀ» °æ¿ì »èÁ¦ÇÏµµ·Ï ÇÑ´Ù.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         me.destroyCableDialog($('[name=' + dialogName + ']'));
 
-        //ï¿½ï¿½ï¿½Ì¾ï¿½Î±ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+        //´ÙÀÌ¾î·Î±× Ã¢À» ¶ç¿î´Ù.
         var dialog = me.createDialog(element, {
             title: 'Cables',
-            height: 350,
+            height: 450,
             width: 530,
             closeOnEscape: false,
             resizable: false,
@@ -2399,31 +2399,31 @@ Renderer.prototype = {
 
         $('.noClose .ui-dialog-titlebar-close').css('display', 'none');
 
-        //ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ð½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
+        //ÇÏÀÌ¶óÀÌÆÃ µÈ ÆÐ½º ¸®½ºÆ®
         var currentPath;
         me.highLightRaceway(element, true);
 
-        //ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ò·ï¿½ï¿½Â´ï¿½.
-        var cables = me.getCablesWithRaceway(element);
+        //ÄÉÀÌºí µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Â´Ù.
+        var cables = me.getCablesWithRaceway(firstEdge, lastEdge);
 
-        //ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½
+        //ÆÐ³ÎÀÇ ³×ÀÓ½ºÆäÀÌ½º
         var panelName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG_TABLE;
         var panelId = me._CONTAINER_ID + element.id + me.Constants.PREFIX.DIALOG_TABLE;
 
 
-        //ï¿½ï¿½ï¿½Ìºï¿½ ï¿½×¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+        //ÄÉÀÌºí ±×¸®µåÀÇ ³»¿ëÀ» ±¸¼ºÇÑ´Ù.
         var adjustCables = [];
         var idx = 0;
         for (var i = 0; i < cables.length; i++) {
             var totalRaceWay = cables[i]['name'].split('>');
             var lastWay = totalRaceWay[totalRaceWay.length-1];
             if(from == 'fromGrid') {
-                if(lastWay == element.shape.data.lastRaceWay) {
-                    cables[i]['name'] = 'Cable ' + idx + ' :' + cables[i]['realPath'];
-                    cables[i]['label'] = '<a href="#" name="item" data-index="' + idx + '">' + cables[i]['name'] + '</a>';
-                    adjustCables.push(cables[i]);
-                    idx++;
-                }
+                //if(lastWay == element.shape.data.lastRaceWay) {
+                cables[i]['name'] = 'Cable ' + idx + ' :' + cables[i]['realPath'];
+                cables[i]['label'] = '<a href="#" name="item" data-index="' + idx + '">' + cables[i]['name'] + '</a>';
+                adjustCables.push(cables[i]);
+                idx++;
+                //}
             } else {
                 cables[i]['label'] = '<a href="#" name="item" data-index="' + i + '">' + cables[i]['name'] + '</a>';
                 adjustCables.push(cables[i]);
@@ -2449,7 +2449,7 @@ Renderer.prototype = {
         };
 
 
-        //ï¿½ï¿½È­Ã¢ï¿½ï¿½ ï¿½×¸ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+        //´ëÈ­Ã¢¿¡ ±×¸®µå¸¦ »ðÀÔÇÑ´Ù.
         var panel = $('<table></table>');
         panel.attr('name', panelName);
         panel.attr('id', panelId);
@@ -2459,7 +2459,7 @@ Renderer.prototype = {
 
         dialog.append(panel);
         if(from == 'fromGrid') {
-            //ï¿½ï¿½È­Ã¢ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+            //´ëÈ­Ã¢¿¡ ¹öÆ°À» »ðÀÔÇÑ´Ù.
             var alternativeBtn = $('<button class="btn btn-primary noClick" type="button" id="altRaceWayApply" style="margin-left:195px">Apply</button>');
             dialog.append(alternativeBtn);
 
@@ -2491,9 +2491,9 @@ Renderer.prototype = {
         var gridPanelDiv = $('#' + panelId + '_wrapper');
 
         /**
-         * ï¿½ï¿½ï¿½Ìºï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½Ð½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½Æ® Ã³ï¿½ï¿½ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ È°ï¿½ï¿½È­ï¿½Ñ´ï¿½.
-         * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½æ°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½È¯Èºï¿½ï¿½.
-         * ï¿½ï¿½ï¿½æ°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½.
+         * ÄÉÀÌºí Å¬¸¯½Ã ÇØ´ç ÄÉÀÌºíÀÇ ÆÐ½º¸¦ ¹ÙÅÁÀ¸·Î ·¹ÀÌ½º¿þÀÌ¸¦ ÇÏÀÌ¶óÀÌÆ® Ã³¸®ÇÏ°í, º¯°æ ¹öÆ°À» È°¼ºÈ­ÇÑ´Ù.
+         * º¯°æ ¹öÆ°À» Å¬¸¯½Ã ±×¸®µåÀÇ ³»¿ëÀÌ ÄÉÀÌºíÀÌ Áö³ª°¥ ¼ö ÀÖ´Â º¯°æ°¡´ÉÇÑ ¶ó¿ìÆ® ¸®½ºÆ®·Î ÀüÈ¯Èº´Ù.
+         * º¯°æ°¡´ÉÇÑ ¶ó¿ìÆ® ¸®½ºÆ®¸¦ ¼±ÅÃÇÏ¸é ÄÉÀÌºí¿¡ Àû¿ë.
          * @param item
          * @param itemData
          */
@@ -2506,7 +2506,7 @@ Renderer.prototype = {
                 var allEdges = me.getCanvas().getAllEdges();
 
                 /**
-                 * ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                 * ÇÏÀÌ¶óÀÌÆ® µÈ ¸ðµç ·¹ÀÌ½º¿þÀÌ ÇØÁ¦
                  */
                 allEdges.forEach(function(edge){
                     me.unHighLightRaceway(edge);
@@ -2525,18 +2525,17 @@ Renderer.prototype = {
                 }
 
                 itemData['totalLength'] = racewaysLength + Number(itemData.fromPointLen) + Number(itemData.toPointLen);
-                //ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° Å¬ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
+                //¾îÇÃ¶óÀÌ ¹öÆ° Å¬¸¯ ÀÌº¥Æ®¸¦ Ã³¸®ÇÑ´Ù.
                 if(from != null) {
                     alternativeBtn.removeClass('noClick');
                     alternativeBtn.unbind('click');
                     alternativeBtn.bind('click', function () {
-                        console.log(itemData);
+                        //console.log(itemData);
                         var updateCableData = {};
                         updateCableData['cable_list_seq'] = element.shape.data.cable_list_seq;
                         updateCableData['rou_ref_tot_path'] = itemData.realPath;
                         updateCableData['rou_ref_tot_len'] = itemData.totalLength;
-                        //var returnData = parent.updateCablePath(updateCableData);
-                        var returnData = '0';
+                        var returnData = parent.updateCablePath(updateCableData);
                         if(returnData == '0') {
                             me._CONTROLLER.renderGrid(me._CONTROLLER.model.CableReferenceList.name);
                             $(this).remove();
@@ -2572,28 +2571,65 @@ Renderer.prototype = {
         });
     },
     /**
-     * ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
+     * ÇØ´ç ·¹ÀÌ½º¿þÀÌ¸¦ Áö³ª´Â ÄÉÀÌºí ¸®½ºÆ®¸¦ ±¸ÇÑ´Ù.
      * @param element
      * @returns {Array}
      */
-    getCablesWithRaceway: function (element) {
+    getCablesWithRaceway: function (firstEdge,lastEdge) {
         var me = this;
         var routes = [];
-        var relatedElementsFromEdge = me.canvas.getRelatedElementsFromEdge(element);
-        var from = relatedElementsFromEdge.from;
-        var to = relatedElementsFromEdge.to;
-        if (!from || !to) {
+        var relatedElementsFirstEdge = me.canvas.getRelatedElementsFromEdge(firstEdge);
+        var relatedElementsLastEdge = me.canvas.getRelatedElementsFromEdge(lastEdge);
+        var firstFrom = relatedElementsFirstEdge.from;
+        var firstTo = relatedElementsFirstEdge.to;
+        var lastFrom = relatedElementsLastEdge.from;
+        var lastTo = relatedElementsLastEdge.to;
+        var firstLocation;
+        var lastLocation;
+        var firstBldg;
+        var lastBldg;
+        if(firstFrom.shape instanceof OG.shape.elec.Location){
+            firstLocation = firstFrom;
+        }
+        if(firstTo.shape instanceof OG.shape.elec.Location){
+            firstLocation = firstTo;
+        }
+        if(lastFrom.shape instanceof OG.shape.elec.Location){
+            lastLocation = lastFrom;
+        }
+        if(lastTo.shape instanceof OG.shape.elec.Location){
+            lastLocation = lastTo;
+        }
+
+        if (!firstLocation || !lastLocation) {
+            return routes;
+        }
+        firstBldg = me.getCanvas().getParent(firstLocation);
+        lastBldg = me.getCanvas().getParent(lastLocation);
+        if(!firstBldg || !firstBldg.shape instanceof OG.shape.elec.BLDG){
+            return routes;
+        }
+        if(!lastBldg || !lastBldg.shape instanceof OG.shape.elec.BLDG){
             return routes;
         }
 
-        var fromPaths = [];
-        var toPaths = [];
-
-        var isExcludeLocation = function (element, excludeElement, paths) {
-            var isExclude = false;
-            if (element.id == excludeElement.id) {
-                isExclude = true;
+        var fromLocations = [];
+        var fromChilds = me.getCanvas().getChilds(firstBldg);
+        for(var i = 0 ; i < fromChilds.length; i++){
+            if(fromChilds[i].shape instanceof OG.shape.elec.Location){
+                fromLocations.push(fromChilds[i]);
             }
+        }
+        var toLocations = [];
+        var toChilds = me.getCanvas().getChilds(lastBldg);
+        for(var i = 0 ; i < toChilds.length; i++){
+            if(toChilds[i].shape instanceof OG.shape.elec.Location){
+                toLocations.push(toChilds[i]);
+            }
+        }
+
+        var isExcludeLocation = function (element, paths) {
+            var isExclude = false;
             for (var i = 0, leni = paths.length; i < leni; i++) {
                 if (paths[i] == element.id) {
                     isExclude = true;
@@ -2601,71 +2637,47 @@ Renderer.prototype = {
             }
             return isExclude;
         };
-        var findEndLocation = function (element, excludeElement, paths, fromTo) {
-            //ï¿½Ö¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Location ï¿½ï¿½ ï¿½ï¿½ï¿½ fromPaths ï¿½Ç´ï¿½ toPaths ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
-            if (element.shape instanceof OG.Location) {
-                if (fromTo == 'from') {
-                    fromPaths.push(paths);
-                } else {
-                    toPaths.push(paths);
-                }
+
+        var findEndLocation = function(from,end,current,paths){
+            //ÁÖ¾îÁø µµÇüÀÌ end Location ÀÏ °æ¿ì routes ¿¡ Ãß°¡ÇÑ ÈÄ Á¾·áÇÑ´Ù.
+            if (current.shape instanceof OG.Location && current.id == end.id) {
+                routes.push(paths);
                 return;
             }
 
-            //ï¿½Ö¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Â´ï¿½.
-            var prevShapes = me.canvas.getPrevShapes(element);
-            var nextShapes = me.canvas.getNextShapes(element);
+            //ÁÖ¾îÁø µµÇü¿¡ ¿¬°áµÈ µµÇüµéÀ» Ã£´Â´Ù.
+            var prevShapes = me.canvas.getPrevShapes(current);
+            var nextShapes = me.canvas.getNextShapes(current);
 
-            //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ excludeElement(ï¿½Ä»ï¿½ï¿½Ç¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½, paths ï¿½ï¿½ ï¿½ßºï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ä±ï¿½ï¿½Ñ´ï¿½.
+            //¿¬°áµÈ µµÇüÁß paths ¿¡ Áßº¹µÇ´Â °ÍÀ» ÆÄ±âÇÑ´Ù.
             var relatedShapes = [];
             for (var i = 0; i < prevShapes.length; i++) {
-                if (!isExcludeLocation(prevShapes[i], excludeElement, paths)) {
+                if (!isExcludeLocation(prevShapes[i], paths)) {
                     relatedShapes.push(prevShapes[i]);
                 }
             }
             for (var i = 0; i < nextShapes.length; i++) {
-                if (!isExcludeLocation(nextShapes[i], excludeElement, paths)) {
+                if (!isExcludeLocation(nextShapes[i], paths)) {
                     relatedShapes.push(nextShapes[i]);
                 }
             }
             for (var i = 0; i < relatedShapes.length; i++) {
-                //paths ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
+                //paths ¿¡ Ãß°¡ÇÑ´Ù.
                 var newPath = JSON.parse(JSON.stringify(paths));
                 newPath.push(relatedShapes[i].id);
-
-                //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Location ï¿½ï¿½ ï¿½ï¿½ï¿½ fromPaths ï¿½Ç´ï¿½ toPaths ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
-                if (relatedShapes[i].shape instanceof OG.Location) {
-                    if (fromTo == 'from') {
-                        fromPaths.push(newPath);
-                    } else {
-                        toPaths.push(newPath);
-                    }
-                    continue;
-                }
-                findEndLocation(relatedShapes[i], element, newPath, fromTo);
+                findEndLocation(from, end, relatedShapes[i], newPath);
             }
-        };
-        findEndLocation(from, to, [from.id], 'from');
-        findEndLocation(to, from, [to.id], 'to');
 
-        var fromPath, toPath, concatPath, fromLocation, toLocation;
-        //fromPaths,toPaths ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½Ð½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. ï¿½Ì¶ï¿½ location ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
-        for (var i = 0, leni = fromPaths.length; i < leni; i++) {
-            fromPath = fromPaths[i];
-            fromPath.reverse();
-            for (var c = 0, lenc = toPaths.length; c < lenc; c++) {
-                toPath = toPaths[c];
-                fromLocation = fromPath[0];
-                toLocation = toPath[toPath.length - 1];
-                if (fromLocation != toLocation) {
-                    concatPath = fromPath.concat(toPath);
-                    routes.push(concatPath);
-                }
+        };
+        for(var i = 0; i < fromLocations.length; i++){
+            for(var c = 0 ; c < toLocations.length; c++){
+                findEndLocation(fromLocations[i],toLocations[c],fromLocations[i],[fromLocations[i].id]);
             }
         }
 
+
         /**
-         * ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+         * ¶ó¿ìÆ® µ¥ÀÌÅÍ ¸¸µé±â
          */
         var data = [];
         for (var i = 0, leni = routes.length; i < leni; i++) {
@@ -2675,7 +2687,7 @@ Renderer.prototype = {
             var fromPointLength = 0;
             var toPointLength = 0;
             for (var c = 0, lenc = routes[i].length; c < lenc; c++) {
-                //Ã³ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½) ï¿½Ì¶ï¿½ï¿½
+                //Ã³À½ ¶Ç´Â ³¡(·ÎÄÉÀÌ¼Ç) ÀÌ¶ó¸é
                 if (c == 0 || c == lenc - 1) {
                     var locationId = routes[i][c];
                     var location = me.canvas.getElementById(locationId);
@@ -2693,7 +2705,7 @@ Renderer.prototype = {
                     }
                 }
             }
-            //ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´Ù¸ï¿½
+            //½ÃÀÛ, ³¡ ·ÎÄÉÀÌ¼ÇÀÌ ¸ðµÎ ºôµù ¾È¿¡ ¼ÓÇØÀÖ´Ù¸é
             if (fromBLDG && toBLDG) {
                 routeData['path'] = routes[i];
 
