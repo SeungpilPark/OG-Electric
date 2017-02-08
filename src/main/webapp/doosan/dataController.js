@@ -6,7 +6,7 @@ var DataController = function () {
 };
 DataController.prototype = {
 	/**
-	 * ÇÁ·ÎÁ§Æ® µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Â´Ù.
+	 * í”„ë¡œì íŠ¸ ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
 	 * @param callback
 	 */
 	getProjectInfo: function (callback) {
@@ -35,7 +35,7 @@ DataController.prototype = {
 	/* Feeder Editor DataController */
 
 	/**
-	 * ½ºÀ§Ä¡ ¼¿·ºÆ® ¹Ú½ºÀÇ ³»¿ëÀ» ºÒ·¯¿Â´Ù.
+	 * ìŠ¤ìœ„ì¹˜ ì…€ë ‰íŠ¸ ë°•ìŠ¤ì˜ ë‚´ìš©ì„ ë¶ˆëŸ¬ì˜¨ë‹¤.
 	 * @param callback
 	 */
 	getSwitchgearTypeList: function (callback) {
@@ -63,7 +63,7 @@ DataController.prototype = {
 	},
 
 	/**
-	 * »ç¿ëµÇÁö ¾ÊÀº ½ºÀ§Ä¡ ¸®½ºÆ®¸¦ ºÒ·¯¿Â´Ù.
+	 * ì‚¬ìš©ë˜ì§€ ì•Šì€ ìŠ¤ìœ„ì¹˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
 	 * @param callback
 	 */
 	getSwitchgearUnused: function (callback) {
@@ -91,7 +91,7 @@ DataController.prototype = {
 	},
 
 	/**
-	 * »ç¿ëµÈ ½ºÀ§Ä¡ ¸®½ºÆ®¸¦ ºÒ·¯¿Â´Ù.
+	 * ì‚¬ìš©ëœ ìŠ¤ìœ„ì¹˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
 	 * @param callback
 	 */
 	getSwitchgearUse: function (callback) {
@@ -120,7 +120,7 @@ DataController.prototype = {
 	},
 
 	/**
-	 * »ç¿ëµÇÁö ¾ÊÀº ·Îµå ¸®½ºÆ®¸¦ ºÒ·¯¿Â´Ù.
+	 * ì‚¬ìš©ë˜ì§€ ì•Šì€ ë¡œë“œ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
 	 * @param callback
 	 */
 	getLoadUnused: function (callback) {
@@ -148,7 +148,7 @@ DataController.prototype = {
 	},
 
 	/**
-	 * »ç¿ëµÈ ·Îµå ¸®½ºÆ®¸¦ ºÒ·¯¿Â´Ù.
+	 * ì‚¬ìš©ëœ ë¡œë“œ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
 	 * @param callback
 	 */
 	getLoadUse: function (callback) {
@@ -176,7 +176,7 @@ DataController.prototype = {
 	},
 
 	/**
-	 * ÇÇ´õ ¸®½ºÆ®¸¦ ºÒ·¯¿Â´Ù.(½ºÀ§Ä¡¿¡ ÇØ´çÇÏ´Â °Í¸¸ ¸®½ºÆ®·Î)
+	 * í”¼ë” ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.(ìŠ¤ìœ„ì¹˜ì— í•´ë‹¹í•˜ëŠ” ê²ƒë§Œ ë¦¬ìŠ¤íŠ¸ë¡œ)
 	 * @param callback
 	 */
 	getFeederList: function (callback) {
@@ -215,7 +215,7 @@ DataController.prototype = {
 	},
 
 	/**
-	 * AssignedFeederListÀÇ treedata¸¦ ¸¸µå´Â ÇÔ¼ö
+	 * AssignedFeederListì˜ treedataë¥¼ ë§Œë“œëŠ” í•¨ìˆ˜
 	 */
 
 	getFeederTreeData: function(data) {
@@ -232,32 +232,32 @@ DataController.prototype = {
 			var parent;
 			var enableDisplay = true;
 
-			//LV °¡ 1ÀÌ¸é ·çÆ®ÀÌ´Ù.
+			//LV ê°€ 1ì´ë©´ ë£¨íŠ¸ì´ë‹¤.
 			if (data[i]['lv'] == 1) {
 				parent = '#';
 				lastLvMap[1] = data[i];
 			}
-			//prevItem ÀÌ ¾ø´Ù¸é ÀÏ´Ü ·çÆ®·Î µî·ÏÇÏ°í, LV ¸Ê¿¡ ÀÚ½ÅÀ» µî·Ï
+			//prevItem ì´ ì—†ë‹¤ë©´ ì¼ë‹¨ ë£¨íŠ¸ë¡œ ë“±ë¡í•˜ê³ , LV ë§µì— ìì‹ ì„ ë“±ë¡
 			else if (!prevItem) {
 				parent = '#';
 				lastLvMap[data[i]['lv']] = data[i];
 			}
 			else {
-				//ÀÚ½ÅÀÇ ·¹º§ÀÌ ¸¶Áö¸· ¾ÆÀÌÅÛÀÇ ·¹º§º¸´Ù Å©´Ù¸é
+				//ìì‹ ì˜ ë ˆë²¨ì´ ë§ˆì§€ë§‰ ì•„ì´í…œì˜ ë ˆë²¨ë³´ë‹¤ í¬ë‹¤ë©´
 				if (prevItem['lv'] < data[i]['lv']) {
 					parent = prevItem['feeder_list_mgt_seq'];
 					lastLvMap[data[i]['lv']] = data[i];
 				}
-				//ÀÚ½ÅÀÇ ·¹º§ÀÌ ¸¶Áö¸· ¾ÆÀÌÅÛÀÇ ·¹º§º¸´Ù °°°Å³ª ÀÛ´Ù¸é
+				//ìì‹ ì˜ ë ˆë²¨ì´ ë§ˆì§€ë§‰ ì•„ì´í…œì˜ ë ˆë²¨ë³´ë‹¤ ê°™ê±°ë‚˜ ì‘ë‹¤ë©´
 				else if (prevItem['lv'] >= data[i]['lv']) {
 					var parentLv = data[i]['lv'] - 1;
 					if (lastLvMap[parentLv]) {
 						parent = lastLvMap[parentLv]['feeder_list_mgt_seq'];
 						lastLvMap[data[i]['lv']] = data[i];
 					}
-					//ÀÚ½ÅÀÇ Àü´Ü°è ·¹º§ÀÌ lastLvMap ¿¡ ¾ø´Ù¸é, Àß¸øµÈ µ¥ÀÌÅÍ Çü½ÄÀÓÀ» ¾Ë¸°´Ù.
+					//ìì‹ ì˜ ì „ë‹¨ê³„ ë ˆë²¨ì´ lastLvMap ì— ì—†ë‹¤ë©´, ì˜ëª»ëœ ë°ì´í„° í˜•ì‹ì„ì„ ì•Œë¦°ë‹¤.
 					else {
-						callback('¾î»çÀÎµå ·Îµå ' + data[i]['kks_num'] + ' ÀÇ »óÀ§ ·¹º§ µ¥ÀÌÅÍ°¡ ´©¶ôµÇ¾ú½À´Ï´Ù.')
+						callback('ì–´ì‚¬ì¸ë“œ ë¡œë“œ ' + data[i]['kks_num'] + ' ì˜ ìƒìœ„ ë ˆë²¨ ë°ì´í„°ê°€ ëˆ„ë½ë˜ì—ˆìŠµë‹ˆë‹¤.')
 					}
 				}
 			}
@@ -279,7 +279,7 @@ DataController.prototype = {
 	},
 
 	/**
-	 * ¾î»çÀÎµÈ ÇÇ´õ ¸®½ºÆ® ¸¦ ºÒ·¯¿Â´Ù.
+	 * ì–´ì‚¬ì¸ëœ í”¼ë” ë¦¬ìŠ¤íŠ¸ ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
 	 * @param callback
 	 */
 	getAssignedFeederList: function (callback) {
@@ -310,7 +310,7 @@ DataController.prototype = {
 	},
 
 	/**
-	 * Æ®¸®¿¡¼­ ¼±ÅÃÇÑ ³ëµå »èÁ¦ÀÌÈÄ ÇØ´ç ¸®½ºÆ®¸¦ ´Ù½Ã ¹Ş¾Æ¿Í¼­ ¸®ÇÁ·¹½ÃÇÑ´Ù.
+	 * íŠ¸ë¦¬ì—ì„œ ì„ íƒí•œ ë…¸ë“œ ì‚­ì œì´í›„ í•´ë‹¹ ë¦¬ìŠ¤íŠ¸ë¥¼ ë‹¤ì‹œ ë°›ì•„ì™€ì„œ ë¦¬í”„ë ˆì‹œí•œë‹¤.
 	 * @param callback
 	 */
 	getUpdateTree: function (object, renderer, mode) {
@@ -361,10 +361,10 @@ DataController.prototype = {
 	},
 
 	/**
-	 * ÇÇ´õ ¿¡µğÅÍÀÇ Assigned(All)ÀÇ Æ®¸®ÀÇ ÄÁÅØ½ºÆ® ¸Ş´ºÀÇ unAssign Å¬¸¯ ÀÌº¥Æ®½Ã feeder_list_mgt_seq¸¦ ¹Ş¾Æ Áö¿î´Ù.
+	 * í”¼ë” ì—ë””í„°ì˜ Assigned(All)ì˜ íŠ¸ë¦¬ì˜ ì»¨í…ìŠ¤íŠ¸ ë©”ë‰´ì˜ unAssign í´ë¦­ ì´ë²¤íŠ¸ì‹œ feeder_list_mgt_seqë¥¼ ë°›ì•„ ì§€ìš´ë‹¤.
 	 */
 	deleteFeeder: function (seq) {
-		// resultData´Â ¼º°øÀÌ¸é status : 0, ¿¡·¯½Ã¿¡´Â status : 1, errorMessage : "string"
+		// resultDataëŠ” ì„±ê³µì´ë©´ status : 0, ì—ëŸ¬ì‹œì—ëŠ” status : 1, errorMessage : "string"
 		var resultData = parent.deleteFeeder(seq);
 		return resultData;
 
@@ -373,7 +373,7 @@ DataController.prototype = {
 	/* Hierarchy Editor DataController */
 
 	/**
-	 * ÇÏÀÌ¾î¶óÅ° ¿¡µğÅÍÀÇ ÇÇ´õ ¸®½ºÆ®¸¦ ºÒ·¯¿Â´Ù.
+	 * í•˜ì´ì–´ë¼í‚¤ ì—ë””í„°ì˜ í”¼ë” ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
 	 * @param callback
 	 */
 	getHierarchyFeederList: function (callback) {
@@ -428,32 +428,32 @@ DataController.prototype = {
 			var parent;
 			var enableDisplay = true;
 
-			//LV °¡ 1ÀÌ¸é ·çÆ®ÀÌ´Ù.
+			//LV ê°€ 1ì´ë©´ ë£¨íŠ¸ì´ë‹¤.
 			if (data[i]['lv'] == 1) {
 				parent = '#';
 				lastLvMap[1] = data[i];
 			}
-			//prevItem ÀÌ ¾ø´Ù¸é ÀÏ´Ü ·çÆ®·Î µî·ÏÇÏ°í, LV ¸Ê¿¡ ÀÚ½ÅÀ» µî·Ï
+			//prevItem ì´ ì—†ë‹¤ë©´ ì¼ë‹¨ ë£¨íŠ¸ë¡œ ë“±ë¡í•˜ê³ , LV ë§µì— ìì‹ ì„ ë“±ë¡
 			else if (!prevItem) {
 				parent = '#';
 				lastLvMap[data[i]['lv']] = data[i];
 			}
 			else {
-				//ÀÚ½ÅÀÇ ·¹º§ÀÌ ¸¶Áö¸· ¾ÆÀÌÅÛÀÇ ·¹º§º¸´Ù Å©´Ù¸é
+				//ìì‹ ì˜ ë ˆë²¨ì´ ë§ˆì§€ë§‰ ì•„ì´í…œì˜ ë ˆë²¨ë³´ë‹¤ í¬ë‹¤ë©´
 				if (prevItem['lv'] < data[i]['lv']) {
 					parent = prevItem['hier_seq'];
 					lastLvMap[data[i]['lv']] = data[i];
 				}
-				//ÀÚ½ÅÀÇ ·¹º§ÀÌ ¸¶Áö¸· ¾ÆÀÌÅÛÀÇ ·¹º§º¸´Ù °°°Å³ª ÀÛ´Ù¸é
+				//ìì‹ ì˜ ë ˆë²¨ì´ ë§ˆì§€ë§‰ ì•„ì´í…œì˜ ë ˆë²¨ë³´ë‹¤ ê°™ê±°ë‚˜ ì‘ë‹¤ë©´
 				else if (prevItem['lv'] >= data[i]['lv']) {
 					var parentLv = data[i]['lv'] - 1;
 					if (lastLvMap[parentLv]) {
 						parent = lastLvMap[parentLv]['hier_seq'];
 						lastLvMap[data[i]['lv']] = data[i];
 					}
-					//ÀÚ½ÅÀÇ Àü´Ü°è ·¹º§ÀÌ lastLvMap ¿¡ ¾ø´Ù¸é, Àß¸øµÈ µ¥ÀÌÅÍ Çü½ÄÀÓÀ» ¾Ë¸°´Ù.
+					//ìì‹ ì˜ ì „ë‹¨ê³„ ë ˆë²¨ì´ lastLvMap ì— ì—†ë‹¤ë©´, ì˜ëª»ëœ ë°ì´í„° í˜•ì‹ì„ì„ ì•Œë¦°ë‹¤.
 					else {
-						callback('ÇÏÀÌ¾î¶óÅ° ' + data[i]['hier_seq'] + ' ÀÇ »óÀ§ ·¹º§ µ¥ÀÌÅÍ°¡ ´©¶ôµÇ¾ú½À´Ï´Ù.')
+						callback('í•˜ì´ì–´ë¼í‚¤ ' + data[i]['hier_seq'] + ' ì˜ ìƒìœ„ ë ˆë²¨ ë°ì´í„°ê°€ ëˆ„ë½ë˜ì—ˆìŠµë‹ˆë‹¤.')
 					}
 				}
 			}
@@ -626,7 +626,7 @@ DataController.prototype = {
 	},
 
 	/**
-	 * ÇÏÀÌ¾î¶óÅ° ¿¡µğÅÍ ¼¼ÀÌºê
+	 * í•˜ì´ì–´ë¼í‚¤ ì—ë””í„° ì„¸ì´ë¸Œ
 	 */
 	saveHierarchy: function(controller) {
 		var mode = controller.getCurrentMode();
@@ -646,7 +646,7 @@ DataController.prototype = {
 		}
 
 		/**
-		 * Äµ¹ö½ºÀÇ Á¤º¸¸¦ ´ã´Â json
+		 * ìº”ë²„ìŠ¤ì˜ ì •ë³´ë¥¼ ë‹´ëŠ” json
 		 */
 		var GUI_DATA = {};
 		GUI_DATA['status'] = 'GUI';
@@ -654,7 +654,7 @@ DataController.prototype = {
 		sendData.push(GUI_DATA);
 
 		/**
-		 * canvas¿¡ ±×·ÁÁø ÇÃ·Î¿ì Á¤º¸¸¦ µ¹¸é¼­ child·Î ½ºÀ§Ä¡ ÇÇ´õ¸¦ Ã£´Â´Ù.
+		 * canvasì— ê·¸ë ¤ì§„ í”Œë¡œìš° ì •ë³´ë¥¼ ëŒë©´ì„œ childë¡œ ìŠ¤ìœ„ì¹˜ í”¼ë”ë¥¼ ì°¾ëŠ”ë‹¤.
 		 */
 		var shapeList = currentCanvas.getAllShapes();
 		var hierarchyFeedersOutBoundaryFloor = [];
@@ -662,7 +662,7 @@ DataController.prototype = {
 			shapeList.forEach(function(element){
 
 				/**
-				 * ¸ÕÀú ºôµù¾È¿¡ ±×·ÁÁöÁö ¾Ê´Â ÇÏÀÌ¾î¶óÅ° ÇÇ´õ°¡ Á¸ÀçÇÏ´ÂÁö Ã¼Å©¸¦ ÇÑ´Ù.
+				 * ë¨¼ì € ë¹Œë”©ì•ˆì— ê·¸ë ¤ì§€ì§€ ì•ŠëŠ” í•˜ì´ì–´ë¼í‚¤ í”¼ë”ê°€ ì¡´ì¬í•˜ëŠ”ì§€ ì²´í¬ë¥¼ í•œë‹¤.
 				 */
 				if(element.shape instanceof OG.HierarchyFeeder) {
 					var parentElement = currentCanvas.getParent(element);
@@ -687,8 +687,8 @@ DataController.prototype = {
 						jsonData['up_hier_seq'] = element.shape.data.up_hier_seq;
 
 						/**
-						 * prevEdges°¡ ÀÖ´Ù´Â °ÍÀº »óÀ§ ÇÇ´õ°¡ ÀÖ´Ù´Â °Í.
-						 * ¾ø´Ù¸é ÀÚ½ÅÀÌ »óÀ§ÀÌ±â ¶§¹®¿¡
+						 * prevEdgesê°€ ìˆë‹¤ëŠ” ê²ƒì€ ìƒìœ„ í”¼ë”ê°€ ìˆë‹¤ëŠ” ê²ƒ.
+						 * ì—†ë‹¤ë©´ ìì‹ ì´ ìƒìœ„ì´ê¸° ë•Œë¬¸ì—
 						 */
 						var prevEdges = currentCanvas.getPrevEdges(child);
 						var nextEdges = currentCanvas.getNextEdges(child);
@@ -696,7 +696,7 @@ DataController.prototype = {
 							prevEdges.forEach(function(edge){
 								var edge = currentCanvas.getRelatedElementsFromEdge(edge);
 								var fromShapeData = edge.from.shape.data;
-								// ÀÚ±â ÀÚ½ÅÀÌ¸é ÀÚ½ÅÀÌ »óÀ§ÀÌ±â ¶§¹®¿¡ pass
+								// ìê¸° ìì‹ ì´ë©´ ìì‹ ì´ ìƒìœ„ì´ê¸° ë•Œë¬¸ì— pass
 								if(fromShapeData.feeder_list_mgt_seq != child.shape.data.feeder_list_mgt_seq) {
 									jsonData['up_feeder_list_mgt_seq'] = fromShapeData.feeder_list_mgt_seq;
 								}
@@ -715,7 +715,7 @@ DataController.prototype = {
 			var updateFeederHierarchyList = controller.updateFeederHierarchyList;
 			var deleteFeederHierarchyList = controller.deleteFeederHierarchyList;
 			/**
-			 * ±âÁ¸ Á¤º¸´Â ±×´ë·Î ¿Ã¸°´Ù.
+			 * ê¸°ì¡´ ì •ë³´ëŠ” ê·¸ëŒ€ë¡œ ì˜¬ë¦°ë‹¤.
 			 */
 			feederHierarchyMgtShapeList.forEach(function(fhList){
 				sendData.push(fhList);
@@ -724,7 +724,7 @@ DataController.prototype = {
 
 			shapeList.forEach(function(element){
 				/**
-				 * ¸ÕÀú ºôµù¾È¿¡ ±×·ÁÁöÁö ¾Ê´Â ÇÏÀÌ¾î¶óÅ° ÇÇ´õ°¡ Á¸ÀçÇÏ´ÂÁö Ã¼Å©¸¦ ÇÑ´Ù.
+				 * ë¨¼ì € ë¹Œë”©ì•ˆì— ê·¸ë ¤ì§€ì§€ ì•ŠëŠ” í•˜ì´ì–´ë¼í‚¤ í”¼ë”ê°€ ì¡´ì¬í•˜ëŠ”ì§€ ì²´í¬ë¥¼ í•œë‹¤.
 				 */
 				if(element.shape instanceof OG.HierarchyFeeder) {
 					var parentElement = currentCanvas.getParent(element);
@@ -742,8 +742,8 @@ DataController.prototype = {
 
 					var childShape = currentCanvas.getChilds(element);
 					/**
-					 * ÀüÃ¼ ±×·ÁÁø Á¤º¸¿¡¼­ update¸®½ºÆ®¿¡¼­ Á¶È¸¸¦ ÇØ¾ßÇÑ´Ù.
-					 * ±×Áß¿¡ ±âÁ¸¿¡ ±×·ÁÁø Á¤º¸°¡ ¾Æ´Ñ »õ·Î¿î ³à¼®ÀÏ °æ¿ì¿¡¸¸ sendData¿¡ ³Ö¾î¾ß ÇÑ´Ù.
+					 * ì „ì²´ ê·¸ë ¤ì§„ ì •ë³´ì—ì„œ updateë¦¬ìŠ¤íŠ¸ì—ì„œ ì¡°íšŒë¥¼ í•´ì•¼í•œë‹¤.
+					 * ê·¸ì¤‘ì— ê¸°ì¡´ì— ê·¸ë ¤ì§„ ì •ë³´ê°€ ì•„ë‹Œ ìƒˆë¡œìš´ ë…€ì„ì¼ ê²½ìš°ì—ë§Œ sendDataì— ë„£ì–´ì•¼ í•œë‹¤.
 					 */
 					childShape.forEach(function(child){
 						var jsonData = {};
@@ -753,8 +753,8 @@ DataController.prototype = {
 						jsonData['up_hier_seq'] = element.shape.data.up_hier_seq;
 
 						/**
-						 * prevEdges°¡ ÀÖ´Ù´Â °ÍÀº »óÀ§ ÇÇ´õ°¡ ÀÖ´Ù´Â °Í.
-						 * ¾ø´Ù¸é ÀÚ½ÅÀÌ »óÀ§ÀÌ±â ¶§¹®¿¡
+						 * prevEdgesê°€ ìˆë‹¤ëŠ” ê²ƒì€ ìƒìœ„ í”¼ë”ê°€ ìˆë‹¤ëŠ” ê²ƒ.
+						 * ì—†ë‹¤ë©´ ìì‹ ì´ ìƒìœ„ì´ê¸° ë•Œë¬¸ì—
 						 */
 						var prevEdges = currentCanvas.getPrevEdges(child);
 						var nextEdges = currentCanvas.getNextEdges(child);
@@ -762,7 +762,7 @@ DataController.prototype = {
 							prevEdges.forEach(function(edge){
 								var edge = currentCanvas.getRelatedElementsFromEdge(edge);
 								var fromShapeData = edge.from.shape.data;
-								// ÀÚ±â ÀÚ½ÅÀÌ¸é ÀÚ½ÅÀÌ »óÀ§ÀÌ±â ¶§¹®¿¡ pass
+								// ìê¸° ìì‹ ì´ë©´ ìì‹ ì´ ìƒìœ„ì´ê¸° ë•Œë¬¸ì— pass
 								if(fromShapeData.feeder_list_mgt_seq != child.shape.data.feeder_list_mgt_seq) {
 									jsonData['up_feeder_list_mgt_seq'] = fromShapeData.feeder_list_mgt_seq;
 								}
@@ -809,8 +809,8 @@ DataController.prototype = {
 		try {
 			var returnData = parent.updateHierarchy(sendData);
 			/**
-			 * ÀúÀå ¹× ¾÷µ¥ÀÌÆ®°¡ ¼º°øÇÑ´Ù¸é
-			 * °ü·Ã ±×¸®µå, Æ®¸®¸¦ »õ·Î ±×¸°´Ù.
+			 * ì €ì¥ ë° ì—…ë°ì´íŠ¸ê°€ ì„±ê³µí•œë‹¤ë©´
+			 * ê´€ë ¨ ê·¸ë¦¬ë“œ, íŠ¸ë¦¬ë¥¼ ìƒˆë¡œ ê·¸ë¦°ë‹¤.
 			 */
 			if(returnData == '0') {
 				controller.refreshGridAndTree(mode, renderer);
@@ -827,7 +827,7 @@ DataController.prototype = {
 	},
 
 	/**
-	 * validation Á¤º¸¸¦ ¸¸µç´Ù.
+	 * validation ì •ë³´ë¥¼ ë§Œë“ ë‹¤.
 	 */
 	makeCheckLSValidatorData: function(renderer) {
 		var currentCanvas = renderer.getCanvas();
@@ -838,7 +838,7 @@ DataController.prototype = {
 		var objectFeederSeq = '';
 		var object = renderer.editingObject;
 		if(object['shapeType'] == renderer.Constants.TYPE.MODIFY_FEEDER) {
-			//±âÁ¸¿¡ ÀÖ´ø ÇÇ´õ
+			//ê¸°ì¡´ì— ìˆë˜ í”¼ë”
 			objectSeq = object['swgr_list_seq'];
 			objectFeederSeq = object['feeder_list_mgt_seq'];
 		} else {
@@ -867,7 +867,7 @@ DataController.prototype = {
 					var prevShapes = currentCanvas.getPrevShapes(selectElement);
 					var nextShapes = currentCanvas.getNextShapes(selectElement);
 
-					// ÀÌÀü shapesÀÇ Á¤º¸¸¦ ÅëÇØ ÇØ´ç S°¡ parentÀÎÁö childÀÎÁö Ã¼Å©
+					// ì´ì „ shapesì˜ ì •ë³´ë¥¼ í†µí•´ í•´ë‹¹ Sê°€ parentì¸ì§€ childì¸ì§€ ì²´í¬
 					if( (prevShapes.length == 0 && nextShapes.length == 0) || prevShapes.length == 0  ) {
 						jsonData['root'] = 'Y';
 						jsonData['up_seq'] = '';
@@ -892,7 +892,7 @@ DataController.prototype = {
 	},
 
 	/**
-	 * ÇÇ´õ ¿¡µğÅÍ ¼¼ÀÌºê
+	 * í”¼ë” ì—ë””í„° ì„¸ì´ë¸Œ
 	 */
 	saveFeederGui: function(controller) {
 
@@ -910,7 +910,7 @@ DataController.prototype = {
 		var objectSeq;
 		var objectFeederSeq = '';
 		if(object['shapeType'] == renderer.Constants.TYPE.MODIFY_FEEDER) {
-			//±âÁ¸¿¡ ÀÖ´ø ÇÇ´õ
+			//ê¸°ì¡´ì— ìˆë˜ í”¼ë”
 			objectSeq = object['swgr_list_seq'];
 			objectFeederSeq = object['feeder_list_mgt_seq'];
 			controller.setFeederSaveMode(true);
@@ -932,7 +932,7 @@ DataController.prototype = {
 		 * each object data Json making and sendDataSetting
 		 */
 		/**
-		 * ½Å±Ô ÀúÀåÀÌ¶ó¸é
+		 * ì‹ ê·œ ì €ì¥ì´ë¼ë©´
 		 */
 		var shapeList = currentCanvas.getAllShapes();
 		if(!controller.getFeederSaveMode()) {
@@ -959,7 +959,7 @@ DataController.prototype = {
 						var prevShapes = currentCanvas.getPrevShapes(selectElement);
 						var nextShapes = currentCanvas.getNextShapes(selectElement);
 
-						// ÀÌÀü shapesÀÇ Á¤º¸¸¦ ÅëÇØ ÇØ´ç S°¡ parentÀÎÁö childÀÎÁö Ã¼Å©
+						// ì´ì „ shapesì˜ ì •ë³´ë¥¼ í†µí•´ í•´ë‹¹ Sê°€ parentì¸ì§€ childì¸ì§€ ì²´í¬
 						if( (prevShapes.length == 0 && nextShapes.length == 0) || prevShapes.length == 0  ) {
 							jsonData['root'] = 'Y';
 							jsonData['up_seq'] = '';
@@ -981,25 +981,25 @@ DataController.prototype = {
 			}
 		} else {
 
-			// ±âÁ¸ µ¥ÀÌÅÍ¸¦ °¡Á®¿Â °æ¿ì
+			// ê¸°ì¡´ ë°ì´í„°ë¥¼ ê°€ì ¸ì˜¨ ê²½ìš°
 			/**
-			 * 1. canvas¿¡ µµÇüÀ» ±×¸° ÈÄ °¢ µµÇüµéÀÇ jsonData¸¦ ¹è¿­·Î °¡Áø´Ù. (¿À¸®Áö³Î µ¥ÀÌÅÍ·Î Â÷ÈÄ »èÁ¦/¾÷µ¥ÀÌÆ®½Ã ºñ±³ÇÏ±â À§ÇÑ µ¥ÀÌÅÍ)
+			 * 1. canvasì— ë„í˜•ì„ ê·¸ë¦° í›„ ê° ë„í˜•ë“¤ì˜ jsonDataë¥¼ ë°°ì—´ë¡œ ê°€ì§„ë‹¤. (ì˜¤ë¦¬ì§€ë„ ë°ì´í„°ë¡œ ì°¨í›„ ì‚­ì œ/ì—…ë°ì´íŠ¸ì‹œ ë¹„êµí•˜ê¸° ìœ„í•œ ë°ì´í„°)
 			 *
-			 * 2. »õ·Î¿î ½ºÀ§Ä¡ ¹× ·Îµå¸¦ µå¶øÀ¸·Î ±×¸° µµÇüµéÀº updateÇØ¾ßÇÏ´Â Á¤º¸µé·Î
-			 *  update list¿¡ ³Ö´Â´Ù.
+			 * 2. ìƒˆë¡œìš´ ìŠ¤ìœ„ì¹˜ ë° ë¡œë“œë¥¼ ë“œëìœ¼ë¡œ ê·¸ë¦° ë„í˜•ë“¤ì€ updateí•´ì•¼í•˜ëŠ” ì •ë³´ë“¤ë¡œ
+			 *  update listì— ë„£ëŠ”ë‹¤.
 			 *
-			 * 3. Áö¿üÀ» °æ¿ì »õ·Î ±×¸° µµÇü¿¡¼­ Áö¿öÁø °ÍÀÎÁö ¶Ç´Â ±âÁ¸ÀÇ °ÍÀ» Áö¿î °ÍÀÎÁö ÆÄ¾ÇÇØ¾ß ÇÑ´Ù.
-			 *  - »õ·Î ±×¸° µµÇüÀÇ °æ¿ì Áö¿ì¸é update list¿¡¼­ Á¦¿ÜÇØ¾ßÇÑ´Ù.
-			 *  - ±âÁ¸ÀÇ °æ¿ì¿¡´Â delete list·Î ³Ö¾î¾ß ÇÑ´Ù.
+			 * 3. ì§€ì› ì„ ê²½ìš° ìƒˆë¡œ ê·¸ë¦° ë„í˜•ì—ì„œ ì§€ì›Œì§„ ê²ƒì¸ì§€ ë˜ëŠ” ê¸°ì¡´ì˜ ê²ƒì„ ì§€ìš´ ê²ƒì¸ì§€ íŒŒì•…í•´ì•¼ í•œë‹¤.
+			 *  - ìƒˆë¡œ ê·¸ë¦° ë„í˜•ì˜ ê²½ìš° ì§€ìš°ë©´ update listì—ì„œ ì œì™¸í•´ì•¼í•œë‹¤.
+			 *  - ê¸°ì¡´ì˜ ê²½ìš°ì—ëŠ” delete listë¡œ ë„£ì–´ì•¼ í•œë‹¤.
 			 *
-			 * 4. ÀÌ Á¤º¸·Î ÃÖÁ¾ÀûÀ¸·Î updateµÈ ¸®½ºÆ®¿Í »èÁ¦µÈ ¸®½ºÆ®·Î º¸³½´Ù.
+			 * 4. ì´ ì •ë³´ë¡œ ìµœì¢…ì ìœ¼ë¡œ updateëœ ë¦¬ìŠ¤íŠ¸ì™€ ì‚­ì œëœ ë¦¬ìŠ¤íŠ¸ë¡œ ë³´ë‚¸ë‹¤.
 			 *
-			 * 5. Æ®¸®¿¡¼­ ³Ñ¾î¿Â °æ¿ì¿Í ±×¸®µå¿¡¼­ ³Ñ¾î¿Â °æ¿ì´Â ³ª´²¾ß ÇÑ´Ù.
-			 *  - object°´Ã¼¿¡¼­ onDrop Å°°¡ ÀÖ´ÂÁö È®ÀÎÇÏ°í ÀÖ´Ù¸é ÇØ´ç onDropÀÇ °ªÀÌ feederGridÀÎÁö È®ÀÎÇÑ´Ù.
-			 *  - ÀÌ °æ¿ì¿¡´Â status¸¦ U·Î ³Ö¾îÁà¾ß ÇÑ´Ù.
+			 * 5. íŠ¸ë¦¬ì—ì„œ ë„˜ì–´ì˜¨ ê²½ìš°ì™€ ê·¸ë¦¬ë“œì—ì„œ ë„˜ì–´ì˜¨ ê²½ìš°ëŠ” ë‚˜ëˆ ì•¼ í•œë‹¤.
+			 *  - objectê°ì²´ì—ì„œ onDrop í‚¤ê°€ ìˆëŠ”ì§€ í™•ì¸í•˜ê³  ìˆë‹¤ë©´ í•´ë‹¹ onDropì˜ ê°’ì´ feederGridì¸ì§€ í™•ì¸í•œë‹¤.
+			 *  - ì´ ê²½ìš°ì—ëŠ” statusë¥¼ Uë¡œ ë„£ì–´ì¤˜ì•¼ í•œë‹¤.
 			 */
 
-			/** ±âÁ¸ Á¤º¸µµ ³Ñ°ÜÁØ´Ù. ÀÌ ¶§ status:U **/
+			/** ê¸°ì¡´ ì •ë³´ë„ ë„˜ê²¨ì¤€ë‹¤. ì´ ë•Œ status:U **/
 			var feederMgtShapeList = controller.feederMgtShapeList;
 
 			feederMgtShapeList.forEach(function(item, idx){
@@ -1136,8 +1136,8 @@ DataController.prototype = {
 		try {
 			var returnData = parent.updateFeeder(sendData);
 			/**
-			 * ÀúÀå ¹× ¾÷µ¥ÀÌÆ®°¡ ¼º°øÇÑ´Ù¸é
-			 * °ü·Ã ±×¸®µå, Æ®¸®¸¦ »õ·Î ±×¸°´Ù.
+			 * ì €ì¥ ë° ì—…ë°ì´íŠ¸ê°€ ì„±ê³µí•œë‹¤ë©´
+			 * ê´€ë ¨ ê·¸ë¦¬ë“œ, íŠ¸ë¦¬ë¥¼ ìƒˆë¡œ ê·¸ë¦°ë‹¤.
 			 */
 			if(returnData == '0') {
 				controller.refreshGridAndTree(mode, renderer);
@@ -1154,7 +1154,7 @@ DataController.prototype = {
 	},
 
 	/**
-	 * Route ÀúÀå ÇÔ¼ö
+	 * Route ì €ì¥ í•¨ìˆ˜
 	 */
 	saveRoute: function(controller) {
 		//console.log(parent.getLocationList());
@@ -1173,7 +1173,7 @@ DataController.prototype = {
 		var sendData = [];
 
 		/**
-		 * Äµ¹ö½ºÀÇ Á¤º¸¸¦ ´ã´Â json
+		 * ìº”ë²„ìŠ¤ì˜ ì •ë³´ë¥¼ ë‹´ëŠ” json
 		 */
 		var GUI_DATA = {};
 		GUI_DATA['status'] = 'GUI';
@@ -1181,13 +1181,13 @@ DataController.prototype = {
 		sendData.push(GUI_DATA);
 
 		/**
-		 * canvas¿¡ ±×·ÁÁø ÇÃ·Î¿ì Á¤º¸¸¦ µ¹¸é¼­ child·Î location¸¦ Ã£´Â´Ù.
+		 * canvasì— ê·¸ë ¤ì§„ í”Œë¡œìš° ì •ë³´ë¥¼ ëŒë©´ì„œ childë¡œ locationë¥¼ ì°¾ëŠ”ë‹¤.
 		 */
 		var shapeList = currentCanvas.getAllShapes();
 		var locationOutBoundaryBldg = [];
 		shapeList.forEach(function(element){
 			/**
-			 * ¸ÕÀú ºôµù¾È¿¡ ±×·ÁÁöÁö ¾Ê´Â ÇÏÀÌ¾î¶óÅ° ÇÇ´õ°¡ Á¸ÀçÇÏ´ÂÁö Ã¼Å©¸¦ ÇÑ´Ù.
+			 * ë¨¼ì € ë¹Œë”©ì•ˆì— ê·¸ë ¤ì§€ì§€ ì•ŠëŠ” í•˜ì´ì–´ë¼í‚¤ í”¼ë”ê°€ ì¡´ì¬í•˜ëŠ”ì§€ ì²´í¬ë¥¼ í•œë‹¤.
 			 */
 			if(element.shape instanceof OG.Location) {
 				var parentElement = currentCanvas.getParent(element);
@@ -1214,7 +1214,7 @@ DataController.prototype = {
 			var jsonData = {};
 			jsonData['status'] = 'N';
 			/**
-			 * point Á¤º¸
+			 * point ì •ë³´
 			 */
 			if(element.shape instanceof OG.Location) {
 				jsonData['type'] = 'Point';
@@ -1222,7 +1222,7 @@ DataController.prototype = {
 				jsonData['loc_ref_name_to'] = element.shape.data.loc_ref_name_to;
 
 				/**
-				 * point°¡ Æ÷ÇÔµÈ locationÀÇ Á¤º¸¸¦ °°ÀÌ ÁØ´Ù.
+				 * pointê°€ í¬í•¨ëœ locationì˜ ì •ë³´ë¥¼ ê°™ì´ ì¤€ë‹¤.
 				 */
 				jsonData['loc_ref_seq'] = parentElement.shape.data.loc_ref_seq;
 				jsonData['loc_ref_temp'] = parentElement.shape.data.loc_ref_temp;
@@ -1232,7 +1232,7 @@ DataController.prototype = {
 				sendData.push(jsonData);
 			}
 			/**
-			 * raceway Á¤º¸
+			 * raceway ì •ë³´
 			 */
 			else if(element.shape instanceof OG.RacewayShape) {
 				jsonData['type'] = 'Cable';
@@ -1245,7 +1245,7 @@ DataController.prototype = {
 				sendData.push(jsonData);
 			}
 			/**
-			 * location Á¤º¸
+			 * location ì •ë³´
 			 */
 			else if(element.shape instanceof OG.BLDG) {
 				jsonData['type'] = 'Location';
@@ -1262,8 +1262,8 @@ DataController.prototype = {
 		try {
 			var returnData = parent.updateRoute(sendData);
 			/**
-			 * ÀúÀå ¹× ¾÷µ¥ÀÌÆ®°¡ ¼º°øÇÑ´Ù¸é
-			 * °ü·Ã ±×¸®µå, Æ®¸®¸¦ »õ·Î ±×¸°´Ù.
+			 * ì €ì¥ ë° ì—…ë°ì´íŠ¸ê°€ ì„±ê³µí•œë‹¤ë©´
+			 * ê´€ë ¨ ê·¸ë¦¬ë“œ, íŠ¸ë¦¬ë¥¼ ìƒˆë¡œ ê·¸ë¦°ë‹¤.
 			 */
 			if(returnData == '0') {
 				controller.refreshGridAndTree(mode, renderer);
@@ -1280,14 +1280,14 @@ DataController.prototype = {
 	},
 
 	/**
-	 * ÀúÀå ¹öÆ°
+	 * ì €ì¥ ë²„íŠ¼
 	 */
 	saveGui: function(controller) {
 
 		var me = this;
 		var mode = controller.getCurrentMode();
 		var renderer = controller.getRendererByMode(mode);
-		// FeederÀÏ¶§
+		// Feederì¼ë•Œ
 		if(mode == renderer.Constants.MODE.FEEDER) {
 			me.saveFeederGui(controller);
 		} else if(mode == renderer.Constants.MODE.HIERARCHY) {

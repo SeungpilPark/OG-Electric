@@ -1,28 +1,28 @@
 var Renderer = function (mode, container, controller) {
 
     this.MSGMessages = {
-        POINTMSG: 'Æ÷ÀÎÆ®¸¦ ÁöÁ¤ÇØ¾ß ÇÕ´Ï´Ù.',
-        MHPOINTMSG: '¸ÇÈ¦ Æ÷ÀÎÆ®¸¦ ÁöÁ¤ÇØ¾ß ÇÕ´Ï´Ù.',
-        DUPLICATEMSG: 'ÀÔ·ÂÇÑ ¸íÄªÀÌ ÀÌ¹Ì Á¸ÀçÇÕ´Ï´Ù.',
-        LENGTHMSG: 'Legnth¸¦ ÁöÁ¤ÇØ¾ß ÇÕ´Ï´Ù.',
-        LENGTHCKMSG: 'Length´Â ¼ıÀÚ¸¸ ÀÔ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.',
-        TEMPMSG: 'Temp¸¦ ÁöÁ¤ÇØ¾ß ÇÕ´Ï´Ù.',
-        TEMPCKMSG: 'Temp´Â ¼ıÀÚ¸¸ ÀÔ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.',
-        TEMPINPUTCHK: '¼Ò¼öÁ¡ÀÌÇÏ¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À.',
-        TEMPDECIMALPOINTCHK: 'Temp´Â ¼Ò¼öÁ¡ 3ÀÚ¸®±îÁö¸¸ Çã¿ëÇÕ´Ï´Ù.',
-        TEMPSIZECHK: 'Temp´Â 80ÀÌÇÏ·Î ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.',
-        REMARKMSG: 'Remark¸¦ ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.',
-        SAVEMSG: 'ÀúÀåÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.',
-        SAVEERRORMSG: 'ÀúÀå½Ã ¿À·ù°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ½Ê½Ã¿À.',
-        NOPATH: 'Path°¡ ¾ø½À´Ï´Ù.',
-        SAMELOCATION: 'µ¿ÀÏ Location¿¡ ÀÖ½À´Ï´Ù.',
-        SELECTRACEWAY: '´ëÃ¼ °æ·Î¸¦ ¼±ÅÃÇØ¾ß ÇÕ´Ï´Ù.',
-        NOOBJECTSAVE: 'ÀúÀåÇÒ ¿ÀºêÁ§Æ®°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.',
-        POINTTOPOINTCHK: 'Point°£ÀÇ ¿¬°áÀº Çã¿ëµÇÁö ¾Ê½À´Ï´Ù.',
-        SWITCHCONNECTIONCHK: '¿¬°áÇÏ·Á´Â ÇÇ´õ ½ºÀ§Ä¡´Â ÀÌ¹Ì »óÀ§ ÇÇ´õ ½ºÀ§Ä¡¸¦ °¡Áö°í ÀÖ½À´Ï´Ù.',
-        FEEDERINFLOOR: 'ÇÇ´õÀÇ À§Ä¡´Â ÇÃ·Î¾î¾È¿¡ ³õ¿©Á®¾ß ÇÕ´Ï´Ù.',
-        POINTINLOCATION: 'Æ÷ÀÎÆ®ÀÇ À§Ä¡´Â ·ÎÄÉÀÌ¼Ç¾È¿¡ ³õ¿©Á®¾ß ÇÕ´Ï´Ù.',
-        FEEDERTYPETR: 'Å¸ÀÔÀÌ TRÀÌ¸é Äµ¹ö½º¿¡ ±×¸± ¼ö ¾ø½À´Ï´Ù.'
+        POINTMSG: 'í¬ì¸íŠ¸ë¥¼ ì§€ì •í•´ì•¼ í•©ë‹ˆë‹¤.',
+        MHPOINTMSG: 'ë§¨í™€ í¬ì¸íŠ¸ë¥¼ ì§€ì •í•´ì•¼ í•©ë‹ˆë‹¤.',
+        DUPLICATEMSG: 'ì…ë ¥í•œ ëª…ì¹­ì´ ì´ë¯¸ ì¡´ì¬í•©ë‹ˆë‹¤.',
+        LENGTHMSG: 'Legnthë¥¼ ì§€ì •í•´ì•¼ í•©ë‹ˆë‹¤.',
+        LENGTHCKMSG: 'LengthëŠ” ìˆ«ìë§Œ ì…ë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.',
+        TEMPMSG: 'Tempë¥¼ ì§€ì •í•´ì•¼ í•©ë‹ˆë‹¤.',
+        TEMPCKMSG: 'TempëŠ” ìˆ«ìë§Œ ì…ë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.',
+        TEMPINPUTCHK: 'ì†Œìˆ˜ì ì´í•˜ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤.',
+        TEMPDECIMALPOINTCHK: 'TempëŠ” ì†Œìˆ˜ì  3ìë¦¬ê¹Œì§€ë§Œ í—ˆìš©í•©ë‹ˆë‹¤.',
+        TEMPSIZECHK: 'TempëŠ” 80ì´í•˜ë¡œ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤.',
+        REMARKMSG: 'Remarkë¥¼ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤.',
+        SAVEMSG: 'ì €ì¥ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.',
+        SAVEERRORMSG: 'ì €ì¥ì‹œ ì˜¤ë¥˜ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤. ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì‹­ì‹œì˜¤.',
+        NOPATH: 'Pathê°€ ì—†ìŠµë‹ˆë‹¤.',
+        SAMELOCATION: 'ë™ì¼ Locationì— ìˆìŠµë‹ˆë‹¤.',
+        SELECTRACEWAY: 'ëŒ€ì²´ ê²½ë¡œë¥¼ ì„ íƒí•´ì•¼ í•©ë‹ˆë‹¤.',
+        NOOBJECTSAVE: 'ì €ì¥í•  ì˜¤ë¸Œì íŠ¸ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.',
+        POINTTOPOINTCHK: 'Pointê°„ì˜ ì—°ê²°ì€ í—ˆìš©ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.',
+        SWITCHCONNECTIONCHK: 'ì—°ê²°í•˜ë ¤ëŠ” í”¼ë” ìŠ¤ìœ„ì¹˜ëŠ” ì´ë¯¸ ìƒìœ„ í”¼ë” ìŠ¤ìœ„ì¹˜ë¥¼ ê°€ì§€ê³  ìˆìŠµë‹ˆë‹¤.',
+        FEEDERINFLOOR: 'í”¼ë”ì˜ ìœ„ì¹˜ëŠ” í”Œë¡œì–´ì•ˆì— ë†“ì—¬ì ¸ì•¼ í•©ë‹ˆë‹¤.',
+        POINTINLOCATION: 'í¬ì¸íŠ¸ì˜ ìœ„ì¹˜ëŠ” ë¡œì¼€ì´ì…˜ì•ˆì— ë†“ì—¬ì ¸ì•¼ í•©ë‹ˆë‹¤.',
+        FEEDERTYPETR: 'íƒ€ì…ì´ TRì´ë©´ ìº”ë²„ìŠ¤ì— ê·¸ë¦´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.'
     }
 
     this.Constants = {
@@ -43,12 +43,12 @@ var Renderer = function (mode, container, controller) {
         },
 
         /**
-         * FEEDER EDITOR MODE½Ã ¿ìÃø ¸Ş´º Å¬¸¯¿¡ ´ëÇÑ SaveMODE¸¦ °¡Á®¾ßÇÑ´Ù.
-         * SWGRÀÏ °æ¿ì¿¡´Â ÀúÀå½Ã new, loadÀÏ °æ¿ì¿¡´Â ÇØ´ç ·Îµå¸ñ·Ï¿¡¼­ µå¶ø½Ã dataTables¸¦ °»½ÅÇØ¾ßÇÑ´Ù...
-         * 1. µå¶ø½Ã ¸Ş´º¿¡¼­ Á¦¿Ü, Äµ¹ö½º¿¡¼­ µå¶øÇÑ ·Îµå »èÁ¦½Ã¿¡´Â ´Ù½Ã dataTables ¸ñ·Ï¿¡ °»½Å....
-         * FEEDER_FEEDER¿¡¼­ ²ø¾î ¿Â°æ¿ì¿¡´Â ±âÁ¸ÀÇ ÀÖ´Â ³Ñ.
-         * ¸¸ÀÏ ±âÁ¸ÀÇ ½ºÀ§Ä¡¿¡¼­ ·Îµå¸¦ ¿Ã·Á³õÀ» ½Ã ÇØ´ç load¸¸ ¾÷µ«À» ÇØ¾ßÇÏ±â ¶§¹®¿¡ ¾î¶² ¸Ş´º¿¡¼­ ¾î¶»°Ô °¡Á®¿Ô´ÂÁö ¾Ë¾Æ¾ß ÇÑ´Ù.
-         * °¢°¢ÀÇ ¿¡µğÅÍ¿¡ ´ëÇÑ ¼¼ÀÌºê ¸ğµå¸¦ °¡Áø´Ù.
+         * FEEDER EDITOR MODEì‹œ ìš°ì¸¡ ë©”ë‰´ í´ë¦­ì— ëŒ€í•œ SaveMODEë¥¼ ê°€ì ¸ì•¼í•œë‹¤.
+         * SWGRì¼ ê²½ìš°ì—ëŠ” ì €ì¥ì‹œ new, loadì¼ ê²½ìš°ì—ëŠ” í•´ë‹¹ ë¡œë“œëª©ë¡ì—ì„œ ë“œëì‹œ dataTablesë¥¼ ê°±ì‹ í•´ì•¼í•œë‹¤...
+         * 1. ë“œëì‹œ ë©”ë‰´ì—ì„œ ì œì™¸, ìº”ë²„ìŠ¤ì—ì„œ ë“œëí•œ ë¡œë“œ ì‚­ì œì‹œì—ëŠ” ë‹¤ì‹œ dataTables ëª©ë¡ì— ê°±ì‹ ....
+         * FEEDER_FEEDERì—ì„œ ëŒì–´ ì˜¨ê²½ìš°ì—ëŠ” ê¸°ì¡´ì˜ ìˆëŠ” ë„˜.
+         * ë§Œì¼ ê¸°ì¡´ì˜ ìŠ¤ìœ„ì¹˜ì—ì„œ ë¡œë“œë¥¼ ì˜¬ë ¤ë†“ì„ ì‹œ í•´ë‹¹ loadë§Œ ì—…ëƒì„ í•´ì•¼í•˜ê¸° ë•Œë¬¸ì— ì–´ë–¤ ë©”ë‰´ì—ì„œ ì–´ë–»ê²Œ ê°€ì ¸ì™”ëŠ”ì§€ ì•Œì•„ì•¼ í•œë‹¤.
+         * ê°ê°ì˜ ì—ë””í„°ì— ëŒ€í•œ ì„¸ì´ë¸Œ ëª¨ë“œë¥¼ ê°€ì§„ë‹¤.
          *
          */
         FEEDER_SAVE_MODE: {
@@ -109,23 +109,23 @@ var Renderer = function (mode, container, controller) {
     };
 
     /**
-     * Äµ¹ö½ºÀÇ ¿¡µğÆÃ ´ë»ó °´Ã¼ - °æ¿ì¿¡ µû¶ó ÀÌ °´Ã¼°¡ ¾ø´Ù¸é µµÇü ±×¸®±â¸¦ Çã¿ëÇÏÁö ¾Ê´Â´Ù.
+     * ìº”ë²„ìŠ¤ì˜ ì—ë””íŒ… ëŒ€ìƒ ê°ì²´ - ê²½ìš°ì— ë”°ë¼ ì´ ê°ì²´ê°€ ì—†ë‹¤ë©´ ë„í˜• ê·¸ë¦¬ê¸°ë¥¼ í—ˆìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
      */
     this.editingObject = undefined;
 
     /**
-     * Äµ¹ö½ºÀÇ ¿¡µğÆÃ ´ë»ı °´Ã¼ÀÇ GUI º¯È­ ¿©ºÎ
+     * ìº”ë²„ìŠ¤ì˜ ì—ë””íŒ… ëŒ€ìƒ ê°ì²´ì˜ GUI ë³€í™” ì—¬ë¶€
      */
     this.isUpdated = false;
 
     /**
-     * ¶ó¿ìÅÍ ¿¡µğÅÍ¿¡¼­ jsonÀ¸·Î Äµ¹ö½º¸¦ ±×¸± ¶§ ÄÉÀÌºí¿¡ ´ëÇÑ Á¤º¸µéÀ» »õ·Î ±×¸°´Ù.
-     * ÀÌ ¶§´Â raceWay ÇÁ·ÎÆÛÆ¼ Ã¢À» ¶ç¿ìÁö ¾Ê¾Æ¾ß ÇÑ´Ù.
+     * ë¼ìš°í„° ì—ë””í„°ì—ì„œ jsonìœ¼ë¡œ ìº”ë²„ìŠ¤ë¥¼ ê·¸ë¦´ ë•Œ ì¼€ì´ë¸”ì— ëŒ€í•œ ì •ë³´ë“¤ì„ ìƒˆë¡œ ê·¸ë¦°ë‹¤.
+     * ì´ ë•ŒëŠ” raceWay í”„ë¡œí¼í‹° ì°½ì„ ë„ìš°ì§€ ì•Šì•„ì•¼ í•œë‹¤.
      */
     this.isRedrawRaceWayFromJson = false;
 
     /**
-     * ¸ğµå, ÄÁÅ×ÀÌ³Ê, ÄÁÆ®·Ñ·¯ µî·Ï (´©¶ôÀÏ °æ¿ì ¸®ÅÏ)
+     * ëª¨ë“œ, ì»¨í…Œì´ë„ˆ, ì»¨íŠ¸ë¡¤ëŸ¬ ë“±ë¡ (ëˆ„ë½ì¼ ê²½ìš° ë¦¬í„´)
      */
     if (!mode || !container || !controller) {
         return;
@@ -142,11 +142,11 @@ var Renderer = function (mode, container, controller) {
     this.canvas = new OG.Canvas(container, [this._CONTAINER.width(), this._CONTAINER.height()], 'transparent', 'url(resources/images/symbol/grid.gif)');
     this.canvas._CONFIG.DEFAULT_STYLE.EDGE["edge-type"] = "plain";
     /**
-     * ÈÙ ½ºÄÉÀÏ
+     * íœ  ìŠ¤ì¼€ì¼
      */
     this.canvas._CONFIG.WHEEL_SCALABLE = true;
     /**
-     * µå·¡±× È­¸é ÀÌµ¿
+     * ë“œë˜ê·¸ í™”ë©´ ì´ë™
      */
     this.canvas._CONFIG.DRAG_PAGE_MOVABLE = true;
 
@@ -173,34 +173,34 @@ var Renderer = function (mode, container, controller) {
     this.canvas._CONFIG.LABEL_MAX_SIZE = this._CONFIG.LABEL_MAX_SIZE;
 
     /**
-     * ÇÖÅ° : Ctrl+C º¹»ç Å° °¡´É¿©ºÎ
+     * í•«í‚¤ : Ctrl+C ë³µì‚¬ í‚¤ ê°€ëŠ¥ì—¬ë¶€
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_C = false;
     /**
-     * ÇÖÅ° : Ctrl+V ºÙ¿©³Ö±â Å° °¡´É¿©ºÎ
+     * í•«í‚¤ : Ctrl+V ë¶™ì—¬ë„£ê¸° í‚¤ ê°€ëŠ¥ì—¬ë¶€
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_V = false;
     /**
-     * ÇÖÅ° : Ctrl+D º¹Á¦ÇÏ±â Å° °¡´É¿©ºÎ
+     * í•«í‚¤ : Ctrl+D ë³µì œí•˜ê¸° í‚¤ ê°€ëŠ¥ì—¬ë¶€
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_D = false;
 
     /**
-     * ÇÖÅ° : DELETE »èÁ¦ Å° °¡´É¿©ºÎ
+     * í•«í‚¤ : DELETE ì‚­ì œ í‚¤ ê°€ëŠ¥ì—¬ë¶€
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_DELETE = false;
 
     /**
-     * ÇÖÅ° : Ctrl+G ±×·ì Å° °¡´É¿©ºÎ
+     * í•«í‚¤ : Ctrl+G ê·¸ë£¹ í‚¤ ê°€ëŠ¥ì—¬ë¶€
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_G = false;
     /**
-     * ÇÖÅ° : Ctrl+U ¾ğ±×·ì Å° °¡´É¿©ºÎ
+     * í•«í‚¤ : Ctrl+U ì–¸ê·¸ë£¹ í‚¤ ê°€ëŠ¥ì—¬ë¶€
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_U = false;
 
     /**
-     * ÇÖÅ° : UNDO REDO Å° °¡´É¿©ºÎ
+     * í•«í‚¤ : UNDO REDO í‚¤ ê°€ëŠ¥ì—¬ë¶€
      */
     this.canvas._CONFIG.ENABLE_HOTKEY_CTRL_Z = false;
 
@@ -208,7 +208,7 @@ var Renderer = function (mode, container, controller) {
     this._HANDLER = this.canvas._HANDLER;
     this.init();
 
-    //Äµ¹ö½º »èÁ¦½Ã °ü·Ã ´ÙÀÌ¾Æ·Î±×µµ »èÁ¦ÇÑ´Ù.
+    //ìº”ë²„ìŠ¤ ì‚­ì œì‹œ ê´€ë ¨ ë‹¤ì´ì•„ë¡œê·¸ë„ ì‚­ì œí•œë‹¤.
     var me = this;
     $(this._CONTAINER).on("remove", function () {
         me.destroyAllDialog();
@@ -276,12 +276,12 @@ Renderer.prototype = {
         }
     },
     /**
-     * ÇØ´ç ·»´õ·¯¿¡ °ü·ÃµÈ ´ÙÀÌ¾Æ·Î±× Ã¢À» ¼û±â°Å³ª º¸ÀÎ´Ù.
+     * í•´ë‹¹ ë Œë”ëŸ¬ì— ê´€ë ¨ëœ ë‹¤ì´ì•„ë¡œê·¸ ì°½ì„ ìˆ¨ê¸°ê±°ë‚˜ ë³´ì¸ë‹¤.
      * @param show
      */
     showDialog: function (show) {
         var me = this;
-        //±âÁ¸ ´ëÈ­ÀåÀÌ ÀÖÀ» °æ¿ì »èÁ¦ÇÏµµ·Ï ÇÑ´Ù.
+        //ê¸°ì¡´ ëŒ€í™”ì¥ì´ ìˆì„ ê²½ìš° ì‚­ì œí•˜ë„ë¡ í•œë‹¤.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         if (show) {
             $('[name=' + dialogName + ']').closest(".ui-dialog").show();
@@ -290,7 +290,7 @@ Renderer.prototype = {
         }
     },
     /**
-     * µµÇüÀÇ ´ÙÀÌ¾Æ·Î±× Ã¢À» »ı¼ºÇÑ´Ù.
+     * ë„í˜•ì˜ ë‹¤ì´ì•„ë¡œê·¸ ì°½ì„ ìƒì„±í•œë‹¤.
      * @param element
      * @param options
      * @returns {Mixed|jQuery|HTMLElement}
@@ -298,11 +298,11 @@ Renderer.prototype = {
     createDialog: function (element, options) {
         var me = this;
 
-        //´ëÈ­Ã¢ÀÇ ³×ÀÓ½ºÆäÀÌ½º
+        //ëŒ€í™”ì°½ì˜ ë„¤ì„ìŠ¤í˜ì´ìŠ¤
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         var dialogId = me._CONTAINER_ID + element.id;
 
-        //´ëÈ­Ã¢À» ÆË¾÷½ÃÅ²´Ù.
+        //ëŒ€í™”ì°½ì„ íŒì—…ì‹œí‚¨ë‹¤.
         var dialog = $('<div></div>');
         dialog.attr('name', dialogName);
         dialog.attr('id', dialogId);
@@ -332,7 +332,7 @@ Renderer.prototype = {
         return dialog;
     },
     /**
-     * µµÇüÀÇ ´ÙÀÌ¾Æ·Î±×Ã¢À» »èÁ¦ÇÑ´Ù.
+     * ë„í˜•ì˜ ë‹¤ì´ì•„ë¡œê·¸ì°½ì„ ì‚­ì œí•œë‹¤.
      * @param element
      */
     destroyDialog: function (element) {
@@ -355,7 +355,7 @@ Renderer.prototype = {
     },
 
     /**
-     * HierarchyCanvas¿¡ ±âÁ¸ Á¤º¸¸¦ ±×¸°´Ù.
+     * HierarchyCanvasì— ê¸°ì¡´ ì •ë³´ë¥¼ ê·¸ë¦°ë‹¤.
      */
     drawToHierarchyCanvasFromServerData: function(mode) {
         var me = this;
@@ -370,7 +370,7 @@ Renderer.prototype = {
             }
 
             /**
-             * ºôµù°ú ÇÃ·Î¿ì¸¦ ÃßÃâÇØ¼­ °¢°¢ÀÇ ¸®½ºÆ®¿¡ ³Ö´Â´Ù.
+             * ë¹Œë”©ê³¼ í”Œë¡œìš°ë¥¼ ì¶”ì¶œí•´ì„œ ê°ê°ì˜ ë¦¬ìŠ¤íŠ¸ì— ë„£ëŠ”ë‹¤.
              */
             var bldgList = [];
             var floorList = [];
@@ -387,13 +387,13 @@ Renderer.prototype = {
             });
 
             /**
-             * Äµ¹ö½º »çÀÌÁî Á¶Á¤
+             * ìº”ë²„ìŠ¤ ì‚¬ì´ì¦ˆ ì¡°ì •
              */
             var initHeight = (me._CONFIG.DEFAULT_SIZE.HIERARCHY_FLOOR[1] + 40) * floorList.length + (100 * floorList.length);
             if(initHeight < me.getContainer().height()) {
                 initHeight = me.getContainer().height();
             }
-            //canvasÀÇ »çÀÌÁî¸¦ ÀçÁ¶ÀıÇÑ´Ù.
+            //canvasì˜ ì‚¬ì´ì¦ˆë¥¼ ì¬ì¡°ì ˆí•œë‹¤.
             var size = [
                 me.getContainer().width(),
                 initHeight
@@ -406,11 +406,11 @@ Renderer.prototype = {
             me.getCanvas().setCanvasSize(size);
 
             /**
-             * ºôµùÀ» Äµ¹ö½º¿¡ ±×¸®±â À§ÇÑ ·ÎÁ÷
-             * ÇØ´ç ºôµù¿¡ ¼ÓÇÑ floorÀÇ ¼ıÀÚ¸¸Å« Äµ¹ö½ºÀÇ ³ôÀÌ¸¦ ´Ã·Á¼­ ¼¼ÆÃÇÑ´Ù.
-             * idx¸¦ ÅëÇØ ÃÖÃÊ ºôµùÀÇ À§Ä¡¸¦ ¼±Á¤ÇÏ°í ±× ÀÌÈÄ ±×·ÁÁö´Â ºôµùÀº
-             * ÀÏÁ¤ °£°İÀ¸·Î ¹ØÀ¸·Î ±×¸°´Ù.
-             * ÃÖÃÊ ºôµùÀº Äµ¹ö½º ÁÂÃø »ó´ÜÀ¸·Î ºÎÅÍ ÁÂÃø, À§·ÎºÎÅÍ 100À» ¶ç¿ö¼­ ±×¸°´Ù.
+             * ë¹Œë”©ì„ ìº”ë²„ìŠ¤ì— ê·¸ë¦¬ê¸° ìœ„í•œ ë¡œì§
+             * í•´ë‹¹ ë¹Œë”©ì— ì†í•œ floorì˜ ìˆ«ìë§Œí° ìº”ë²„ìŠ¤ì˜ ë†’ì´ë¥¼ ëŠ˜ë ¤ì„œ ì„¸íŒ…í•œë‹¤.
+             * idxë¥¼ í†µí•´ ìµœì´ˆ ë¹Œë”©ì˜ ìœ„ì¹˜ë¥¼ ì„ ì •í•˜ê³  ê·¸ ì´í›„ ê·¸ë ¤ì§€ëŠ” ë¹Œë”©ì€
+             * ì¼ì • ê°„ê²©ìœ¼ë¡œ ë°‘ìœ¼ë¡œ ê·¸ë¦°ë‹¤.
+             * ìµœì´ˆ ë¹Œë”©ì€ ìº”ë²„ìŠ¤ ì¢Œì¸¡ ìƒë‹¨ìœ¼ë¡œ ë¶€í„° ì¢Œì¸¡, ìœ„ë¡œë¶€í„° 100ì„ ë„ì›Œì„œ ê·¸ë¦°ë‹¤.
              */
             var bldgIdx = 0;
             var totalBldgHeight = 0;
@@ -423,8 +423,8 @@ Renderer.prototype = {
                 });
 
                 /**
-                 * ºôµùÀÇ ³ôÀÌ¸¦ Àç Á¶Á¤ÇÑ´Ù. bldgInFloorIdxÀÇ °¹¼ö¸¸Å­ ÇÃ·Î¾îÀÇ ³ôÀÌ +40¸¦ ´õÇØ¼­ °öÇÑ´Ù.
-                 * offset Á¤º¸µµ ÇÔ²² ³Ö¾îÁØ´Ù.
+                 * ë¹Œë”©ì˜ ë†’ì´ë¥¼ ì¬ ì¡°ì •í•œë‹¤. bldgInFloorIdxì˜ ê°¯ìˆ˜ë§Œí¼ í”Œë¡œì–´ì˜ ë†’ì´ +40ë¥¼ ë”í•´ì„œ ê³±í•œë‹¤.
+                 * offset ì •ë³´ë„ í•¨ê»˜ ë„£ì–´ì¤€ë‹¤.
                  */
                 var bldgHeight = (me._CONFIG.DEFAULT_SIZE.HIERARCHY_FLOOR[1] + 40) * bldgInFloorIdx;
                 var adjustBldgY = 0;
@@ -449,9 +449,9 @@ Renderer.prototype = {
                 var centroidX = bldg.shape.geom.boundary._centroid.x;
                 var centroidY = bldg.shape.geom.boundary._centroid.y;
                 /**
-                 * ÇØ´ç ºôµùÀÇ upperCenterY·ÎºÎÅÍ ¹ØÀ¸·Î 20À» ¶ç¿ö ±×¸°´Ù.
-                 * ¼¾ÅÍ xÁÂÇ¥´Â ºôµùÀÇ xÁÂÇ¥·Î ¼³Á¤ÇÑ´Ù.
-                 * floorÀ» Äµ¹ö½º¿¡ ±×¸®±â À§ÇÑ ·ÎÁ÷
+                 * í•´ë‹¹ ë¹Œë”©ì˜ upperCenterYë¡œë¶€í„° ë°‘ìœ¼ë¡œ 20ì„ ë„ì›Œ ê·¸ë¦°ë‹¤.
+                 * ì„¼í„° xì¢Œí‘œëŠ” ë¹Œë”©ì˜ xì¢Œí‘œë¡œ ì„¤ì •í•œë‹¤.
+                 * floorì„ ìº”ë²„ìŠ¤ì— ê·¸ë¦¬ê¸° ìœ„í•œ ë¡œì§
                  *
                  */
                 var floorIdx = 0;
@@ -507,12 +507,12 @@ Renderer.prototype = {
                 if(shapeElement.shape instanceof OG.HierarchyFeeder) {
                     var deleteItem = true;
                     feederList.some(function(feeder){
-                        // Á¶°ÇÀÌ ¼º¸³µÈ´Ù´Â °ÍÀº Á¸ÀçÇÏ´Â itemÀÌ±â ¶§¹®¿¡ deleteItemÀÌ ¾Æ´Ï´Ù.
+                        // ì¡°ê±´ì´ ì„±ë¦½ëœë‹¤ëŠ” ê²ƒì€ ì¡´ì¬í•˜ëŠ” itemì´ê¸° ë•Œë¬¸ì— deleteItemì´ ì•„ë‹ˆë‹¤.
                         if(feeder.fe_swgr_load_div == 'S' && feeder.swgr_seq == shapeElement.shape.data.swgr_seq) {
                             deleteItem = false;
                         }
                     });
-                    // true¶ó´Â °ÍÀº °á±¹ »èÁ¦µÈ itemÀÌ±â¶§¹®¿¡ Áö¿ö¾ß ÇÑ´Ù.
+                    // trueë¼ëŠ” ê²ƒì€ ê²°êµ­ ì‚­ì œëœ itemì´ê¸°ë•Œë¬¸ì— ì§€ì›Œì•¼ í•œë‹¤.
                     if(deleteItem) {
                         me._CONTROLLER.deleteFeederHierarchyList.push(shapeElement.shape.data);
                         currentCanvas.removeShape(shapeElement);
@@ -538,9 +538,9 @@ Renderer.prototype = {
 
         if(renderer.getMode() == renderer.Constants.MODE.HIERARCHY) {
             /**
-             * Áö¿öÁø ½ºÀ§Ä¡ÇÇ´õ°¡ ÀÖ´ÂÁö Ã¼Å©ÇÏ°í ÇØ´ç ½ºÀ§Ä¡ ÇÇ´õ´Â Áö¿î´Ù.
-             * ÇÏÁö¸¸ ÇÏÀÌ¾î¶óÅ° ÇÇ´õ ¸®½ºÆ®´Â ÀÌ¹Ì Áö¿öÁø ÇÇ´õ°¡ Á¸ÀçÇÏ±â ¶§¹®¿¡
-             * Áö¿ï ¶§ ÆÄ¶ó¹ÌÅÍ¸¦ ÅëÇØ ±×¸®µå¸¦ »ó½ÅÇÏÁö ¾Ê°Ô ¸¸µç´Ù.
+             * ì§€ì›Œì§„ ìŠ¤ìœ„ì¹˜í”¼ë”ê°€ ìˆëŠ”ì§€ ì²´í¬í•˜ê³  í•´ë‹¹ ìŠ¤ìœ„ì¹˜ í”¼ë”ëŠ” ì§€ìš´ë‹¤.
+             * í•˜ì§€ë§Œ í•˜ì´ì–´ë¼í‚¤ í”¼ë” ë¦¬ìŠ¤íŠ¸ëŠ” ì´ë¯¸ ì§€ì›Œì§„ í”¼ë”ê°€ ì¡´ì¬í•˜ê¸° ë•Œë¬¸ì—
+             * ì§€ìš¸ ë•Œ íŒŒë¼ë¯¸í„°ë¥¼ í†µí•´ ê·¸ë¦¬ë“œë¥¼ ìƒì‹ í•˜ì§€ ì•Šê²Œ ë§Œë“ ë‹¤.
              */
             renderer.compareAndRemove(true);
             renderer._CONTROLLER.saveSettingHierarchyMode(renderer);
@@ -550,7 +550,7 @@ Renderer.prototype = {
             var panel = renderer._CONTROLLER.model.BldgReferenceList.panel;
             setTimeout(renderer._CONTROLLER.redrawDataTables, 160, panel, renderer._CONTROLLER.initBldgReferenceList, renderer._CONTROLLER);
             /**
-             * ROUTE´Â ±×¸®°í ³­ ÀÌÈÄ Äµ¹ö½º¿¡ ±×¸®Áø Bldg¸¦ Á¦¿ÜÇÑ ±×¸®µå¸¦ »õ·Î ±×·Á¾ß ÇÑ´Ù.
+             * ROUTEëŠ” ê·¸ë¦¬ê³  ë‚œ ì´í›„ ìº”ë²„ìŠ¤ì— ê·¸ë¦¬ì§„ Bldgë¥¼ ì œì™¸í•œ ê·¸ë¦¬ë“œë¥¼ ìƒˆë¡œ ê·¸ë ¤ì•¼ í•œë‹¤.
              */
 
             var shapeList = canvas.getAllShapes();
@@ -562,7 +562,7 @@ Renderer.prototype = {
 
             var updateList = renderer._CONTROLLER.usedBldgReferenceList;
 
-            // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
+            // ì „ì²´ ë„í˜•ì„ ê·¸ë¦° ì´í›„ì— ì‚¬ìš©í•œ load itemì€ ì œì™¸í•˜ê³  í•´ë‹¹ ê·¸ë¦¬ë“œë¥¼ ë‹¤ì‹œ ê·¸ë ¤ì•¼ í•œë‹¤.
             var unUsedBldgReferenceList = renderer._CONTROLLER.initBldgReferenceList;
             var newList = [];
             for (var k = 0; k < unUsedBldgReferenceList.length; k++) {
@@ -586,14 +586,14 @@ Renderer.prototype = {
     },
 
     //TODO
-    // Åø¹Ù¿¡ ÅØ½ºÆ®, ±âÅ¸ shape ¿ÀºêÁ§Æ® Ãß°¡.
-    // »ùÇÃ µ¥ÀÌÅÍ ÆÄ¾ÇÇÏ¿© ¸±·¹ÀÌ¼Ç °ü°è ¸íÈ®ÇÏ°Ô ¸¸µé±â
-    // ¼­¹ö CRUD ¸¸µé±â
+    // íˆ´ë°”ì— í…ìŠ¤íŠ¸, ê¸°íƒ€ shape ì˜¤ë¸Œì íŠ¸ ì¶”ê°€.
+    // ìƒ˜í”Œ ë°ì´í„° íŒŒì•…í•˜ì—¬ ë¦´ë ˆì´ì…˜ ê´€ê³„ ëª…í™•í•˜ê²Œ ë§Œë“¤ê¸°
+    // ì„œë²„ CRUD ë§Œë“¤ê¸°
 
 
     /**
-     * ±×¸®µå·ÎºÎÅÍ ¹ŞÀº Á¤º¸¿¡¼­ canvas¿¡ ±×¸± jsonÁ¤º¸°¡ ¾ø´Ù¸é ÇØ´ç °´Ã¼ÀÇ seq³Ñ¹ö¸¦ ÅëÇØ ÀüÃ¼ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
-     * ±× ¸®½ºÆ®·Î Äµ¹Ù½º¿¡ ¸ğµ¨À» ±×¸°´Ù.
+     * ê·¸ë¦¬ë“œë¡œë¶€í„° ë°›ì€ ì •ë³´ì—ì„œ canvasì— ê·¸ë¦´ jsonì •ë³´ê°€ ì—†ë‹¤ë©´ í•´ë‹¹ ê°ì²´ì˜ seqë„˜ë²„ë¥¼ í†µí•´ ì „ì²´ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+     * ê·¸ ë¦¬ìŠ¤íŠ¸ë¡œ ìº”ë°”ìŠ¤ì— ëª¨ë¸ì„ ê·¸ë¦°ë‹¤.
      *
      */
     drawToFeederCanvasFromServerData: function(shapeData, panel) {
@@ -604,7 +604,7 @@ Renderer.prototype = {
         var data = JSON.parse(JSON.stringify(shapeData));
         var totalList = [];
 
-        //·»´õ·¯¿¡ ¿¡µğÆÃ ¿ÀºêÁ§Æ®¸¦ ¼³Á¤ÇÑ´Ù.
+        //ë Œë”ëŸ¬ì— ì—ë””íŒ… ì˜¤ë¸Œì íŠ¸ë¥¼ ì„¤ì •í•œë‹¤.
         me.editingObject = data;
 
         var switchGear = null;
@@ -623,8 +623,8 @@ Renderer.prototype = {
         switchGear['shapeType'] = me.Constants.TYPE.SWITCH_GEAR;
         var defaultSwitchGearSize = me._CONFIG.DEFAULT_SIZE.SWITCH_GEAR;
         /**
-         * 1. listÀÇ »çÀÌÁî¸¦ ±¸ÇÏ°í ·ÎµåÀÇ µğÆúÆ® »çÀÌÁî¿¡ °£°İ Á¶Á¤À» À§ÇÑ +20À» ´õÇÑ´Ù.
-         * 2. ÀÌ °ªÀ» °öÇÑ »çÀÌÁî°¡ ÃÖÁ¾ ¸®»çÀÌÁî °ªÀÌ µÈ´Ù.
+         * 1. listì˜ ì‚¬ì´ì¦ˆë¥¼ êµ¬í•˜ê³  ë¡œë“œì˜ ë””í´íŠ¸ ì‚¬ì´ì¦ˆì— ê°„ê²© ì¡°ì •ì„ ìœ„í•œ +20ì„ ë”í•œë‹¤.
+         * 2. ì´ ê°’ì„ ê³±í•œ ì‚¬ì´ì¦ˆê°€ ìµœì¢… ë¦¬ì‚¬ì´ì¦ˆ ê°’ì´ ëœë‹¤.
          */
         var shapeResize = defaultSwitchGearSize[0];
         if(totalList.length > 1) {
@@ -635,7 +635,7 @@ Renderer.prototype = {
         }
 
         /**
-         * Äµ¹ö½ºÀÇ ÃÊ±â »çÀÌÁî¸¦ ½ºÀ§Ä¡ÀÇ ÀüÃ¼ ±æÀÌ¿¡¼­ 200À» ´õÇÑ ¸¸Å­ ¼³Á¤ÇÑ´Ù.
+         * ìº”ë²„ìŠ¤ì˜ ì´ˆê¸° ì‚¬ì´ì¦ˆë¥¼ ìŠ¤ìœ„ì¹˜ì˜ ì „ì²´ ê¸¸ì´ì—ì„œ 200ì„ ë”í•œ ë§Œí¼ ì„¤ì •í•œë‹¤.
          */
         var adjustNewWidth = shapeResize + 200;
         if(adjustNewWidth < me.getContainer().width()) {
@@ -644,7 +644,7 @@ Renderer.prototype = {
 
         me.getCanvas().clear();
         me.getCanvas().setScale(1);
-        //canvasÀÇ »çÀÌÁî¸¦ ÀçÁ¶ÀıÇÑ´Ù.
+        //canvasì˜ ì‚¬ì´ì¦ˆë¥¼ ì¬ì¡°ì ˆí•œë‹¤.
         var size = [
             adjustNewWidth,
             me.getContainer().height()
@@ -652,17 +652,17 @@ Renderer.prototype = {
 
         me.getCanvas().setCanvasSize(size);
 
-        // Á¤Áß¾Ó ÁÂÇ¥´Â position = [me.getContainer().width() / 2, me.getContainer().height() / 2]
-        // ÇöÀç ½ºÀ§Ä¡ÀÇ Á¤ Áß¾Ó ÁÂÇ¥¿¡¼­ ÁÂÃø ³¡ÀÇ ÁÂÇ¥´Â (me.getContainer().width()/2) - (adjustNewWidth/2)
+        // ì •ì¤‘ì•™ ì¢Œí‘œëŠ” position = [me.getContainer().width() / 2, me.getContainer().height() / 2]
+        // í˜„ì¬ ìŠ¤ìœ„ì¹˜ì˜ ì • ì¤‘ì•™ ì¢Œí‘œì—ì„œ ì¢Œì¸¡ ëì˜ ì¢Œí‘œëŠ” (me.getContainer().width()/2) - (adjustNewWidth/2)
         var newCenterPosition = shapeResize/2 + 100;
-        // ½ºÀ§Ä¡ÀÇ ±æÀÌ°¡ ±æ¾îÁö´Â °ÍÀ» ¿¹»óÇØ¼­ Äµ¹ö½º ¸Ç ³¡¿¡¼­ 100Á¤µµÀÇ °£°İÀ» ¶ç¿ö¼­ Áß¾ÓÀ» Àâ¾Æ ±×¸°´Ù.
+        // ìŠ¤ìœ„ì¹˜ì˜ ê¸¸ì´ê°€ ê¸¸ì–´ì§€ëŠ” ê²ƒì„ ì˜ˆìƒí•´ì„œ ìº”ë²„ìŠ¤ ë§¨ ëì—ì„œ 100ì •ë„ì˜ ê°„ê²©ì„ ë„ì›Œì„œ ì¤‘ì•™ì„ ì¡ì•„ ê·¸ë¦°ë‹¤.
         var newShapeAdjustSize = [shapeResize, newCenterPosition, 100];
-        // ¸ŞÀÎ ½ºÀ§Ä¡¸¦ ¸ÕÀú ±×¸°´Ù.
+        // ë©”ì¸ ìŠ¤ìœ„ì¹˜ë¥¼ ë¨¼ì € ê·¸ë¦°ë‹¤.
         me.drawImmediately(null, switchGear, null, newShapeAdjustSize);
 
         /**
-         * web worker´Â Â÷ÈÄ Á» ´õ ´Ùµë´Â °É·Î
-         * ÇöÀç´Â roughÇÏ°Ô ÄÚµå Å×½ºÆÃ¸¸ È®ÀÎ
+         * web workerëŠ” ì°¨í›„ ì¢€ ë” ë‹¤ë“¬ëŠ” ê±¸ë¡œ
+         * í˜„ì¬ëŠ” roughí•˜ê²Œ ì½”ë“œ í…ŒìŠ¤íŒ…ë§Œ í™•ì¸
          *
          */
 
@@ -682,12 +682,12 @@ Renderer.prototype = {
                 return;
             }
             if(initLeftPosition == 0) {
-                // ÃÖÃÊ À§Ä¡´Â ½ºÀ§Ä¡ ¸Ç ³¡ ÁÂÇ¥·ÎºÎÅÍ ¿ìÃøÀ¸·Î ·ÎµåÀÇ Áß¾Ó »çÀÌÁîÀÇ Àı¹İ¸¸Å­ ÀÌµ¿½ÃÄÑ¾ßÇÑ´Ù.
-                // ½ºÀ§Ä¡ÀÇ ¸Ç ³¡Àº Äµ¹Ù½º ÁÂÃø ³¡¿¡¼­ 100À» ¶ç¿ö¼­ ±×·È±â ¶§¹®¿¡
+                // ìµœì´ˆ ìœ„ì¹˜ëŠ” ìŠ¤ìœ„ì¹˜ ë§¨ ë ì¢Œí‘œë¡œë¶€í„° ìš°ì¸¡ìœ¼ë¡œ ë¡œë“œì˜ ì¤‘ì•™ ì‚¬ì´ì¦ˆì˜ ì ˆë°˜ë§Œí¼ ì´ë™ì‹œì¼œì•¼í•œë‹¤.
+                // ìŠ¤ìœ„ì¹˜ì˜ ë§¨ ëì€ ìº”ë°”ìŠ¤ ì¢Œì¸¡ ëì—ì„œ 100ì„ ë„ì›Œì„œ ê·¸ë ¸ê¸° ë•Œë¬¸ì—
                 initLeftPosition = 100 + me._CONFIG.DEFAULT_SIZE.LOAD[0]/2;
             } else {
-                // ÃÖÃÊ¿¡ ±×·ÁÁø °ÍÀÌ ¾Æ´Ï¶ó¸é ±âÁ¸ Æ÷Áö¼Ç¿¡¼­ ·ÎµåÀÇ Àı¹İ¸¸Å­ ÀÌµ¿½ÃÅ²´Ù. ±×¸®°í
-                // ½ºÀ§Ä¡ÀÇ width¸¦ °áÁ¤ÇÒ ¶§ ·Îµå ¶Ç´Â Æ®·£½ºÆ÷¸Ó ¼ö¸¸Å­ +20À» Çß±â ¶§¹®¿¡ ±× ¼ıÀÚµµ ÇÔ²² ´øÁø´Ù.
+                // ìµœì´ˆì— ê·¸ë ¤ì§„ ê²ƒì´ ì•„ë‹ˆë¼ë©´ ê¸°ì¡´ í¬ì§€ì…˜ì—ì„œ ë¡œë“œì˜ ì ˆë°˜ë§Œí¼ ì´ë™ì‹œí‚¨ë‹¤. ê·¸ë¦¬ê³ 
+                // ìŠ¤ìœ„ì¹˜ì˜ widthë¥¼ ê²°ì •í•  ë•Œ ë¡œë“œ ë˜ëŠ” íŠ¸ëœìŠ¤í¬ë¨¸ ìˆ˜ë§Œí¼ +20ì„ í–ˆê¸° ë•Œë¬¸ì— ê·¸ ìˆ«ìë„ í•¨ê»˜ ë˜ì§„ë‹¤.
                 initLeftPosition = initLeftPosition + me._CONFIG.DEFAULT_SIZE.LOAD[0] + 20;
             }
             var initShapeAdjustSize = [0, initLeftPosition, -100];
@@ -699,27 +699,27 @@ Renderer.prototype = {
     },
 
     /**
-     * drawImmediatelyÀÌÈÄ¿¡ ±×¸®µå redraw¿¡ ´ëÇÑ ·ÎÁ÷À» ÅÂ¿î´Ù.
+     * drawImmediatelyì´í›„ì— ê·¸ë¦¬ë“œ redrawì— ëŒ€í•œ ë¡œì§ì„ íƒœìš´ë‹¤.
      */
     reloadGridAfterDrawImmediately: function(shape, shapeInfo, panel) {
 
         var me = this;
 
-        // ÇÑ¹ø´õ Ã¼Å©·Î ¾Æ¿¹ ¹Ø¿¡ ·ÎÁ÷ ÅÂ¿ì´Â À¯¹«¸¦ Ã¼Å©ÇÑ´Ù.
+        // í•œë²ˆë” ì²´í¬ë¡œ ì•„ì˜ˆ ë°‘ì— ë¡œì§ íƒœìš°ëŠ” ìœ ë¬´ë¥¼ ì²´í¬í•œë‹¤.
         if (!me.editingObject) {
             return false;
         }
 
         var newList = [];
-        //ÇØ´ç ¾ÆÀÌÅÛÀÌ ·ÎµåÀÌ°í UnAssignedLoadList¿¡¼­ ³Ñ¾î¿Â ¾ÆÀÌÅÛÀÌ¶ó¸é
+        //í•´ë‹¹ ì•„ì´í…œì´ ë¡œë“œì´ê³  UnAssignedLoadListì—ì„œ ë„˜ì–´ì˜¨ ì•„ì´í…œì´ë¼ë©´
         if(shape instanceof OG.Load &&
             (shapeInfo.model == me._CONTROLLER.model.UnAssignedLoadList.name)
         ) {
 
-            //ÇØ´ç ¾ÆÀÌÅÛÀº »ç¿ëµÈ loadlist¿¡ Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
+            //í•´ë‹¹ ì•„ì´í…œì€ ì‚¬ìš©ëœ loadlistì— ì •ë³´ë¥¼ ì €ì¥í•œë‹¤.
             var usedLoadList = me._CONTROLLER.usedLoadList;
             usedLoadList.push(shapeInfo);
-            // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
+            // ì „ì²´ ë„í˜•ì„ ê·¸ë¦° ì´í›„ì— ì‚¬ìš©í•œ load itemì€ ì œì™¸í•˜ê³  í•´ë‹¹ ê·¸ë¦¬ë“œë¥¼ ë‹¤ì‹œ ê·¸ë ¤ì•¼ í•œë‹¤.
             var unloadList = me._CONTROLLER.initUnusedLoadList;
             for(var i=0; i<unloadList.length; i++) {
                 var isDuplicated = false;
@@ -734,7 +734,7 @@ Renderer.prototype = {
                 }
             }
 
-            // ÇØ´ç ±×¸®µå »õ·Î ±×¸°´Ù.
+            // í•´ë‹¹ ê·¸ë¦¬ë“œ ìƒˆë¡œ ê·¸ë¦°ë‹¤.
             var dataTable = panel.dataTable().api();
             var currentPage = dataTable.page();
             dataTable.clear();
@@ -743,15 +743,15 @@ Renderer.prototype = {
             dataTable.page(currentPage).draw(false);
 
         }
-        // ÇØ´ç ¾ÆÀÌÅÛÀÌ Æ®·£½ºÆ÷¸ÓÀÌ°í modelÀÌ SwgrList¶ó¸é
+        // í•´ë‹¹ ì•„ì´í…œì´ íŠ¸ëœìŠ¤í¬ë¨¸ì´ê³  modelì´ SwgrListë¼ë©´
         else if(shape instanceof OG.SwitchTransformer &&
             (shapeInfo.model == me._CONTROLLER.model.SwgrList.name)
         ) {
 
-            //ÇØ´ç ¾ÆÀÌÅÛÀº »ç¿ëµÈ switchlist¿¡ Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
+            //í•´ë‹¹ ì•„ì´í…œì€ ì‚¬ìš©ëœ switchlistì— ì •ë³´ë¥¼ ì €ì¥í•œë‹¤.
             var usedSwitchList = me._CONTROLLER.usedSwitchList;
             usedSwitchList.push(shapeInfo);
-            // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
+            // ì „ì²´ ë„í˜•ì„ ê·¸ë¦° ì´í›„ì— ì‚¬ìš©í•œ load itemì€ ì œì™¸í•˜ê³  í•´ë‹¹ ê·¸ë¦¬ë“œë¥¼ ë‹¤ì‹œ ê·¸ë ¤ì•¼ í•œë‹¤.
             var unswitchList = me._CONTROLLER.initUnusedSwitchList;
             for(var i=0; i<unswitchList.length; i++) {
                 var isDuplicated = false;
@@ -766,7 +766,7 @@ Renderer.prototype = {
                 }
             }
 
-            // ÇØ´ç ±×¸®µå »õ·Î ±×¸°´Ù.
+            // í•´ë‹¹ ê·¸ë¦¬ë“œ ìƒˆë¡œ ê·¸ë¦°ë‹¤.
             var dataTable = panel.dataTable().api();
             var currentPage = dataTable.page();
             dataTable.clear();
@@ -775,15 +775,15 @@ Renderer.prototype = {
             dataTable.page(currentPage).draw(false);
 
         }
-        // ÇØ´ç ¾ÆÀÌÅÛÀÌ ½ºÀ§Ä¡ÀÌ°í modelÀÌ SwgrList¶ó¸é
+        // í•´ë‹¹ ì•„ì´í…œì´ ìŠ¤ìœ„ì¹˜ì´ê³  modelì´ SwgrListë¼ë©´
         else if(shape instanceof OG.HierarchyFeeder &&
             (shapeInfo.model == me._CONTROLLER.model.HierarchyFeederList.name)
         ) {
 
-            //ÇØ´ç ¾ÆÀÌÅÛÀº »ç¿ëµÈ switchlist¿¡ Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
+            //í•´ë‹¹ ì•„ì´í…œì€ ì‚¬ìš©ëœ switchlistì— ì •ë³´ë¥¼ ì €ì¥í•œë‹¤.
             var usedHierarchyFeederList = me._CONTROLLER.usedHierarchyFeederList;
             usedHierarchyFeederList.push(shapeInfo);
-            // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
+            // ì „ì²´ ë„í˜•ì„ ê·¸ë¦° ì´í›„ì— ì‚¬ìš©í•œ load itemì€ ì œì™¸í•˜ê³  í•´ë‹¹ ê·¸ë¦¬ë“œë¥¼ ë‹¤ì‹œ ê·¸ë ¤ì•¼ í•œë‹¤.
             var unUsedHierarchyFeederList = me._CONTROLLER.initUnusedHierarchyFeederList;
             for(var i=0; i<unUsedHierarchyFeederList.length; i++) {
                 var isDuplicated = false;
@@ -798,7 +798,7 @@ Renderer.prototype = {
                 }
             }
 
-            // ÇØ´ç ±×¸®µå »õ·Î ±×¸°´Ù.
+            // í•´ë‹¹ ê·¸ë¦¬ë“œ ìƒˆë¡œ ê·¸ë¦°ë‹¤.
             var dataTable = panel.dataTable().api();
             var currentPage = dataTable.page();
             dataTable.clear();
@@ -807,15 +807,15 @@ Renderer.prototype = {
             dataTable.page(currentPage).draw(false);
 
         }
-        // ÇØ´ç ¾ÆÀÌÅÛÀÌ ºôµùÀÌ°í modelÀÌ SwgrList¶ó¸é.
+        // í•´ë‹¹ ì•„ì´í…œì´ ë¹Œë”©ì´ê³  modelì´ SwgrListë¼ë©´.
         else if(shape instanceof OG.BLDG &&
             (shapeInfo.model == me._CONTROLLER.model.BldgReferenceList.name)
         ) {
 
-            //ÇØ´ç ¾ÆÀÌÅÛÀº »ç¿ëµÈ switchlist¿¡ Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
+            //í•´ë‹¹ ì•„ì´í…œì€ ì‚¬ìš©ëœ switchlistì— ì •ë³´ë¥¼ ì €ì¥í•œë‹¤.
             var usedBldgReferenceList = me._CONTROLLER.usedBldgReferenceList;
             usedBldgReferenceList.push(shapeInfo);
-            // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
+            // ì „ì²´ ë„í˜•ì„ ê·¸ë¦° ì´í›„ì— ì‚¬ìš©í•œ load itemì€ ì œì™¸í•˜ê³  í•´ë‹¹ ê·¸ë¦¬ë“œë¥¼ ë‹¤ì‹œ ê·¸ë ¤ì•¼ í•œë‹¤.
             var unUsedBldgReferenceList = me._CONTROLLER.initBldgReferenceList;
             for(var i=0; i<unUsedBldgReferenceList.length; i++) {
                 var isDuplicated = false;
@@ -830,7 +830,7 @@ Renderer.prototype = {
                 }
             }
 
-            // ÇØ´ç ±×¸®µå »õ·Î ±×¸°´Ù.
+            // í•´ë‹¹ ê·¸ë¦¬ë“œ ìƒˆë¡œ ê·¸ë¦°ë‹¤.
             var dataTable = panel.dataTable().api();
             var currentPage = dataTable.page();
             dataTable.clear();
@@ -842,7 +842,7 @@ Renderer.prototype = {
     },
 
     /**
-     * ºä ÄÁÆ®·Ñ·¯¿¡¼­ ¹Ş¾Æ¿Â µ¥ÀÌÅÍ¸¦ ¹ÙÅÁÀ¸·Î Äµ¹ö½º¿¡ µµÇüÀ» ±×¸°´Ù.
+     * ë·° ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ ë°›ì•„ì˜¨ ë°ì´í„°ë¥¼ ë°”íƒ•ìœ¼ë¡œ ìº”ë²„ìŠ¤ì— ë„í˜•ì„ ê·¸ë¦°ë‹¤.
      * @param offset
      * @param shapeInfo
      */
@@ -853,7 +853,7 @@ Renderer.prototype = {
             var shapeType = shapeInfo['shapeType'];
             var shapeLabel = shapeInfo['shapeLabel'] ? shapeInfo['shapeLabel'] : '';
 
-            //·»´õ¸µ ´ë»óµé
+            //ë Œë”ë§ ëŒ€ìƒë“¤
             if (shapeType == me.Constants.TYPE.SWITCH_GEAR) {
                 shape = new OG.SwitchGear(shapeLabel);
                 size = me._CONFIG.DEFAULT_SIZE.SWITCH_GEAR;
@@ -902,7 +902,7 @@ Renderer.prototype = {
                 size = me._CONFIG.DEFAULT_SIZE.MANHOLE;
             }
 
-            //viewController ¿¡ Àü´ŞÇØ¾ß ÇÏ´Â ´ë»óµé
+            //viewController ì— ì „ë‹¬í•´ì•¼ í•˜ëŠ” ëŒ€ìƒë“¤
             else if (shapeType == me.Constants.TYPE.NEW_FEEDER) {
                 me._CONTROLLER.onMessage(me, shapeInfo, me._CONTROLLER.message.NEW, panel);
                 return;
@@ -912,11 +912,11 @@ Renderer.prototype = {
             }
 
             if (shape) {
-                //offset ÀÌ ¾ø´Ù¸é ÄÁÅ×ÀÌ³ÊÀÇ Áß¾ÓÀ» ±âÁØÀ¸·Î »ï´Â´Ù.
+                //offset ì´ ì—†ë‹¤ë©´ ì»¨í…Œì´ë„ˆì˜ ì¤‘ì•™ì„ ê¸°ì¤€ìœ¼ë¡œ ì‚¼ëŠ”ë‹¤.
                 if (!offset) {
                     var initWidth = me.getContainer().width() / 2;
                     var initHeight = me.getContainer().height() / 2;
-                    // »õ·Î¿î Æ÷Áö¼ÇÀÌ Á¸ÀçÇÑ´Ù¸é
+                    // ìƒˆë¡œìš´ í¬ì§€ì…˜ì´ ì¡´ì¬í•œë‹¤ë©´
                     if(newShapeAdjustSize != null) {
                         if(shapeType == me.Constants.TYPE.HIERARCHY_BLDG) {
                             initWidth = newShapeAdjustSize[0]/2  + 100;
@@ -926,7 +926,7 @@ Renderer.prototype = {
                             initHeight = newShapeAdjustSize[1] + 20;
                         } else {
                             initWidth = newShapeAdjustSize[1];
-                            // ¹Ø¿¡ ºÙÀ» ·Îµå ¹× Æ®·£½ºÆ÷¸Ó¸¦ À§ÇØ À§·Î 100Á¤µµ ¿Ã¸°´Ù.
+                            // ë°‘ì— ë¶™ì„ ë¡œë“œ ë° íŠ¸ëœìŠ¤í¬ë¨¸ë¥¼ ìœ„í•´ ìœ„ë¡œ 100ì •ë„ ì˜¬ë¦°ë‹¤.
                             initHeight = initHeight - newShapeAdjustSize[2];
                         }
                     }
@@ -940,17 +940,17 @@ Renderer.prototype = {
                 }
                 position[0] = position[0] / me.canvas._CONFIG.SCALE;
                 position[1] = position[1] / me.canvas._CONFIG.SCALE;
-                //Äµ¹ö½ºÀÇ editingObject (¿¡µğÆÃ °´Ã¼) °¡ ¾ø´Ù¸é ±×¸®Áö ¾Ê´Â´Ù.
+                //ìº”ë²„ìŠ¤ì˜ editingObject (ì—ë””íŒ… ê°ì²´) ê°€ ì—†ë‹¤ë©´ ê·¸ë¦¬ì§€ ì•ŠëŠ”ë‹¤.
                 if (!me.editingObject) {
                     me._CONTROLLER.onMessage(me, shapeInfo, me._CONTROLLER.message.NO_EDITOR_OBJECT, panel);
 
                 } else {
                     shape.data = shapeInfo;
 
-                    // ·Îµå ¸®½ºÆ®¿¡¼­ ³Ñ¾î¿Â Á¤º¸¶ó¸é 
+                    // ë¡œë“œ ë¦¬ìŠ¤íŠ¸ì—ì„œ ë„˜ì–´ì˜¨ ì •ë³´ë¼ë©´ 
                     if(shape.data.model == me._CONTROLLER.model.UnAssignedLoadList.name) {
-                        // parent.checkLSValidator(load_seq, swgr_seq)À» Ã¼Å©ÇÑ´Ù.
-                        // false¸é ±×¸®Áö ¾ÊÀ» °æ¿ì. return
+                        // parent.checkLSValidator(load_seq, swgr_seq)ì„ ì²´í¬í•œë‹¤.
+                        // falseë©´ ê·¸ë¦¬ì§€ ì•Šì„ ê²½ìš°. return
                         // returnData JSONList
                         //{error : "false", msg : ''
                         var isValidate = true;
@@ -960,8 +960,8 @@ Renderer.prototype = {
                                 element = me.getCanvas().drawShape(position, shape, size);
                                 me.getContainer().removeData('DRAG_SHAPE');
 
-                                //Load ÀÏ °æ¿ì onLoadDrop È£Ãâ
-                                //Æ®·£½ºÆ÷¸ÓÀÏ °æ¿ìµµ onLoadDrop È£Ãâ
+                                //Load ì¼ ê²½ìš° onLoadDrop í˜¸ì¶œ
+                                //íŠ¸ëœìŠ¤í¬ë¨¸ì¼ ê²½ìš°ë„ onLoadDrop í˜¸ì¶œ
                                 if (shape instanceof OG.Load || shape instanceof OG.SwitchTransformer) {
                                     me.onLoadDrop(element, from);
                                 }
@@ -990,13 +990,13 @@ Renderer.prototype = {
                     });
                     me.getContainer().removeData('DRAG_SHAPE');
 
-                    //Load ÀÏ °æ¿ì onLoadDrop È£Ãâ
-                    //Æ®·£½ºÆ÷¸ÓÀÏ °æ¿ìµµ onLoadDrop È£Ãâ
+                    //Load ì¼ ê²½ìš° onLoadDrop í˜¸ì¶œ
+                    //íŠ¸ëœìŠ¤í¬ë¨¸ì¼ ê²½ìš°ë„ onLoadDrop í˜¸ì¶œ
                     if (shape instanceof OG.Load || shape instanceof OG.SwitchTransformer) {
                         me.onLoadDrop(element, from);
                     }
 
-                    // ÇÏÀÌ¶óÅ°¾î ÇÇ´õ¿¡¼­ ³Ñ¾î¿Ô´Ù¸é
+                    // í•˜ì´ë¼í‚¤ì–´ í”¼ë”ì—ì„œ ë„˜ì–´ì™”ë‹¤ë©´
                     if(shape.data.shapeType == me.Constants.TYPE.HIERARCHY_FEEDER) {
                         me._CONTROLLER.updateFeederHierarchyList.push(shape.data);
                     }
@@ -1005,15 +1005,15 @@ Renderer.prototype = {
         }
 
         /**
-         *  drawImmediatelyÀÌÈÄ¿¡ ±×¸®µå redraw¿¡ ´ëÇÑ ·ÎÁ÷À» ÅÂ¿î´Ù.
+         *  drawImmediatelyì´í›„ì— ê·¸ë¦¬ë“œ redrawì— ëŒ€í•œ ë¡œì§ì„ íƒœìš´ë‹¤.
          */
         me.reloadGridAfterDrawImmediately(shape, shapeInfo, panel);
 
     },
 
     /**
-     * ºä ÄÁÆ®·Ñ·¯¿¡¼­ µå¶ø ÀÌº¥Æ®°¡ ¿Ã °æ¿ìÀÇ Ã³¸®.
-     * µå¶ø ÇÑ ¿µ¿ªÀÌ Äµ¹ö½º ÄÁÅ×ÀÌ³Ê ¿µ¿ª ¾ÈÀÏ °æ¿ì¸¸ Ã³¸®ÇÑ´Ù.
+     * ë·° ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ ë“œë ì´ë²¤íŠ¸ê°€ ì˜¬ ê²½ìš°ì˜ ì²˜ë¦¬.
+     * ë“œë í•œ ì˜ì—­ì´ ìº”ë²„ìŠ¤ ì»¨í…Œì´ë„ˆ ì˜ì—­ ì•ˆì¼ ê²½ìš°ë§Œ ì²˜ë¦¬í•œë‹¤.
      */
     bindDropEvent: function () {
         var me = this;
@@ -1038,12 +1038,12 @@ Renderer.prototype = {
 
                 } else {
                     if(me.getMode() == me.Constants.MODE.HIERARCHY) {
-                        // Æ®¸®¿¡¼­ ³Ñ¾î¿Ô´Ù¸é panelÀº undefined
+                        // íŠ¸ë¦¬ì—ì„œ ë„˜ì–´ì™”ë‹¤ë©´ panelì€ undefined
                         if(!panel) {
                             /**
-                             * canvas¿¡ µå·¡±× µå¶øÇÒ ºôµù, floor°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é
-                             * ±×¸®Áö ¾Ê´Â´Ù.
-                             * Ã¼Å© ·ÎÁ÷ Ãß°¡
+                             * canvasì— ë“œë˜ê·¸ ë“œëí•  ë¹Œë”©, floorê°€ ì´ë¯¸ ì¡´ì¬í•œë‹¤ë©´
+                             * ê·¸ë¦¬ì§€ ì•ŠëŠ”ë‹¤.
+                             * ì²´í¬ ë¡œì§ ì¶”ê°€
                              */
                             var checkedData = me._CONTROLLER.checkBldgsAndFloors(me, jsonData);
                             if(checkedData.isDraw) {
@@ -1070,8 +1070,8 @@ Renderer.prototype = {
                                     var currentCanvas = me.getCanvas();
                                     var checkShapeList = currentCanvas.getAllShapes();
                                     /**
-                                     * ±×¸®±â Àü¿¡ ÀüÃ¼ ÇÑ¹ø ±×·ÁÁ³´Ù°¡ ÇÏ³ª¸¸ Áö¿öÁø °æ¿ì°¡ ÀÖ´Ù¸é parent¸¦ ±×¸®¸é ¾ÈµÈ´Ù.
-                                     * Ã¼Å© ·ÎÁ÷À» ÇÑ¹ø ´õ µ·´Ù.
+                                     * ê·¸ë¦¬ê¸° ì „ì— ì „ì²´ í•œë²ˆ ê·¸ë ¤ì¡Œë‹¤ê°€ í•˜ë‚˜ë§Œ ì§€ì›Œì§„ ê²½ìš°ê°€ ìˆë‹¤ë©´ parentë¥¼ ê·¸ë¦¬ë©´ ì•ˆëœë‹¤.
+                                     * ì²´í¬ ë¡œì§ì„ í•œë²ˆ ë” ëˆë‹¤.
                                      */
                                     var isDraw = true;
                                     checkShapeList.some(function(shapeElement){
@@ -1085,7 +1085,7 @@ Renderer.prototype = {
                                     if(isDraw) {
                                         me.drawImmediately([pageX+150, pageY], parentFeeder, panel);
                                     }
-                                    // parent¿Í childÀÇ element¸¦ Ã£¾Æ¼­ ¿¬°áÇÑ´Ù.
+                                    // parentì™€ childì˜ elementë¥¼ ì°¾ì•„ì„œ ì—°ê²°í•œë‹¤.
                                     var parentElement, childElement;
                                     var shapeList = currentCanvas.getAllShapes();
                                     shapeList.forEach(function(shapeElement){
@@ -1132,7 +1132,7 @@ Renderer.prototype = {
                                     if(isDraw) {
                                         me.drawImmediately([pageX+150, pageY], childFeeder, panel);
                                     }
-                                    // parent¿Í childÀÇ element¸¦ Ã£¾Æ¼­ ¿¬°áÇÑ´Ù.
+                                    // parentì™€ childì˜ elementë¥¼ ì°¾ì•„ì„œ ì—°ê²°í•œë‹¤.
                                     var currentCanvas = me.getCanvas();
                                     var shapeList = currentCanvas.getAllShapes();
                                     var parentElement, childElement;
@@ -1173,7 +1173,7 @@ Renderer.prototype = {
     },
 
     /**
-     * labelº¯°æ½Ã ¿¬°áµÈ racewayÀÇ ¶óº§µµ º¯°æÀÌ µÇ¾î¾ß ÇÑ´Ù.
+     * labelë³€ê²½ì‹œ ì—°ê²°ëœ racewayì˜ ë¼ë²¨ë„ ë³€ê²½ì´ ë˜ì–´ì•¼ í•œë‹¤.
      */
     changeEdgeLabel: function(shapeElement) {
 
@@ -1206,8 +1206,8 @@ Renderer.prototype = {
     },
 
     /**
-     * eventTypeÀÌ ondropÀÌ¸é µå·¡±× µå¶øÀ¸·Î Äµ¹ö½º¿¡ ±×¸° °æ¿ìÀÌ´Ù.
-     * ¸¸ÀÏ 'dblclick'ÀÌ¶ó¸é ±×·ÁÁø µµÇüÀÇ ¼Ó¼ºÀ» º¯°æÇÏ±â À§ÇÑ ÀÌº¥Æ®ÀÌ´Ù.
+     * eventTypeì´ ondropì´ë©´ ë“œë˜ê·¸ ë“œëìœ¼ë¡œ ìº”ë²„ìŠ¤ì— ê·¸ë¦° ê²½ìš°ì´ë‹¤.
+     * ë§Œì¼ 'dblclick'ì´ë¼ë©´ ê·¸ë ¤ì§„ ë„í˜•ì˜ ì†ì„±ì„ ë³€ê²½í•˜ê¸° ìœ„í•œ ì´ë²¤íŠ¸ì´ë‹¤.
      */
     showLocationDialog: function(offset, jsonData, panel, shapeElement, eventType) {
         var me = this;
@@ -1215,7 +1215,7 @@ Renderer.prototype = {
         element['id'] = 'BldgDialog';
         element['shape'] = {};
         element.shape = {label:'Location Properties'};
-        //±âÁ¸ ´ëÈ­ÀåÀÌ ÀÖÀ» °æ¿ì »èÁ¦ÇÏµµ·Ï ÇÑ´Ù.
+        //ê¸°ì¡´ ëŒ€í™”ì¥ì´ ìˆì„ ê²½ìš° ì‚­ì œí•˜ë„ë¡ í•œë‹¤.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         me.destroyAllDialog($('#'+dialogName));
         // show Dialog
@@ -1231,14 +1231,14 @@ Renderer.prototype = {
 
         $('.noClose .ui-dialog-titlebar-close').css('display', 'none');
 
-        // ¼Ó¼º Å×ÀÌºí
+        // ì†ì„± í…Œì´ë¸”
         var panel = $('#locationProperty').clone();
         panel[0].id = 'cloneLocationProperty';
         dialog.append(panel);
-        // Àû¿ë ¹öÆ°
+        // ì ìš© ë²„íŠ¼
         var applyBtn = $('<button class="btn btn-primary" id="applyLocationProperty" type="button" style="margin-left:95px">Apply</button>');
         dialog.append(applyBtn);
-        // Ãë¼Ò ¹öÆ°
+        // ì·¨ì†Œ ë²„íŠ¼
         var cancelBtn = $('<button class="btn btn-white" id="cancelLocationProperty" type="button" style="left:29px">Cancel</button>');
         dialog.append(cancelBtn);
 
@@ -1295,7 +1295,7 @@ Renderer.prototype = {
                 shapeElement.data['loc_ref_rem'] 	 = $("#cloneLocationProperty").find(".locationRemark").val().trim();
                 me.canvas.drawLabel(shapeElement, $("#cloneLocationProperty").find(".locationPoint").val());
                 /**
-                 * ÀÚ½ÅÀ» Áß½ÉÀ¸·Î ¿¬°áµÈ edgeÀÇ ¶óº§µµ º¯°æ½ÃÄÑ¾ß ÇÑ´Ù.
+                 * ìì‹ ì„ ì¤‘ì‹¬ìœ¼ë¡œ ì—°ê²°ëœ edgeì˜ ë¼ë²¨ë„ ë³€ê²½ì‹œì¼œì•¼ í•œë‹¤.
                  */
                 me.changeEdgeLabel(shapeElement);
 
@@ -1307,8 +1307,8 @@ Renderer.prototype = {
     },
 
     /**
-     * eventTypeÀÌ ondropÀÌ¸é µå·¡±× µå¶øÀ¸·Î Äµ¹ö½º¿¡ ±×¸° °æ¿ìÀÌ´Ù.
-     * ¸¸ÀÏ 'dblclick'ÀÌ¶ó¸é ±×·ÁÁø µµÇüÀÇ ¼Ó¼ºÀ» º¯°æÇÏ±â À§ÇÑ ÀÌº¥Æ®ÀÌ´Ù.
+     * eventTypeì´ ondropì´ë©´ ë“œë˜ê·¸ ë“œëìœ¼ë¡œ ìº”ë²„ìŠ¤ì— ê·¸ë¦° ê²½ìš°ì´ë‹¤.
+     * ë§Œì¼ 'dblclick'ì´ë¼ë©´ ê·¸ë ¤ì§„ ë„í˜•ì˜ ì†ì„±ì„ ë³€ê²½í•˜ê¸° ìœ„í•œ ì´ë²¤íŠ¸ì´ë‹¤.
      */
     showPointDialog: function(offset, jsonData, panel, shapeElement, eventType) {
         var me = this;
@@ -1316,7 +1316,7 @@ Renderer.prototype = {
         element['id'] = 'pointDialog';
         element['shape'] = {};
         element.shape = {label:'Point Properties'};
-        //±âÁ¸ ´ëÈ­ÀåÀÌ ÀÖÀ» °æ¿ì »èÁ¦ÇÏµµ·Ï ÇÑ´Ù.
+        //ê¸°ì¡´ ëŒ€í™”ì¥ì´ ìˆì„ ê²½ìš° ì‚­ì œí•˜ë„ë¡ í•œë‹¤.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         me.destroyAllDialog($('#'+dialogName));
         // show Dialog
@@ -1332,14 +1332,14 @@ Renderer.prototype = {
 
         $('.noClose .ui-dialog-titlebar-close').css('display', 'none');
 
-        // ¼Ó¼º Å×ÀÌºí
+        // ì†ì„± í…Œì´ë¸”
         var panel = $('#pointProperty').clone();
         panel[0].id = 'clonePointProperty';
         dialog.append(panel);
-        // Àû¿ë ¹öÆ°
+        // ì ìš© ë²„íŠ¼
         var applyBtn = $('<button class="btn btn-primary" id="applyPointProperty" type="button" style="margin-left:72px">Apply</button>');
         dialog.append(applyBtn);
-        // Ãë¼Ò ¹öÆ°
+        // ì·¨ì†Œ ë²„íŠ¼
         var cancelBtn = $('<button class="btn btn-white" id="cancelPointProperty" type="button" style="left:10px">Cancel</button>');
         dialog.append(cancelBtn);
 
@@ -1384,7 +1384,7 @@ Renderer.prototype = {
                 shapeElement.data['loc_ref_name_to'] = $("#clonePointProperty").find(".pointName").val().trim();
                 me.canvas.drawLabel(shapeElement, $("#clonePointProperty").find(".pointName").val());
                 /**
-                 * ÀÚ½ÅÀ» Áß½ÉÀ¸·Î ¿¬°áµÈ edgeÀÇ ¶óº§µµ º¯°æ½ÃÄÑ¾ß ÇÑ´Ù.
+                 * ìì‹ ì„ ì¤‘ì‹¬ìœ¼ë¡œ ì—°ê²°ëœ edgeì˜ ë¼ë²¨ë„ ë³€ê²½ì‹œì¼œì•¼ í•œë‹¤.
                  */
                 me.changeEdgeLabel(shapeElement);
 
@@ -1396,7 +1396,7 @@ Renderer.prototype = {
     },
 
     /**
-     * ¸ÇÈ¦ÀÇ ÇÁ·ÎÆÛÆ¼ Ã¢
+     * ë§¨í™€ì˜ í”„ë¡œí¼í‹° ì°½
      */
     showManholeDialog: function(offset, jsonData, panel, shapeElement, eventType) {
         var me = this;
@@ -1404,7 +1404,7 @@ Renderer.prototype = {
         element['id'] = 'manholeDialog';
         element['shape'] = {};
         element.shape = {label:'Manhole Properties'};
-        //±âÁ¸ ´ëÈ­ÀåÀÌ ÀÖÀ» °æ¿ì »èÁ¦ÇÏµµ·Ï ÇÑ´Ù.
+        //ê¸°ì¡´ ëŒ€í™”ì¥ì´ ìˆì„ ê²½ìš° ì‚­ì œí•˜ë„ë¡ í•œë‹¤.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         me.destroyAllDialog($('#'+dialogName));
         // show Dialog
@@ -1420,15 +1420,15 @@ Renderer.prototype = {
 
         $('.noClose .ui-dialog-titlebar-close').css('display', 'none');
 
-        // ¼Ó¼º Å×ÀÌºí
+        // ì†ì„± í…Œì´ë¸”
         var panel = $('#manholeProperty').clone();
         panel[0].id = 'cloneManholeProperty';
         dialog.append(panel);
-        // Àû¿ë ¹öÆ°
+        // ì ìš© ë²„íŠ¼
         var applyBtn = $('<button class="btn btn-primary" id="applyManholeProperty" type="button" style="margin-left:110px">Apply</button>');
         dialog.append(applyBtn);
 
-        // Ãë¼Ò ¹öÆ°
+        // ì·¨ì†Œ ë²„íŠ¼
         var cancelBtn = $('<button class="btn btn-white" id="cancelManholeProperty" type="button" style="left:50px">Cancel</button>');
         dialog.append(cancelBtn);
 
@@ -1447,7 +1447,7 @@ Renderer.prototype = {
                 msgBox(me.MSGMessages.MHPOINTMSG, $("#cloneManholeProperty").find(".manholeName"));
                 return;
             } else {
-                // Æ÷ÀÎÆ®¸í Ã¼Å© ·ÎÁ÷
+                // í¬ì¸íŠ¸ëª… ì²´í¬ ë¡œì§
                 var isDuplicate = me.checkDuplicationPointName($("#cloneManholeProperty").find(".manholeName").val().trim());
                 if(eventType == 'dblclick') {
                     if($("#cloneManholeProperty").find(".manholeName").val().trim() == shapeElement.shape.data['loc_ref_name_to']) {
@@ -1475,7 +1475,7 @@ Renderer.prototype = {
                 shapeElement.data['loc_ref_name_to']  = $("#cloneManholeProperty").find(".manholeName").val().trim();
                 me.canvas.drawLabel(shapeElement, $("#cloneManholeProperty").find(".manholeName").val());
                 /**
-                 * ÀÚ½ÅÀ» Áß½ÉÀ¸·Î ¿¬°áµÈ edgeÀÇ ¶óº§µµ º¯°æ½ÃÄÑ¾ß ÇÑ´Ù.
+                 * ìì‹ ì„ ì¤‘ì‹¬ìœ¼ë¡œ ì—°ê²°ëœ edgeì˜ ë¼ë²¨ë„ ë³€ê²½ì‹œì¼œì•¼ í•œë‹¤.
                  */
                 me.changeEdgeLabel(shapeElement);
                 $(this).remove();
@@ -1487,7 +1487,7 @@ Renderer.prototype = {
     },
 
     /**
-     * ¸ÇÈ¦ ¹× ·ÎÄÉÀÌ¼Ç Æ÷ÀÎÆ® ÁöÁ¤½Ã Áßº¹ Ã¼Å©¸¦ ÇØ¾ß ÇÑ´Ù.
+     * ë§¨í™€ ë° ë¡œì¼€ì´ì…˜ í¬ì¸íŠ¸ ì§€ì •ì‹œ ì¤‘ë³µ ì²´í¬ë¥¼ í•´ì•¼ í•œë‹¤.
      */
     checkDuplicationPointName: function(pointName) {
         var me = this;
@@ -1506,7 +1506,7 @@ Renderer.prototype = {
     },
 
     /**
-     * ·¹ÀÌ½º¿şÀÌ ÇÁ·ÎÆÛÆ¼Ã¢
+     * ë ˆì´ìŠ¤ì›¨ì´ í”„ë¡œí¼í‹°ì°½
      */
     showRaceWayDialog: function(edgeElement, fromElement, toElement, eventType) {
         var me = this;
@@ -1514,7 +1514,7 @@ Renderer.prototype = {
         element['id'] = 'raceWayDialog';
         element['shape'] = {};
         element.shape = {label:'RaceWay Properties'};
-        //±âÁ¸ ´ëÈ­ÀåÀÌ ÀÖÀ» °æ¿ì »èÁ¦ÇÏµµ·Ï ÇÑ´Ù.
+        //ê¸°ì¡´ ëŒ€í™”ì¥ì´ ìˆì„ ê²½ìš° ì‚­ì œí•˜ë„ë¡ í•œë‹¤.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         me.destroyAllDialog($('#'+dialogName));
         // show Dialog
@@ -1536,11 +1536,11 @@ Renderer.prototype = {
         $("#cloneRaceWayProperty").find(".raceWayFrom").html(fromElement.shape.data.shapeLabel);
         $("#cloneRaceWayProperty").find(".raceWayTo").html(toElement.shape.data.shapeLabel)
 
-        // Àû¿ë ¹öÆ°
+        // ì ìš© ë²„íŠ¼
         var applyBtn = $('<button class="btn btn-primary" id="applyRaceWayProperty" type="button" style="margin-left:95px">Apply</button>');
         dialog.append(applyBtn);
 
-        // Ãë¼Ò ¹öÆ°
+        // ì·¨ì†Œ ë²„íŠ¼
         var cancelBtn = $('<button class="btn btn-white" id="cancelRaceWayProperty" type="button" style="left:34px">Cancel</button>');
         dialog.append(cancelBtn);
 
@@ -1585,7 +1585,7 @@ Renderer.prototype = {
 
                 var inputChk = $("#cloneRaceWayProperty").find(".raceWayTemp").val().split('.')[1];
                 /**
-                 * ¼Ò¼öÁ¡ ÀÔ·ÂÇÏ±â À§ÇØ .¸¸ Âï¾úÀ»¶§.
+                 * ì†Œìˆ˜ì  ì…ë ¥í•˜ê¸° ìœ„í•´ .ë§Œ ì°ì—ˆì„ë•Œ.
                  */
                 if(inputChk == '') {
                     msgBox(me.MSGMessages.TEMPINPUTCHK, $("#cloneRaceWayProperty").find(".raceWayTemp"));
@@ -1593,7 +1593,7 @@ Renderer.prototype = {
                 }
 
                 /**
-                 * »çÀÌÁî Ã¼Å©
+                 * ì‚¬ì´ì¦ˆ ì²´í¬
                  */
                 if(Number($("#cloneRaceWayProperty").find(".raceWayTemp").val()) > 80) {
                     msgBox(me.MSGMessages.TEMPSIZECHK, $("#cloneRaceWayProperty").find(".raceWayTemp"));
@@ -1628,7 +1628,7 @@ Renderer.prototype = {
     },
 
     /**
-     * ·Îµå°¡ Äµ¹ö½º¿¡ µå¶øµÇ¾úÀ» °æ¿ìÀÇ Ã³¸®
+     * ë¡œë“œê°€ ìº”ë²„ìŠ¤ì— ë“œëë˜ì—ˆì„ ê²½ìš°ì˜ ì²˜ë¦¬
      */
     onLoadDrop: function (loadElement, from) {
         var me = this;
@@ -1638,7 +1638,7 @@ Renderer.prototype = {
         }
 
         /**
-         * ½ºÀ§Ä¡ ±â¾îÂÊÀÇ ÅÍ¹Ì³Î Æ÷Áö¼Ç(fromP)À» ±¸ÇÑ´Ù.
+         * ìŠ¤ìœ„ì¹˜ ê¸°ì–´ìª½ì˜ í„°ë¯¸ë„ í¬ì§€ì…˜(fromP)ì„ êµ¬í•œë‹¤.
          */
         var toBoundary = me.canvas.getBoundary(loadElement);
         var fromBoundary = me.canvas.getBoundary(swgrElement);
@@ -1650,27 +1650,27 @@ Renderer.prototype = {
         var fLow = fromBoundary.getLeftCenter().y;
         var fromP;
 
-        //·ÎµåÀÇ x °¡ ½ºÀ§Ä¡ÀÇ ³Êºñ ³»¿¡ ÀÖÀ» °æ¿ì
+        //ë¡œë“œì˜ x ê°€ ìŠ¤ìœ„ì¹˜ì˜ ë„ˆë¹„ ë‚´ì— ìˆì„ ê²½ìš°
         if (toX > fLeft && toX < fRight) {
             fromP = [toX, fLow];
         }
-        //·ÎµåÀÇ x °¡ ½ºÀ§Ä¡ÀÇ ÁÂÃøÀÏ °æ¿ì
+        //ë¡œë“œì˜ x ê°€ ìŠ¤ìœ„ì¹˜ì˜ ì¢Œì¸¡ì¼ ê²½ìš°
         else if (toX <= fLeft) {
             fromP = [fLeft, fCenter.y];
         }
-        //·ÎµåÀÇ x °¡ ½ºÀ§Ä¡ÀÇ ¿ìÃøÀÏ °æ¿ì
+        //ë¡œë“œì˜ x ê°€ ìŠ¤ìœ„ì¹˜ì˜ ìš°ì¸¡ì¼ ê²½ìš°
         else if (toX >= fRight) {
             fromP = [fRight, fCenter.y];
         }
 
         /**
-         * ½ºÀ§Ä¡ ±â¾î¿Í ·Îµå¸¦ ÄÉÀÌºí·Î ¿¬°áÇÑ´Ù.
+         * ìŠ¤ìœ„ì¹˜ ê¸°ì–´ì™€ ë¡œë“œë¥¼ ì¼€ì´ë¸”ë¡œ ì—°ê²°í•œë‹¤.
          */
         me.canvas.connect(swgrElement, loadElement, null, null, fromP, null, null, null, new OG.CableShape());
 
         /**
-         * ÇØ´ç ·Îµå Á¤º¸´Â updateList¿¡ ÀúÀåÇÑ´Ù.
-         * ÇÏÁö¸¸ ¼­¹ö·ÎºÎÅÍ ±×·ÁÁö´Â ·Îµå´Â Á¦¿ÜÇØ¾ßÇÑ´Ù.
+         * í•´ë‹¹ ë¡œë“œ ì •ë³´ëŠ” updateListì— ì €ì¥í•œë‹¤.
+         * í•˜ì§€ë§Œ ì„œë²„ë¡œë¶€í„° ê·¸ë ¤ì§€ëŠ” ë¡œë“œëŠ” ì œì™¸í•´ì•¼í•œë‹¤.
          */
         if( from == null ) {
             me._CONTROLLER.updateFeederList.push(loadElement.shape.data);
@@ -1679,11 +1679,11 @@ Renderer.prototype = {
 
 
     /**
-     * »ç¿ëÀÚ·Î ÀÎÇØ Äµ¹ö½º¿¡ ÀÌº¥Æ®°¡ ¹ß»ıÇÏ¿´À» °æ¿ì Ã³¸®
+     * ì‚¬ìš©ìë¡œ ì¸í•´ ìº”ë²„ìŠ¤ì— ì´ë²¤íŠ¸ê°€ ë°œìƒí•˜ì˜€ì„ ê²½ìš° ì²˜ë¦¬
      */
     bindEvent: function () {
         var me = this;
-        //Action Event. ÀÌ ÀÌº¥Æ®µéÀº ·»´õ·¯ÀÇ isUpdated °ªÀ» true ·Î ¸¸µç´Ù.
+        //Action Event. ì´ ì´ë²¤íŠ¸ë“¤ì€ ë Œë”ëŸ¬ì˜ isUpdated ê°’ì„ true ë¡œ ë§Œë“ ë‹¤.
         me.canvas.onDrawShape(function (event, element) {
             me.isUpdated = true;
 
@@ -1742,7 +1742,7 @@ Renderer.prototype = {
                         var isContainsAll = bldgBoundary.isContainsAll(locationPointBoundary.getVertices());
                         if(isContainsAll) {
                             /**
-                             * È¤½Ã ¸ğ¸¦ ½Ç¼ö °¡·É ÀÌ¹Ì Æ÷ÀÎÆ®°¡ ºôµù¿¡ Æ÷ÇÔµÇ¾î ÀÖ´Ù¸é ÀÌ ³ÑÀº Á¦¿Ü¸¦ ÇØ¾ßÇÑ´Ù.
+                             * í˜¹ì‹œ ëª¨ë¥¼ ì‹¤ìˆ˜ ê°€ë ¹ ì´ë¯¸ í¬ì¸íŠ¸ê°€ ë¹Œë”©ì— í¬í•¨ë˜ì–´ ìˆë‹¤ë©´ ì´ ë„˜ì€ ì œì™¸ë¥¼ í•´ì•¼í•œë‹¤.
                              */
                             if(me.canvas.getParent(childElement) != null && me.canvas.getParent(childElement).shape instanceof OG.BLDG) return;
 
@@ -1775,7 +1775,7 @@ Renderer.prototype = {
         me.canvas.onConnectShape(function (event, edgeElement, fromElement, toElement) {
             me.isUpdated = true;
             /**
-             * ·¹ÀÌ½º ¿şÀÌ°¡ ±×·ÁÁ³À» °æ¿ì Àü ÈÄ location ¿¡¼­ shapeLabel À» ¹Ş¾Æ¿Í from-to ·Î ¶óº§¸µÀ» ÇÑ´Ù.
+             * ë ˆì´ìŠ¤ ì›¨ì´ê°€ ê·¸ë ¤ì¡Œì„ ê²½ìš° ì „ í›„ location ì—ì„œ shapeLabel ì„ ë°›ì•„ì™€ from-to ë¡œ ë¼ë²¨ë§ì„ í•œë‹¤.
              */
             if (edgeElement.shape instanceof OG.RacewayShape) {
                 me.canvas.drawLabel(edgeElement, fromElement.shape.label + toElement.shape.label);
@@ -1824,21 +1824,21 @@ Renderer.prototype = {
                     }
 
                     /**
-                     * viewControllerÀÇ feederMgtShapeList¿¡¼­ ÇØ´ç shapeÀÇ Á¤º¸°¡ ÀÖ´Ù¸é
-                     * ±âÁ¸ÀÇ Á¤º¸¸¦ »èÁ¦ÇÏ±â À§ÇØ¼­ deleteFeederList¿¡ Á¤º¸¸¦ ³Ö¾î¾ß ÇÑ´Ù.
+                     * viewControllerì˜ feederMgtShapeListì—ì„œ í•´ë‹¹ shapeì˜ ì •ë³´ê°€ ìˆë‹¤ë©´
+                     * ê¸°ì¡´ì˜ ì •ë³´ë¥¼ ì‚­ì œí•˜ê¸° ìœ„í•´ì„œ deleteFeederListì— ì •ë³´ë¥¼ ë„£ì–´ì•¼ í•œë‹¤.
                      * @type {Array|*|updateList}
                      */
                     var feederMgtShapeList = me._CONTROLLER.feederMgtShapeList;
                     var updateFeederList = me._CONTROLLER.updateFeederList;
-                    /** ±âÁ¸ µ¥ÀÌÅÍ¿¡¼­ Á¤º¸¸¦ °Ë»öÇÑ´Ù */
+                    /** ê¸°ì¡´ ë°ì´í„°ì—ì„œ ì •ë³´ë¥¼ ê²€ìƒ‰í•œë‹¤ */
                     var swgrKey = 'swgr_list_seq';
                     var loadKey = 'load_list_seq';
                     if(shapeElement.shape.data.fe_swgr_load_div == 'S') {
                         /**
-                         * ÀÌ Á¤º¸°¡ ¾ø´Ù´Â °ÍÀº ¼­¹ö·ÎºÎÅÍ ÀúÀåµÈ jsonÀ¸·ÎºÎÅÍ ±×·ÁÁø Äµ¹ö½º °´Ã¼ÀÇ Á¤º¸Áß
-                         * ÇÏ³ª°¡ Áö¿öÁ³´Ù°í ÆÇ´ÜÇÒ ¼ö ÀÖ´Ù.
-                         * ÇØ´ç Áö¿öÁö´Â shape°¡ ½ºÀ§Ä¡Æ®·£½ºÆÛ¸ÓÀÎÁö ·ÎµåÀÎÁö Ã¼Å©ºÎÅÍ ÇÏ°í
-                         * ´ÙÀ½ ·ÎÁ÷À» ¼öÇàÇØ¾ßÇÑ´Ù.
+                         * ì´ ì •ë³´ê°€ ì—†ë‹¤ëŠ” ê²ƒì€ ì„œë²„ë¡œë¶€í„° ì €ì¥ëœ jsonìœ¼ë¡œë¶€í„° ê·¸ë ¤ì§„ ìº”ë²„ìŠ¤ ê°ì²´ì˜ ì •ë³´ì¤‘
+                         * í•˜ë‚˜ê°€ ì§€ì›Œì¡Œë‹¤ê³  íŒë‹¨í•  ìˆ˜ ìˆë‹¤.
+                         * í•´ë‹¹ ì§€ì›Œì§€ëŠ” shapeê°€ ìŠ¤ìœ„ì¹˜íŠ¸ëœìŠ¤í¼ë¨¸ì¸ì§€ ë¡œë“œì¸ì§€ ì²´í¬ë¶€í„° í•˜ê³ 
+                         * ë‹¤ìŒ ë¡œì§ì„ ìˆ˜í–‰í•´ì•¼í•œë‹¤.
                          */
                         if(!shapeElement.shape.data.hasOwnProperty('model')){
                             shapeElement.shape.data['model'] = me._CONTROLLER.model.SwgrList.name;
@@ -1851,7 +1851,7 @@ Renderer.prototype = {
                             }
                         });
 
-                        /** updateList¿¡¼­µµ Á¶È¸¸¦ ÇØ¾ßÇÑ´Ù **/
+                        /** updateListì—ì„œë„ ì¡°íšŒë¥¼ í•´ì•¼í•œë‹¤ **/
                         updateFeederList.some(function(item, idx){
                             if( item.hasOwnProperty(swgrKey) && item[swgrKey] == shapeElement.shape.data[swgrKey]) {
                                 updateFeederList.splice(idx, 1);
@@ -1865,7 +1865,7 @@ Renderer.prototype = {
                             var loadObj = parent.getLoad(shapeElement.shape.data.load_list_seq);
 
                             /**
-                             * ±âÁ¸¿¡ ¾ø´Â ÇÁ·ÎÆÛÆ¼µéÀ» ¼³Á¤ÇØ¾ß ÇÑ´Ù.
+                             * ê¸°ì¡´ì— ì—†ëŠ” í”„ë¡œí¼í‹°ë“¤ì„ ì„¤ì •í•´ì•¼ í•œë‹¤.
                              */
                             loadObj['model'] = me._CONTROLLER.model.UnAssignedLoadList.name;
                             loadObj['shapeType']= shapeElement.shape.data['shapeType'];
@@ -1884,7 +1884,7 @@ Renderer.prototype = {
                             }
                         });
 
-                        /** updateList¿¡¼­µµ Á¶È¸¸¦ ÇØ¾ßÇÑ´Ù **/
+                        /** updateListì—ì„œë„ ì¡°íšŒë¥¼ í•´ì•¼í•œë‹¤ **/
                         updateFeederList.some(function(item, idx){
                             if( item.hasOwnProperty(loadKey) && item[loadKey] == shapeElement.shape.data[loadKey]) {
                                 updateFeederList.splice(idx, 1);
@@ -1894,7 +1894,7 @@ Renderer.prototype = {
 
                     if(shapeElement.shape.data.model == me._CONTROLLER.model.UnAssignedLoadList.name) {
 
-                        //ÇØ´ç ¾ÆÀÌÅÛÀº »ç¿ëµÈ loadlist¿¡¼­ »èÁ¦ÇÑ´Ù.
+                        //í•´ë‹¹ ì•„ì´í…œì€ ì‚¬ìš©ëœ loadlistì—ì„œ ì‚­ì œí•œë‹¤.
                         var usedLoadList = me._CONTROLLER.usedLoadList;
                         var updateList = [];
                         for (var i = 0; i < usedLoadList.length; i++) {
@@ -1905,7 +1905,7 @@ Renderer.prototype = {
 
                         me._CONTROLLER.usedLoadList = updateList;
 
-                        // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
+                        // ì „ì²´ ë„í˜•ì„ ê·¸ë¦° ì´í›„ì— ì‚¬ìš©í•œ load itemì€ ì œì™¸í•˜ê³  í•´ë‹¹ ê·¸ë¦¬ë“œë¥¼ ë‹¤ì‹œ ê·¸ë ¤ì•¼ í•œë‹¤.
                         var unloadList = me._CONTROLLER.initUnusedLoadList;
                         var newList = [];
                         for (var k = 0; k < unloadList.length; k++) {
@@ -1926,12 +1926,12 @@ Renderer.prototype = {
                         me._CONTROLLER.redrawUnssignedLoadTables(me._CONTROLLER.model.UnAssignedLoadList.panel);
 
                     }
-                    //Áö¿öÁø ·Îµå°¡ ¸¸ÀÏ switchtransfomer¶ó¸é
+                    //ì§€ì›Œì§„ ë¡œë“œê°€ ë§Œì¼ switchtransfomerë¼ë©´
                     else if(shapeElement.shape.data.model == me._CONTROLLER.model.SwgrList.name) {
 
                         //this.initUnusedSwitchList = [];
                         //this.usedSwitchList = [];
-                        //ÇØ´ç ¾ÆÀÌÅÛÀº »ç¿ëµÈ loadlist¿¡¼­ »èÁ¦ÇÑ´Ù.
+                        //í•´ë‹¹ ì•„ì´í…œì€ ì‚¬ìš©ëœ loadlistì—ì„œ ì‚­ì œí•œë‹¤.
                         var usedSwitchList = me._CONTROLLER.usedSwitchList;
                         var updateList = [];
                         for (var i = 0; i < usedSwitchList.length; i++) {
@@ -1942,7 +1942,7 @@ Renderer.prototype = {
 
                         me._CONTROLLER.usedSwitchList = updateList;
 
-                        // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
+                        // ì „ì²´ ë„í˜•ì„ ê·¸ë¦° ì´í›„ì— ì‚¬ìš©í•œ load itemì€ ì œì™¸í•˜ê³  í•´ë‹¹ ê·¸ë¦¬ë“œë¥¼ ë‹¤ì‹œ ê·¸ë ¤ì•¼ í•œë‹¤.
                         var unswitchList = me._CONTROLLER.initUnusedSwitchList;
                         var newList = [];
                         for (var k = 0; k < unswitchList.length; k++) {
@@ -1965,16 +1965,16 @@ Renderer.prototype = {
 
                 } else if(me.getMode() == me.Constants.MODE.HIERARCHY) {
 
-                    // µµÇüÀ» ¸ÕÀú Áö¿ö¼­ Å¸°í ¿À´ÂÁö ¶Ç´Â edge¸¦ Áö¿ì¸é¼­ Å¸°í ¿À´ÂÁö Ã¼Å©ÇÑ´Ù.
+                    // ë„í˜•ì„ ë¨¼ì € ì§€ì›Œì„œ íƒ€ê³  ì˜¤ëŠ”ì§€ ë˜ëŠ” edgeë¥¼ ì§€ìš°ë©´ì„œ íƒ€ê³  ì˜¤ëŠ”ì§€ ì²´í¬í•œë‹¤.
                     if(me._CONTROLLER.removeFirstShapeTypeAtHierarchy == null) {
                         me._CONTROLLER.removeFirstShapeTypeAtHierarchy = me.Constants.SHAPE.GEOM;
                     }
                     /**
-                     * feeder¸ğµå¿¡¼­´Â ¹«Á¶°Ç edge°¡ Á¸ÀçÇÑ´Ù. ÀÌÀ¯´Â load³ª ¿©Å¸ typeÀÌ ½ºÀ§Ä¡¿¡ ºÙÀ» ¶§´Â ½ºÀ§Ä¡¿Í ¿¬°áµÇ±â ¶§¹®ÀÌ´Ù.
-                     * ÇÏÁö¸¸ hierarchy¸ğµå¿¡¼­´Â ÇÏ³ª¸¸ Á¸ÀçÇÒ ¼ö ÀÖ´Ù.
-                     * µû¶ó¼­ ÇÏ³ª¸¸ Áö¿ì°Ô ÇØ¾ßÇÑ´Ù.
-                     * me._CONTROLLER.tempElement¿¡ µé¾î¿Â Á¤º¸¸¦ ¼¼ÆÃÇÏ°í ¸®ÅÏÇÏ¸é µÈ´Ù.
-                     * ÇÏÁö¸¸ Áö¿öÁø shapeÀÌ ºôµùÀÎÁö ½ºÀ§Ä¡ÇÇ´õÀÎÁö Ã¼Å©
+                     * feederëª¨ë“œì—ì„œëŠ” ë¬´ì¡°ê±´ edgeê°€ ì¡´ì¬í•œë‹¤. ì´ìœ ëŠ” loadë‚˜ ì—¬íƒ€ typeì´ ìŠ¤ìœ„ì¹˜ì— ë¶™ì„ ë•ŒëŠ” ìŠ¤ìœ„ì¹˜ì™€ ì—°ê²°ë˜ê¸° ë•Œë¬¸ì´ë‹¤.
+                     * í•˜ì§€ë§Œ hierarchyëª¨ë“œì—ì„œëŠ” í•˜ë‚˜ë§Œ ì¡´ì¬í•  ìˆ˜ ìˆë‹¤.
+                     * ë”°ë¼ì„œ í•˜ë‚˜ë§Œ ì§€ìš°ê²Œ í•´ì•¼í•œë‹¤.
+                     * me._CONTROLLER.tempElementì— ë“¤ì–´ì˜¨ ì •ë³´ë¥¼ ì„¸íŒ…í•˜ê³  ë¦¬í„´í•˜ë©´ ëœë‹¤.
+                     * í•˜ì§€ë§Œ ì§€ì›Œì§„ shapeì´ ë¹Œë”©ì¸ì§€ ìŠ¤ìœ„ì¹˜í”¼ë”ì¸ì§€ ì²´í¬
                      */
                     if(shapeElement.shape.data.model == me._CONTROLLER.model.HierarchyFeederList.name) {
 
@@ -2003,14 +2003,14 @@ Renderer.prototype = {
                             }
                         });
 
-                        /** updateList¿¡¼­µµ Á¶È¸¸¦ ÇØ¾ßÇÑ´Ù **/
+                        /** updateListì—ì„œë„ ì¡°íšŒë¥¼ í•´ì•¼í•œë‹¤ **/
                         updateFeederHierarchyList.some(function(item, idx){
                             if(item.feeder_list_mgt_seq == shapeElement.shape.data.feeder_list_mgt_seq) {
                                 updateFeederHierarchyList.splice(idx, 1);
                             }
                         });
 
-                        // »ç¿ëµÈ ¸®½ºÆ®¸¦ È®ÀÎÇÑ´Ù.
+                        // ì‚¬ìš©ëœ ë¦¬ìŠ¤íŠ¸ë¥¼ í™•ì¸í•œë‹¤.
                         //    this.initUnusedHierarchyFeederList = [];
                         // this.usedHierarchyFeederList = [];
                         var usedHierarchyFeederList = me._CONTROLLER.usedHierarchyFeederList;
@@ -2023,7 +2023,7 @@ Renderer.prototype = {
 
                         me._CONTROLLER.usedHierarchyFeederList = updateList;
 
-                        // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
+                        // ì „ì²´ ë„í˜•ì„ ê·¸ë¦° ì´í›„ì— ì‚¬ìš©í•œ load itemì€ ì œì™¸í•˜ê³  í•´ë‹¹ ê·¸ë¦¬ë“œë¥¼ ë‹¤ì‹œ ê·¸ë ¤ì•¼ í•œë‹¤.
                         var unUsedHierarchyFeederList = me._CONTROLLER.initUnusedHierarchyFeederList;
                         var newList = [];
                         for (var k = 0; k < unUsedHierarchyFeederList.length; k++) {
@@ -2045,13 +2045,13 @@ Renderer.prototype = {
                     }
                 } else if(me.getMode() == me.Constants.MODE.ROUTE) {
 
-                    // µµÇüÀ» ¸ÕÀú Áö¿ö¼­ Å¸°í ¿À´ÂÁö ¶Ç´Â edge¸¦ Áö¿ì¸é¼­ Å¸°í ¿À´ÂÁö Ã¼Å©ÇÑ´Ù.
+                    // ë„í˜•ì„ ë¨¼ì € ì§€ì›Œì„œ íƒ€ê³  ì˜¤ëŠ”ì§€ ë˜ëŠ” edgeë¥¼ ì§€ìš°ë©´ì„œ íƒ€ê³  ì˜¤ëŠ”ì§€ ì²´í¬í•œë‹¤.
                     if(me._CONTROLLER.removeFirstShapeTypeAtRoute == null) {
                         me._CONTROLLER.removeFirstShapeTypeAtRoute = me.Constants.SHAPE.GEOM;
                     }
 
                     /**
-                     * ºôµù ±×¸®µå¿¡¼­ ³Ñ¾î¿Â Á¤º¸¶ó¸é
+                     * ë¹Œë”© ê·¸ë¦¬ë“œì—ì„œ ë„˜ì–´ì˜¨ ì •ë³´ë¼ë©´
                      */
                     if(shapeElement.shape.data.model == me._CONTROLLER.model.BldgReferenceList.name) {
 
@@ -2065,7 +2065,7 @@ Renderer.prototype = {
 
                         me._CONTROLLER.usedBldgReferenceList = updateList;
 
-                        // ÀüÃ¼ µµÇüÀ» ±×¸° ÀÌÈÄ¿¡ »ç¿ëÇÑ load itemÀº Á¦¿ÜÇÏ°í ÇØ´ç ±×¸®µå¸¦ ´Ù½Ã ±×·Á¾ß ÇÑ´Ù.
+                        // ì „ì²´ ë„í˜•ì„ ê·¸ë¦° ì´í›„ì— ì‚¬ìš©í•œ load itemì€ ì œì™¸í•˜ê³  í•´ë‹¹ ê·¸ë¦¬ë“œë¥¼ ë‹¤ì‹œ ê·¸ë ¤ì•¼ í•œë‹¤.
                         var unUsedBldgReferenceList = me._CONTROLLER.initBldgReferenceList;
                         var newList = [];
                         for (var k = 0; k < unUsedBldgReferenceList.length; k++) {
@@ -2088,7 +2088,7 @@ Renderer.prototype = {
 
                 }
             } else if( shapeElement.shape.TYPE == me.Constants.SHAPE.EDGE) {
-                // µµÇüÀ» ¸ÕÀú Áö¿ö¼­ Å¸°í ¿À´ÂÁö ¶Ç´Â edge¸¦ Áö¿ì¸é¼­ Å¸°í ¿À´ÂÁö Ã¼Å©ÇÑ´Ù.
+                // ë„í˜•ì„ ë¨¼ì € ì§€ì›Œì„œ íƒ€ê³  ì˜¤ëŠ”ì§€ ë˜ëŠ” edgeë¥¼ ì§€ìš°ë©´ì„œ íƒ€ê³  ì˜¤ëŠ”ì§€ ì²´í¬í•œë‹¤.
                 if(me.getMode() == me.Constants.MODE.HIERARCHY) {
                     if(me._CONTROLLER.removeFirstShapeTypeAtHierarchy == null) {
                         me._CONTROLLER.removeFirstShapeTypeAtHierarchy = me.Constants.SHAPE.EDGE;
@@ -2110,8 +2110,8 @@ Renderer.prototype = {
             var flag = true;
             var msg = '';
             /**
-             * °í·ÁÇØ¾ßÇÒ »çÇ×.
-             * shape¸¦ ÀÌµ¿½Ã ¾î¶»°Ô °ü°è¸¦ ¼³Á¤ÇØ¼­ ÀÌ ·ÎÁ÷À» ¾ÈÅÂ¿ï °ÍÀÎ°¡¸¦ °í¹ÎÇØ¾ßÇÔ
+             * ê³ ë ¤í•´ì•¼í•  ì‚¬í•­.
+             * shapeë¥¼ ì´ë™ì‹œ ì–´ë–»ê²Œ ê´€ê³„ë¥¼ ì„¤ì •í•´ì„œ ì´ ë¡œì§ì„ ì•ˆíƒœìš¸ ê²ƒì¸ê°€ë¥¼ ê³ ë¯¼í•´ì•¼í•¨
              */
             if( me.getMode() == me.Constants.MODE.HIERARCHY) {
                 var prevEdges = me.canvas.getPrevEdges(toElement);
@@ -2119,7 +2119,7 @@ Renderer.prototype = {
                     prevEdges.forEach(function(edge){
                         var edge = me.canvas.getRelatedElementsFromEdge(edge);
                         var fromShapeData = edge.from.shape.data;
-                        // from µ¥ÀÌÅÍ°¡ ÀÚ½Å°ú °°´Ù¸é ÀÚ½ÅÀº ÀÌ¹Ì »óÀ§ ÇÇ´õ ¸®½ºÆ®ÀÌ´Ù.
+                        // from ë°ì´í„°ê°€ ìì‹ ê³¼ ê°™ë‹¤ë©´ ìì‹ ì€ ì´ë¯¸ ìƒìœ„ í”¼ë” ë¦¬ìŠ¤íŠ¸ì´ë‹¤.
                         if(fromShapeData.feeder_list_mgt_seq != null && fromShapeData.feeder_list_mgt_seq != fromElement.shape.data.feeder_list_mgt_seq) {
                             flag = false;
                             msg = me.MSGMessages.SWITCHCONNECTIONCHK;
@@ -2141,28 +2141,28 @@ Renderer.prototype = {
         });
 
         /**
-         * ÄÉÀÌºí º¯°æÀÌ ÀÏ¾î³µÀ» °æ¿ì ÀÌº¥Æ®
+         * ì¼€ì´ë¸” ë³€ê²½ì´ ì¼ì–´ë‚¬ì„ ê²½ìš° ì´ë²¤íŠ¸
          */
         $(me.canvas.getRootElement()).bind('cableChange', function (event, shapeElement, beforeShapeId, afterShapeId) {
             //console.log(shapeElement, beforeShapeId, afterShapeId);
         });
 
         /**
-         * ¶ó¿ìÆ® º¸±â ÀÌº¥Æ®
+         * ë¼ìš°íŠ¸ ë³´ê¸° ì´ë²¤íŠ¸
          */
         $(me.canvas.getRootElement()).bind('showCableList', function (event, shapeElement) {
             //me.onShowCableList(shapeElement, null);
         });
 
         /**
-         * Á¤º¸ º¸±â ÀÌº¥Æ®
+         * ì •ë³´ ë³´ê¸° ì´ë²¤íŠ¸
          */
         $(me.canvas.getRootElement()).bind('showProperty', function (event, shapeElement) {
             me.onShowProperty(shapeElement);
         });
 
         /**
-         * Äµ¹ö½º ·Îµù ÀÌº¥Æ®
+         * ìº”ë²„ìŠ¤ ë¡œë”© ì´ë²¤íŠ¸
          */
         me.canvas.onLoading(function (event, progress) {
             if (progress == 'start') {
@@ -2182,7 +2182,7 @@ Renderer.prototype = {
     },
 
     /**
-     * Route¿¡¼­
+     * Routeì—ì„œ
      */
     checkPointToPoint: function (edge, canvas) {
 
@@ -2198,7 +2198,7 @@ Renderer.prototype = {
     },
 
     /**
-     * Á¤º¸ º¸±â ÀÌº¥Æ®¸¦ Ã³¸®ÇÑ´Ù.
+     * ì •ë³´ ë³´ê¸° ì´ë²¤íŠ¸ë¥¼ ì²˜ë¦¬í•œë‹¤.
      * @param element
      */
     onShowProperty: function (element) {
@@ -2217,7 +2217,7 @@ Renderer.prototype = {
 
     highLightHierarchyFeeder: function(element) {
         var me = this;
-        //¼±ÅÃµÈ HierarchyFeeder ¾Ö´Ï¸ŞÀÌ¼Ç
+        //ì„ íƒëœ HierarchyFeeder ì• ë‹ˆë©”ì´ì…˜
         if (!element.shape.data) {
             element.shape.data = {};
         }
@@ -2233,7 +2233,7 @@ Renderer.prototype = {
 
     unHighLightHierarchyFeeder: function(element) {
         var me = this;
-        //¼±ÅÃµÈ HierarchyFeeder ¾Ö´Ï¸ŞÀÌ¼Ç
+        //ì„ íƒëœ HierarchyFeeder ì• ë‹ˆë©”ì´ì…˜
         if (!element.shape.data) {
             element.shape.data = {};
         }
@@ -2242,14 +2242,14 @@ Renderer.prototype = {
     },
 
     /**
-     * ÇØ´ç ·¹ÀÌ½º¿şÀÌ¸¦ ÇÏÀÌ¶óÀÌÆ® Ã³¸®ÇÑ´Ù.
+     * í•´ë‹¹ ë ˆì´ìŠ¤ì›¨ì´ë¥¼ í•˜ì´ë¼ì´íŠ¸ ì²˜ë¦¬í•œë‹¤.
      * @param element
-     * @param {Boolean} selected ¼±ÅÃ Ã³¸® ¿©ºÎ
+     * @param {Boolean} selected ì„ íƒ ì²˜ë¦¬ ì—¬ë¶€
      */
     highLightRaceway: function (element, selected) {
         var me = this;
 
-        //¼±ÅÃµÈ ·¹ÀÌ½º¿şÀÌ ¾Ö´Ï¸ŞÀÌ¼Ç
+        //ì„ íƒëœ ë ˆì´ìŠ¤ì›¨ì´ ì• ë‹ˆë©”ì´ì…˜
         if (!element.shape.data) {
             element.shape.data = {};
         }
@@ -2262,12 +2262,12 @@ Renderer.prototype = {
     },
 
     /**
-     * ÇØ´ç ·¹ÀÌ½º¿şÀÌÀÇ ÇÏÀÌ¶óÀÌÆ®¸¦ Á¾·áÇÑ´Ù.
+     * í•´ë‹¹ ë ˆì´ìŠ¤ì›¨ì´ì˜ í•˜ì´ë¼ì´íŠ¸ë¥¼ ì¢…ë£Œí•œë‹¤.
      * @param element
      */
     unHighLightRaceway: function (element) {
         var me = this;
-        //¼±ÅÃµÈ ·¹ÀÌ½º¿şÀÌ ¾Ö´Ï¸ŞÀÌ¼Ç
+        //ì„ íƒëœ ë ˆì´ìŠ¤ì›¨ì´ ì• ë‹ˆë©”ì´ì…˜
         if (!element.shape.data) {
             element.shape.data = {};
         }
@@ -2276,7 +2276,7 @@ Renderer.prototype = {
         me.canvas.getRenderer().redrawShape(element);
     },
     /**
-     * ÁÖ¾îÁø path (µµÇü ¾ÆÀÌµğ) ¸ñ·ÏÀ¸·ÎºÎÅÍ ·¹ÀÌ½º¿şÀÌ ¸®½ºÆ®¸¦ ¹İÈ¯ÇÑ´Ù.
+     * ì£¼ì–´ì§„ path (ë„í˜• ì•„ì´ë””) ëª©ë¡ìœ¼ë¡œë¶€í„° ë ˆì´ìŠ¤ì›¨ì´ ë¦¬ìŠ¤íŠ¸ë¥¼ ë°˜í™˜í•œë‹¤.
      * @param {Array} path
      * @returns {Array}
      */
@@ -2300,7 +2300,7 @@ Renderer.prototype = {
         return list;
     },
     /**
-     * ÄÉÀÌºí ´ëÈ­Ã¢À» »èÁ¦ÇÑ´Ù.
+     * ì¼€ì´ë¸” ëŒ€í™”ì°½ì„ ì‚­ì œí•œë‹¤.
      * @param dialog
      * @param currentPath
      * @param selectedRaceway
@@ -2339,7 +2339,7 @@ Renderer.prototype = {
         var lastEdge;
 
         /**
-         * ÇÏÀÌ¶óÀÌÆ® µÈ ¸ğµç ·¹ÀÌ½º¿şÀÌ ÇØÁ¦
+         * í•˜ì´ë¼ì´íŠ¸ ëœ ëª¨ë“  ë ˆì´ìŠ¤ì›¨ì´ í•´ì œ
          */
         allEdges.forEach(function(edge){
             me.unHighLightRaceway(edge);
@@ -2374,17 +2374,17 @@ Renderer.prototype = {
     },
 
     /**
-     * ÇØ´ç ·¹ÀÌ½º¿şÀÌ¸¦ Áö³ª´Â ÄÉÀÌºí ¸®½ºÆ®¸¦ ÆË¾÷ÇÏ°í, ÄÉÀÌºí ¼±ÅÃ½Ã ´Ù¸¥ ¶ó¿ìÆ® °æ·Î¸¦ ¼±ÅÃ°¡´ÉÇÏ°Ô ÇÑ´Ù.
+     * í•´ë‹¹ ë ˆì´ìŠ¤ì›¨ì´ë¥¼ ì§€ë‚˜ëŠ” ì¼€ì´ë¸” ë¦¬ìŠ¤íŠ¸ë¥¼ íŒì—…í•˜ê³ , ì¼€ì´ë¸” ì„ íƒì‹œ ë‹¤ë¥¸ ë¼ìš°íŠ¸ ê²½ë¡œë¥¼ ì„ íƒê°€ëŠ¥í•˜ê²Œ í•œë‹¤.
      */
     onShowCableList: function (firstEdge, lastEdge, from) {
         var me = this;
         var element = firstEdge;
 
-        //±âÁ¸ ´ëÈ­ÀåÀÌ ÀÖÀ» °æ¿ì »èÁ¦ÇÏµµ·Ï ÇÑ´Ù.
+        //ê¸°ì¡´ ëŒ€í™”ì¥ì´ ìˆì„ ê²½ìš° ì‚­ì œí•˜ë„ë¡ í•œë‹¤.
         var dialogName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG;
         me.destroyCableDialog($('[name=' + dialogName + ']'));
 
-        //´ÙÀÌ¾î·Î±× Ã¢À» ¶ç¿î´Ù.
+        //ë‹¤ì´ì–´ë¡œê·¸ ì°½ì„ ë„ìš´ë‹¤.
         var dialog = me.createDialog(element, {
             title: 'Cables',
             height: 450,
@@ -2399,19 +2399,19 @@ Renderer.prototype = {
 
         $('.noClose .ui-dialog-titlebar-close').css('display', 'none');
 
-        //ÇÏÀÌ¶óÀÌÆÃ µÈ ÆĞ½º ¸®½ºÆ®
+        //í•˜ì´ë¼ì´íŒ… ëœ íŒ¨ìŠ¤ ë¦¬ìŠ¤íŠ¸
         var currentPath;
         me.highLightRaceway(element, true);
 
-        //ÄÉÀÌºí µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Â´Ù.
+        //ì¼€ì´ë¸” ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
         var cables = me.getCablesWithRaceway(firstEdge, lastEdge);
 
-        //ÆĞ³ÎÀÇ ³×ÀÓ½ºÆäÀÌ½º
+        //íŒ¨ë„ì˜ ë„¤ì„ìŠ¤í˜ì´ìŠ¤
         var panelName = me._CONTAINER_ID + me.Constants.PREFIX.DIALOG_TABLE;
         var panelId = me._CONTAINER_ID + element.id + me.Constants.PREFIX.DIALOG_TABLE;
 
 
-        //ÄÉÀÌºí ±×¸®µåÀÇ ³»¿ëÀ» ±¸¼ºÇÑ´Ù.
+        //ì¼€ì´ë¸” ê·¸ë¦¬ë“œì˜ ë‚´ìš©ì„ êµ¬ì„±í•œë‹¤.
         var adjustCables = [];
         var idx = 0;
         for (var i = 0; i < cables.length; i++) {
@@ -2449,7 +2449,7 @@ Renderer.prototype = {
         };
 
 
-        //´ëÈ­Ã¢¿¡ ±×¸®µå¸¦ »ğÀÔÇÑ´Ù.
+        //ëŒ€í™”ì°½ì— ê·¸ë¦¬ë“œë¥¼ ì‚½ì…í•œë‹¤.
         var panel = $('<table></table>');
         panel.attr('name', panelName);
         panel.attr('id', panelId);
@@ -2459,7 +2459,7 @@ Renderer.prototype = {
 
         dialog.append(panel);
         if(from == 'fromGrid') {
-            //´ëÈ­Ã¢¿¡ ¹öÆ°À» »ğÀÔÇÑ´Ù.
+            //ëŒ€í™”ì°½ì— ë²„íŠ¼ì„ ì‚½ì…í•œë‹¤.
             var alternativeBtn = $('<button class="btn btn-primary noClick" type="button" id="altRaceWayApply" style="margin-left:195px">Apply</button>');
             dialog.append(alternativeBtn);
 
@@ -2491,9 +2491,9 @@ Renderer.prototype = {
         var gridPanelDiv = $('#' + panelId + '_wrapper');
 
         /**
-         * ÄÉÀÌºí Å¬¸¯½Ã ÇØ´ç ÄÉÀÌºíÀÇ ÆĞ½º¸¦ ¹ÙÅÁÀ¸·Î ·¹ÀÌ½º¿şÀÌ¸¦ ÇÏÀÌ¶óÀÌÆ® Ã³¸®ÇÏ°í, º¯°æ ¹öÆ°À» È°¼ºÈ­ÇÑ´Ù.
-         * º¯°æ ¹öÆ°À» Å¬¸¯½Ã ±×¸®µåÀÇ ³»¿ëÀÌ ÄÉÀÌºíÀÌ Áö³ª°¥ ¼ö ÀÖ´Â º¯°æ°¡´ÉÇÑ ¶ó¿ìÆ® ¸®½ºÆ®·Î ÀüÈ¯Èº´Ù.
-         * º¯°æ°¡´ÉÇÑ ¶ó¿ìÆ® ¸®½ºÆ®¸¦ ¼±ÅÃÇÏ¸é ÄÉÀÌºí¿¡ Àû¿ë.
+         * ì¼€ì´ë¸” í´ë¦­ì‹œ í•´ë‹¹ ì¼€ì´ë¸”ì˜ íŒ¨ìŠ¤ë¥¼ ë°”íƒ•ìœ¼ë¡œ ë ˆì´ìŠ¤ì›¨ì´ë¥¼ í•˜ì´ë¼ì´íŠ¸ ì²˜ë¦¬í•˜ê³ , ë³€ê²½ ë²„íŠ¼ì„ í™œì„±í™”í•œë‹¤.
+         * ë³€ê²½ ë²„íŠ¼ì„ í´ë¦­ì‹œ ê·¸ë¦¬ë“œì˜ ë‚´ìš©ì´ ì¼€ì´ë¸”ì´ ì§€ë‚˜ê°ˆ ìˆ˜ ìˆëŠ” ë³€ê²½ê°€ëŠ¥í•œ ë¼ìš°íŠ¸ ë¦¬ìŠ¤íŠ¸ë¡œ ì „í™˜íšë‹¤.
+         * ë³€ê²½ê°€ëŠ¥í•œ ë¼ìš°íŠ¸ ë¦¬ìŠ¤íŠ¸ë¥¼ ì„ íƒí•˜ë©´ ì¼€ì´ë¸”ì— ì ìš©.
          * @param item
          * @param itemData
          */
@@ -2506,7 +2506,7 @@ Renderer.prototype = {
                 var allEdges = me.getCanvas().getAllEdges();
 
                 /**
-                 * ÇÏÀÌ¶óÀÌÆ® µÈ ¸ğµç ·¹ÀÌ½º¿şÀÌ ÇØÁ¦
+                 * í•˜ì´ë¼ì´íŠ¸ ëœ ëª¨ë“  ë ˆì´ìŠ¤ì›¨ì´ í•´ì œ
                  */
                 allEdges.forEach(function(edge){
                     me.unHighLightRaceway(edge);
@@ -2525,7 +2525,7 @@ Renderer.prototype = {
                 }
 
                 itemData['totalLength'] = racewaysLength + Number(itemData.fromPointLen) + Number(itemData.toPointLen);
-                //¾îÇÃ¶óÀÌ ¹öÆ° Å¬¸¯ ÀÌº¥Æ®¸¦ Ã³¸®ÇÑ´Ù.
+                //ì–´í”Œë¼ì´ ë²„íŠ¼ í´ë¦­ ì´ë²¤íŠ¸ë¥¼ ì²˜ë¦¬í•œë‹¤.
                 if(from != null) {
                     alternativeBtn.removeClass('noClick');
                     alternativeBtn.unbind('click');
@@ -2571,7 +2571,7 @@ Renderer.prototype = {
         });
     },
     /**
-     * ÇØ´ç ·¹ÀÌ½º¿şÀÌ¸¦ Áö³ª´Â ÄÉÀÌºí ¸®½ºÆ®¸¦ ±¸ÇÑ´Ù.
+     * í•´ë‹¹ ë ˆì´ìŠ¤ì›¨ì´ë¥¼ ì§€ë‚˜ëŠ” ì¼€ì´ë¸” ë¦¬ìŠ¤íŠ¸ë¥¼ êµ¬í•œë‹¤.
      * @param element
      * @returns {Array}
      */
@@ -2639,17 +2639,17 @@ Renderer.prototype = {
         };
 
         var findEndLocation = function(from,end,current,paths){
-            //ÁÖ¾îÁø µµÇüÀÌ end Location ÀÏ °æ¿ì routes ¿¡ Ãß°¡ÇÑ ÈÄ Á¾·áÇÑ´Ù.
+            //ì£¼ì–´ì§„ ë„í˜•ì´ end Location ì¼ ê²½ìš° routes ì— ì¶”ê°€í•œ í›„ ì¢…ë£Œí•œë‹¤.
             if (current.shape instanceof OG.Location && current.id == end.id) {
                 routes.push(paths);
                 return;
             }
 
-            //ÁÖ¾îÁø µµÇü¿¡ ¿¬°áµÈ µµÇüµéÀ» Ã£´Â´Ù.
+            //ì£¼ì–´ì§„ ë„í˜•ì— ì—°ê²°ëœ ë„í˜•ë“¤ì„ ì°¾ëŠ”ë‹¤.
             var prevShapes = me.canvas.getPrevShapes(current);
             var nextShapes = me.canvas.getNextShapes(current);
 
-            //¿¬°áµÈ µµÇüÁß paths ¿¡ Áßº¹µÇ´Â °ÍÀ» ÆÄ±âÇÑ´Ù.
+            //ì—°ê²°ëœ ë„í˜•ì¤‘ paths ì— ì¤‘ë³µë˜ëŠ” ê²ƒì„ íŒŒê¸°í•œë‹¤.
             var relatedShapes = [];
             for (var i = 0; i < prevShapes.length; i++) {
                 if (!isExcludeLocation(prevShapes[i], paths)) {
@@ -2662,7 +2662,7 @@ Renderer.prototype = {
                 }
             }
             for (var i = 0; i < relatedShapes.length; i++) {
-                //paths ¿¡ Ãß°¡ÇÑ´Ù.
+                //paths ì— ì¶”ê°€í•œë‹¤.
                 var newPath = JSON.parse(JSON.stringify(paths));
                 newPath.push(relatedShapes[i].id);
                 findEndLocation(from, end, relatedShapes[i], newPath);
@@ -2677,7 +2677,7 @@ Renderer.prototype = {
 
 
         /**
-         * ¶ó¿ìÆ® µ¥ÀÌÅÍ ¸¸µé±â
+         * ë¼ìš°íŠ¸ ë°ì´í„° ë§Œë“¤ê¸°
          */
         var data = [];
         for (var i = 0, leni = routes.length; i < leni; i++) {
@@ -2687,7 +2687,7 @@ Renderer.prototype = {
             var fromPointLength = 0;
             var toPointLength = 0;
             for (var c = 0, lenc = routes[i].length; c < lenc; c++) {
-                //Ã³À½ ¶Ç´Â ³¡(·ÎÄÉÀÌ¼Ç) ÀÌ¶ó¸é
+                //ì²˜ìŒ ë˜ëŠ” ë(ë¡œì¼€ì´ì…˜) ì´ë¼ë©´
                 if (c == 0 || c == lenc - 1) {
                     var locationId = routes[i][c];
                     var location = me.canvas.getElementById(locationId);
@@ -2705,7 +2705,7 @@ Renderer.prototype = {
                     }
                 }
             }
-            //½ÃÀÛ, ³¡ ·ÎÄÉÀÌ¼ÇÀÌ ¸ğµÎ ºôµù ¾È¿¡ ¼ÓÇØÀÖ´Ù¸é
+            //ì‹œì‘, ë ë¡œì¼€ì´ì…˜ì´ ëª¨ë‘ ë¹Œë”© ì•ˆì— ì†í•´ìˆë‹¤ë©´
             if (fromBLDG && toBLDG) {
                 routeData['path'] = routes[i];
 

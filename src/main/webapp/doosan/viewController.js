@@ -3,7 +3,7 @@
  */
 var ViewContorller = function () {
     /**
-     * ÄÁÆ®·Ñ·¯ÀÇ ¸Ş½ÃÁö ÀÏ¶÷
+     * ì»¨íŠ¸ë¡¤ëŸ¬ì˜ ë©”ì‹œì§€ ì¼ëŒ
      */
     this.message = {
         NO_EDITOR_OBJECT: 'NO_EDITOR_OBJECT',
@@ -12,63 +12,63 @@ var ViewContorller = function () {
     };
 
     /**
-     * Äµ¹ö½º ·»´õ·¯ÀÇ Constants ¹× _CONFIG »ç¿ë¿ëµµ(³×ÀÓ½ºÆäÀÌ½º ÀÌ¿ë)
+     * ìº”ë²„ìŠ¤ ë Œë”ëŸ¬ì˜ Constants ë° _CONFIG ì‚¬ìš©ìš©ë„(ë„¤ì„ìŠ¤í˜ì´ìŠ¤ ì´ìš©)
      */
     this.Constants = new Renderer().Constants;
     this.Config = new Renderer()._CONFIG;
 
     /**
-     * ÇöÀç ÄÁÆ®·Ñ·¯ÀÇ ¸ğµå
+     * í˜„ì¬ ì»¨íŠ¸ë¡¤ëŸ¬ì˜ ëª¨ë“œ
      */
     this.currentMode = this.Constants.MODE.FEEDER;
 
     /**
-     * ¾î»çÀÎ ÇÇ´õ ¿¡µğÅÍ Äµ¹ö½º
+     * ì–´ì‚¬ì¸ í”¼ë” ì—ë””í„° ìº”ë²„ìŠ¤
      * @type {null}
      */
     this.feederRenderer = null;
     this.feederRendererId = 'feederCanvas';
 
     /**
-     * ¶ó¿ìÆ® ¿¡µğÅÍ Äµ¹ö½º
+     * ë¼ìš°íŠ¸ ì—ë””í„° ìº”ë²„ìŠ¤
      * @type {null}
      */
     this.routeRenderer = null;
     this.routeRendererId = 'routeCanvas';
 
     /**
-     * ÇÏÀÌ¾î¶óÅ° ¿¡µğÅÍ Äµ¹ö½º
+     * í•˜ì´ì–´ë¼í‚¤ ì—ë””í„° ìº”ë²„ìŠ¤
      * @type {null}
      */
     this.hierarchyRenderer = null;
     this.hierarchyRendererId = 'hierarchyCanvas';
 
     /**
-     * Å×¿À½º¿ÍÀÇ µ¥ÀÌÅÍ Åë½ÅÀ» ´ã´çÇÏ´Â ÄÁÆ®·Ñ·¯
+     * í…Œì˜¤ìŠ¤ì™€ì˜ ë°ì´í„° í†µì‹ ì„ ë‹´ë‹¹í•˜ëŠ” ì»¨íŠ¸ë¡¤ëŸ¬
      * @type {DataController}
      */
     this.dataController = new DataController();
 
     /**
-     * ÇÁ·ÎÁ§Æ® µ¥ÀÌÅÍ
+     * í”„ë¡œì íŠ¸ ë°ì´í„°
      */
     this.projectData = undefined;
 
     /**
-     * switch ¸®½ºÆ® reload¸¦ À§ÇÑ µ¥ÀÌÅÍ
+     * switch ë¦¬ìŠ¤íŠ¸ reloadë¥¼ ìœ„í•œ ë°ì´í„°
      */
     this.initUnusedSwitchList = [];
     this.usedSwitchList = [];
 
     /**
-     * load ¸®½ºÆ® reload¸¦ À§ÇÑ µ¥ÀÌÅÍ
+     * load ë¦¬ìŠ¤íŠ¸ reloadë¥¼ ìœ„í•œ ë°ì´í„°
      */
     this.initUnusedLoadList = [];
     this.usedLoadList = [];
 
     /**
-     * ±âÁ¸ ÇÇ´õ¿¡¼­ ²ø¾î¿Í¼­ jsonµ¥ÀÌÅÍ·Î Äµ¹ö½º¸¦ °»½ÅÇÒ °æ¿ì.
-     * jsonµ¥ÀÌÅÍ·Î ±×·ÁÁø Äµ¹ö½ºÀÇ µµÇüµéÀÇ data¸¦ ¸®½ºÆ®·Î °®´Â´Ù.
+     * ê¸°ì¡´ í”¼ë”ì—ì„œ ëŒì–´ì™€ì„œ jsonë°ì´í„°ë¡œ ìº”ë²„ìŠ¤ë¥¼ ê°±ì‹ í•  ê²½ìš°.
+     * jsonë°ì´í„°ë¡œ ê·¸ë ¤ì§„ ìº”ë²„ìŠ¤ì˜ ë„í˜•ë“¤ì˜ dataë¥¼ ë¦¬ìŠ¤íŠ¸ë¡œ ê°–ëŠ”ë‹¤.
      * updateFeederList, deleteFeederList
      */
     this.feederMgtShapeList = [];
@@ -79,12 +79,12 @@ var ViewContorller = function () {
 
 
     /**
-     * hierarchyCanvas¿¡ Ã³À½ ±×·ÁÁö´Â ºôµù, ÇÃ·Î¿ì, ÇÇ´õÀÇ Á¤º¸¸¦ ´ã¾Æ³½´Ù.
-     * ÃÖÁ¾ÀûÀ¸·Î Á¤º¸¸¦ ÅëÇØ¼­ º¯°æµÈ ½ºÀ§Ä¡³ª ºôµùÀÌ Á¸ÀçÇÑ´Ù¸é
-     * ÇÇ´õ °æ¿ì¿¡´Â hierarchy ÇÇ´õ ¸®½ºÆ®°¡ »èÁ¦µÈ °æ¿ì¿¡´Â ÃÖÃÊ Á¸ÀçÇß´ø ÇÇ´õ¸¦ Äµ¹ö½º¿¡¼­ ÇØ´ç ÇÇ´õ¸¦ Áö¿ö¾ßÇÑ´Ù.
-     * Ãß°¡µÈ ÇÇ´õ´Â »ç¿ëÀÚ°¡ ±×¸±Å×´Ï ±×°Ç ÆĞ½º,
-     * ºôµù Ãß°¡½Ã¿¡´Â ±âÁ¸ ±×·ÁÁø Äµ¹ö½º¿¡¼­ °ãÄ¡Áö ¾Ê°Ô ÀÓÀÇÀÇ À§Ä¡¿¡ ÇØ´ç ºôµù°ú ÇÃ·Î¾î¸¦ ±×¸°´Ù.
-     * ÇÇ´õ¸®½ºÆ® ±×¸®µå¸¦ °»½ÅÇÏ±â À§ÇÑ °´Ã¼ Ãß°¡
+     * hierarchyCanvasì— ì²˜ìŒ ê·¸ë ¤ì§€ëŠ” ë¹Œë”©, í”Œë¡œìš°, í”¼ë”ì˜ ì •ë³´ë¥¼ ë‹´ì•„ë‚¸ë‹¤.
+     * ìµœì¢…ì ìœ¼ë¡œ ì •ë³´ë¥¼ í†µí•´ì„œ ë³€ê²½ëœ ìŠ¤ìœ„ì¹˜ë‚˜ ë¹Œë”©ì´ ì¡´ì¬í•œë‹¤ë©´
+     * í”¼ë” ê²½ìš°ì—ëŠ” hierarchy í”¼ë” ë¦¬ìŠ¤íŠ¸ê°€ ì‚­ì œëœ ê²½ìš°ì—ëŠ” ìµœì´ˆ ì¡´ì¬í–ˆë˜ í”¼ë”ë¥¼ ìº”ë²„ìŠ¤ì—ì„œ í•´ë‹¹ í”¼ë”ë¥¼ ì§€ì›Œì•¼í•œë‹¤.
+     * ì¶”ê°€ëœ í”¼ë”ëŠ” ì‚¬ìš©ìê°€ ê·¸ë¦´í…Œë‹ˆ ê·¸ê±´ íŒ¨ìŠ¤,
+     * ë¹Œë”© ì¶”ê°€ì‹œì—ëŠ” ê¸°ì¡´ ê·¸ë ¤ì§„ ìº”ë²„ìŠ¤ì—ì„œ ê²¹ì¹˜ì§€ ì•Šê²Œ ì„ì˜ì˜ ìœ„ì¹˜ì— í•´ë‹¹ ë¹Œë”©ê³¼ í”Œë¡œì–´ë¥¼ ê·¸ë¦°ë‹¤.
+     * í”¼ë”ë¦¬ìŠ¤íŠ¸ ê·¸ë¦¬ë“œë¥¼ ê°±ì‹ í•˜ê¸° ìœ„í•œ ê°ì²´ ì¶”ê°€
      */
     this.feederHierarchyMgtShapeList = [];
     this.updateFeederHierarchyList = [];
@@ -97,23 +97,23 @@ var ViewContorller = function () {
     this.initHierarchyFeeders = [];
 
     /**
-     * ·ÎÄÉÀÌ¼Ç ÃÊ±â ·Îµå µ¥ÀÌÅÍ
+     * ë¡œì¼€ì´ì…˜ ì´ˆê¸° ë¡œë“œ ë°ì´í„°
      */
     this.initLocationReferenceList = [];
 
     /**
-     * ºôµù ÃÊ±â ·Îµå µ¥ÀÌÅÍ
+     * ë¹Œë”© ì´ˆê¸° ë¡œë“œ ë°ì´í„°
      */
     this.initBldgReferenceList = [];
     this.usedBldgReferenceList = [];
 
     /**
-     * ·¹ÀÌ½º¿şÀÌ ÃÊ±â ·Îµå µ¥ÀÌÅÍ
+     * ë ˆì´ìŠ¤ì›¨ì´ ì´ˆê¸° ë¡œë“œ ë°ì´í„°
      */
     this.initRacewayReferenceList = [];
 
     /**
-     * ¶ó¿ìÆ® ÃÊ±â ·Îµå µ¥ÀÌÅÍ
+     * ë¼ìš°íŠ¸ ì´ˆê¸° ë¡œë“œ ë°ì´í„°
      */
     this.initRouteReferenceList = [];
 
@@ -127,11 +127,11 @@ var ViewContorller = function () {
     this.FROMMENU = 'feeder';
 
     /**
-     * Å×ÀÌºí/Æ®¸® ±¸Á¶¸ğµ¨. Äµ¹ö½ºÀÇ °¢ shape ¸ğµ¨°ú´Â ´Ù¸¥ ÀÇ¹ÌÀÌ´Ù.
+     * í…Œì´ë¸”/íŠ¸ë¦¬ êµ¬ì¡°ëª¨ë¸. ìº”ë²„ìŠ¤ì˜ ê° shape ëª¨ë¸ê³¼ëŠ” ë‹¤ë¥¸ ì˜ë¯¸ì´ë‹¤.
      */
     this.model = {
         /**
-         * ¾î»çÀÎµÈ ·Îµå¸®½ºÆ® (feederRenderer)
+         * ì–´ì‚¬ì¸ëœ ë¡œë“œë¦¬ìŠ¤íŠ¸ (feederRenderer)
          */
         AssignedFeederList: {
             name: 'AssignedFeederList',
@@ -139,7 +139,7 @@ var ViewContorller = function () {
         },
 
         /**
-         * ½ºÀ§Ä¡±â¾î ¸®½ºÆ® (feederRenderer)
+         * ìŠ¤ìœ„ì¹˜ê¸°ì–´ ë¦¬ìŠ¤íŠ¸ (feederRenderer)
          */
         SwgrList: {
             name: 'SwgrList',
@@ -147,7 +147,7 @@ var ViewContorller = function () {
         },
 
         /**
-         * ÇÇ´õ ¸®½ºÆ® (feederRenderer)
+         * í”¼ë” ë¦¬ìŠ¤íŠ¸ (feederRenderer)
          */
         FeederList: {
             name: 'FeederList',
@@ -155,7 +155,7 @@ var ViewContorller = function () {
         },
 
         /**
-         * ¾î»çÀÎ µÇÁö ¾ÊÀº ·Îµå¸®½ºÆ® (feederRenderer)
+         * ì–´ì‚¬ì¸ ë˜ì§€ ì•Šì€ ë¡œë“œë¦¬ìŠ¤íŠ¸ (feederRenderer)
          */
         UnAssignedLoadList: {
             name: 'UnAssignedLoadList',
@@ -163,7 +163,7 @@ var ViewContorller = function () {
         },
 
         /**
-         * ÇÏÀÌ¾î¶óÅ° Æ®¸® (hierarchyRenderer)
+         * í•˜ì´ì–´ë¼í‚¤ íŠ¸ë¦¬ (hierarchyRenderer)
          */
         HierarchyTreeList: {
             name: 'HierarchyTreeList',
@@ -171,7 +171,7 @@ var ViewContorller = function () {
         },
 
         /**
-         * ÇÇ´õ ¸®½ºÆ® (hierarchyRenderer)
+         * í”¼ë” ë¦¬ìŠ¤íŠ¸ (hierarchyRenderer)
          */
         HierarchyFeederList: {
             name: 'HierarchyFeederList',
@@ -179,7 +179,7 @@ var ViewContorller = function () {
         },
 
         /**
-         * ·ÎÄÉÀÌ¼Ç ·¹ÆÛ·±½º (routeRenderer)
+         * ë¡œì¼€ì´ì…˜ ë ˆí¼ëŸ°ìŠ¤ (routeRenderer)
          */
         LocationReferenceList: {
             name: 'LocationReferenceList',
@@ -187,7 +187,7 @@ var ViewContorller = function () {
         },
 
         /**
-         * ·¹ÀÌ½º¿şÀÌ ·¹ÆÛ·±½º (routeRenderer)
+         * ë ˆì´ìŠ¤ì›¨ì´ ë ˆí¼ëŸ°ìŠ¤ (routeRenderer)
          */
         RacewayReferenceList: {
             name: 'RacewayReferenceList',
@@ -195,7 +195,7 @@ var ViewContorller = function () {
         },
 
         /**
-         * ¶ó¿ìÆ® ·¹ÆÛ·±½º (routeRenderer)
+         * ë¼ìš°íŠ¸ ë ˆí¼ëŸ°ìŠ¤ (routeRenderer)
          */
         RouteReferenceList: {
             name: 'RouteReferenceList',
@@ -203,7 +203,7 @@ var ViewContorller = function () {
         },
 
         /**
-         * ºôµù ·¹ÆÛ·±½º (routeRenderer)
+         * ë¹Œë”© ë ˆí¼ëŸ°ìŠ¤ (routeRenderer)
          */
         BldgReferenceList: {
             name: 'BldgReferenceList',
@@ -211,7 +211,7 @@ var ViewContorller = function () {
         },
 
         /**
-         * ÄÉÀÌºí ·¹ÆÛ·±½º (routeRenderer)
+         * ì¼€ì´ë¸” ë ˆí¼ëŸ°ìŠ¤ (routeRenderer)
          */
         CableReferenceList: {
             name: 'CableReferenceList',
@@ -222,7 +222,7 @@ var ViewContorller = function () {
 ViewContorller.prototype = {
 
     /**
-     * gui¸¦ ¶ç¿î À¥»óÀÇ ¸Ş´º
+     * guië¥¼ ë„ìš´ ì›¹ìƒì˜ ë©”ë‰´
      */
     guiLoadingFromMenu:function() {
         var me = this;
@@ -231,7 +231,7 @@ ViewContorller.prototype = {
     },
 
     /**
-     * Åø¹ÙÀÇ µå¶ø´Ù¿î ¸Ş´º¸¦ È°¼ºÈ­ÇÏ°í, ÀÌº¥Æ®¸¦ µî·ÏÇÑ´Ù.
+     * íˆ´ë°”ì˜ ë“œëë‹¤ìš´ ë©”ë‰´ë¥¼ í™œì„±í™”í•˜ê³ , ì´ë²¤íŠ¸ë¥¼ ë“±ë¡í•œë‹¤.
      */
     bindMenuEvent: function () {
         var me = this;
@@ -279,7 +279,7 @@ ViewContorller.prototype = {
             setTimeout(me.saveWrapper, 100, me);
         });
 
-        //µ¥ÀÌÅÍ À¯Æ¿¸®Æ¼
+        //ë°ì´í„° ìœ í‹¸ë¦¬í‹°
         var dataModal = $('#dataBox');
         dataModal.find('[name=close]').click(function () {
             dataModal.find('.close').click();
@@ -358,7 +358,7 @@ ViewContorller.prototype = {
             });
         });
 
-        //¾î³ëÅ×ÀÌ¼Ç ¸Ş´º
+        //ì–´ë…¸í…Œì´ì…˜ ë©”ë‰´
         $('.ogCanvas').click(function (event) {
             var renderer = me.getRendererByMode(me.currentMode);
             var shapeInfo = renderer.getContainer().data('CLICK_SHAPE');
@@ -404,7 +404,7 @@ ViewContorller.prototype = {
             });
         });
 
-        //¹éµµ¾î ¸Ş´º
+        //ë°±ë„ì–´ ë©”ë‰´
         var backdoorBtn = $('[name=menu-importBackdoor]');
         var backDoorSize = $('#backdoor-size-range');
         var backDoorOpacity = $('#backdoor-opacity-range');
@@ -451,8 +451,8 @@ ViewContorller.prototype = {
         });
 
         $.fn.dataTable.tables( { visible: true, api: true } ).columns.adjust();
-        // ÇØ´ç ¹öÆ°À» Å¬¸¯ÇÏ¸é swgr¸¦ ÀÔ·Â¹ŞÀ» ¼ö ÀÖ´Â À¥ÂÊ ui¸¦ ¶ç¿î´Ù.
-        // ÁÖ¼Ò´Â Á¦°ø¹Ş´Â°É
+        // í•´ë‹¹ ë²„íŠ¼ì„ í´ë¦­í•˜ë©´ swgrë¥¼ ì…ë ¥ë°›ì„ ìˆ˜ ìˆëŠ” ì›¹ìª½ uië¥¼ ë„ìš´ë‹¤.
+        // ì£¼ì†ŒëŠ” ì œê³µë°›ëŠ”ê±¸
         $("#newSwgr").bind('click', function(event){
             parent.editSWGRInfo('', '', me.editSWGRInfoCallBack);
         });
@@ -640,9 +640,9 @@ ViewContorller.prototype = {
         } });
 
         /**
-         * Å¬¸¯ÇÒ¶§¸¶´Ù ÇÁ·ÎÁ§Æ® Á¤º¸¸¦ °¡Á®¿Â´Ù.
-         * ÀÌÀ¯´Â À¥¿¡¼­ º¯°æÀÌ µÉ °æ¿ìµµ ÀÖ±â ¶§¹®ÀÌ´Ù.
-         * ÃÖÃÊ¿¡´Â Äµ¹ö½º¸¦ Å¬¸®¾î
+         * í´ë¦­í• ë•Œë§ˆë‹¤ í”„ë¡œì íŠ¸ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+         * ì´ìœ ëŠ” ì›¹ì—ì„œ ë³€ê²½ì´ ë  ê²½ìš°ë„ ìˆê¸° ë•Œë¬¸ì´ë‹¤.
+         * ìµœì´ˆì—ëŠ” ìº”ë²„ìŠ¤ë¥¼ í´ë¦¬ì–´
          */
         var projectInfo = me.projectData;
         var routeJSON  = projectInfo.gui_route_json;
@@ -672,9 +672,9 @@ ViewContorller.prototype = {
         } });
 
         /**
-         * Å¬¸¯ÇÒ¶§¸¶´Ù ÇÁ·ÎÁ§Æ® Á¤º¸¸¦ °¡Á®¿Â´Ù.
-         * ÀÌÀ¯´Â À¥¿¡¼­ º¯°æÀÌ µÉ °æ¿ìµµ ÀÖ±â ¶§¹®ÀÌ´Ù.
-         * ÃÖÃÊ¿¡´Â Äµ¹ö½º¸¦ Å¬¸®¾î
+         * í´ë¦­í• ë•Œë§ˆë‹¤ í”„ë¡œì íŠ¸ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+         * ì´ìœ ëŠ” ì›¹ì—ì„œ ë³€ê²½ì´ ë  ê²½ìš°ë„ ìˆê¸° ë•Œë¬¸ì´ë‹¤.
+         * ìµœì´ˆì—ëŠ” ìº”ë²„ìŠ¤ë¥¼ í´ë¦¬ì–´
          */
         var projectInfo = me.projectData;
         var hierJSON  = projectInfo.gui_hier_json;
@@ -693,7 +693,7 @@ ViewContorller.prototype = {
             }
             setTimeout(me.drawToCanvasFromServerDataWrapper, 100, renderer, me, me.Constants.MODE.HIERARCHY);
         } else {
-            //ÀÖ´Ù¸é....
+            //ìˆë‹¤ë©´....
             if(me.initHierarchyClickTab) {
                 renderer.compareAndRemove(true);
                 $.unblockUI();
@@ -705,7 +705,7 @@ ViewContorller.prototype = {
     },
 
     /**
-     * ÇÁ·ÎÁ§Æ®¿¡ hierarchyÀÇ Á¦ÀÌ½¼ Á¤º¸°¡ ¾ø´Ù¸é
+     * í”„ë¡œì íŠ¸ì— hierarchyì˜ ì œì´ìŠ¨ ì •ë³´ê°€ ì—†ë‹¤ë©´
      */
     drawToCanvasFromServerDataWrapper: function(renderer, viewController, mode) {
         if(mode == viewController.Constants.MODE.HIERARCHY) {
@@ -754,8 +754,8 @@ ViewContorller.prototype = {
         });
 
         /**
-         * delayTab Å¬·¡½º°¡ ºÙÀº Dom Àº ¿¡µğÅÍ ¼±ÅÃ ÅÇÁß, active °¡ ¾Æ´Ñ°ÍµéÀÌ´Ù.
-         * active °¡ ¾Æ´Ñ ÅÇÀÇ ÄÜÅÙÃ÷´Â css width,height °¡ ÃÖÃÊ ÅÇ ¼±ÅÃ½Ã ¼³Á¤µÇ¹Ç·Î, ÃÖÃÊ Å¬¸¯¿¡ ÇÑÇØ Äµ¹ö½º »çÀÌÁîµµ ¸ÂÃß¾î¼­ ±×·ÁÁÖµµ·Ï ÇÑ´Ù.
+         * delayTab í´ë˜ìŠ¤ê°€ ë¶™ì€ Dom ì€ ì—ë””í„° ì„ íƒ íƒ­ì¤‘, active ê°€ ì•„ë‹Œê²ƒë“¤ì´ë‹¤.
+         * active ê°€ ì•„ë‹Œ íƒ­ì˜ ì½˜í…ì¸ ëŠ” css width,height ê°€ ìµœì´ˆ íƒ­ ì„ íƒì‹œ ì„¤ì •ë˜ë¯€ë¡œ, ìµœì´ˆ í´ë¦­ì— í•œí•´ ìº”ë²„ìŠ¤ ì‚¬ì´ì¦ˆë„ ë§ì¶”ì–´ì„œ ê·¸ë ¤ì£¼ë„ë¡ í•œë‹¤.
          */
         $('.delayTab').click(function () {
             var mode = $(this).data('canvas');
@@ -801,7 +801,7 @@ ViewContorller.prototype = {
         });
 
         /**
-         * È­¸é ¸®»çÀÌÂ¡ ÈÄ Äµ¹ö½º¸¦ ·»´õ¸µÇÑ´Ù.
+         * í™”ë©´ ë¦¬ì‚¬ì´ì§• í›„ ìº”ë²„ìŠ¤ë¥¼ ë Œë”ë§í•œë‹¤.
          */
         me.resizeContent();
         me.feederRenderer = new Renderer(me.Constants.MODE.FEEDER, me.feederRendererId, this);
@@ -810,17 +810,17 @@ ViewContorller.prototype = {
 
         me.resizeContent();
         /**
-         * feederCanvas ´Â Ã³À½¿¡ ½½¶óÀÌ´õ¸¦ active ½ÃÅ²´Ù.
+         * feederCanvas ëŠ” ì²˜ìŒì— ìŠ¬ë¼ì´ë”ë¥¼ active ì‹œí‚¨ë‹¤.
          */
         me.activeCanvasSlider('feeder');
 
         /**
-         * Æ®¸® ³ëµåÀÇ µå·¡±× µå¶ø ÀÌº¥Æ®¸¦ Document ¿¡ ¼³Á¤ÇÑ´Ù.
+         * íŠ¸ë¦¬ ë…¸ë“œì˜ ë“œë˜ê·¸ ë“œë ì´ë²¤íŠ¸ë¥¼ Document ì— ì„¤ì •í•œë‹¤.
          */
         me.bindTreeDragDrop();
 
         /**
-         * ÇÁ·ÎÁ§Æ® µ¥ÀÌÅÍ
+         * í”„ë¡œì íŠ¸ ë°ì´í„°
          */
         me.renderProjectReference();
         me.initLoadingMenu();
@@ -834,7 +834,7 @@ ViewContorller.prototype = {
         if(fromMenu == 'feeder') {
             $('.feederTab').addClass('active');
             /**
-             * SWGR / Assigned Feeder Editor ±×¸®µå
+             * SWGR / Assigned Feeder Editor ê·¸ë¦¬ë“œ
              */
                 //me.renderSwgrSelectBox();
             me.renderGrid(me.model.FeederList.name);
@@ -899,56 +899,56 @@ ViewContorller.prototype = {
     },
 
     /**
-     * ÇöÀç ¸ğµå¸¦ ºÒ·¯¿Â´Ù.
+     * í˜„ì¬ ëª¨ë“œë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
      */
     getCurrentMode: function(){
         return this.currentMode;
     },
 
     /**
-     * ÇÇ´õ ¼¼ÀÌºê ¸ğµå¸¦ ºÒ·¯¿Â´Ù
+     * í”¼ë” ì„¸ì´ë¸Œ ëª¨ë“œë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤
      */
     getFeederSaveMode: function() {
         return this.Constants.FEEDER_SAVE_MODE.ISNEW;
     },
 
     /**
-     * ÇÇ´õ ¼¼ÀÌºê ¸ğµå¸¦ ¼¼ÆÃÇÑ´Ù.
+     * í”¼ë” ì„¸ì´ë¸Œ ëª¨ë“œë¥¼ ì„¸íŒ…í•œë‹¤.
      */
     setFeederSaveMode: function(saveMode) {
         this.Constants.FEEDER_SAVE_MODE.ISNEW = saveMode;
     },
 
     /**
-     * ÇÏÀÌ¾î¶óÅ° ¼¼ÀÌºê ¸ğµå¸¦ ºÒ·¯¿Â´Ù
+     * í•˜ì´ì–´ë¼í‚¤ ì„¸ì´ë¸Œ ëª¨ë“œë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤
      */
     getHierarchySaveMode: function() {
         return this.Constants.HIERARCHY_SAVE_MODE.ISNEW;
     },
 
     /**
-     * ÇÏÀÌ¾î¶óÅ° ¸ğµå¸¦ ¼¼ÆÃÇÑ´Ù.
+     * í•˜ì´ì–´ë¼í‚¤ ëª¨ë“œë¥¼ ì„¸íŒ…í•œë‹¤.
      */
     setHierarchySaveMode: function(saveMode) {
         this.Constants.HIERARCHY_SAVE_MODE.ISNEW = saveMode;
     },
 
     /**
-     * ¶ó¿ìÆ® ¼¼ÀÌºê ¸ğµå¸¦ ºÒ·¯¿Â´Ù
+     * ë¼ìš°íŠ¸ ì„¸ì´ë¸Œ ëª¨ë“œë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤
      */
     getRouteSaveMode: function() {
         return this.Constants.ROUTE_SAVE_MODE.ISNEW;
     },
 
     /**
-     * ¶ó¿ìÆ® ¸ğµå¸¦ ¼¼ÆÃÇÑ´Ù.
+     * ë¼ìš°íŠ¸ ëª¨ë“œë¥¼ ì„¸íŒ…í•œë‹¤.
      */
     setRouteSaveMode: function(saveMode) {
         this.Constants.ROUTE_SAVE_MODE.ISNEW = saveMode;
     },
 
     /**
-     * ¸ğµå¿¡ ÇØ´çÇÏ´Â Äµ¹ö½º ·»´õ·¯¸¦ ¸®ÅÏÇÑ´Ù.
+     * ëª¨ë“œì— í•´ë‹¹í•˜ëŠ” ìº”ë²„ìŠ¤ ë Œë”ëŸ¬ë¥¼ ë¦¬í„´í•œë‹¤.
      * @param mode
      */
     getRendererByMode: function (mode) {
@@ -965,7 +965,7 @@ ViewContorller.prototype = {
     },
 
     /**
-     * Å×ÀÌºí/Æ®¸® ¸ğµ¨¸íÀ¸·Î Ç¥ÇöµÇ¾ßÇÒ Äµ¹ö½º ·»´õ·¯¸¦ ¸®ÅÏÇÑ´Ù.
+     * í…Œì´ë¸”/íŠ¸ë¦¬ ëª¨ë¸ëª…ìœ¼ë¡œ í‘œí˜„ë˜ì•¼í•  ìº”ë²„ìŠ¤ ë Œë”ëŸ¬ë¥¼ ë¦¬í„´í•œë‹¤.
      * @param modelName
      * @returns {*}
      */
@@ -1001,7 +1001,7 @@ ViewContorller.prototype = {
         return null;
     },
     /**
-     * Å×ÀÌºí/Æ®¸® ¸ğµ¨¸íÀ¸·Î Ç¥ÇöµÇ¾ßÇÒ Äµ¹ö½ºÀÇ ¸ğµå¸¦ ¸®ÅÏÇÑ´Ù.
+     * í…Œì´ë¸”/íŠ¸ë¦¬ ëª¨ë¸ëª…ìœ¼ë¡œ í‘œí˜„ë˜ì•¼í•  ìº”ë²„ìŠ¤ì˜ ëª¨ë“œë¥¼ ë¦¬í„´í•œë‹¤.
      * @param modelName
      * @returns {*}
      */
@@ -1048,7 +1048,7 @@ ViewContorller.prototype = {
         }
     },
     /**
-     * À©µµ¿ìÀÇ ³ôÀÌ¿¡ ¸ÂÃß¾î¼­ ÄÜÅÙÃ÷¸¦ ´ã´çÇÏ´Â Dom ÀÇ ³ôÀÌ¸¦ Á¶ÀıÇÑ´Ù.
+     * ìœˆë„ìš°ì˜ ë†’ì´ì— ë§ì¶”ì–´ì„œ ì½˜í…ì¸ ë¥¼ ë‹´ë‹¹í•˜ëŠ” Dom ì˜ ë†’ì´ë¥¼ ì¡°ì ˆí•œë‹¤.
      */
     resizeContent: function () {
         var top = $('#feeder-content-wrapper').offset().top;
@@ -1058,7 +1058,7 @@ ViewContorller.prototype = {
         $('#route-content-wrapper').css('height', windowHeight - top - 30 + 'px');
     },
     /**
-     * µ¥ÀÌÅÍ Å×ÀÌºíÀÇ ºÎ°¡ ±â´É È­¸é css ¸¦ ÀçÁ¶Á¤ÇÑ´Ù.
+     * ë°ì´í„° í…Œì´ë¸”ì˜ ë¶€ê°€ ê¸°ëŠ¥ í™”ë©´ css ë¥¼ ì¬ì¡°ì •í•œë‹¤.
      * @param gridPanelId
      */
     modifyDataTablesStyle: function (gridPanelId) {
@@ -1071,7 +1071,7 @@ ViewContorller.prototype = {
     },
 
     /**
-     * Äµ¹ö½º ·»´õ·¯ ·ÎºÎÅÍ ¸Ş½ÃÁö°¡ Àü´ŞµÈ °æ¿ì
+     * ìº”ë²„ìŠ¤ ë Œë”ëŸ¬ ë¡œë¶€í„° ë©”ì‹œì§€ê°€ ì „ë‹¬ëœ ê²½ìš°
      * @param renderer
      * @param data
      * @param message
@@ -1083,17 +1083,17 @@ ViewContorller.prototype = {
         var infoMessage;
 
         /**
-         * Äµ¹ö½º¿¡ ¿¡µğÆÃ ´ë»ó ¿ÀºêÁ§Æ®°¡ ¾øÀ» °æ¿ì
+         * ìº”ë²„ìŠ¤ì— ì—ë””íŒ… ëŒ€ìƒ ì˜¤ë¸Œì íŠ¸ê°€ ì—†ì„ ê²½ìš°
          */
         if (message == me.message.NO_EDITOR_OBJECT) {
             if (mode == me.Constants.MODE.FEEDER) {
-                infoMessage = 'Äµ¹ö½º¿¡ ¿¡µğÆÃÇÒ ½ºÀ§Ä¡°¡ ÁöÁ¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.';
+                infoMessage = 'ìº”ë²„ìŠ¤ì— ì—ë””íŒ…í•  ìŠ¤ìœ„ì¹˜ê°€ ì§€ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.';
             }
             if (mode == me.Constants.MODE.HIERARCHY) {
-                infoMessage = 'Äµ¹ö½º¿¡ ¿¡µğÆÃÇÒ ºôµùÀÌ ÁöÁ¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.';
+                infoMessage = 'ìº”ë²„ìŠ¤ì— ì—ë””íŒ…í•  ë¹Œë”©ì´ ì§€ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.';
             }
             if (mode == me.Constants.MODE.ROUTE) {
-                infoMessage = 'Äµ¹ö½º¿¡ ¿¡µğÆÃÇÒ ÇÁ·ÎÁ§Æ®°¡ ÁöÁ¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.';
+                infoMessage = 'ìº”ë²„ìŠ¤ì— ì—ë””íŒ…í•  í”„ë¡œì íŠ¸ê°€ ì§€ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.';
             }
             if (infoMessage) {
                 msgBox(infoMessage);
@@ -1101,19 +1101,19 @@ ViewContorller.prototype = {
         }
 
         /**
-         * Äµ¹ö½º¿¡ »õ·Î¿î ¿¡µğÆÃ ´ë»ó ¿ÀºêÁ§Æ®¸¦ ¼¼ÆÃÇÒ°æ¿ì
+         * ìº”ë²„ìŠ¤ì— ìƒˆë¡œìš´ ì—ë””íŒ… ëŒ€ìƒ ì˜¤ë¸Œì íŠ¸ë¥¼ ì„¸íŒ…í• ê²½ìš°
          */
         if (message == me.message.NEW) {
-            //Äµ¹ö½º°¡ º¯°æµÇ¾úÁö¸¸ ÀúÀåµÇÁö ¾Ê¾ÒÀ» °æ¿ì
+            //ìº”ë²„ìŠ¤ê°€ ë³€ê²½ë˜ì—ˆì§€ë§Œ ì €ì¥ë˜ì§€ ì•Šì•˜ì„ ê²½ìš°
             if (renderer.getIsUpdated()) {
                 if (mode == me.Constants.MODE.FEEDER) {
-                    infoMessage = 'ÀÛ¾÷ÁßÀÎ ÇÇ´õ¸¦ ÀúÀåÇÏÁö ¾Ê¾Ò½À´Ï´Ù. »õ·Î¿î ÇÇ´õ¸¦ ¿©½Ã°Ú½À´Ï±î?';
+                    infoMessage = 'ì‘ì—…ì¤‘ì¸ í”¼ë”ë¥¼ ì €ì¥í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. ìƒˆë¡œìš´ í”¼ë”ë¥¼ ì—¬ì‹œê² ìŠµë‹ˆê¹Œ?';
                 }
                 if (mode == me.Constants.MODE.HIERARCHY) {
-                    infoMessage = 'ÀÛ¾÷ÁßÀÎ ÇÏÀÌ¾î¶óÅ°¸¦ ÀúÀåÇÏÁö ¾Ê¾Ò½À´Ï´Ù. »õ·Î¿î ÇÏÀÌ¾î¶óÅ°¸¦ ¿©½Ã°Ú½À´Ï±î?';
+                    infoMessage = 'ì‘ì—…ì¤‘ì¸ í•˜ì´ì–´ë¼í‚¤ë¥¼ ì €ì¥í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. ìƒˆë¡œìš´ í•˜ì´ì–´ë¼í‚¤ë¥¼ ì—¬ì‹œê² ìŠµë‹ˆê¹Œ?';
                 }
                 if (mode == me.Constants.MODE.ROUTE) {
-                    infoMessage = 'ÀÛ¾÷ÁßÀÎ BLDG/¶ó¿ìÅÍ ÇÁ·ÎÁ§Æ®¸¦ ÀúÀåÇÏÁö ¾Ê¾Ò½À´Ï´Ù. »õ·Î¿î ÇÁ·ÎÁ§Æ®¸¦ ¿©½Ã°Ú½À´Ï±î?';
+                    infoMessage = 'ì‘ì—…ì¤‘ì¸ BLDG/ë¼ìš°í„° í”„ë¡œì íŠ¸ë¥¼ ì €ì¥í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. ìƒˆë¡œìš´ í”„ë¡œì íŠ¸ë¥¼ ì—¬ì‹œê² ìŠµë‹ˆê¹Œ?';
                 }
                 confirmBox(infoMessage, function (result) {
                     if (result) {
@@ -1125,7 +1125,7 @@ ViewContorller.prototype = {
                     }
                 });
             }
-            //Äµ¹ö½º°¡ º¯°æµÇÁö ¾Ê¾ÒÀ» °æ¿ì(ÀúÀåÀ» ¸¶Ä¡°Å³ª, ¾ÆÁ÷ ¿¡µğÆÃÇÒ ¿ÀºêÁ§Æ®°¡ ¹İ¿µµÇÁö ¾Ê¾ÒÀ» °æ¿ìÀÌ´Ù.)
+            //ìº”ë²„ìŠ¤ê°€ ë³€ê²½ë˜ì§€ ì•Šì•˜ì„ ê²½ìš°(ì €ì¥ì„ ë§ˆì¹˜ê±°ë‚˜, ì•„ì§ ì—ë””íŒ…í•  ì˜¤ë¸Œì íŠ¸ê°€ ë°˜ì˜ë˜ì§€ ì•Šì•˜ì„ ê²½ìš°ì´ë‹¤.)
             else {
                 me.setEditingObject(renderer, data, panel);
                 me.renderGrid(me.model.SwgrList.name);
@@ -1134,16 +1134,16 @@ ViewContorller.prototype = {
                 me.initTabClass();
             }
         } else if (message == me.message.MOD) {
-            //Äµ¹ö½º°¡ º¯°æµÇ¾úÁö¸¸ ÀúÀåµÇÁö ¾Ê¾ÒÀ» °æ¿ì
+            //ìº”ë²„ìŠ¤ê°€ ë³€ê²½ë˜ì—ˆì§€ë§Œ ì €ì¥ë˜ì§€ ì•Šì•˜ì„ ê²½ìš°
             if (renderer.getIsUpdated()) {
                 if (mode == me.Constants.MODE.FEEDER) {
-                    infoMessage = 'ÀÛ¾÷ÁßÀÎ ÇÇ´õ¸¦ ÀúÀåÇÏÁö ¾Ê¾Ò½À´Ï´Ù. »õ·Î¿î ÇÇ´õ¸¦ ¿©½Ã°Ú½À´Ï±î?';
+                    infoMessage = 'ì‘ì—…ì¤‘ì¸ í”¼ë”ë¥¼ ì €ì¥í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. ìƒˆë¡œìš´ í”¼ë”ë¥¼ ì—¬ì‹œê² ìŠµë‹ˆê¹Œ?';
                 }
                 if (mode == me.Constants.MODE.HIERARCHY) {
-                    infoMessage = 'ÀÛ¾÷ÁßÀÎ ÇÏÀÌ¾î¶óÅ°¸¦ ÀúÀåÇÏÁö ¾Ê¾Ò½À´Ï´Ù. »õ·Î¿î ÇÏÀÌ¾î¶óÅ°¸¦ ¿©½Ã°Ú½À´Ï±î?';
+                    infoMessage = 'ì‘ì—…ì¤‘ì¸ í•˜ì´ì–´ë¼í‚¤ë¥¼ ì €ì¥í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. ìƒˆë¡œìš´ í•˜ì´ì–´ë¼í‚¤ë¥¼ ì—¬ì‹œê² ìŠµë‹ˆê¹Œ?';
                 }
                 if (mode == me.Constants.MODE.ROUTE) {
-                    infoMessage = 'ÀÛ¾÷ÁßÀÎ BLDG/¶ó¿ìÅÍ ÇÁ·ÎÁ§Æ®¸¦ ÀúÀåÇÏÁö ¾Ê¾Ò½À´Ï´Ù. »õ·Î¿î ÇÁ·ÎÁ§Æ®¸¦ ¿©½Ã°Ú½À´Ï±î?';
+                    infoMessage = 'ì‘ì—…ì¤‘ì¸ BLDG/ë¼ìš°í„° í”„ë¡œì íŠ¸ë¥¼ ì €ì¥í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. ìƒˆë¡œìš´ í”„ë¡œì íŠ¸ë¥¼ ì—¬ì‹œê² ìŠµë‹ˆê¹Œ?';
                 }
                 confirmBox(infoMessage, function (result) {
                     if (result) {
@@ -1162,7 +1162,7 @@ ViewContorller.prototype = {
                     }
                 });
             }
-            //Äµ¹ö½º°¡ º¯°æµÇÁö ¾Ê¾ÒÀ» °æ¿ì(ÀúÀåÀ» ¸¶Ä¡°Å³ª, ¾ÆÁ÷ ¿¡µğÆÃÇÒ ¿ÀºêÁ§Æ®°¡ ¹İ¿µµÇÁö ¾Ê¾ÒÀ» °æ¿ìÀÌ´Ù.)
+            //ìº”ë²„ìŠ¤ê°€ ë³€ê²½ë˜ì§€ ì•Šì•˜ì„ ê²½ìš°(ì €ì¥ì„ ë§ˆì¹˜ê±°ë‚˜, ì•„ì§ ì—ë””íŒ…í•  ì˜¤ë¸Œì íŠ¸ê°€ ë°˜ì˜ë˜ì§€ ì•Šì•˜ì„ ê²½ìš°ì´ë‹¤.)
             else {
                 $.blockUI({ css: {
                     border: 'none',
@@ -1192,7 +1192,7 @@ ViewContorller.prototype = {
     },
 
     /**
-     * json ¶Ç´Â xml·Î Äµ¹ö½º¿¡ ·ÎµùÇÒ¶§ setEditingObject¸¦ ¼¼ÆÃÇÑ´Ù.
+     * json ë˜ëŠ” xmlë¡œ ìº”ë²„ìŠ¤ì— ë¡œë”©í• ë•Œ setEditingObjectë¥¼ ì„¸íŒ…í•œë‹¤.
      * @param renderer
      * @param loadData
      */
@@ -1211,10 +1211,10 @@ ViewContorller.prototype = {
             renderer.canvas.loadJSON(json);
         }
 
-        //µ¥ÀÌÅÍ È¥¿ëÀ» ¸·±â À§ÇÑ Á¶Ä¡
+        //ë°ì´í„° í˜¼ìš©ì„ ë§‰ê¸° ìœ„í•œ ì¡°ì¹˜
         var data = JSON.parse(JSON.stringify(shapeData));
 
-        //Å¸ÀÌÆ² ¹Ú½º¸¦ ¼¼ÆÃÇÑ´Ù.
+        //íƒ€ì´í‹€ ë°•ìŠ¤ë¥¼ ì„¸íŒ…í•œë‹¤.
         var title = '';
         var containerId = renderer.getContainerId();
         var mode = renderer.getMode();
@@ -1231,7 +1231,7 @@ ViewContorller.prototype = {
         //titleBox.show();
         titleBox.html(title);
 
-        //·»´õ·¯¿¡ ¿¡µğÆÃ ¿ÀºêÁ§Æ®¸¦ ¼³Á¤ÇÑ´Ù.
+        //ë Œë”ëŸ¬ì— ì—ë””íŒ… ì˜¤ë¸Œì íŠ¸ë¥¼ ì„¤ì •í•œë‹¤.
         renderer.editingObject = data;
         if(panel != null) {
             var panelId = panel[0].id;
@@ -1242,10 +1242,10 @@ ViewContorller.prototype = {
         renderer.setIsUpdated(false);
 
         /**
-         * canvas¿¡ ±×·ÁÁø µµÇüµéÀÇ list¸¦ »ı¼ºÇØ¼­ ¼¼ÆÃÇÑ´Ù.
-         * ¶ÇÇÑ ±×·ÁÁø canvasÀÇ Á¤º¸¿Í GUI°¡ ¾Æ´Ñ À¥»ó¿¡¼­ ÇØ´ç ÇÇ´õ¿¡ ´Ş·Á ÀÖ´Â ·Îµå¸¦ Áö¿üÀ» °æ¿ì¿¡´Â
-         * ±× ·Îµå¸¦ Ã£¾Æ¼­ Äµ¹Ù½º¿¡¼­ Áö¿ö¾ß ÇÑ´Ù.
-         * me.feederMgtShapeList¿¡¼­ ÇØ´ç ·Îµå¸¦ Ã£¾Æ¼­ Áö¿î´Ù.
+         * canvasì— ê·¸ë ¤ì§„ ë„í˜•ë“¤ì˜ listë¥¼ ìƒì„±í•´ì„œ ì„¸íŒ…í•œë‹¤.
+         * ë˜í•œ ê·¸ë ¤ì§„ canvasì˜ ì •ë³´ì™€ GUIê°€ ì•„ë‹Œ ì›¹ìƒì—ì„œ í•´ë‹¹ í”¼ë”ì— ë‹¬ë ¤ ìˆëŠ” ë¡œë“œë¥¼ ì§€ì› ì„ ê²½ìš°ì—ëŠ”
+         * ê·¸ ë¡œë“œë¥¼ ì°¾ì•„ì„œ ìº”ë°”ìŠ¤ì—ì„œ ì§€ì›Œì•¼ í•œë‹¤.
+         * me.feederMgtShapeListì—ì„œ í•´ë‹¹ ë¡œë“œë¥¼ ì°¾ì•„ì„œ ì§€ìš´ë‹¤.
          */
         me.feederMgtShapeList = parent.getFeederInfo(renderer.editingObject.swgr_list_seq);
         var geomShapeTypeElementList = [];
@@ -1265,9 +1265,9 @@ ViewContorller.prototype = {
         }
 
         /**
-         * canvasÀÇ Á¦ÀÌ½¼ Á¤º¸¿Í GUI°¡ ¾Æ´Ñ À¥»ó¿¡¼­ ÇØ´ç ÇÇ´õ¿¡ ´Ş·Á ÀÖ´Â ·Îµå¸¦ Áö¿üÀ» °æ¿ì¿¡´Â
-         * ±× ·Îµå¸¦ Ã£¾Æ¼­ Äµ¹Ù½º¿¡¼­ Áö¿ö¾ß ÇÑ´Ù.
-         * me.feederMgtShapeList¿¡¼­ ÇØ´ç ·Îµå¸¦ Ã£¾Æ¼­ Áö¿î´Ù.
+         * canvasì˜ ì œì´ìŠ¨ ì •ë³´ì™€ GUIê°€ ì•„ë‹Œ ì›¹ìƒì—ì„œ í•´ë‹¹ í”¼ë”ì— ë‹¬ë ¤ ìˆëŠ” ë¡œë“œë¥¼ ì§€ì› ì„ ê²½ìš°ì—ëŠ”
+         * ê·¸ ë¡œë“œë¥¼ ì°¾ì•„ì„œ ìº”ë°”ìŠ¤ì—ì„œ ì§€ì›Œì•¼ í•œë‹¤.
+         * me.feederMgtShapeListì—ì„œ í•´ë‹¹ ë¡œë“œë¥¼ ì°¾ì•„ì„œ ì§€ìš´ë‹¤.
          */
         if(shapeData.content != '' && shapeData.content != null) {
 
@@ -1308,7 +1308,7 @@ ViewContorller.prototype = {
             $.unblockUI();
         }
 
-        /** ÃÊ±âÈ­ */
+        /** ì´ˆê¸°í™” */
         me.updateFeederList = [];
         me.usedLoadList = [];
         me.deleteFeederList = [];
@@ -1317,7 +1317,7 @@ ViewContorller.prototype = {
     },
 
     /**
-     * ÇÏÀÌ¾î¶óÅ° ºôµù/ÇÃ·Î¾î Ã¼Å© ·ÎÁ÷
+     * í•˜ì´ì–´ë¼í‚¤ ë¹Œë”©/í”Œë¡œì–´ ì²´í¬ ë¡œì§
      */
     checkBldgsAndFloors: function(renderer, shapeData) {
 
@@ -1340,7 +1340,7 @@ ViewContorller.prototype = {
             });
             checkedData['isDraw'] = isDraw;
             if(!isDraw) {
-                msg = "ÇØ´ç ºôµùÀÌ ÀÌ¹Ì Äµ¹ö½º¿¡ Á¸ÀçÇÕ´Ï´Ù.";
+                msg = "í•´ë‹¹ ë¹Œë”©ì´ ì´ë¯¸ ìº”ë²„ìŠ¤ì— ì¡´ì¬í•©ë‹ˆë‹¤.";
             }
 
         } else if(shapeData.shapeType == renderer.Constants.TYPE.HIERARCHY_FLOOR) {
@@ -1356,7 +1356,7 @@ ViewContorller.prototype = {
             });
             checkedData['isDraw'] = isDraw;
             if(!isDraw) {
-                msg = "ÇØ´ç ÇÃ·Î¾î°¡ ÀÌ¹Ì Äµ¹ö½º¿¡ Á¸ÀçÇÕ´Ï´Ù.";
+                msg = "í•´ë‹¹ í”Œë¡œì–´ê°€ ì´ë¯¸ ìº”ë²„ìŠ¤ì— ì¡´ì¬í•©ë‹ˆë‹¤.";
             }
         }
 
@@ -1367,14 +1367,14 @@ ViewContorller.prototype = {
     },
 
     /**
-     * saveÇÑ ÀÌÈÄ¿¡´Â »õ·Î¿î setEditingObject¸¦ ¼¼ÆÃÇØ¾ß ÇÑ´Ù.
+     * saveí•œ ì´í›„ì—ëŠ” ìƒˆë¡œìš´ setEditingObjectë¥¼ ì„¸íŒ…í•´ì•¼ í•œë‹¤.
      * @param renderer
      */
     setEditingObjectFromSave: function (renderer) {
 
         var me = this;
 
-        //Å¸ÀÌÆ² ¹Ú½º¸¦ ¼¼ÆÃÇÑ´Ù.
+        //íƒ€ì´í‹€ ë°•ìŠ¤ë¥¼ ì„¸íŒ…í•œë‹¤.
         var title = '';
         var containerId = renderer.getContainerId();
         var mode = renderer.getMode();
@@ -1391,15 +1391,15 @@ ViewContorller.prototype = {
         //titleBox.show();
         titleBox.html(title);
 
-        //feederÁ¤º¸¸¦ °¡Á®¿Â´Ù.
+        //feederì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         var feederInfo = parent.getFeederInfo(renderer.editingObject.swgr_list_seq);
         feederInfo[0]['shapeType'] = me.Constants.TYPE.MODIFY_FEEDER;
-        //·»´õ·¯¿¡ ¿¡µğÆÃ ¿ÀºêÁ§Æ®¸¦ ¼³Á¤ÇÑ´Ù.
+        //ë Œë”ëŸ¬ì— ì—ë””íŒ… ì˜¤ë¸Œì íŠ¸ë¥¼ ì„¤ì •í•œë‹¤.
         renderer.editingObject = feederInfo[0];
         renderer.setIsUpdated(false);
 
         /**
-         * canvas¿¡ ±×·ÁÁø µµÇüµéÀÇ list¸¦ »ı¼ºÇØ¼­ ¼¼ÆÃÇÑ´Ù.
+         * canvasì— ê·¸ë ¤ì§„ ë„í˜•ë“¤ì˜ listë¥¼ ìƒì„±í•´ì„œ ì„¸íŒ…í•œë‹¤.
          */
         me.feederMgtShapeList = feederInfo;
 
@@ -1416,7 +1416,7 @@ ViewContorller.prototype = {
             }
         }
 
-        /** ÃÊ±âÈ­ */
+        /** ì´ˆê¸°í™” */
         me.updateFeederList = [];
         me.usedLoadList = [];
         me.deleteFeederList = [];
@@ -1424,7 +1424,7 @@ ViewContorller.prototype = {
     },
 
     /**
-     * ·»´õ·¯¿¡ »õ·Î¿î ¿¡µğÆÃ ¿ÀºêÁ§Æ®¸¦ ¼³Á¤ÇÏ°í, Å¸ÀÌÆ²À» ¼¼ÆÃÇÑ´Ù.
+     * ë Œë”ëŸ¬ì— ìƒˆë¡œìš´ ì—ë””íŒ… ì˜¤ë¸Œì íŠ¸ë¥¼ ì„¤ì •í•˜ê³ , íƒ€ì´í‹€ì„ ì„¸íŒ…í•œë‹¤.
      * @param renderer
      * @param shapeData
      */
@@ -1433,10 +1433,10 @@ ViewContorller.prototype = {
             return;
         }
         var me = this;
-        //µ¥ÀÌÅÍ È¥¿ëÀ» ¸·±â À§ÇÑ Á¶Ä¡
+        //ë°ì´í„° í˜¼ìš©ì„ ë§‰ê¸° ìœ„í•œ ì¡°ì¹˜
         var data = JSON.parse(JSON.stringify(shapeData));
 
-        //Å¸ÀÌÆ² ¹Ú½º¸¦ ¼¼ÆÃÇÑ´Ù.
+        //íƒ€ì´í‹€ ë°•ìŠ¤ë¥¼ ì„¸íŒ…í•œë‹¤.
         var title = '';
         var containerId = renderer.getContainerId();
         var mode = renderer.getMode();
@@ -1453,23 +1453,23 @@ ViewContorller.prototype = {
         //titleBox.show();
         titleBox.html(title);
 
-        //·»´õ·¯¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+        //ë Œë”ëŸ¬ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
         renderer.getCanvas().clear();
         renderer.getCanvas().setScale(1);
         renderer.fitCanvasSize();
 
-        //·»´õ·¯¿¡ ¿¡µğÆÃ ¿ÀºêÁ§Æ®¸¦ ¼³Á¤ÇÑ´Ù.
+        //ë Œë”ëŸ¬ì— ì—ë””íŒ… ì˜¤ë¸Œì íŠ¸ë¥¼ ì„¤ì •í•œë‹¤.
         renderer.editingObject = data;
         me.parentSwitchElement = data;
-        //ÀÌ¶§, µµÇüÀ» ¸ğµÎ ±×¸° ÈÄ Äµ¹ö½º°¡ ¾÷µ¥ÀÌÆ® µÇÁö ¾ÊÀº »óÅÂ·Î º¯°æÇÑ´Ù.
+        //ì´ë•Œ, ë„í˜•ì„ ëª¨ë‘ ê·¸ë¦° í›„ ìº”ë²„ìŠ¤ê°€ ì—…ë°ì´íŠ¸ ë˜ì§€ ì•Šì€ ìƒíƒœë¡œ ë³€ê²½í•œë‹¤.
         if (data['shapeType'] == me.Constants.TYPE.MODIFY_FEEDER) {
-            //TODO ±âÁ¸ÀÇ ¿ÀºêÁ§Æ®ÀÎ °æ¿ì xml À» ¹ÙÅÁÀ¸·Î Äµ¹ö½º¿¡ »õ·Î ·»´õ¸µÇÑ´Ù.
+            //TODO ê¸°ì¡´ì˜ ì˜¤ë¸Œì íŠ¸ì¸ ê²½ìš° xml ì„ ë°”íƒ•ìœ¼ë¡œ ìº”ë²„ìŠ¤ì— ìƒˆë¡œ ë Œë”ë§í•œë‹¤.
             data['shapeType'] = me.Constants.TYPE.SWITCH_GEAR;
             renderer.drawImmediately(null, data);
             renderer.setIsUpdated(false);
         }
 
-        //¾Æ´Ñ°æ¿ì, ·»´õ·¯¿¡ »õ·Î »ı¼ºÇÒ µµÇüÀ» ±×¸°´Ù. Äµ¹ö½º°¡ ¾÷µ¥ÀÌÆ® µÈ Ã³¸®¸¦ ÇÏµµ·Ï ÇÑ´Ù.
+        //ì•„ë‹Œê²½ìš°, ë Œë”ëŸ¬ì— ìƒˆë¡œ ìƒì„±í•  ë„í˜•ì„ ê·¸ë¦°ë‹¤. ìº”ë²„ìŠ¤ê°€ ì—…ë°ì´íŠ¸ ëœ ì²˜ë¦¬ë¥¼ í•˜ë„ë¡ í•œë‹¤.
         if (data['shapeType'] == me.Constants.TYPE.NEW_FEEDER) {
             data['shapeType'] = me.Constants.TYPE.SWITCH_GEAR;
             renderer.drawImmediately(null, data);
@@ -1478,14 +1478,14 @@ ViewContorller.prototype = {
     },
 
     /**
-     * ÇÁ·ÎÁ§Æ® Á¤º¸¸¦ ºÒ·¯¿Í¼­ ³»¿ëÀ» µî·ÏÇÑ´Ù.
+     * í”„ë¡œì íŠ¸ ì •ë³´ë¥¼ ë¶ˆëŸ¬ì™€ì„œ ë‚´ìš©ì„ ë“±ë¡í•œë‹¤.
      */
     renderProjectReference: function () {
         var me = this;
         me.dataController.getProjectInfo(function (err, data) {
             if (err) {
                 console.log(err);
-                msgBox('ÇÁ·ÎÁ§Æ® Á¤º¸¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
+                msgBox('í”„ë¡œì íŠ¸ ì •ë³´ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
             }
             me.projectData = data;
             me.setEditingObject(me.routeRenderer, data);
@@ -1493,7 +1493,7 @@ ViewContorller.prototype = {
         });
     },
     /**
-     * ½ºÀ§Ä¡ ¼¿·ºÆ® ¹Ú½ºÀÇ ³»¿ëÀ» µî·ÏÇÑ´Ù.
+     * ìŠ¤ìœ„ì¹˜ ì…€ë ‰íŠ¸ ë°•ìŠ¤ì˜ ë‚´ìš©ì„ ë“±ë¡í•œë‹¤.
      */
     renderSwgrSelectBox: function () {
         var me = this;
@@ -1501,7 +1501,7 @@ ViewContorller.prototype = {
         me.dataController.getSwitchgearTypeList(function (err, data) {
             if (err) {
                 console.log(err);
-                msgBox('½ºÀ§Ä¡ Å¸ÀÔ ¼¿¸®Æ®¹Ú½º ¸®½ºÆ®¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
+                msgBox('ìŠ¤ìœ„ì¹˜ íƒ€ì… ì…€ë¦¬íŠ¸ë°•ìŠ¤ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
             }
             selectBox.append('<option value="" selected>--select new swgr type--</option>')
             for (var i = 0, leni = data.length; i < leni; i++) {
@@ -1517,7 +1517,7 @@ ViewContorller.prototype = {
     },
 
     /**
-     * ·ÎÄÉÀÌ¼Ç µå·¡±× µå¶ø ÀÌº¥Æ®¸¦ ´ã´çÇÑ´Ù.
+     * ë¡œì¼€ì´ì…˜ ë“œë˜ê·¸ ë“œë ì´ë²¤íŠ¸ë¥¼ ë‹´ë‹¹í•œë‹¤.
      */
     bindLocationDragDrop: function () {
         var me = this;
@@ -1538,8 +1538,8 @@ ViewContorller.prototype = {
                 helper: 'clone',
                 appendTo: 'body',
                 stop: function (event) {
-                    //TODO ¿©±â¼­, ·ÎÄÉÀÌ¼Ç ¹× ¸ÇÈ¦ µ¥ÀÌÅÍ¸¦ µå¶øÇÑ ÈÄ ¼­¹ö¿¡¼­ REF_NAME_TO °ªÀ» ¹Ş¾Æ¿Í¾ß ÇÏ´Â °ÍÀ¸·Î ÃßÁ¤ÇÑ´Ù.
-                    //±×¸®°í, Äµ¹ö½ºÂÊ¿¡¼­´Â ÀÌ ·ÎÄÉÀÌ¼ÇÀÌ ºôµùÀ§·Î µå¶øµÈ °Í À» °¨ÁöÇÏ¿©, ÀÌ ·ÎÄÉÀÌ¼ÇÀÇ LOC_REF_NAME ¸¦ º¯°æÇØ¾ß ÇÑ´Ù.
+                    //TODO ì—¬ê¸°ì„œ, ë¡œì¼€ì´ì…˜ ë° ë§¨í™€ ë°ì´í„°ë¥¼ ë“œëí•œ í›„ ì„œë²„ì—ì„œ REF_NAME_TO ê°’ì„ ë°›ì•„ì™€ì•¼ í•˜ëŠ” ê²ƒìœ¼ë¡œ ì¶”ì •í•œë‹¤.
+                    //ê·¸ë¦¬ê³ , ìº”ë²„ìŠ¤ìª½ì—ì„œëŠ” ì´ ë¡œì¼€ì´ì…˜ì´ ë¹Œë”©ìœ„ë¡œ ë“œëëœ ê²ƒ ì„ ê°ì§€í•˜ì—¬, ì´ ë¡œì¼€ì´ì…˜ì˜ LOC_REF_NAME ë¥¼ ë³€ê²½í•´ì•¼ í•œë‹¤.
                     var refName = randomRefName();
                     var itemData = {
                         shapeLabel: refName,
@@ -1558,8 +1558,8 @@ ViewContorller.prototype = {
                 helper: 'clone',
                 appendTo: 'body',
                 stop: function (event) {
-                    //TODO ¿©±â¼­, ·ÎÄÉÀÌ¼Ç ¹× ¸ÇÈ¦ µ¥ÀÌÅÍ¸¦ µå¶øÇÑ ÈÄ ¼­¹ö¿¡¼­ REF_NAME_TO °ªÀ» ¹Ş¾Æ¿Í¾ß ÇÏ´Â °ÍÀ¸·Î ÃßÁ¤ÇÑ´Ù.
-                    //±×¸®°í, Äµ¹ö½ºÂÊ¿¡¼­´Â ÀÌ ·ÎÄÉÀÌ¼ÇÀÌ ºôµùÀ§·Î µå¶øµÈ °Í À» °¨ÁöÇÏ¿©, ÀÌ ·ÎÄÉÀÌ¼ÇÀÇ LOC_REF_NAME ¸¦ º¯°æÇØ¾ß ÇÑ´Ù.
+                    //TODO ì—¬ê¸°ì„œ, ë¡œì¼€ì´ì…˜ ë° ë§¨í™€ ë°ì´í„°ë¥¼ ë“œëí•œ í›„ ì„œë²„ì—ì„œ REF_NAME_TO ê°’ì„ ë°›ì•„ì™€ì•¼ í•˜ëŠ” ê²ƒìœ¼ë¡œ ì¶”ì •í•œë‹¤.
+                    //ê·¸ë¦¬ê³ , ìº”ë²„ìŠ¤ìª½ì—ì„œëŠ” ì´ ë¡œì¼€ì´ì…˜ì´ ë¹Œë”©ìœ„ë¡œ ë“œëëœ ê²ƒ ì„ ê°ì§€í•˜ì—¬, ì´ ë¡œì¼€ì´ì…˜ì˜ LOC_REF_NAME ë¥¼ ë³€ê²½í•´ì•¼ í•œë‹¤.
                     var refName = randomRefName();
                     var itemData = {
                         shapeLabel: refName,
@@ -1573,7 +1573,7 @@ ViewContorller.prototype = {
         }
     },
     /**
-     * Æ®¸®ÀÇ µå·¡±× µå¶ø ÀÌº¥Æ®¸¦ ´ã´çÇÑ´Ù.
+     * íŠ¸ë¦¬ì˜ ë“œë˜ê·¸ ë“œë ì´ë²¤íŠ¸ë¥¼ ë‹´ë‹¹í•œë‹¤.
      */
     bindTreeDragDrop: function () {
         var me = this;
@@ -1599,8 +1599,8 @@ ViewContorller.prototype = {
         });
     },
     /**
-     * ¿ìÃø ¸Ş´ºÀÇ Æ®¸®±¸Á¶¸¦ »ı¼ºÇÑ´Ù.
-     * @param model ¸ğµ¨¸í
+     * ìš°ì¸¡ ë©”ë‰´ì˜ íŠ¸ë¦¬êµ¬ì¡°ë¥¼ ìƒì„±í•œë‹¤.
+     * @param model ëª¨ë¸ëª…
      */
     renderTree: function (model) {
         var me = this;
@@ -1636,14 +1636,14 @@ ViewContorller.prototype = {
                     if (typeof err == 'string') {
                         msgBox(err);
                     } else {
-                        msgBox('¾î»çÀÎµÈ ·Îµå ¸®½ºÆ®¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
+                        msgBox('ì–´ì‚¬ì¸ëœ ë¡œë“œ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
                     }
                     return;
                 }
                 /**
-                 * Æ®¸® ±¸Á¶´Â µğÆúÆ®·Î model ÇÁ·ÎÆÛÆ¼¸¦ µî·ÏÇÑ´Ù.(Å×ÀÌºí/Æ®¸® ¸ğµ¨¸í)
-                 * Æ®¸® ±¸Á¶Áß ½ºÀ§Ä¡ÀÎ °ÍÀº µå·¡±× ½Ã MODIFY_FEEDER ·Î ³Ñ¾î°£´Ù.(ÇÇ´õ ¼öÁ¤.)
-                 * Æ®¸® ±¸Á¶Áß ·ÎµåÀÎ °ÍÀº µå·¡±× ½Ã ¾Æ¹«ÀÏµµ ÇÏÁö ¾Ê´Â´Ù.
+                 * íŠ¸ë¦¬ êµ¬ì¡°ëŠ” ë””í´íŠ¸ë¡œ model í”„ë¡œí¼í‹°ë¥¼ ë“±ë¡í•œë‹¤.(í…Œì´ë¸”/íŠ¸ë¦¬ ëª¨ë¸ëª…)
+                 * íŠ¸ë¦¬ êµ¬ì¡°ì¤‘ ìŠ¤ìœ„ì¹˜ì¸ ê²ƒì€ ë“œë˜ê·¸ ì‹œ MODIFY_FEEDER ë¡œ ë„˜ì–´ê°„ë‹¤.(í”¼ë” ìˆ˜ì •.)
+                 * íŠ¸ë¦¬ êµ¬ì¡°ì¤‘ ë¡œë“œì¸ ê²ƒì€ ë“œë˜ê·¸ ì‹œ ì•„ë¬´ì¼ë„ í•˜ì§€ ì•ŠëŠ”ë‹¤.
                  */
                 for (var i = 0; i < treeData.length; i++) {
                     treeData[i]['data']['model'] = model;
@@ -1679,23 +1679,23 @@ ViewContorller.prototype = {
                                     "action": function (obj) {
                                         //$node = tree.create_node($node);
                                         //Do something
-                                        var infoMessage = "¼±ÅÃÇÑ ³ëµå¸¦ »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?";
+                                        var infoMessage = "ì„ íƒí•œ ë…¸ë“œë¥¼ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?";
                                         confirmBox(infoMessage, function (result) {
                                             if (result) {
                                                 var targetSeq = $node.data.feeder_list_mgt_seq;
                                                 var resultData = me.dataController.deleteFeeder(targetSeq);
                                                 if(resultData == '0') {
-                                                    //»õ·Î¿î µ¥ÀÌÅÍ¸¦ ¹Ş¾Æ¼­ Æ®¸®¸¦ ´Ù½Ã ±×¸°´Ù.
+                                                    //ìƒˆë¡œìš´ ë°ì´í„°ë¥¼ ë°›ì•„ì„œ íŠ¸ë¦¬ë¥¼ ë‹¤ì‹œ ê·¸ë¦°ë‹¤.
                                                     var renderer = me.getRendererByMode(me.currentMode);
                                                     me.dataController.getUpdateTree(tree, renderer, me.Constants.MODE.FEEDER);
                                                     me.renderGrid(me.model.SwgrList.name);
                                                     me.redrawUnssignedLoadTables(me.model.UnAssignedLoadList.panel);
                                                     me.renderGrid(me.model.FeederList.name);
                                                     me.renderGrid(me.model.HierarchyFeederList.name);
-                                                    msgBox('»èÁ¦µÇ¾ú½À´Ï´Ù.');
+                                                    msgBox('ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.');
                                                     setTimeout(msgBoxClose, 1000);
                                                 } else {
-                                                    //¿¡·¯½Ã status : 1, ¿¡·¯¸Ş¼¼Áö¸¦ º¸³½´Ù.
+                                                    //ì—ëŸ¬ì‹œ status : 1, ì—ëŸ¬ë©”ì„¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
                                                     //do Something...
                                                 }
                                             }
@@ -1717,14 +1717,14 @@ ViewContorller.prototype = {
                     if (typeof err == 'string') {
                         msgBox(err);
                     } else {
-                        msgBox('ÇÏÀÌ¾î¶óÅ° ¸®½ºÆ®¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
+                        msgBox('í•˜ì´ì–´ë¼í‚¤ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
                     }
                     return;
                 }
                 /**
-                 * Æ®¸® ±¸Á¶´Â µğÆúÆ®·Î model ÇÁ·ÎÆÛÆ¼¸¦ µî·ÏÇÑ´Ù.(Å×ÀÌºí/Æ®¸® ¸ğµ¨¸í)
-                 * Æ®¸® ±¸Á¶Áß ºôµùÀÎ °ÍÀº HIERARCHY_BLDG ·Î ³Ñ±ä´Ù.
-                 * Æ®¸® ±¸Á¶Áß ÇÃ·ç¾î ÀÎ °ÍÀº HIERARCHY_FLOOR ·Î ³Ñ±ä´Ù.
+                 * íŠ¸ë¦¬ êµ¬ì¡°ëŠ” ë””í´íŠ¸ë¡œ model í”„ë¡œí¼í‹°ë¥¼ ë“±ë¡í•œë‹¤.(í…Œì´ë¸”/íŠ¸ë¦¬ ëª¨ë¸ëª…)
+                 * íŠ¸ë¦¬ êµ¬ì¡°ì¤‘ ë¹Œë”©ì¸ ê²ƒì€ HIERARCHY_BLDG ë¡œ ë„˜ê¸´ë‹¤.
+                 * íŠ¸ë¦¬ êµ¬ì¡°ì¤‘ í”Œë£¨ì–´ ì¸ ê²ƒì€ HIERARCHY_FLOOR ë¡œ ë„˜ê¸´ë‹¤.
                  */
                 if(treeData !== undefined) {
                     for (var i = 0; i < treeData.length; i++) {
@@ -1769,8 +1769,8 @@ ViewContorller.prototype = {
     },
 
     /**
-     * ¿ìÃø ¸Ş´ºÀÇ ±×¸®µå Å×ÀÌºíÀ» »ı¼ºÇÑ´Ù.
-     * @param model Å×ÀÌºí/Æ®¸® ¸ğµ¨¸í
+     * ìš°ì¸¡ ë©”ë‰´ì˜ ê·¸ë¦¬ë“œ í…Œì´ë¸”ì„ ìƒì„±í•œë‹¤.
+     * @param model í…Œì´ë¸”/íŠ¸ë¦¬ ëª¨ë¸ëª…
      */
     renderGrid: function (model) {
         var me = this;
@@ -1879,11 +1879,11 @@ ViewContorller.prototype = {
             me.dataController.getSwitchgearUnused(function (err, gridData) {
                 if (err) {
                     console.log(err);
-                    msgBox('½ºÀ§Ä¡ ¸®½ºÆ®¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
+                    msgBox('ìŠ¤ìœ„ì¹˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
                 } else {
                     /**
-                     * ¾î»çÀÎ µÇÁö ¾ÊÀº ½ºÀ§Ä¡ ¸®½ºÆ®Áß SWGR_TYPE ÀÌ TR(Æ®·£½ºÆ÷¸Ó) ÀÎ °ÍÀº ÇÁ·£½ºÆ÷¸Ó·Î ³Ñ¾î°£´Ù.
-                     * Æ®·£½ºÆ÷¸Ó°¡ ¾Æ´Ñ°ÍÀº NEW_FEEDER ·Î ³Ñ¾î°£´Ù.
+                     * ì–´ì‚¬ì¸ ë˜ì§€ ì•Šì€ ìŠ¤ìœ„ì¹˜ ë¦¬ìŠ¤íŠ¸ì¤‘ SWGR_TYPE ì´ TR(íŠ¸ëœìŠ¤í¬ë¨¸) ì¸ ê²ƒì€ í”„ëœìŠ¤í¬ë¨¸ë¡œ ë„˜ì–´ê°„ë‹¤.
+                     * íŠ¸ëœìŠ¤í¬ë¨¸ê°€ ì•„ë‹Œê²ƒì€ NEW_FEEDER ë¡œ ë„˜ì–´ê°„ë‹¤.
                      */
                     if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
@@ -1944,10 +1944,10 @@ ViewContorller.prototype = {
             me.dataController.getFeederList(function (err, gridData) {
                 if (err) {
                     console.log(err);
-                    msgBox('ÇÇ´õ ¸®½ºÆ®¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
+                    msgBox('í”¼ë” ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
                 } else {
                     /**
-                     * FeederList(¾î»çÀÎ ÇÇ´õ) ´Â MODIFY_FEEDER(±âÁ¸ ÇÇ´õ ¼öÁ¤) ·Î Àü´ŞÇÑ´Ù.
+                     * FeederList(ì–´ì‚¬ì¸ í”¼ë”) ëŠ” MODIFY_FEEDER(ê¸°ì¡´ í”¼ë” ìˆ˜ì •) ë¡œ ì „ë‹¬í•œë‹¤.
                      */
                     if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
@@ -2002,10 +2002,10 @@ ViewContorller.prototype = {
             me.dataController.getHierarchyFeederList(function (err, gridData) {
                 if (err) {
                     console.log(err);
-                    msgBox('ÇÏÀÌ¾î¶óÅ° ¿¡µğÅÍÀÇ ÇÇ´õ ¸®½ºÆ®¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
+                    msgBox('í•˜ì´ì–´ë¼í‚¤ ì—ë””í„°ì˜ í”¼ë” ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
                 } else {
                     /**
-                     * HierarchyFeederList(ÇÏÀÌ¾î¶óÅ° ¿¡µğÅÍÀÇ ÇÇ´õ) ´Â HIERARCHY_FEEDER ·Î Àü´ŞÇÑ´Ù.
+                     * HierarchyFeederList(í•˜ì´ì–´ë¼í‚¤ ì—ë””í„°ì˜ í”¼ë”) ëŠ” HIERARCHY_FEEDER ë¡œ ì „ë‹¬í•œë‹¤.
                      */
                     if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
@@ -2061,10 +2061,10 @@ ViewContorller.prototype = {
             me.dataController.getLoadUnused(function (err, gridData) {
                 if (err) {
                     console.log(err);
-                    msgBox('·Îµå ¸®½ºÆ®¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
+                    msgBox('ë¡œë“œ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
                 } else {
                     /**
-                     * UnAssignedLoadList ´Â ·Îµå Å¸ÀÔº°·Î shapeType À» ÁöÁ¤ÇØ ³Ñ±ä´Ù.
+                     * UnAssignedLoadList ëŠ” ë¡œë“œ íƒ€ì…ë³„ë¡œ shapeType ì„ ì§€ì •í•´ ë„˜ê¸´ë‹¤.
                      */
                     if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
@@ -2217,7 +2217,7 @@ ViewContorller.prototype = {
             me.dataController.getLocationReferenceList(function (err, gridData) {
                 if (err) {
                     console.log(err);
-                    msgBox('·ÎÄÉÀÌ¼Ç ·¹ÆÛ·±½º µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
+                    msgBox('ë¡œì¼€ì´ì…˜ ë ˆí¼ëŸ°ìŠ¤ ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
                 } else {
                     if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
@@ -2275,7 +2275,7 @@ ViewContorller.prototype = {
             me.dataController.getRacewayReferenceList(function (err, gridData) {
                 if (err) {
                     console.log(err);
-                    msgBox('·¹ÀÌ½º¿şÀÌ ·¹ÆÛ·±½º µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
+                    msgBox('ë ˆì´ìŠ¤ì›¨ì´ ë ˆí¼ëŸ°ìŠ¤ ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
                 } else {
                     if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
@@ -2337,7 +2337,7 @@ ViewContorller.prototype = {
             me.dataController.getRouteReferenceList(function (err, gridData) {
                 if (err) {
                     console.log(err);
-                    msgBox('¶ó¿ìÆ® ·¹ÆÛ·±½º µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
+                    msgBox('ë¼ìš°íŠ¸ ë ˆí¼ëŸ°ìŠ¤ ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
                 } else {
                     if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
@@ -2391,10 +2391,10 @@ ViewContorller.prototype = {
             me.dataController.getBldgReferenceList(function (err, gridData) {
                 if (err) {
                     console.log(err);
-                    msgBox('ºôµù ·¹ÆÛ·±½º µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
+                    msgBox('ë¹Œë”© ë ˆí¼ëŸ°ìŠ¤ ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
                 } else {
                     /**
-                     * BldgReferenceList(¶ó¿ìÆ® ¿¡µğÅÍ) ´Â BLDG ·Î ³Ñ±ä´Ù.
+                     * BldgReferenceList(ë¼ìš°íŠ¸ ì—ë””í„°) ëŠ” BLDG ë¡œ ë„˜ê¸´ë‹¤.
                      */
                     if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
@@ -2443,10 +2443,10 @@ ViewContorller.prototype = {
             me.dataController.getCableReferenceList(function (err, gridData) {
                 if (err) {
                     console.log(err);
-                    msgBox('ÄÉÀÌºí ·¹ÆÛ·±½º µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù.');
+                    msgBox('ì¼€ì´ë¸” ë ˆí¼ëŸ°ìŠ¤ ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
                 } else {
                     /**
-                     * CableReferenceList(¶ó¿ìÆ® ¿¡µğÅÍ) ´Â BLDG ·Î ³Ñ±ä´Ù.
+                     * CableReferenceList(ë¼ìš°íŠ¸ ì—ë””í„°) ëŠ” BLDG ë¡œ ë„˜ê¸´ë‹¤.
                      */
                     if(gridData !== undefined) {
                         for (var i = 0; i < gridData.length; i++) {
@@ -2529,15 +2529,15 @@ ViewContorller.prototype = {
     },
 
     /**
-     * ÀúÀå ÀÌÈÄ ±×¸®µå ¹× Æ®¸®¸¦ »õ·Î ±×¸°´Ù.
-     * ÇÇ´õ¿¡¼­ ÀÌº¥Æ® ¹ß»ı½Ã¿¡´Â ÇÇ´õ ¿¡µğÅÍÀÇ ±×¸®µå ¹× Æ®¸®¸¦ ¸®ÇÁ·¹½¬ÇÑ´Ù.
-     * Ãß°¡ÀûÀ¸·Î ÇÇ´õÀÏ¶§´Â ÇÏÀÌ¾î¶óÅ°ÀÇ ÇÇ´õ¸®½ºÆ®µµ °»½ÅÇØ¾ßÇÑ´Ù.
+     * ì €ì¥ ì´í›„ ê·¸ë¦¬ë“œ ë° íŠ¸ë¦¬ë¥¼ ìƒˆë¡œ ê·¸ë¦°ë‹¤.
+     * í”¼ë”ì—ì„œ ì´ë²¤íŠ¸ ë°œìƒì‹œì—ëŠ” í”¼ë” ì—ë””í„°ì˜ ê·¸ë¦¬ë“œ ë° íŠ¸ë¦¬ë¥¼ ë¦¬í”„ë ˆì‰¬í•œë‹¤.
+     * ì¶”ê°€ì ìœ¼ë¡œ í”¼ë”ì¼ë•ŒëŠ” í•˜ì´ì–´ë¼í‚¤ì˜ í”¼ë”ë¦¬ìŠ¤íŠ¸ë„ ê°±ì‹ í•´ì•¼í•œë‹¤.
      *
      */
     refreshGridAndTree: function (mode, renderer) {
         var me = this;
         /**
-         * ÇÇ´õ¿¡¼­ ³Ñ¾î¿Ô´Ù¸é
+         * í”¼ë”ì—ì„œ ë„˜ì–´ì™”ë‹¤ë©´
          */
         if(mode == me.Constants.MODE.FEEDER) {
             me.renderSwgrSelectBox();
@@ -2551,8 +2551,8 @@ ViewContorller.prototype = {
             me.renderGrid(me.model.FeederList.name);
             me.renderGrid(me.model.HierarchyFeederList.name);
             /**
-             * ±âÁ¸ÀÇ º¯¼öµéÀÇ °ªµéÀ» ÃÊ±âÈ­ ÇÏ°í setEditingObjectFromLoadDataÀ» ÅÂ¿ö¼­
-             * ¹Ù²ï Á¤º¸µé·Î Ã¤¿ö³Ö¾î¾ß ÇÑ´Ù.
+             * ê¸°ì¡´ì˜ ë³€ìˆ˜ë“¤ì˜ ê°’ë“¤ì„ ì´ˆê¸°í™” í•˜ê³  setEditingObjectFromLoadDataì„ íƒœì›Œì„œ
+             * ë°”ë€ ì •ë³´ë“¤ë¡œ ì±„ì›Œë„£ì–´ì•¼ í•œë‹¤.
              */
             me.setEditingObjectFromSave(renderer);
         } else if(mode == me.Constants.MODE.HIERARCHY) {
@@ -2577,7 +2577,7 @@ ViewContorller.prototype = {
     },
 
     /**
-     * ÇÏÀÌ¾î¶óÅ° ¿¡µğÅÍ¿¡¼­ ÀúÀåÀÌÈÄ ¸ğµå°ªµé ÈÄÃ³¸®
+     * í•˜ì´ì–´ë¼í‚¤ ì—ë””í„°ì—ì„œ ì €ì¥ì´í›„ ëª¨ë“œê°’ë“¤ í›„ì²˜ë¦¬
      */
     saveSettingRouteMode: function(renderer) {
         var me = this;
@@ -2588,7 +2588,7 @@ ViewContorller.prototype = {
     },
 
     /**
-     * ÇÏÀÌ¾î¶óÅ° ¿¡µğÅÍ¿¡¼­ ÀúÀåÀÌÈÄ ¸ğµå°ªµé ÈÄÃ³¸®
+     * í•˜ì´ì–´ë¼í‚¤ ì—ë””í„°ì—ì„œ ì €ì¥ì´í›„ ëª¨ë“œê°’ë“¤ í›„ì²˜ë¦¬
      */
     saveSettingHierarchyMode: function(renderer) {
         var me = this;
@@ -2615,8 +2615,8 @@ ViewContorller.prototype = {
                     jsonData['up_hier_seq'] = element.shape.data.up_hier_seq;
 
                     /**
-                     * prevEdges°¡ ÀÖ´Ù´Â °ÍÀº »óÀ§ ÇÇ´õ°¡ ÀÖ´Ù´Â °Í.
-                     * ¾ø´Ù¸é ÀÚ½ÅÀÌ »óÀ§ÀÌ±â ¶§¹®¿¡
+                     * prevEdgesê°€ ìˆë‹¤ëŠ” ê²ƒì€ ìƒìœ„ í”¼ë”ê°€ ìˆë‹¤ëŠ” ê²ƒ.
+                     * ì—†ë‹¤ë©´ ìì‹ ì´ ìƒìœ„ì´ê¸° ë•Œë¬¸ì—
                      */
                     var prevEdges = currentCanvas.getPrevEdges(child);
                     var nextEdges = currentCanvas.getNextEdges(child);
@@ -2624,7 +2624,7 @@ ViewContorller.prototype = {
                         prevEdges.forEach(function(edge){
                             var edge = currentCanvas.getRelatedElementsFromEdge(edge);
                             var fromShapeData = edge.from.shape.data;
-                            // ÀÚ±â ÀÚ½ÅÀÌ¸é ÀÚ½ÅÀÌ »óÀ§ÀÌ±â ¶§¹®¿¡ pass
+                            // ìê¸° ìì‹ ì´ë©´ ìì‹ ì´ ìƒìœ„ì´ê¸° ë•Œë¬¸ì— pass
                             if(fromShapeData.feeder_list_mgt_seq != child.shape.data.feeder_list_mgt_seq) {
                                 jsonData['up_feeder_list_mgt_seq'] = fromShapeData.feeder_list_mgt_seq;
                             }
